@@ -149,27 +149,28 @@ interface i3c_master_driver_bfm(input pclk,
   cfg_pkt = p_cfg_pkt;
   state   = IDLE;
   `uvm_info(name, $sformatf("Starting the drive data method"), UVM_MEDIUM);
-  while(1) begin
-    if(areset == 0) begin // if active low reset is detected 
-      state       = IDLE;
-      sda_o       = 1;
-      scl_o       = 1;
-      idle_time_i = 0;
-      tbuf_i      = 0;
-      @(posedge areset);
-    end else begin // else start the fsm
+  //while(1) begin
+    //if(areset == 0) begin // if active low reset is detected 
+    //  state       = IDLE;
+    //  sda_o       = 1;
+    //  scl_o       = 1;
+    //  idle_time_i = 0;
+    //  tbuf_i      = 0;
+    //  @(posedge areset);
+    //end else begin // else start the fsm
       case(state)
         IDLE: begin
-          tbuf_i = BUS_IDLE_TIME;
-          if(idle_time_i >= tbuf_i) begin // If idle time is reached move to FREE state
-            state = FREE;
-            idle_time_i = 0;
-            `uvm_info(name, $sformatf("Idle period is completed moving to FREE state"), UVM_MEDIUM);
-          end else begin // else wait for idle time count
-            idle_time_i ++;
-            @(posedge pclk);
-          `uvm_info("DEBUG", $sformatf("Waiting for idle count %0h",idle_time_i), UVM_NONE)
-          end
+          //tbuf_i = BUS_IDLE_TIME;
+          //if(idle_time_i >= tbuf_i) begin // If idle time is reached move to FREE state
+          //  state = FREE;
+          //  idle_time_i = 0;
+          //  `uvm_info(name, $sformatf("Idle period is completed moving to FREE state"), UVM_MEDIUM);
+          //end else begin // else wait for idle time count
+          //  idle_time_i ++;
+          //  @(posedge pclk);
+          //`uvm_info("DEBUG", $sformatf("Waiting for idle count %0h",idle_time_i), UVM_NONE)
+          //end
+          state = START;
         end
         FREE:begin
          tbuf_i = BUS_FREE_TIME;
@@ -226,8 +227,8 @@ interface i3c_master_driver_bfm(input pclk,
           state = IDLE;
         end
       endcase
-    end
-  end
+  //  end
+  //end
   
  endtask: drive_data
 
