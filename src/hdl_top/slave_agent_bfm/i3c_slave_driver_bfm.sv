@@ -304,5 +304,22 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
     `uvm_info(name, $sformatf("Stop condition is detected"), UVM_HIGH);
   endtask: detect_stop
   
+
+  // task for driving the scl_oen as high and scl as low
+  task scl_tristate_buf_on();
+    @(posedge pclk);
+    scl_oen <= TRISTATE_BUF_ON;
+    scl_o   <= 0;
+  endtask
+
+
+  // task for driving the scl_oen as high and scl as low
+  task scl_tristate_buf_off();
+    @(posedge pclk);
+    scl_oen <= TRISTATE_BUF_OFF;
+    scl_o   <= 1;
+  endtask
+
+
 `endif
 endinterface : i3c_slave_driver_bfm

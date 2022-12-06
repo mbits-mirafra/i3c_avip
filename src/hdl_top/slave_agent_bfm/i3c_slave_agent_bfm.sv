@@ -24,7 +24,8 @@ module i3c_slave_agent_bfm #(parameter int SLAVE_ID=0)
                                            .scl_oen(intf.scl_oen),
                                            .sda_i(intf.sda_i),
                                            .sda_o(intf.sda_o),
-                                           .sda_oen(intf.sda_oen)//.scl(intf.scl),
+                                           .sda_oen(intf.sda_oen)
+					   //.scl(intf.scl),
                                            //.sda(intf.sda)
                                           );
   // MSHA: assign i3c_slave_drv_bfm_h.slave_id = SLAVE_ID;
