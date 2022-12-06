@@ -51,12 +51,12 @@ function void i3c_slave_seq_item_converter::from_class(input i3c_slave_tx input_
   output_conv.read_write = read_write_e'(input_conv_h.read_write);
   
   //converting of the register address
-  output_conv.register_address = input_conv_h.register_address;
-  `uvm_info("DEBUG_MSHA", $sformatf("input_conv_h.register_address = %0x and output_conv.register_address = %0x", input_conv_h.register_address, output_conv.register_address ), UVM_NONE)
+  //output_conv.register_address = input_conv_h.register_address;
+  //`uvm_info("DEBUG_MSHA", $sformatf("input_conv_h.register_address = %0x and output_conv.register_address = %0x", input_conv_h.register_address, output_conv.register_address ), UVM_NONE)
 
 
 
-  for(int i=0; i<input_conv_h.data.size();i++) begin
+  //for(int i=0; i<input_conv_h.data.size();i++) begin
    // MSHA: `uvm_info("slave_seq_item_conv_class",
    // MSHA: $sformatf("data = \n %p",output_conv.data),UVM_LOW)
    // MSHA:// output_conv.data = output_conv.data << DATA_LENGTH;
@@ -66,7 +66,7 @@ function void i3c_slave_seq_item_converter::from_class(input i3c_slave_tx input_
    // MSHA: $sformatf("After shift input_cov_h data = \n %p",
    // MSHA: input_conv_h.data[i]),UVM_LOW)
 
-    output_conv.data[i][DATA_WIDTH-1:0] = input_conv_h.data[i];    
+    //output_conv.data[i][DATA_WIDTH-1:0] = input_conv_h.data[i];    
 
    // MSHA: `uvm_info("slave_seq_item_conv_class",
    // MSHA: $sformatf("After shift input_cov_h data = \n %p",
@@ -75,11 +75,11 @@ function void i3c_slave_seq_item_converter::from_class(input i3c_slave_tx input_
    // MSHA: 
    // MSHA: `uvm_info("slave_seq_item_conv_class",
    // MSHA: $sformatf("data = \n %p",output_conv.data),UVM_LOW)
-  end
+  //end
 
   // Be default the ACK should be 1
   // so that the slave ACK value can be stored
-  output_conv.slave_add_ack = 1;
+  //output_conv.slave_add_ack = 1;
   output_conv.reg_add_ack = 1;
   output_conv.wr_data_ack= '1;
 
@@ -95,7 +95,7 @@ function void i3c_slave_seq_item_converter::to_class(input i3c_transfer_bits_s i
   output_conv = new();
 
   // Defining the size of arrays
-  output_conv.data = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
+  //output_conv.data = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
 
   // Storing the values in the respective arrays
   //converting back the slave address 
@@ -104,21 +104,21 @@ function void i3c_slave_seq_item_converter::to_class(input i3c_transfer_bits_s i
   $sformatf("To class slave_address = \n %p",output_conv.slave_address),UVM_LOW)
 
   //converting back the register_address 
-  output_conv.register_address = input_conv_h.register_address;
-  `uvm_info("slave_seq_item_conv_class",
-  $sformatf("To class register_address = \n %p",output_conv.register_address),UVM_LOW)
+  //output_conv.register_address = input_conv_h.register_address;
+  //`uvm_info("slave_seq_item_conv_class",
+  //$sformatf("To class register_address = \n %p",output_conv.register_address),UVM_LOW)
 
  
   //converting back the data
-  for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
-  output_conv.data[i] = input_conv_h.data[i][DATA_WIDTH-1:0];
-  `uvm_info("slave_seq_item_conv_class",
-  $sformatf("To class data = \n %p",output_conv.data[i]),UVM_LOW)
-  end
+  //for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
+  //output_conv.data[i] = input_conv_h.data[i][DATA_WIDTH-1:0];
+  //`uvm_info("slave_seq_item_conv_class",
+  //$sformatf("To class data = \n %p",output_conv.data[i]),UVM_LOW)
+  //end
 
   // Acknowledgement bits
-  output_conv.slave_add_ack = input_conv_h.slave_add_ack;
-  output_conv.reg_add_ack = input_conv_h.reg_add_ack;
+  //output_conv.slave_add_ack = input_conv_h.slave_add_ack;
+  //output_conv.reg_add_ack = input_conv_h.reg_add_ack;
   // MSHA: for(int i=0nput_conv_h.wr_data_ack[i]) begin
   // MSHA:   output_conv.wr_data_ack= '1;
   
@@ -138,13 +138,13 @@ function void i3c_slave_seq_item_converter::do_print(uvm_printer printer);
     printer.print_field($sformatf("slave_address"),i3c_st.slave_address,8,UVM_HEX);
   end
   
-  if(i3c_st.register_address) begin
-    printer.print_field($sformatf("register_address"),i3c_st.register_address,8,UVM_HEX);
-  end
+  //if(i3c_st.register_address) begin
+  //  printer.print_field($sformatf("register_address"),i3c_st.register_address,8,UVM_HEX);
+  //end
 
-  foreach(i3c_st.data[i]) begin
-    printer.print_field($sformatf("data[%0d]",i),i3c_st.data[i],8,UVM_HEX);
-  end
+  //foreach(i3c_st.data[i]) begin
+  //  printer.print_field($sformatf("data[%0d]",i),i3c_st.data[i],8,UVM_HEX);
+  //end
 
 endfunction : do_print
 

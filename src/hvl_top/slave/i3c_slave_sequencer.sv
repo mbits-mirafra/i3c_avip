@@ -8,6 +8,8 @@
 class i3c_slave_sequencer extends uvm_sequencer#(i3c_slave_tx);
   `uvm_component_utils(i3c_slave_sequencer)
 
+  i3c_slave_agent_config i3c_slave_agent_cfg_h;
+
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------

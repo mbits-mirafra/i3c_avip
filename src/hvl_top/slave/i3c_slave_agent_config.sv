@@ -12,6 +12,9 @@ class i3c_slave_agent_config extends uvm_object;
   // Used for creating the agent in either passive or active mode
   uvm_active_passive_enum is_active=UVM_ACTIVE;
   
+  // variable: set Slave ID 
+  int slave_id;
+
   // Variable: shift_dir
   // Shifts the data, LSB first or MSB first
   shift_direction_e shift_dir;
@@ -23,6 +26,10 @@ class i3c_slave_agent_config extends uvm_object;
   // Variable: has_coverage
   // Used for enabling the slave agent coverage
   bit has_coverage;
+
+  //Variable: slave_memory
+  //Declaration of slave_memory to store the data from master
+  bit [7:0]slave_memory[longint];
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -51,7 +58,7 @@ function void i3c_slave_agent_config::do_print(uvm_printer printer);
 
 
   printer.print_string ("is_active",is_active.name());
-  //printer.print_field ("no_of_slaves",no_of_slaves,$bits(no_of_slaves), UVM_DEC);
+  printer.print_field ("slave_id",slave_id,$bits(slave_id), UVM_DEC);
   printer.print_string ("shift_dir",shift_dir.name());
   //printer.print_string ("read_write",read_write.name());
   //printer.print_string ("slave_address_width",slave_address_width.name());

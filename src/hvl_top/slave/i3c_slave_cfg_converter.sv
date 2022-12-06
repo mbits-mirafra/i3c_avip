@@ -48,6 +48,8 @@ function void i3c_slave_cfg_converter::from_class(input i3c_slave_agent_config i
  // slave_address_width=slave_address_width_e'(input_conv_h.slave_address_width);
   
  output_conv.msb_first = shift_direction_e'(input_conv_h.shift_dir);
+ output_conv.slave_address = input_conv_h.slave_address;
+ output_conv.slave_memory = input_conv_h.slave_memory;
   
 
 

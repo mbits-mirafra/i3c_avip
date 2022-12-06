@@ -5,23 +5,23 @@
 // Class: i3c_8b_master_sequence
 // <Description_here>
 //--------------------------------------------------------------------------------------------
-class i3c_8b_master_seq extends i3c_master_base_seq;
-  `uvm_object_utils(i3c_8b_master_seq)
+class i3c_master_8b_write_seq extends i3c_master_base_seq;
+  `uvm_object_utils(i3c_master_8b_write_seq)
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
-  extern function new(string name = "i3c_8b_master_seq");
+  extern function new(string name = "i3c_master_8b_write_seq");
   extern task body();
-endclass : i3c_8b_master_seq
+endclass : i3c_master_8b_write_seq
 
 //--------------------------------------------------------------------------------------------
 // Construct: new
 //
 // Parameters:
-//  name - i3c_8b_master_seq
+//  name - i3c_master_8b_write_seq
 //--------------------------------------------------------------------------------------------
-function i3c_8b_master_seq::new(string name = "i3c_8b_master_seq");
+function i3c_master_8b_write_seq::new(string name = "i3c_master_8b_write_seq");
   super.new(name);
 endfunction : new
 
@@ -30,7 +30,7 @@ endfunction : new
 //based on the request from the driver task will drive the transaction
 //-------------------------------------------------------
 
-task i3c_8b_master_seq::body();
+task i3c_master_8b_write_seq::body();
   int m_i_i; // local variable for iteration
 
   super.body();
@@ -50,7 +50,7 @@ task i3c_8b_master_seq::body();
   //end
   req.slave_address = 7'b110_1000;
   req.read_write = WRITE;
-  req.size = 2;
+  req.size = 1;
   req.wr_data = new[req.size];
   for(m_i_i = 0;m_i_i < req.size;m_i_i++) begin
     req.wr_data[m_i_i] = $random;

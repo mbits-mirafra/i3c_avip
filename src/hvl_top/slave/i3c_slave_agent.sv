@@ -20,7 +20,7 @@ class i3c_slave_agent extends uvm_component;
   //-------------------------------------------------------
   extern function new(string name = "i3c_slave_agent",uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
-  //extern virtual function void connect_phase(uvm_phase phase);
+  extern virtual function void connect_phase(uvm_phase phase);
 
 endclass : i3c_slave_agent
 
@@ -70,15 +70,23 @@ endfunction : build_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-/*
 function void i3c_slave_agent::connect_phase(uvm_phase phase);
 
-  if(s_cfg.is_active==UVM_ACTIVE)
+  if(i3c_slave_agent_cfg_h.is_active==UVM_ACTIVE)
   begin
+    i3c_slave_drv_proxy_h.i3c_slave_agent_cfg_h=i3c_slave_agent_cfg_h;
+    i3c_slave_seqr_h.i3c_slave_agent_cfg_h=i3c_slave_agent_cfg_h;
+
     i3c_slave_drv_proxy_h.seq_item_port.connect(i3c_slave_seqr_h.seq_item_export);
   end
+
+    i3c_slave_mon_proxy_h.i3c_slave_agent_cfg_h=i3c_slave_agent_cfg_h;
+  // TODO(mshariff): Add the required connections for coverage
+  
+   if(i3c_slave_agent_cfg_h.has_coverage) begin                                                         
+        i3c_slave_cov_h.i3c_slave_agent_cfg_h = i3c_slave_agent_cfg_h;                                          
+        i3c_slave_mon_proxy_h.slave_analysis_port.connect(i3c_slave_cov_h.analysis_export);                  
+          end  
 endfunction : connect_phase
-*/
 
 `endif
-
