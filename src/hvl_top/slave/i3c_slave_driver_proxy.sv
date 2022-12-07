@@ -83,8 +83,8 @@ task i3c_slave_driver_proxy::run_phase(uvm_phase phase);
   // Wait for system reset
   i3c_slave_drv_bfm_h.wait_for_system_reset();
 
-  // Wait for the IDLE state of i3c interface
-  i3c_slave_drv_bfm_h.wait_for_idle_state();
+  // Leave the bus in idle state
+  i3c_slave_drv_bfm_h.drive_idle_state();
 
   // Driving logic
   forever begin
@@ -92,6 +92,9 @@ task i3c_slave_driver_proxy::run_phase(uvm_phase phase);
     i3c_transfer_cfg_s struct_cfg;
     acknowledge_e ack;
     read_write_e rd_wr;
+
+    // Wait for the IDLE state of i3c interface
+    i3c_slave_drv_bfm_h.wait_for_idle_state();
 
     // Converting the config object to struct
     i3c_slave_cfg_converter::from_class(i3c_slave_agent_cfg_h, struct_cfg); 

@@ -57,6 +57,24 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
    endtask: wait_for_system_reset
 
   //-------------------------------------------------------
+  // Task: drive_idle_state
+  // Used for driving SCL=1 and SDA=1
+  // TODO(mshariff): Put more comments for logic pf SCL and SDA
+  //-------------------------------------------------------
+  task drive_idle_state();
+    @(posedge pclk);
+
+    scl_oen <= TRISTATE_BUF_OFF;
+    scl_o   <= 1;
+
+    sda_oen <= TRISTATE_BUF_OFF;
+    sda_o   <= 1;
+
+    state=IDLE;
+    `uvm_info(name, $sformatf("Successfully drove the IDLE state"), UVM_HIGH);
+  endtask: drive_idle_state
+
+  //-------------------------------------------------------
   // Task: wait_for_idle_state
   // Waits for I3C bus to be in IDLe state (SCL=1 and SDA=1)
   //-------------------------------------------------------

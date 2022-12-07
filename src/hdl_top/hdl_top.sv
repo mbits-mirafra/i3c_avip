@@ -11,8 +11,11 @@ module hdl_top;
  bit clk;
  bit rst;
 
- tri1 SCL;
- tri1 SDA;
+ // MSHA:tri1 SCL;
+ // MSHA:tri1 SDA;
+
+ wire I3C_SCL;
+ wire I3C_SDA;
 
  //-------------------------------------------------------
  // Display statement for HDL_TOP
@@ -51,18 +54,40 @@ module hdl_top;
  // SPI Interface Instantiation
  i3c_if intf_master(.pclk(clk),
                     .areset(rst),
-                    .SCL(SCL),
-                    .SDA(SDA));
+                    .SCL(I3C_SCL),
+                    .SDA(I3C_SDA));
 
  // Variable : intf_slave
  // SPI Interface Instantiation
  i3c_if intf_slave(.pclk(clk),
                    .areset(rst),
-                   .SCL(),
-                   .SDA());
+                   .SCL(I3C_SCL),
+                   .SDA(I3C_SDA));
 
- // MSHA: assign intf_slave.SCL = intf_master.SCL;
- // MSHA: assign intf_slave.SDA = intf_master.SDA;
+ // MSHA: // Implementing week0 and week1 concept
+ // MSHA: // Logic for Pull-up registers using opne-drain concept
+ // MSHA: assign (weak0,weak1) SCL = 1'b1;
+ // MSHA: assign (weak0,weak1) SDA = 1'b1;
+
+  // Below table shows different values for each strength .
+  //
+  // Strength    Value     Value displayed by display tasks
+  //   supply       7         Su
+  //   strong       6         St
+  //   pull         5         Pu
+  //   large        4         La
+  //   weak         3         We
+  //   medium       2         Me
+  //   small        1         Sm
+  //   highz        0         HiZ
+
+  //  To display strength of a signal %v is used with the signal name
+  //  assign (weak1, weak0) io_dq = (direction) ? io : 1'bz;
+  //  ex: $display("%v",io_dq);
+    
+ // Pullup for I3C interface
+ pullup p1 (I3C_SCL);
+ pullup p2 (I3C_SDA);
 
  // Variable : master_agent_bfm_h
  // I2c Master BFM Agent Instantiation 
@@ -72,16 +97,11 @@ module hdl_top;
  // SPI Slave BFM Agent Instantiation
  i3c_slave_agent_bfm i3c_slave_agent_bfm_h(intf_slave);
 
- // MSHA: SCL = intf_master.SCL;
- // MSHA: SCL = intf_slave.SCL;
-
- // MSHA: SDA = intf_master.SDA;
- // MSHA: SDA = intf_slave.SDA;
-
-initial begin
-  $dumpfile("i3c_avip.vcd");
-  $dumpvars();
-end
+ // To dump the waveforms
+ initial begin
+   $dumpfile("i3c_avip.vcd");
+   $dumpvars();
+ end
 
 endmodule : hdl_top
 

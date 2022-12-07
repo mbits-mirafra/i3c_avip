@@ -43,11 +43,6 @@ interface i3c_if(input pclk, input areset, inout SCL, inout SDA);
   assign SCL = (scl_oen) ? scl_o : 1'bz;
   assign SDA = (sda_oen) ? sda_o : 1'bz;
 
-  // Implementing week0 and week1 concept
-  // Logic for Pull-up registers using opne-drain concept
-  assign (weak0,weak1) SCL = 1'b1;
-  assign (weak0,weak1) SDA = 1'b1;
-
   // Used for sampling the I3C interface signals
   assign scl_i = SCL;
   assign sda_i = SDA;
