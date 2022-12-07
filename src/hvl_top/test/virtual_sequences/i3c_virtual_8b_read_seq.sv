@@ -1,6 +1,6 @@
 
-`ifndef I3C_8B_READ_VIRTUAL_SEQ_INCLUDED_
-`define I3C_8B_READ_VIRTUAL_SEQ_INCLUDED_
+`ifndef I3C_VIRTUAL_8B_READ_SEQ_INCLUDED_
+`define I3C_VIRTUAL_8B_READ_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: i3c_virtual_8b_read_seq

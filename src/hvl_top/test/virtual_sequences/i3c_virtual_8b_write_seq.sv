@@ -1,5 +1,5 @@
-`ifndef I3C_8B_VIRTUAL_SEQ_INCLUDED_
-`define I3C_8B_VIRTUAL_SEQ_INCLUDED_
+`ifndef I3C_VIRTUAL_8B_WRITE_SEQ_INCLUDED_
+`define I3C_VIRTUAL_8B_WRITE_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: i3c_virtual_8b_write_seq

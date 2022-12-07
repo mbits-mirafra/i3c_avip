@@ -1,5 +1,5 @@
-`ifndef I3C_8B_MASTER_READ_SEQ_INCLUDED_
-`define I3C_8B_MASTER_READ_SEQ_INCLUDED_
+`ifndef I3C_MASTER_8B_READ_SEQ_INCLUDED_
+`define I3C_MASTER_8B_READ_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: i3c_8b_master_read_sequence
