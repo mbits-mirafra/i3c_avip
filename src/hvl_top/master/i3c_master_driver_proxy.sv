@@ -86,9 +86,13 @@ task i3c_master_driver_proxy::run_phase(uvm_phase phase);
 
   super.run_phase(phase);
 
+  `uvm_info(get_type_name(), "MUNEEB :: Waiting for reset", UVM_NONE);
   i3c_master_drv_bfm_h.wait_for_reset();
+  `uvm_info(get_type_name(), "MUNEEB :: Reset detected", UVM_NONE);
 
+  `uvm_info(get_type_name(), "MUNEEB :: Driving Idle", UVM_NONE);
   i3c_master_drv_bfm_h.drive_idle_state();
+  `uvm_info(get_type_name(), "MUNEEB :: Drove Idle", UVM_NONE);
 
   forever begin
     i3c_transfer_bits_s struct_packet;

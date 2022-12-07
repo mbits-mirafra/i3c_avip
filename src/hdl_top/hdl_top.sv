@@ -11,6 +11,9 @@ module hdl_top;
  bit clk;
  bit rst;
 
+ tri1 SCL;
+ tri1 SDA;
+
  //-------------------------------------------------------
  // Display statement for HDL_TOP
  //-------------------------------------------------------
@@ -44,18 +47,41 @@ module hdl_top;
    rst = 1'b1;
  end
 
- // Variable : intf
+ // Variable : intf_master
  // SPI Interface Instantiation
- i3c_if intf(.pclk(clk),
-             .areset(rst));
+ i3c_if intf_master(.pclk(clk),
+                    .areset(rst),
+                    .SCL(SCL),
+                    .SDA(SDA));
+
+ // Variable : intf_slave
+ // SPI Interface Instantiation
+ i3c_if intf_slave(.pclk(clk),
+                   .areset(rst),
+                   .SCL(),
+                   .SDA());
+
+ // MSHA: assign intf_slave.SCL = intf_master.SCL;
+ // MSHA: assign intf_slave.SDA = intf_master.SDA;
 
  // Variable : master_agent_bfm_h
  // I2c Master BFM Agent Instantiation 
- i3c_master_agent_bfm i3c_master_agent_bfm_h(intf); 
+ i3c_master_agent_bfm i3c_master_agent_bfm_h(intf_master); 
  
  // Variable : slave_agent_bfm_h
  // SPI Slave BFM Agent Instantiation
- i3c_slave_agent_bfm i3c_slave_agent_bfm_h(intf);
+ i3c_slave_agent_bfm i3c_slave_agent_bfm_h(intf_slave);
+
+ // MSHA: SCL = intf_master.SCL;
+ // MSHA: SCL = intf_slave.SCL;
+
+ // MSHA: SDA = intf_master.SDA;
+ // MSHA: SDA = intf_slave.SDA;
+
+initial begin
+  $dumpfile("i3c_avip.vcd");
+  $dumpvars();
+end
 
 endmodule : hdl_top
 

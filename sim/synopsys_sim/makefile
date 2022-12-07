@@ -108,13 +108,13 @@ simulate:
 	+UVM_TESTNAME=$(test) \
 	+UVM_VERBOSITY=$(uvm_verbosity) \
 	+define+$(i3c_type) \
-	-l $(test_folder)/$(test).log \
+	-l $(test_folder)/$(test).log
 
 	# For checking and reporting simulation errors
 	make simulate_war_err
 
 clean:
-	rm -rf csrc simv* work *.bak *.log *.vpd transcript waves.shm *.wlf mylib lib *.vstf .restart* urgReport *.so vc_hdrs.h
+	rm -rf csrc simv* work *.bak *.vpd transcript waves.shm *.wlf mylib lib *.vstf .restart* urgReport *.so vc_hdrs.h
 
 ##
 		
