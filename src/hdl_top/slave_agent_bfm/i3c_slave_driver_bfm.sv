@@ -170,11 +170,10 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
 
     state = ADDRESS;
     for(int k=0;k <= 7; k++) begin
-      //for(int i=0, bit_no=0; i<REGISTER_ADDRESS_WIDTH; i++) begin 
-      //  // Logic for MSB first or LSB first 
-      //  bit_no = cfg_pkt.msb_first ? ((REGISTER_ADDRESS_WIDTH - 1) - i) : i;
       detect_posedge_scl();
       local_addr[k] = sda_i;
+      sda_oen <= TRISTATE_BUF_OFF;
+      sda_o   <= 1;
     end
 
     `uvm_info(name, $sformatf("DEBUG :: Value of local_addr = %0x", local_addr[6:0]), UVM_NONE); 
@@ -197,6 +196,7 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
     detect_negedge_scl();
     drive_sda(ack); 
     state = SLAVE_ADDR_ACK;
+    detect_posedge_scl();
 
   endtask: sample_slave_address
 
@@ -207,10 +207,6 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
   task drive_sda(input bit value);
     sda_oen <= value ? TRISTATE_BUF_OFF : TRISTATE_BUF_ON;
     sda_o   <= value;
-    @(posedge pclk);
-    scl_oen <= TRISTATE_BUF_OFF;
-    scl_o   <= 1;
-
   endtask: drive_sda
 
 
@@ -243,6 +239,7 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
     end else begin
       detect_stop();
     end
+    detect_stop();
     
   endtask: start_sim
 
@@ -253,9 +250,12 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_posedge_scl();
       wdata[k] = sda_i;
+      sda_oen <= TRISTATE_BUF_OFF;
+      sda_o   <= 1;
     end
 
     `uvm_info(name, $sformatf("DEBUG :: Value of sampled write data = %0x", wdata[7:0]), UVM_NONE); 
+    cfg_pkt.slave_memory[cfg_pkt.slave_address] = wdata;
    
     ack = POS_ACK;
 
@@ -273,6 +273,7 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
      int bit_no;
 
      `uvm_info("DEBUG", $sformatf("Driving byte = %0b",p_data_8b), UVM_NONE)
+      state = READ_DATA;
      for(int k=0;k < DATA_WIDTH; k++) begin
        scl_tristate_buf_on();
        sda_oen <= TRISTATE_BUF_ON;
@@ -286,20 +287,28 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
   // task for sampling the Acknowledge
    task sample_ack(output acknowledge_e p_ack);
      bit ack;
-     scl_tristate_buf_on();
+     @(posedge pclk);
+     scl_oen <= TRISTATE_BUF_ON;
+     scl_o   <= 0;
 
      sda_oen <= TRISTATE_BUF_OFF;
      sda_o   <= 1;
      state    = SLAVE_ADDR_ACK;
-     ack = sda_i;
+
+     @(posedge pclk);
+     // Sample the ACK from the I2C bus
+     @(posedge pclk);
+     scl_oen <= TRISTATE_BUF_OFF;
+     scl_o   <= 1;
+     ack     = sda_i;
+
+     `uvm_info(name, $sformatf("Sampled ACK value %0b",p_ack), UVM_MEDIUM);
 
      if(ack == 1'b0) begin
        p_ack = POS_ACK;
      end else begin
        p_ack = NEG_ACK;
      end
-     scl_tristate_buf_off();
-     `uvm_info(name, $sformatf("Sampled ACK value %0b",ack), UVM_MEDIUM);
    endtask :sample_ack
 
   
@@ -313,12 +322,12 @@ interface i3c_slave_driver_bfm #(parameter string NAME = "I3C_SLAVE_DRIVER_BFM")
     bit [1:0] sda_local;
 
     // Detect the edge on scl
+    state = STOP;
     do begin
       @(negedge pclk);
       scl_local = {scl_local[0], scl_i};
       sda_local = {sda_local[0], sda_i};
     end while(!(sda_local == POSEDGE && scl_local == 2'b11) );
-    state = STOP;
     `uvm_info(name, $sformatf("Stop condition is detected"), UVM_HIGH);
   endtask: detect_stop
   

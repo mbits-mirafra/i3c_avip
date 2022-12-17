@@ -118,7 +118,7 @@ interface i3c_master_driver_bfm(input pclk,
 
   int idle_time_i; // local variable for idle time
   int tbuf_i;      // Idle time from configure
-  bit [SLAVE_ADDRESS_WIDTH:0] address_7b;
+  bit [SLAVE_ADDRESS_WIDTH -1:0] address_7b;
   bit rw_b;
   bit [7:0] wr_data_8b;
   
@@ -151,6 +151,7 @@ interface i3c_master_driver_bfm(input pclk,
       sample_ack(ack);
     end else begin
       state = READ_DATA;
+      `uvm_info("READ_DATA", $sformatf("Moving to READ_DATA state"), UVM_HIGH);
       sample_read_data(cfg_pkt, ack);
     end
       if(ack == 1'b0) begin
@@ -199,24 +200,28 @@ interface i3c_master_driver_bfm(input pclk,
 
   // task for sampling the Acknowledge
    task sample_ack(output bit p_ack);
-     scl_tristate_buf_on();
+     @(posedge pclk);
+     scl_oen <= TRISTATE_BUF_ON;
+     scl_o   <= 0;
 
      sda_oen <= TRISTATE_BUF_OFF;
      sda_o   <= 1;
      state    = SLAVE_ADDR_ACK;
-     p_ack = sda_i;
 
-     scl_tristate_buf_off();
+     @(posedge pclk);
+     // Sample the ACK from the I2C bus
+     @(posedge pclk);
+     scl_oen <= TRISTATE_BUF_OFF;
+     scl_o   <= 1;
+     p_ack    = sda_i;
+
      `uvm_info(name, $sformatf("Sampled ACK value %0b",p_ack), UVM_MEDIUM);
    endtask :sample_ack
 
  
   task stop();
    // Complete the SCL clock
-   @(posedge pclk);
-   scl_oen <= TRISTATE_BUF_ON;
-   scl_o   <= 0;
-
+   state = STOP;
    @(posedge pclk);
    scl_oen <= TRISTATE_BUF_OFF;
    scl_o   <= 1;
@@ -226,7 +231,7 @@ interface i3c_master_driver_bfm(input pclk,
    @(posedge pclk);
    sda_oen <= TRISTATE_BUF_OFF;
    sda_o   <= 1;
-   state = STOP;
+
      
    // Checking for IDLE state
    @(posedge pclk);
@@ -242,9 +247,11 @@ interface i3c_master_driver_bfm(input pclk,
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_posedge_scl();
       rdata[k] = sda_i;
+      sda_oen <= TRISTATE_BUF_OFF;
+      sda_o   <= 1;
     end
 
-    `uvm_info(name, $sformatf("DEBUG :: Value of sampled write data = %0x", rdata[7:0]), UVM_NONE); 
+    `uvm_info(name, $sformatf("DEBUG :: Value of sampled read data = %0x", rdata[7:0]), UVM_NONE); 
    
     ack = 1'b0;
 
@@ -264,10 +271,6 @@ interface i3c_master_driver_bfm(input pclk,
   task drive_sda(input bit value);
     sda_oen <= value ? TRISTATE_BUF_OFF : TRISTATE_BUF_ON;
     sda_o   <= value;
-    @(posedge pclk);
-    scl_oen <= TRISTATE_BUF_OFF;
-    scl_o   <= 1;
-
   endtask: drive_sda
 
   

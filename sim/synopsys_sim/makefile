@@ -114,7 +114,7 @@ simulate:
 	make simulate_war_err
 
 clean:
-	rm -rf csrc simv* work *.bak *.vpd transcript waves.shm *.wlf mylib lib *.vstf .restart* urgReport *.so vc_hdrs.h *.log *.fsdb *.key nWaveLog vfastLog *.conf *.rc *.vcd
+	rm -rf csrc simv* work *.bak *.vpd transcript waves.shm *.wlf mylib lib *.vstf .restart* urgReport *.so vc_hdrs.h *.log *.fsdb *.key nWaveLog vfastLog *.conf  *.vcd
 
 ##
 		
