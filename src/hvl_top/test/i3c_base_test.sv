@@ -125,9 +125,9 @@ function void i3c_base_test::setup_master_agent_cfg();
     // Stores all the Slave addresses
     i3c_env_cfg_h.i3c_master_agent_cfg_h[i].slave_address_array = new[NO_OF_SLAVES]; 
     i3c_env_cfg_h.i3c_master_agent_cfg_h[i].slave_address_array[0] = SLAVE0_ADDRESS;
-    i3c_env_cfg_h.i3c_master_agent_cfg_h[i].slave_address_array[1] = SLAVE1_ADDRESS;
-    i3c_env_cfg_h.i3c_master_agent_cfg_h[i].slave_address_array[2] = SLAVE2_ADDRESS;
-    i3c_env_cfg_h.i3c_master_agent_cfg_h[i].slave_address_array[3] = SLAVE3_ADDRESS;
+    //i3c_env_cfg_h.i3c_master_agent_cfg_h[i].slave_address_array[1] = SLAVE1_ADDRESS;
+    //i3c_env_cfg_h.i3c_master_agent_cfg_h[i].slave_address_array[2] = SLAVE2_ADDRESS;
+    //i3c_env_cfg_h.i3c_master_agent_cfg_h[i].slave_address_array[3] = SLAVE3_ADDRESS;
 
     // MSHA:slave_address_array = new[NO_OF_SLAVES];
 
@@ -170,22 +170,22 @@ function void i3c_base_test::setup_slave_agent_cfg();
   i3c_env_cfg_h.i3c_slave_agent_cfg_h[0].has_coverage = 1;
 
   // Slave 1
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[1].slave_address = SLAVE1_ADDRESS;
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[1].is_active    = uvm_active_passive_enum'(UVM_ACTIVE);
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[1].shift_dir    = shift_direction_e'(MSB_FIRST);
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[1].has_coverage = 1;
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[1].slave_address = SLAVE1_ADDRESS;
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[1].is_active    = uvm_active_passive_enum'(UVM_ACTIVE);
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[1].shift_dir    = shift_direction_e'(MSB_FIRST);
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[1].has_coverage = 1;
 
-  // Slave 2
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[2].slave_address = SLAVE2_ADDRESS;
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[2].is_active    = uvm_active_passive_enum'(UVM_ACTIVE);
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[2].shift_dir    = shift_direction_e'(MSB_FIRST);
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[2].has_coverage = 1;
-  
-  // Slave 3
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[3].slave_address = SLAVE3_ADDRESS;
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[3].is_active    = uvm_active_passive_enum'(UVM_ACTIVE);
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[3].shift_dir    = shift_direction_e'(MSB_FIRST);
-  i3c_env_cfg_h.i3c_slave_agent_cfg_h[3].has_coverage = 1;
+  //// Slave 2
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[2].slave_address = SLAVE2_ADDRESS;
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[2].is_active    = uvm_active_passive_enum'(UVM_ACTIVE);
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[2].shift_dir    = shift_direction_e'(MSB_FIRST);
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[2].has_coverage = 1;
+  //
+  //// Slave 3
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[3].slave_address = SLAVE3_ADDRESS;
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[3].is_active    = uvm_active_passive_enum'(UVM_ACTIVE);
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[3].shift_dir    = shift_direction_e'(MSB_FIRST);
+  //i3c_env_cfg_h.i3c_slave_agent_cfg_h[3].has_coverage = 1;
 
   // TODO(mshariff): 
 

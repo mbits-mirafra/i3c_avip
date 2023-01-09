@@ -10,7 +10,7 @@ package i3c_globals_pkg;
   parameter int NO_OF_MASTERS = 1;
 
   // NO_OF_MASTERS to be connected to the i3c_interface
-  parameter int NO_OF_SLAVES = 4;
+  parameter int NO_OF_SLAVES = 1;
   
   // The parameter NO_OF_REG is to assign number of registers in a slave
   parameter int NO_OF_REG = 1;
@@ -105,6 +105,8 @@ package i3c_globals_pkg;
     bit msb_first;
     bit read_write;
     int baudrate_divisor;
+    bit[SLAVE_ADDRESS_WIDTH-1:0] slave_address;
+    bit [7:0]slave_memory[longint];
   } i3c_transfer_cfg_s;
   
   // TODO(mshariff): Comments 
@@ -113,10 +115,36 @@ package i3c_globals_pkg;
     FREE,
     START, 
     ADDRESS,
+    SLAVE_ADDR_ACK,
     WRITE_DATA,
     READ_DATA,
+    SAMPLE_WRITE_DATA,
     STOP
   }i3c_fsm_state_e;
+
+  
+  // Enum: edge_detect_e
+  //
+  // Used for detecting the edge on the signal
+  //
+  // POSEDGE - posedge on the signal, the transition from 0->1
+  // NEGEDGE - negedge on the signal, the transition from 0->1
+  //
+  typedef enum bit[1:0] {
+    POSEDGE = 2'b01,
+    NEGEDGE = 2'b10
+  } edge_detect_e;
+
+  // Enum: acknowledge_e
+  //
+  // Specifies the acknowledgement type
+  //
+  // POS_ACK - positive acknowledgement 
+  // NEG_ACK - negative acknowledgement
+  typedef enum bit {
+    POS_ACK = 1'b0,
+    NEG_ACK = 1'b1
+  } acknowledge_e;
 
 endpackage : i3c_globals_pkg 
 

@@ -89,34 +89,12 @@ interface i3c_master_driver_bfm(input pclk,
     `uvm_info(name, $sformatf("I3C bus is free state detected"), UVM_HIGH);
   endtask: wait_for_idle_state
 
-  //-------------------------------------------------------
-  // Task: stop
-  // Send the stop signal (SCL=1 and SDA -> (Low to High))
-  //-------------------------------------------------------
- task stop();
-  @(posedge pclk);
-    sda_oen <= TRISTATE_BUF_ON;
-    sda_o   <= 0;
-    state = STOP;
-
-  @(posedge pclk);
-    sda_oen <= TRISTATE_BUF_OFF;
-    sda_o   <= 1;
-    
-  // Checking for IDLE state
-  @(posedge pclk);
-    if(scl_i && sda_i) begin
-      state = IDLE;
-  end
-  endtask
-
   // task for driving the sda_oen as high and sda as low
    task sda_tristate_buf_on();
     @(posedge pclk);
     sda_oen <= TRISTATE_BUF_ON;
     sda_o   <= 0;
    endtask
-
 
   // task for driving the scl_oen as high and scl as low
   task scl_tristate_buf_on();
@@ -132,7 +110,6 @@ interface i3c_master_driver_bfm(input pclk,
     scl_o   <= 1;
   endtask
 
-
  //-------------------------------------------------------
  // Task: drive_data
  //-------------------------------------------------------
@@ -141,103 +118,68 @@ interface i3c_master_driver_bfm(input pclk,
 
   int idle_time_i; // local variable for idle time
   int tbuf_i;      // Idle time from configure
-  bit [SLAVE_ADDRESS_WIDTH:0] address_7b;
+  bit [SLAVE_ADDRESS_WIDTH -1:0] address_7b;
   bit rw_b;
   bit [7:0] wr_data_8b;
   
+  `uvm_info(name, $sformatf("Starting the drive data method"), UVM_MEDIUM);
   data_t  = p_data_packet;
   cfg_pkt = p_cfg_pkt;
-  state   = IDLE;
-  `uvm_info(name, $sformatf("Starting the drive data method"), UVM_MEDIUM);
-  //while(1) begin
-    //if(areset == 0) begin // if active low reset is detected 
-    //  state       = IDLE;
-    //  sda_o       = 1;
-    //  scl_o       = 1;
-    //  idle_time_i = 0;
-    //  tbuf_i      = 0;
-    //  @(posedge areset);
-    //end else begin // else start the fsm
-      case(state)
-        IDLE: begin
-          //tbuf_i = BUS_IDLE_TIME;
-          //if(idle_time_i >= tbuf_i) begin // If idle time is reached move to FREE state
-          //  state = FREE;
-          //  idle_time_i = 0;
-          //  `uvm_info(name, $sformatf("Idle period is completed moving to FREE state"), UVM_MEDIUM);
-          //end else begin // else wait for idle time count
-          //  idle_time_i ++;
-          //  @(posedge pclk);
-          //`uvm_info("DEBUG", $sformatf("Waiting for idle count %0h",idle_time_i), UVM_NONE)
-          //end
-          state = START;
-        end
-        FREE:begin
-         tbuf_i = BUS_FREE_TIME;
-          if(idle_time_i >= tbuf_i) begin // If idle time is reached move to FREE state
-            state = START;
-            idle_time_i = 0;
-            `uvm_info(name, $sformatf("FREE period is completed moving to START state"), UVM_MEDIUM);
-          end else begin // else wait for idle time count
-            idle_time_i ++;
-            @(posedge pclk);
-          end
-        end
-        START:begin
-          drive_start();
-          state = ADDRESS;
-        end
-        ADDRESS:begin
-          {rw_b,address_7b} = {data_t.read_write,data_t.slave_address};
-          drive_byte({rw_b,address_7b});
-          `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, read_write = %0b",address_7b, rw_b), UVM_NONE)
-          sample_ack(ack);
-          if(ack == 0) begin
-            if(rw_b == WRITE) begin
-              state = WRITE_DATA;
-              `uvm_info(name, $sformatf("moving to WRITE_DATA state"), UVM_MEDIUM);
-            end else begin
-              state = READ_DATA;
-              `uvm_info(name, $sformatf("moving to READ_DATA state"), UVM_MEDIUM);
-            end
-          end else begin
-            `uvm_info(name, $sformatf("Received NACK, moving to STOP state"), UVM_MEDIUM);
-            state = STOP;
-          end
-        end
-        WRITE_DATA:begin
-          for(int i=0; i<data_t.size;i++) begin
-            wr_data_8b = data_t.wr_data[i];
-            drive_byte(wr_data_8b);
-            `uvm_info("DEBUG", $sformatf("Driving Write data %0h",wr_data_8b), UVM_NONE)
-            sample_ack(ack);
-            if(ack == 0) begin
-              state = WRITE_DATA;
-            end else begin
-              state = STOP;
-              `uvm_info(name, $sformatf("Received NACK, moving to STOP state"), UVM_MEDIUM);
-            end
-          end
-          state = STOP;
-          `uvm_info(name, $sformatf("moving to STOP state"), UVM_MEDIUM);
-        end
-        STOP:begin
-          stop();
-          `uvm_info(name, $sformatf("moving to IDLE state from STOP state"), UVM_MEDIUM);
-          state = IDLE;
-        end
-      endcase
-  //  end
-  //end
-  
+  state = START;
+
+  //Driving Start Condition
+  drive_start();
+  state = ADDRESS;
+
+  //Driving Address byte
+  {rw_b,address_7b} = {data_t.read_write,data_t.slave_address};
+  drive_byte({rw_b,address_7b});
+  `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, read_write = %0b",address_7b, rw_b), UVM_NONE)
+  sample_ack(ack);
+  if(ack == 1'b1)begin
+    stop();
+    `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 1 and stop condition is triggered"), UVM_HIGH);
+  end else begin
+    `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 0"), UVM_HIGH);
+    if(rw_b == 0) begin
+      state = WRITE_DATA;
+      for(int i=0; i<data_t.size;i++) begin
+        wr_data_8b = data_t.wr_data[i];
+        drive_byte(wr_data_8b);
+        `uvm_info("DEBUG", $sformatf("Driving Write data %0h",wr_data_8b), UVM_NONE)
+      end
+      sample_ack(ack);
+    end else begin
+      state = READ_DATA;
+      `uvm_info("READ_DATA", $sformatf("Moving to READ_DATA state"), UVM_HIGH);
+      sample_read_data(cfg_pkt, ack);
+    end
+      if(ack == 1'b0) begin
+        state = STOP;
+        stop();
+        `uvm_info(name, $sformatf("Received ACK, moving to STOP state"), UVM_MEDIUM);
+      end else begin
+        stop();
+        `uvm_info(name, $sformatf("Received NACK, moving to STOP state"), UVM_MEDIUM);
+      end
+
+  end
+
  endtask: drive_data
 
 
   // task for driving the sda_oen as high and sda as low
    task drive_start();
      @(posedge pclk);
+     scl_oen <= TRISTATE_BUF_OFF;
+     scl_o   <= 1;
+     sda_oen <= TRISTATE_BUF_OFF;
+     sda_o   <= 1;
+
+     @(posedge pclk);
      sda_oen <= TRISTATE_BUF_ON;
      sda_o   <= 0;
+
      `uvm_info(name, $sformatf("Driving start condition"), UVM_MEDIUM);
    endtask :drive_start
 
@@ -246,7 +188,7 @@ interface i3c_master_driver_bfm(input pclk,
      int bit_no;
 
      `uvm_info("DEBUG", $sformatf("Driving byte = %0b",p_data_8b), UVM_NONE)
-     for(int k=0;k <= 7; k++) begin
+     for(int k=0;k < DATA_WIDTH; k++) begin
        scl_tristate_buf_on();
        sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= p_data_8b[k];
@@ -258,11 +200,128 @@ interface i3c_master_driver_bfm(input pclk,
 
   // task for sampling the Acknowledge
    task sample_ack(output bit p_ack);
-     scl_tristate_buf_on();
-     p_ack = sda_i;
-     scl_tristate_buf_off();
+     @(posedge pclk);
+     scl_oen <= TRISTATE_BUF_ON;
+     scl_o   <= 0;
+
+     sda_oen <= TRISTATE_BUF_OFF;
+     sda_o   <= 1;
+     state    = SLAVE_ADDR_ACK;
+
+     @(posedge pclk);
+     // Sample the ACK from the I2C bus
+     @(posedge pclk);
+     scl_oen <= TRISTATE_BUF_OFF;
+     scl_o   <= 1;
+     p_ack    = sda_i;
+
      `uvm_info(name, $sformatf("Sampled ACK value %0b",p_ack), UVM_MEDIUM);
    endtask :sample_ack
 
+ 
+  task stop();
+   // Complete the SCL clock
+   state = STOP;
+   @(posedge pclk);
+   scl_oen <= TRISTATE_BUF_OFF;
+   scl_o   <= 1;
+   sda_oen <= TRISTATE_BUF_ON;
+   sda_o   <= 0;
+
+   @(posedge pclk);
+   sda_oen <= TRISTATE_BUF_OFF;
+   sda_o   <= 1;
+
+     
+   // Checking for IDLE state
+   @(posedge pclk);
+   if(scl_i && sda_i) begin
+     state = IDLE;
+   end
+  endtask
+
+
+  task sample_read_data(input i3c_transfer_cfg_s cfg_pkt, output bit ack);
+    bit [7:0] rdata;
+
+    for(int k=0;k < DATA_WIDTH; k++) begin
+      detect_posedge_scl();
+      rdata[k] = sda_i;
+      sda_oen <= TRISTATE_BUF_OFF;
+      sda_o   <= 1;
+    end
+
+    `uvm_info(name, $sformatf("DEBUG :: Value of sampled read data = %0x", rdata[7:0]), UVM_NONE); 
+   
+    ack = 1'b0;
+
+    // Driving the ACK for slave address
+    detect_negedge_scl();
+    drive_sda(ack); 
+    state = SLAVE_ADDR_ACK;
+    detect_posedge_scl();
+
+  endtask: sample_read_data
+
+
+  //--------------------------------------------------------------------------------------------
+  // Task: drive_sda 
+  // Drive the logic sda value as '0' or '1' over the I3C inteerface using the tristate buffers
+  //--------------------------------------------------------------------------------------------
+  task drive_sda(input bit value);
+    sda_oen <= value ? TRISTATE_BUF_OFF : TRISTATE_BUF_ON;
+    sda_o   <= value;
+  endtask: drive_sda
+
+  
+  //-------------------------------------------------------
+  // Task: detect_posedge_scl
+  // Detects the edge on scl with regards to pclk
+  //-------------------------------------------------------
+  task detect_posedge_scl();
+    // 2bit shift register to check the edge on scl
+    bit [1:0] scl_local;
+    edge_detect_e scl_edge_value;
+
+    // default value of scl_local is logic 1
+    scl_local = 2'b11;
+
+    // Detect the edge on scl
+    do begin
+      @(negedge pclk);
+      scl_local = {scl_local[0], scl_i};
+    end while(!(scl_local == POSEDGE));
+
+    scl_edge_value = edge_detect_e'(scl_local);
+    `uvm_info("MASTER_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
+  
+  endtask: detect_posedge_scl
+  
+  
+  //-------------------------------------------------------
+  // Task: detect_negedge_scl
+  // Detects the negative edge on scl with regards to pclk
+  //-------------------------------------------------------
+  task detect_negedge_scl();
+    // 2bit shift register to check the edge on scl
+    bit [1:0] scl_local;
+    edge_detect_e scl_edge_value;
+
+    // default value of scl_local is logic 1
+    scl_local = 2'b11;
+
+    // Detect the edge on scl
+    do begin
+
+      @(negedge pclk);
+      scl_local = {scl_local[0], scl_i};
+
+    end while(!(scl_local == NEGEDGE));
+
+    scl_edge_value = edge_detect_e'(scl_local);
+    `uvm_info("MASTER_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
+  
+  endtask: detect_negedge_scl
+  
 endinterface : i3c_master_driver_bfm
 `endif
