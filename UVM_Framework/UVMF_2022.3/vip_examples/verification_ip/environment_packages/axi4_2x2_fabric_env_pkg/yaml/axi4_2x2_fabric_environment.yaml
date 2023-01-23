@@ -1,0 +1,134 @@
+uvmf:
+  environments:
+    axi4_2x2_fabric:
+      agents: []
+      analysis_components:
+      - name: axi4_m0_pred
+        parameters:
+        - name: axi4_master_rw_transaction_t
+          value: "axi4_master_rw_transaction \n   #(.AXI4_ADDRESS_WIDTH(mgc_axi4_m0_params::AXI4_ADDRESS_WIDTH),\
+            \ \n     .AXI4_RDATA_WIDTH(mgc_axi4_m0_params::AXI4_RDATA_WIDTH), \n \
+            \    .AXI4_WDATA_WIDTH(mgc_axi4_m0_params::AXI4_WDATA_WIDTH), \n     .AXI4_ID_WIDTH(mgc_axi4_m0_params::AXI4_ID_WIDTH),\
+            \ \n     .AXI4_USER_WIDTH(mgc_axi4_m0_params::AXI4_USER_WIDTH), \n   \
+            \  .AXI4_REGION_MAP_SIZE(mgc_axi4_m0_params::AXI4_REGION_MAP_SIZE))"
+        type: axi4_master_predictor
+      - name: axi4_m1_pred
+        parameters:
+        - name: axi4_master_rw_transaction_t
+          value: "axi4_master_rw_transaction \n   #(.AXI4_ADDRESS_WIDTH(mgc_axi4_m1_params::AXI4_ADDRESS_WIDTH),\
+            \ \n     .AXI4_RDATA_WIDTH(mgc_axi4_m1_params::AXI4_RDATA_WIDTH), \n \
+            \    .AXI4_WDATA_WIDTH(mgc_axi4_m1_params::AXI4_WDATA_WIDTH), \n     .AXI4_ID_WIDTH(mgc_axi4_m1_params::AXI4_ID_WIDTH),\
+            \ \n     .AXI4_USER_WIDTH(mgc_axi4_m1_params::AXI4_USER_WIDTH), \n   \
+            \  .AXI4_REGION_MAP_SIZE(mgc_axi4_m1_params::AXI4_REGION_MAP_SIZE))"
+        type: axi4_master_predictor
+      - name: axi4_s0_pred
+        parameters:
+        - name: AXI4_ADDRESS_WIDTH
+          value: mgc_axi4_s0_params::AXI4_ADDRESS_WIDTH
+        - name: AXI4_RDATA_WIDTH
+          value: mgc_axi4_s0_params::AXI4_RDATA_WIDTH
+        - name: AXI4_WDATA_WIDTH
+          value: mgc_axi4_s0_params::AXI4_WDATA_WIDTH
+        - name: AXI4_ID_WIDTH
+          value: mgc_axi4_s0_params::AXI4_ID_WIDTH
+        - name: AXI4_USER_WIDTH
+          value: mgc_axi4_s0_params::AXI4_USER_WIDTH
+        - name: AXI4_REGION_MAP_SIZE
+          value: mgc_axi4_s0_params::AXI4_REGION_MAP_SIZE
+        type: axi4_slave_predictor
+      - name: axi4_s1_pred
+        parameters:
+        - name: AXI4_ADDRESS_WIDTH
+          value: mgc_axi4_s1_params::AXI4_ADDRESS_WIDTH
+        - name: AXI4_RDATA_WIDTH
+          value: mgc_axi4_s1_params::AXI4_RDATA_WIDTH
+        - name: AXI4_WDATA_WIDTH
+          value: mgc_axi4_s1_params::AXI4_WDATA_WIDTH
+        - name: AXI4_ID_WIDTH
+          value: mgc_axi4_s1_params::AXI4_ID_WIDTH
+        - name: AXI4_USER_WIDTH
+          value: mgc_axi4_s1_params::AXI4_USER_WIDTH
+        - name: AXI4_REGION_MAP_SIZE
+          value: mgc_axi4_s1_params::AXI4_REGION_MAP_SIZE
+        type: axi4_slave_predictor
+      - name: axi4_slave_rw_pred
+        parameters: []
+        type: axi4_slave_rw_predictor
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_vars: []
+      existing_library_component: 'True'
+      hvl_pkg_parameters: []
+      imports:
+      - name: mvc_pkg
+      - name: mgc_axi4_v1_0_pkg
+      - name: rw_txn_pkg
+      non_uvmf_components: []
+      parameters: []
+      qvip_connections:
+      - ap_key: trans_ap
+        driver: axi4_qvip_subenv_mgc_axi4_m0
+        receiver: axi4_m0_pred.axi4_ae
+      - ap_key: trans_ap
+        driver: axi4_qvip_subenv_mgc_axi4_m1
+        receiver: axi4_m1_pred.axi4_ae
+      - ap_key: trans_ap
+        driver: axi4_qvip_subenv_mgc_axi4_s0
+        receiver: axi4_s0_pred.axi4_ae
+      - ap_key: trans_ap
+        driver: axi4_qvip_subenv_mgc_axi4_s1
+        receiver: axi4_s1_pred.axi4_ae
+      qvip_memory_agents: []
+      qvip_subenvs:
+      - name: axi4_qvip_subenv
+        type: axi4_2x2_fabric_qvip
+      scoreboards:
+      - name: axi4_m0_sb
+        sb_type: uvmf_in_order_race_scoreboard
+        trans_type: "axi4_master_rw_transaction \n            #(.AXI4_ADDRESS_WIDTH(mgc_axi4_m0_params::AXI4_ADDRESS_WIDTH),\
+          \ \n              .AXI4_RDATA_WIDTH(mgc_axi4_m0_params::AXI4_RDATA_WIDTH),\
+          \ \n              .AXI4_WDATA_WIDTH(mgc_axi4_m0_params::AXI4_WDATA_WIDTH),\
+          \ \n              .AXI4_ID_WIDTH(mgc_axi4_m0_params::AXI4_ID_WIDTH), \n\
+          \              .AXI4_USER_WIDTH(mgc_axi4_m0_params::AXI4_USER_WIDTH), \n\
+          \              .AXI4_REGION_MAP_SIZE(mgc_axi4_m0_params::AXI4_REGION_MAP_SIZE))"
+      - name: axi4_m1_sb
+        sb_type: uvmf_in_order_race_scoreboard
+        trans_type: "axi4_master_rw_transaction \n            #(.AXI4_ADDRESS_WIDTH(mgc_axi4_m1_params::AXI4_ADDRESS_WIDTH),\
+          \ \n              .AXI4_RDATA_WIDTH(mgc_axi4_m1_params::AXI4_RDATA_WIDTH),\
+          \ \n              .AXI4_WDATA_WIDTH(mgc_axi4_m1_params::AXI4_WDATA_WIDTH),\
+          \ \n              .AXI4_ID_WIDTH(mgc_axi4_m1_params::AXI4_ID_WIDTH), \n\
+          \              .AXI4_USER_WIDTH(mgc_axi4_m1_params::AXI4_USER_WIDTH), \n\
+          \              .AXI4_REGION_MAP_SIZE(mgc_axi4_m1_params::AXI4_REGION_MAP_SIZE))"
+      - name: axi4_m0_rw_sb
+        sb_type: uvmf_in_order_race_scoreboard
+        trans_type: rw_txn
+      - name: axi4_m1_rw_sb
+        sb_type: uvmf_in_order_race_scoreboard
+        trans_type: rw_txn
+      subenvs: []
+      tlm_connections:
+      - driver: axi4_m0_pred.axi4_ap
+        receiver: axi4_m0_sb.expected_analysis_export
+      - driver: axi4_m1_pred.axi4_ap
+        receiver: axi4_m1_sb.expected_analysis_export
+      - driver: axi4_s0_pred.axi4_m0_ap
+        receiver: axi4_m0_sb.actual_analysis_export
+      - driver: axi4_s1_pred.axi4_m0_ap
+        receiver: axi4_m0_sb.actual_analysis_export
+      - driver: axi4_s0_pred.axi4_m1_ap
+        receiver: axi4_m1_sb.actual_analysis_export
+      - driver: axi4_s1_pred.axi4_m1_ap
+        receiver: axi4_m1_sb.actual_analysis_export
+      - driver: axi4_qvip_subenv.mgc_axi4_m0.export_rw
+        receiver: axi4_m0_rw_sb.expected_analysis_export
+      - driver: axi4_qvip_subenv.mgc_axi4_m1.export_rw
+        receiver: axi4_m1_rw_sb.expected_analysis_export
+      - driver: axi4_qvip_subenv.mgc_axi4_s0.export_rw
+        receiver: axi4_slave_rw_pred.axi4_s0_ae
+      - driver: axi4_qvip_subenv.mgc_axi4_s1.export_rw
+        receiver: axi4_slave_rw_pred.axi4_s1_ae
+      - driver: axi4_slave_rw_pred.axi4_m0_ap
+        receiver: axi4_m0_rw_sb.actual_analysis_export
+      - driver: axi4_slave_rw_pred.axi4_m1_ap
+        receiver: axi4_m1_rw_sb.actual_analysis_export

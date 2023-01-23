@@ -1,0 +1,71 @@
+{% set fname = "verification_ip/environment_packages/{{name}}_env_pkg/src/{{name}}_environment.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Environment 
+// Unit            : {{name}} Environment
+// File            : {{name}}_environment.svh
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This environment contains all agents, predictors and
+// scoreboards required for the block level design.
+{% endblock %}
+
+{% block contents %}
+
+
+class {{name}}_environment extends uvmf_environment_base #(.CONFIG_T( {{name}}_configuration));
+
+  `uvm_component_utils( {{name}}_environment );
+
+{% for agent in agents %}
+   {{agent.ifPkg}}_agent_t {{agent.name}}_agent;
+{% endfor %}
+
+// UVMF_CHANGE_ME : Add predictors and scoreboards as needed
+
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+//
+  function new( string name = "", uvm_component parent = null );
+    super.new( name, parent );
+  endfunction
+
+// ****************************************************************************
+// FUNCTION: build_phase()
+// This function builds all components within this environment.
+//
+  virtual function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+
+{% for agent in agents %}
+  {{agent.name}}_agent = {{agent.ifPkg}}_agent_t::type_id::create("{{agent.name}}_agent",this);
+{% endfor %}
+
+// UVMF_CHANGE_ME : Construct predictors and scoreboards added
+
+  endfunction
+
+// ****************************************************************************
+// FUNCTION: connect_phase()
+// This function makes all connections within this environment.  Connections
+// typically inclue agent to predictor, predictor to scoreboard and scoreboard
+// to agent.
+//
+  virtual function void connect_phase(uvm_phase phase);
+    super.connect_phase(phase);
+
+// UVMF_CHANGE_ME : Connect predictors and scoreboards to monitors using the code below
+// Uncomment these lines and connect the agents to predictors or scoreboards as needed
+{% for agent in agents %}
+// {{agent.name}}_agent.monitored_ap.connect(selectAnalysisExport);
+{% endfor %}
+
+  endfunction
+
+endclass
+
+{% endblock %}

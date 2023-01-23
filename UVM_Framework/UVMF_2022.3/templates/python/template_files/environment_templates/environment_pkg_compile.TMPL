@@ -1,0 +1,23 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{name}}_env_pkg/{{name}}_env_pkg.compile" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+{% for agent in agent_pkgs %}
+  - ../{{relative_environment_from_cwd}}/{{vip_location}}/{{interface_location}}/{{agent}}_pkg/{{agent}}_hvl.compile
+{% endfor %}
+{% for env in env_pkgs %}
+  - ../{{env}}_env_pkg/{{env}}_env_pkg.compile
+{% endfor %}
+
+src:
+{% for regModel in regModels %}
+  - registers/{{regModel.regModelPkg}}.sv
+{% endfor %}
+  - {{name}}_env_pkg.sv
+{% for cFile in DPIFiles %}
+  - dpi/{{cFile}}
+{% endfor %}{% endblock %}
+
+

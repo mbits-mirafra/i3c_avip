@@ -1,0 +1,4 @@
+project_benches=*.bak,.cache.dat,_info,*.qdb,_vmake,*.qtl,*.qpg,work,*.tmp,*.bck
+scripts==*.bak,.cache.dat,_info,*.qdb,_vmake,*.qtl,*.qpg,work,*.tmp,*.bck
+python_configs==*.bak,.cache.dat,_info,*.qdb,_vmake,*.qtl,*.qpg,work,*.tmp,*.bck
+preferences=*.txt,*.tmp

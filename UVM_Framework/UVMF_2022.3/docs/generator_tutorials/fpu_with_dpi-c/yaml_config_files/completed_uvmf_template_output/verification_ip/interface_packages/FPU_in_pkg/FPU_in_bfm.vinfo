@@ -1,0 +1,5 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+@use FPU_in_pkg_hdl.vinfo
+src/FPU_in_if.sv
+src/FPU_in_driver_bfm.sv
+src/FPU_in_monitor_bfm.sv

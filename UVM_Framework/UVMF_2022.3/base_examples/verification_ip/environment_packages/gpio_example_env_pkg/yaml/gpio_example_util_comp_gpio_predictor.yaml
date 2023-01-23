@@ -1,0 +1,10 @@
+uvmf:
+  util_components:
+    gpio_predictor:
+      analysis_exports:
+      - name: gpio_b_ae
+        type: gpio_transaction#(.WRITE_PORT_WIDTH(16),.READ_PORT_WIDTH(32))
+      - name: gpio_a_ae
+        type: gpio_transaction#(.WRITE_PORT_WIDTH(32),.READ_PORT_WIDTH(16))
+      existing_library_component: 'True'
+      type: predictor

@@ -1,0 +1,393 @@
+# make -f /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/sim/Makefile libs build optimize UVMF_HOME=/mnt/hgfs/vmware/UVMF_Q
+# ** Error: make[1]: Entering directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~wb2spi/build_group/build_task'
+# test -e work || vlib work 
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:35 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg" /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv 
+# -- Compiling package fli_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:51 on Nov 07,2014, Elapsed time: 0:00:16
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:51 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# -- Compiling package uvmf_base_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:53 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:59 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:59 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hvl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:59 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hvl.f 
+# -- Compiling package wb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling package wb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package wb_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:02 on Nov 07,2014, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hdl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:02 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hdl.f 
+# -- Compiling package wb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling interface wb_if
+# -- Compiling package wb_if_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_if
+# -- Compiling interface wb_monitor_bfm
+# -- Compiling package wb_monitor_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_monitor_bfm
+# -- Importing package wb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Compiling interface wb_driver_bfm
+# -- Compiling package wb_driver_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_driver_bfm
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:09 on Nov 07,2014, Elapsed time: 0:00:07
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/spi_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/spi_pkg/spi_filelist_hvl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:09 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/spi_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/spi_pkg/spi_filelist_hvl.f 
+# -- Compiling package spi_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling package spi_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package spi_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:13 on Nov 07,2014, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/spi_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/spi_pkg/spi_filelist_hdl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:13 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/spi_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/spi_pkg/spi_filelist_hdl.f 
+# -- Compiling package spi_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling interface spi_if
+# -- Compiling package spi_if_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package spi_pkg_hdl
+# -- Compiling interface spi_if
+# -- Compiling interface spi_monitor_bfm
+# -- Compiling package spi_monitor_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package spi_pkg_hdl
+# -- Compiling interface spi_monitor_bfm
+# -- Importing package spi_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Compiling interface spi_driver_bfm
+# -- Compiling package spi_driver_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package spi_pkg_hdl
+# -- Compiling interface spi_driver_bfm
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:18 on Nov 07,2014, Elapsed time: 0:00:05
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/wb2spi_env_pkg /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/wb2spi_env_pkg/registers/wb2spi_reg_pkg.sv /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/wb2spi_env_pkg/wb2spi_env_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:19 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/wb2spi_env_pkg" /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/wb2spi_env_pkg/registers/wb2spi_reg_pkg.sv /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/wb2spi_env_pkg/wb2spi_env_pkg.sv 
+# -- Compiling package wb2spi_reg_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Compiling package wb2spi_env_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package spi_pkg
+# -- Importing package spi_pkg_hdl
+# -- Importing package wb2spi_reg_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:22 on Nov 07,2014, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/parameters /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/parameters/wb2spi_parameters_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:22 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/parameters" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/parameters/wb2spi_parameters_pkg.sv 
+# -- Compiling package wb2spi_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:22 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/sequences /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/sequences/wb2spi_sequences_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:22 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/sequences" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/sequences/wb2spi_sequences_pkg.sv 
+# -- Compiling package wb2spi_sequences_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package spi_pkg
+# -- Importing package spi_pkg_hdl
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package wb2spi_parameters_pkg
+# -- Importing package wb2spi_env_pkg
+# -- Importing package wb2spi_reg_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:23 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/tests /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/tests/wb2spi_test_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:23 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/tests" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/tests/wb2spi_test_pkg.sv 
+# -- Compiling package wb2spi_test_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package spi_pkg
+# -- Importing package spi_pkg_hdl
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package wb2spi_env_pkg
+# -- Importing package wb2spi_reg_pkg
+# -- Importing package wb2spi_sequences_pkg
+# -- Importing package wb2spi_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:23 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/rtl/verilog/wb2spi.v
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:24 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/rtl/verilog/wb2spi.v 
+# -- Compiling module wb2spi
+# 
+# Top level modules:
+# 	wb2spi
+# End time: 10:00:24 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/testbench/top_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:24 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/testbench/top_filelist_hvl.f 
+# -- Compiling package hvl_top_sv_unit
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package wb2spi_test_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package spi_pkg
+# -- Importing package spi_pkg_hdl
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package wb2spi_env_pkg
+# -- Importing package wb2spi_reg_pkg
+# -- Importing package wb2spi_sequences_pkg
+# -- Importing package wb2spi_parameters_pkg
+# -- Compiling module hvl_top
+# 
+# Top level modules:
+# 	hvl_top
+# End time: 10:00:24 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/testbench/top_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:24 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/wb2spi/tb/testbench/top_filelist_hdl.f 
+# -- Compiling package hdl_top_sv_unit
+# -- Importing package wb2spi_parameters_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling module hdl_top
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	hdl_top
+# End time: 10:00:25 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vopt  +cover=sbcef+/hdl_top/DUT  hvl_top hdl_top   -o optimized_batch_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:25 on Nov 07,2014
+# vopt "+cover=sbcef+/hdl_top/DUT" hvl_top hdl_top -o optimized_batch_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface spi_if
+# -- Loading interface spi_monitor_bfm
+# -- Loading interface spi_driver_bfm
+# -- Loading interface wb_if
+# -- Loading interface wb_monitor_bfm
+# -- Loading interface wb_driver_bfm
+# -- Loading module wb2spi
+# Optimizing 40 design-units (inlining 0/2 module instances, 0/0 UDP instances):
+# -- Optimizing module wb2spi(fast)
+# ** Note: (vopt-143) Recognized 1 FSM in module "wb2spi(fast)".
+# -- Optimizing interface wb_driver_bfm(fast__1)
+# -- Optimizing interface wb_monitor_bfm(fast__1)
+# -- Optimizing interface spi_monitor_bfm(fast__1)
+# -- Inlining interface spi_if(fast__2)
+# -- Inlining interface wb_if(fast__2)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing interface spi_driver_bfm(fast__1)
+# -- Optimizing interface wb_if(fast__2)
+# -- Optimizing interface spi_if(fast__2)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package spi_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package wb_pkg_hdl(fast)
+# -- Optimizing package spi_if_sv_unit(fast)
+# -- Optimizing package spi_monitor_bfm_sv_unit(fast)
+# -- Optimizing package spi_driver_bfm_sv_unit(fast)
+# -- Optimizing package wb_if_sv_unit(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package wb_monitor_bfm_sv_unit(fast)
+# -- Optimizing package wb_driver_bfm_sv_unit(fast)
+# -- Optimizing package spi_pkg(fast)
+# -- Optimizing package wb_pkg(fast)
+# -- Optimizing interface spi_if(fast)
+# -- Optimizing interface spi_if(fast__1)
+# -- Optimizing interface spi_monitor_bfm(fast)
+# -- Optimizing interface spi_driver_bfm(fast)
+# -- Optimizing interface wb_if(fast)
+# -- Optimizing interface wb_if(fast__1)
+# -- Optimizing interface wb_monitor_bfm(fast)
+# -- Optimizing interface wb_driver_bfm(fast)
+# -- Optimizing package wb2spi_parameters_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package wb2spi_reg_pkg(fast)
+# -- Optimizing package wb2spi_env_pkg(fast)
+# -- Optimizing package wb2spi_sequences_pkg(fast)
+# -- Optimizing package wb2spi_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_batch_top_tb
+# End time: 10:01:00 on Nov 07,2014, Elapsed time: 0:00:35
+# Errors: 0, Warnings: 0
+# vopt  +acc   hvl_top hdl_top   -o optimized_debug_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:04 on Nov 07,2014
+# vopt "+acc" hvl_top hdl_top -o optimized_debug_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface spi_if
+# -- Loading interface spi_monitor_bfm
+# -- Loading interface spi_driver_bfm
+# -- Loading interface wb_if
+# -- Loading interface wb_monitor_bfm
+# -- Loading interface wb_driver_bfm
+# -- Loading module wb2spi
+# Optimizing 40 design-units (inlining 0/2 module instances, 0/0 UDP instances):
+# -- Optimizing package hvl_top_sv_unit(fast)
+# -- Optimizing module wb2spi(fast)
+# ** Note: (vopt-143) Recognized 1 FSM in module "wb2spi(fast)".
+# -- Optimizing interface wb_driver_bfm(fast__1)
+# -- Optimizing interface wb_monitor_bfm(fast__1)
+# -- Optimizing interface spi_monitor_bfm(fast__1)
+# -- Optimizing interface spi_driver_bfm(fast__1)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing interface wb_if(fast__2)
+# -- Optimizing interface spi_if(fast__2)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package spi_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package wb_pkg_hdl(fast)
+# -- Optimizing package spi_if_sv_unit(fast)
+# -- Optimizing package spi_monitor_bfm_sv_unit(fast)
+# -- Optimizing package spi_driver_bfm_sv_unit(fast)
+# -- Optimizing package wb_if_sv_unit(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package wb_monitor_bfm_sv_unit(fast)
+# -- Optimizing package wb_driver_bfm_sv_unit(fast)
+# -- Optimizing package spi_pkg(fast)
+# -- Optimizing package wb_pkg(fast)
+# -- Optimizing interface spi_if(fast)
+# -- Optimizing interface spi_if(fast__1)
+# -- Optimizing interface spi_monitor_bfm(fast)
+# -- Optimizing interface spi_driver_bfm(fast)
+# -- Optimizing interface wb_if(fast)
+# -- Optimizing interface wb_if(fast__1)
+# -- Optimizing interface wb_monitor_bfm(fast)
+# -- Optimizing interface wb_driver_bfm(fast)
+# -- Optimizing package wb2spi_parameters_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package wb2spi_reg_pkg(fast)
+# -- Optimizing package wb2spi_env_pkg(fast)
+# -- Optimizing package wb2spi_sequences_pkg(fast)
+# -- Optimizing package wb2spi_test_pkg(fast)
+# Optimized design name is optimized_debug_top_tb
+# End time: 10:01:41 on Nov 07,2014, Elapsed time: 0:00:37
+# Errors: 0, Warnings: 0
+# make[1]: Leaving directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~wb2spi/build_group/build_task'
+# make[1]: Warning: File `/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/wb2spi_env_pkg/Makefile' has modification time 3.6e+07 s in the future
+# make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+# Executing ONERROR command at macro ./execScript.do line 1
+# quit -f

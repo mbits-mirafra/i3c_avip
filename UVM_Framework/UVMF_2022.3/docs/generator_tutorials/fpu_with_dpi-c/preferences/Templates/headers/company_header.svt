@@ -1,0 +1,40 @@
+#-------------------------------------------------------------------------------
+# MetaData - Settings for this Template 
+#-------------------------------------------------------------------------------
+%metadata_begin
+  # Specify the version of your template
+  ::TemplateApi::setTmplSvtVersionOp "1.0" 
+  
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Type"        -propertyValue "SNIPPET"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Category"    -propertyValue "Header"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Description" -propertyValue "File Header" 
+%metadata_end
+
+#-------------------------------------------------------------------------------
+# Template code 
+#-------------------------------------------------------------------------------
+%text_begin
+-- ==============================================================================
+-- =====           SELEX ES Ltd, Crewe Toll, Edinburgh, EH5 2XS             =====
+-- ==============================================================================
+--! @file
+--  Project                : %(PROJ_NAME)
+--  Entity                 : %(VHDL_ENT)
+--! @brief %(VHDL_DESCRIPTION) 
+------------------------------------------------------------------------
+--  Created by             : %(USER)
+--  Creation Date          : %(DATE)
+------------------------------------------------------------------------
+-- Revision History:
+--  URL of HEAD            : $HeadURL$
+--  Revision of last commit: $Rev$  
+--  Author of last commit  : $Author$
+--  Date of last commit    : $Date$  
+------------------------------------------------------------------------
+-- ==============================================================================
+-- This unpublished work contains proprietary information.
+-- All right reserved. Supplied in confidence and must not be copied, used or disclosed 
+-- for any purpose without express written permission.
+-- 2016 @ Copyright Selex ES Ltd
+ -- ==============================================================================
+%text_end

@@ -1,0 +1,14 @@
+{% set fname = "project_benches/{{name}}/tb/tests/{{name}}_test_pkg.vinfo" %}
+
+{% block contents %}
++incdir+@vinfodir
+@use ../../../../verification_ip/uvmf_base_pkg/uvmf_base_pkg.vinfo
+@use ../../../../verification_ip/environment_packages/{{env_name}}_env_pkg/{{env_name}}_env_pkg.vinfo
+
+{% for agent in agents %}
+@use ../../../../verification_ip/interface_packages/{{agent}}_pkg/{{agent}}_pkg.vinfo
+{% endfor %}
+@use ../sequences/{{name}}_sequences_pkg.vinfo
+@use ../parameters/{{name}}_parameters_pkg.vinfo
+{{name}}_test_pkg.sv
+{% endblock %}

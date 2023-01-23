@@ -1,0 +1,10 @@
+uvmf:
+  util_components:
+    nand_scoreboard:
+      analysis_exports:
+      - name: nand_out_pred_sb_ae
+        type: nand_out_transaction
+      - name: nand_out_ag_sb_ae
+        type: nand_out_transaction
+      existing_library_component: 'True'
+      type: scoreboard

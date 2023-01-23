@@ -1,0 +1,3 @@
+needs:
+  - ../rtl/rtl.compile
+  - ../tb/testbench/hdl_top.compile

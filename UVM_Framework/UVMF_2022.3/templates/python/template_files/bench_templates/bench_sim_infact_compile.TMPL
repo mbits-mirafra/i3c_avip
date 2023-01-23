@@ -1,0 +1,8 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/infact.compile" %}
+{% set conditional = "infact_enabled" %}
+{% block contents %}
+incdir:
+  - ../tb/sequences
+src:
+  - ../tb/sequences/{{name}}_infact_sequences_pkg.sv
+{% endblock %}

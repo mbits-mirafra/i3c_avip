@@ -1,0 +1,333 @@
+{% set fname = "project_benches/{{name}}/sim/default.rmdb" %}
+{% block description %}
+//----------------------------------------------------------------------
+// Project         : {{name}} Simulation Bench 
+// Unit            : Default VRM rmdb
+// File            : default.rmdb
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This is the default rmdb file for use with Questa VRM.
+//
+{% endblock %}
+
+{% block contents %}
+
+<?xml version="1.0"?>
+<rmdb version="1.0" toprunnables="regression" loadtcl="default merge_override" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <!-- ================================================================================================== -->
+  <!-- Top runnables.  There are two options currently defined for this RMDB:                             -->
+  <!--  * vrun from_list : Invoke a regression from a test list file.  See testlist.tcl in sim            -->
+  <!--                     directory for an example format.                                               -->
+  <!--  * vrun -tail single : Run a single test.  Use -ask to get a prompt of available tests or use      -->
+  <!--                        -GTEST=<testname>.  Note that -tail is needed to get STDOUT to show up.     -->
+  <!--                                                                                                    -->
+  <!-- The default is to run the regression, so simply using "vrun" will do that                          -->
+  <!-- For either of these you can specify -ask or use -GRUNCOMPILE=no to skip compile/optimization       -->
+  <!-- ================================================================================================== -->
+
+
+  <!-- ================================================================================================== -->
+  <!-- Top level runnable "regression": extends from "base_top" runnable                                  -->
+  <!-- ================================================================================================== -->
+  <!-- Defines the default UCDB merge file (tracker.ucdb) and the general order of operation which        -->
+  <!-- is to build (compile/optimize), run all simulations, then generate the final report.               -->
+  <!-- The merge options specify -testassociated which enables the use of test ranking later on.          -->
+  <!-- ================================================================================================== -->
+  <runnable name="regression" type="group" sequential="yes" base="base_top">
+    <parameters>
+      <parameter name="mergefile">tracker.ucdb</parameter>
+      <parameter name="mergeoptions">-testassociated</parameter>
+    </parameters>
+    <members>
+      <member>build</member>
+      <member>from_testlist_top</member>
+      <member>report</member>
+    </members>
+  </runnable>
+
+  <!-- ================================================================================================== -->
+  <!-- Top level runnable "single": extends from "base_top" runnable                                      -->
+  <!-- ================================================================================================== -->
+  <!-- Simply invokes the build (compile/optimize) runnable followed by the single_test runnable          -->
+  <!-- ================================================================================================== -->
+  <runnable name="single" type="group" sequential="yes" base="base_top">
+    <members>
+      <member>build</member>
+      <member>single_test</member>
+    </members>
+  </runnable>
+
+  <!-- ================================================================================================== -->
+  <!-- Base top-level runnable                                                                            -->
+  <!-- ================================================================================================== -->
+  <!-- Only here to define the parameter "RUNCOMPILE" which is used to determine whether or not a         -->
+  <!-- compile/optimize operation is to happen.  Defaults to yes.  If the -ask switch is specified on     -->
+  <!-- the command-line, the user will be prompted interactively for a yes/no                             -->
+  <!-- ================================================================================================== -->
+
+  <runnable name="base_top" type="base">
+    <parameters>
+      <parameter name="RUNCOMPILE" ask="Compile?" accept="oneof(yes no)">yes</parameter>
+    </parameters>
+  </runnable>
+
+  <!-- ================================================================================================== -->
+  <!-- This is required in order to enable non-sequential behavior in the regression runnables.    The    -->
+  <!-- group is what determines sequential/parallel operation.                                            -->
+  <!-- ================================================================================================== -->
+  <runnable name="from_testlist_top" type="group" sequential="no">
+    <members>
+      <member>from_testlist</member>
+    </members>
+  </runnable>
+
+  <!-- ================================================================================================== -->
+  <!-- Build runnable.  Invokes 'make libs build optimize'.  Note the "if" attribute that can turn this off -->
+  <!-- ================================================================================================== -->
+  <runnable name="build" type="task" if="{(%RUNCOMPILE%)} eq {yes}">
+    <execScript launch="/bin/csh -f">
+      <command>cd (%RMDBDIR%)</command>
+      <command>make libs build optimize</command>
+    </execScript>
+  </runnable>
+
+  <!-- ================================================================================================== -->
+  <!-- Report runnable.  Generates HTML report and rankings                                               -->
+  <!-- ================================================================================================== -->
+  <runnable name="report" type="task">
+    <execScript launch="exec">
+      <command>vcover report -html (%mergefile%) -htmldir (%RMDBDIR%)/covhtmlreport</command>
+      <command>vcover ranktest (%mergefile%)</command>
+    </execScript>
+  </runnable>
+
+  <!-- =================================================================================================== -->
+  <!-- Base runnable for the test invocation runnables below.  Specify the dofile and a bunch of shared    -->
+  <!-- parameters such as UCDB file naming, interactive mode behavior, etc.  Also defines the actual vsim  -->
+  <!-- command for use in all simulations (both regressions and single-use)                                -->
+  <!-- =================================================================================================== -->
+  <!-- Parameter definitions                                                                               -->
+  <!--   MODE       : operational mode, expected to either be 'batch' or 'gui'.  Defaults to 'batch'.      -->
+  <!--   TIMEOUT    : Number of seconds to allow the runnable to persist and is used in the subsequent     -->
+  <!--                execScript's 'mintimeout' parameter.  Depends on %MODE% since interactive            -->
+  <!--                generally takes longer                                                               -->
+  <!--   ucdbfile (built-in) : UCDB file name for this run - based on the test name in question            -->
+  <!--   DEBUGMODE (built-in) : Facilitiates automatic re-run of failing tests.  If a test has failed and  -->
+  <!--                          DEBUGMODE is 0, it is set to 1 and the simulation is rerun.  Failing tests -->
+  <!--                          are not rerun if DEBUGMODE is already 1.  Note that DEBUGMODE is used in   -->
+  <!--                          the definition of other parameters for things like logging, which optimized -->
+  <!--                          top to use, etc.                                                           -->
+  <!--   UVM_TESTNAME : Pulls the first term out of the %testname% parameter for use in the +UVM_TESTNAME   -->
+  <!--                  plusarg                                                                             -->
+  <!--   seed         : Pulls the second term out of the %testname% parameter for use in -sv_seed           -->
+  <!--   EXEC         : Depending on mode, puts an 'exec' command at the front of vsim.  This is needed in  -->
+  <!--                  order for the GUI to come up properly                                               -->
+  <!--   tplanoptions/tplanfile (builtin) : Specify test plan name and options for automatic merging into   -->
+  <!--                  merged UCDB                                                                         -->
+  <!-- =================================================================================================== -->
+  <runnable name="base_runnable" type="base">
+    <parameters>
+      <parameter name="MODE">batch</parameter>
+      <parameter name="TIMEOUT" type="tcl">[if {[string match "(%MODE%)" "gui"]} {list 7200} else {list 3600} ]</parameter>
+      <parameter name="MODESW" type="tcl">[if {[string match "(%MODE%)" "gui"]} { list "-gui" } else { list "-c" }]</parameter>
+      <parameter name="ucdbfile">(%testname%).ucdb</parameter>
+      <parameter name="DEBUGMODE">0</parameter>
+      <parameter name="UVM_TESTNAME" type="tcl">[lindex [split (%testname%) "-"] 0]</parameter>
+      <parameter name="seed" type="tcl">[lindex [split (%testname%) "-"] 1]</parameter>
+      <parameter name="EXEC" type="tcl">[if {[string match "(%MODE%)" "gui"]} { list exec } ]</parameter>
+      <parameter name="tplanoptions">-format Excel</parameter>
+      <parameter name="tplanfile"></parameter>
+      <parameter name="MVCHOME" type="tcl">[if {[FindMVCHome "makefile"]} { return "-mvchome $::env(QUESTA_MVC_HOME)" }]</parameter>
+    </parameters>
+    <!-- The test.do file is created for each individual run and is used as part of the vsim command line.  -->
+    <!-- It utilizes a number of parameters to control logging, UCDB file name, etc.                        -->
+    <localfile name="test.do" expand="yes">
+      <command>set BreakOnAssertion 2</command>
+      <command>set NoQuitOnFinish 1</command>
+      <command>onerror { quit -f }</command>
+      <command>onbreak {resume};</command>
+      <command>if { (%DEBUGMODE%) == 1 } { log -r /* }</command>
+      <command>coverage save -onexit (%ucdbfile%)</command>
+      <command>coverage attr -name TESTNAME -value (%testname%)</command>
+      <command>if {[string match "(%MODE%)" "gui"]} {run 0; do (%RMDBDIR%)/wave.do} else {run -all;quit -f}</command>
+    </localfile>
+    <!-- The main execScript that invokes vsim.  The command itself is more than just the vsim command because -->
+    <!-- a host of Tcl variables need to be defined based on the status of %DEBUGMODE% and then used on the    -->
+    <!-- vsim command line.  All of these variables are expected to change depending on whether or not the     -->
+    <!-- simulation is being automatically rerun due to a failure.                                             -->
+    <execScript launch="vsim" mintimeout="(%TIMEOUT%)">
+      <command>set uvmcontrol "none"                                                                     </command>
+      <command>set classdbg ""                                                                           </command>
+      <command>set xact_detail ""                                                                        </command>
+      <command>set msgmode ""                                                                            </command>
+      <command>set coverage "-coverage"                                                                  </command>
+      <command>if { (%DEBUGMODE%) } {                                                                    </command>
+      <command>  set top "optimized_debug_top_tb"                                                        </command>
+      <command>  set coverage ""                                                                         </command>
+      <command>} else {                                                                                  </command>
+      <command>  set top "optimized_batch_top_tb"                                                        </command>
+      <command>  set coverage "-coverage"                                                                </command>
+      <command>}                                                                                         </command>
+      <command>if { (%DEBUGMODE%) || [string match "(%MODE%)" "gui"] } {                                 </command>
+      <command>  set xact_detail "+uvm_set_config_int=*,enable_transaction_viewing,1"                    </command>
+      <command>  set msgmode "-msgmode both -displaymsgmode both"                                        </command>
+      <command>}                                                                                         </command>
+      <command>if { [string match "(%MODE%)" "gui"]} {                                                   </command>
+      <command>  set uvmcontrol "all"                                                                    </command>
+      <command>  set classdbg "-classdebug"                                                              </command>
+      <command>} elseif { (%DEBUGMODE%) == 1 } {                                                         </command>
+      <command>  set uvmcontrol "msglog,trlog"                                                           </command>
+      <command>}                                                                                         </command>
+      <command>  
+        exec vsim (%MODESW%) -lib (%RMDBDIR%)/work $top
+         -do "test.do" -suppress 8887                                                           
+         +UVM_TESTNAME=(%UVM_TESTNAME%) +vrm_in_use $classdbg $coverage (%MVCHOME%)                      
+         -solvefaildebug +UVM_NO_RELNOTES -sv_seed (%seed%) -uvmcontrol=$uvmcontrol          
+         $xact_detail +notimingchecks
+      </command>                                                     
+    </execScript>
+  </runnable>
+
+  <!-- =================================================================================================== -->
+  <!-- Runnable 'from_testlist' runs a regression, taking the test list from a file                        -->
+  <!-- Also takes advantage of automatic re-run on failure, utilizing DEBUGMODE parameter                  -->
+  <!-- =================================================================================================== -->
+  <runnable name="from_testlist" type="task" foreach="(%TESTCASES%)" index="testname" onerror="continue" base="base_runnable">
+    <parameters>
+      <parameter name="TESTFILE" type="tcl">(%RMDBDIR%)/testlist.tcl</parameter>
+      <parameter name="TESTCASES" type="tcl">[GetTestCasesFromFile (%TESTFILE%)]</parameter>
+    </parameters>
+  </runnable>
+
+  <!-- =================================================================================================== -->
+  <!-- Single test runnable 'single_test' will run a single test instead of an entire regression           -->
+  <!-- =================================================================================================== -->
+  <runnable name="single_test" type="task" onerror="continue" base="base_runnable">
+    <parameters>
+      <parameter name="MODE" ask="Mode?" accept="oneof(gui batch)">batch</parameter>
+      <parameter name="TESTDIR" type="tcl">(%RMDBDIR%)/../tb/tests/src</parameter>
+      <parameter name="TESTFILTER" type="tcl">[list "*typedefs.svh"]</parameter>
+      <parameter name="TEST_OPTIONS" type="tcl">[GetTestCasesFromDir (%TESTDIR%) (%TESTFILTER%)]</parameter>
+      <parameter name="TEST" ask="Which test?" accept="oneof((%TEST_OPTIONS%))">test_top</parameter>
+      <parameter name="DEBUGMODE">1</parameter>
+      <parameter name="seed" ask="Seed?">random</parameter>
+      <parameter name="testname" type="tcl">[format "%s-%s-%d" (%TEST%) (%seed%) 0]</parameter>
+    </parameters>
+  </runnable>
+
+  <!-- =================================================================================================== -->
+  <!-- TCL procedure to create a list of tests, either from a file or from a directory listing.            -->
+  <!-- =================================================================================================== -->
+  <usertcl name="default">
+
+  package require fileutil
+
+  ## This proc generates a test case list from a file
+  proc GetTestCasesFromFile {file_name} {
+    set tclist ""
+    set tfile [open $file_name r]
+    while {![eof $tfile]} {
+      gets $tfile line
+      ## Ignore comment lines starting with '#'
+      if {[string range $line 0 0] != "#"} {
+        ## Ignore blank lines
+        if {[llength $line] != 0} {
+          if {[llength $line] == 1} {
+            ## If only one thing on line, it is the test name.  Default to running one time
+            set num 1;
+          } else { 
+            ## More than one item on the line, second arg is the repeat count
+            set num [lindex $line 1]
+          }
+          for {set repeat 0} {$repeat &lt; $num} {incr repeat} {
+            if {[lindex $line [expr $repeat+2]] == ""} {
+              ## No seed value specified for this iteration, let it be random
+              lappend tclist [format "%s-random-%d" [lindex $line 0] $repeat]
+            } else {
+              ## Seed value specified
+              if { [lindex $line [expr $repeat+2]] == "random"} {
+                lappend tclist [format "%s-random-%d" [lindex $line 0] $repeat]
+              } else { 
+                lappend tclist [format "%s-%s-%d" [lindex $line 0] [lindex $line [expr $repeat+2]] $repeat]
+              }
+            }
+          }
+        }
+      }
+    }
+    close $tfile
+    return $tclist
+  } 
+
+  ## This proc pulls a list of tests from a directory - this is what populates the list of possible
+  ## tests to run in the single test case mode
+  proc GetTestCasesFromDir {dir_name filter_list} {
+    set tclist ""
+    set globret [split [glob -directory $dir_name *]]
+    foreach pattern $filter_list {
+      set ix [lsearch $globret $pattern]
+      while { [expr $ix >= 0] } {
+        set globret [lreplace $globret $ix $ix "" ]
+        set ix [lsearch $globret $pattern]
+      }
+    } 
+    set tclist [join $globret]
+    for { set ix 0 } { $ix &lt; [llength $tclist] } { incr ix } {
+      set tclist [lreplace $tclist $ix $ix [file tail [file rootname [lindex $tclist $ix]]]]
+    }
+    return $tclist  
+  } 
+
+  proc FindMVCHome { makefile_name } {
+    set matchcnt [llength [fileutil::grep "mvchome" $makefile_name]]
+    return $matchcnt
+  }
+
+  </usertcl>
+
+  <!-- =================================================================================================== -->
+  <!-- TCL procedure to override default incremental merge behavior, which only includes pass/warn tests   -->
+  <!-- This override will cause all UCDBs (if available) to be merged regardless of test status.  The      -->
+  <!-- extra code below will strip out all coverage except for assertions if a test fails, which is        -->
+  <!-- why this action is relatively safe.                                                                 -->
+  <!-- NOTE : This is just here for illustrative purposes - whether or not to include failed tests in      -->
+  <!--        coverage is up to individual groups/projects.  To remove, take the "merge_override" entry    -->
+  <!--        out of the "loadtcl" top-level parameter                                                     -->
+  <!-- =================================================================================================== -->
+  <usertcl name="merge_override">
+    proc OkToMerge {userdata} {
+      upvar $userdata data
+      set passfail $data(passfail)
+      set ucdbfile $data(ucdbfile)
+      if { ![ string match "passed" $passfail ] } {
+        exec vsim -c -viewcov $ucdbfile -do "coverage edit -keeponly -assert; coverage save $ucdbfile; quit"
+      }
+      return 1
+    }
+  </usertcl>
+
+  <!-- =================================================================================================== -->
+  <!-- TCL procedure to override default cleanup behavior.  Default is to leave everything alone.  If this -->
+  <!-- is added to the loadtcl list at the top of the RMDB, this will cause VRMDATA directory structure to -->
+  <!-- be deleted for tests that pass or pass with warnings or for actions that worked that did not generate -->
+  <!-- a UCDB.   This is not enabled by default in this RMDB, you'll have to add it to the loadtcl list    -->
+  <!-- =================================================================================================== -->
+
+  <usertcl name="cleanup_override">
+    proc OkToDelete {userdata} {
+      upvar $userdata data
+      set passfail $data(passfail)
+      set ucdbstat $data(ucdbstat)
+      if { [string match $passfail "passed"] &amp;&amp; ([string match $ucdbstat "ok"] || [string match $ucdbstat "warning"] || [string match $ucdbstat ""]) } {
+        return 1
+      } else {
+        return 0
+      }
+    }
+  </usertcl>
+
+</rmdb>
+
+{% endblock %}
+

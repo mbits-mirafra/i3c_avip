@@ -1,0 +1,2 @@
+@use $UVMF_PROJECT_DIR/tb/tests/axi4_2x2_fabric_tests_pkg.vinfo
+hvl_top.sv

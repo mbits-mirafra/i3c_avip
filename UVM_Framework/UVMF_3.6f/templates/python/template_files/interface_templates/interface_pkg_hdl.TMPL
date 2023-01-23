@@ -1,0 +1,32 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/{{name}}_pkg_hdl.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface HDL Package
+// File            : {{name}}_pkg_hdl.sv
+//----------------------------------------------------------------------
+//     
+// PACKAGE: This file defines all of the files contained in the
+//    interface package that needs to be compiled and synthesized
+//    for running on Veloce.
+//
+// CONTAINS:
+//    - <{{name}}_typedefs_hdl>
+//
+// ****************************************************************************
+// ****************************************************************************
+{% endblock %}
+
+{% block contents %}
+package {{name}}_pkg_hdl;
+  
+  import uvmf_base_pkg_hdl::*;
+
+  `include "src/{{name}}_typedefs_hdl.svh"
+
+endpackage
+
+{% endblock %}

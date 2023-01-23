@@ -1,0 +1,16 @@
+{# Base template used by other templates - defines a standard comment header
+   for use in all generated output.  Feel free to modify such that it matches
+   your individual requirements. #}
+{% import "macros.jinja" as macro %}
+//----------------------------------------------------------------------
+// Created with uvmf_gen version {{uvmf_gen_version}}
+//----------------------------------------------------------------------
+{% if header_content != None %}{{header_content}}
+{% endif -%}
+// pragma uvmf custom header begin
+// pragma uvmf custom header end
+//----------------------------------------------------------------------
+{% block description %}{% endblock %}
+//----------------------------------------------------------------------
+//
+{% block contents %}{% endblock %}

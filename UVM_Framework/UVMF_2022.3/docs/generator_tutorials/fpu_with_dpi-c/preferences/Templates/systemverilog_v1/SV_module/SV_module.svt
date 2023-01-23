@@ -1,0 +1,94 @@
+#-------------------------------------------------------------------------------
+# MetaData - Settings for this Template 
+#-------------------------------------------------------------------------------
+%metadata_begin
+  # Specify the version of your template
+  ::TemplateApi::setTmplSvtVersionOp "1.0" 
+  
+  # Specify the Type, Category and Description for this template
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Type"        -propertyValue "FILE"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Category"    -propertyValue "systemverilog_v1|Module"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Description" -propertyValue "Create a SystemVerilog Module" 
+
+  # Optionally declare the variables used in the template with defaults & descriptions
+  ::TemplateApi::addTmplVariableOp -name SV_MODULE  -desc "SystemVerilog Module Name" 
+
+  # Optionally initialize variable in included templates with the value of another variable  
+  ::TemplateApi::addTmplVariableOp -name UNIT_NAME -default %(SV_MODULE) -prompt 0
+  
+  # Specify the File naming rule for the file generated from this template
+  ::TemplateApi::setTmplFileNamingRuleOp "%(SV_MODULE).sv"
+%metadata_end
+
+
+#-------------------------------------------------------------------------------
+# Template code 
+#-------------------------------------------------------------------------------
+%text_begin
+%INCLUDE(-templateCategory "Header" -templateName "file_header.svt")
+`resetall
+//----------------------------------------------------------------------
+// %(SV_MODULE)
+//----------------------------------------------------------------------
+module %(SV_MODULE) #( parameter PARAM1 = 0)
+
+  //--------------------------------------------------------------------
+  // ports
+  //--------------------------------------------------------------------  
+  ( 
+  input   logic               clk,
+  inout   logic [PARAM1-1:0]  data
+  );
+
+  //--------------------------------------------------------------------
+  // timeunit
+  //--------------------------------------------------------------------  
+  timeunit 1ns;
+  timeprecision 10ps;
+
+  //--------------------------------------------------------------------
+  // imports and includes
+  //--------------------------------------------------------------------  
+
+  import my_pkg::*;
+  `include "my_include.svh";
+
+  //--------------------------------------------------------------------
+  // local declarations
+  //--------------------------------------------------------------------  
+
+
+  //--------------------------------------------------------------------
+  // instances
+  //--------------------------------------------------------------------  
+  
+  TMPL_IF      my_if();
+  
+  MODULE_TYPE  my_inst (
+                   .clk(my_if.clk),
+                   .data(my_if.data),
+                   .addr(my_if.addr)
+                  );
+
+  //--------------------------------------------------------------------
+  // processes
+  //--------------------------------------------------------------------  
+
+  initial 
+  begin
+  
+  end
+  
+  
+  always_ff @(posedge clk)
+  begin
+
+  end
+  
+  //--------------------------------------------------------------------
+  // sub-programs
+  //--------------------------------------------------------------------  
+
+endmodule: %(SV_MODULE)
+
+%text_end

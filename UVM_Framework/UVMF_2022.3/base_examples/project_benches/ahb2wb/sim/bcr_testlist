@@ -1,0 +1,12 @@
+# Test list for use by RMDB file
+# File syntax is
+# TEST <testname> <repeat_count> <1st_seed> ... <nth seed>
+# If not enough seeds are provided then random seeds are used to pad
+# If no repeat count is given, default is 1
+TB_INFO ahb2wb { } { }
+TB ahb2wb
+# pragma uvmf custom regression_suite begin
+TEST test_top 3
+# pragma uvmf custom regression_suite end
+
+

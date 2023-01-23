@@ -1,0 +1,30 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/sequences/{{src_dir}}example_derived_test_sequence.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This file contains the top level sequence used in  example_derived_test.
+// It is an example of a sequence that is extended from %(benchName)_bench_sequence_base
+// and can override %(benchName)_bench_sequence_base.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+class example_derived_test_sequence extends {{name}}_bench_sequence_base;
+
+  `uvm_object_utils( example_derived_test_sequence );
+
+  function new(string name = "" );
+    super.new(name);
+  endfunction
+
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

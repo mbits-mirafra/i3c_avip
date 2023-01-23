@@ -1,0 +1,30 @@
+## To instantiate this subenv in a higher level, use this structure:
+##  qvip_subenvs :
+##    - { name: "<instance_name_of_subenv>", type: "qvip_agents" }
+uvmf:
+  qvip_library:
+    version: '2019.2'
+    date: '04/17/2019:09:33'
+  qvip_environments:
+     "qvip_agents":
+        agents:
+          - name: 'pcie_ep'
+            imports:
+              - "mvc_pkg"
+              - "mgc_pcie_v2_0_pkg"
+          - name: 'axi4_master_0'
+            imports:
+              - "mvc_pkg"
+              - "mgc_axi4_v1_0_pkg"
+          - name: 'axi4_master_1'
+            imports:
+              - "mvc_pkg"
+              - "mgc_axi4_v1_0_pkg"
+          - name: 'axi4_slave'
+            imports:
+              - "mvc_pkg"
+              - "mgc_axi4_v1_0_pkg"
+          - name: 'apb3_config_master'
+            imports:
+              - "mvc_pkg"
+              - "mgc_apb3_v1_0_pkg"

@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<rmdb version="1.0" loadtcl="default" toprunnables="top" options="-testname" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <!-- This top-level runnable is actually a group of runnables forked off in parallel, depending on how many
+       different testbenches were specified in the test list files.  Each testbench is assumed to require its
+       own build operation, and only after that build has completed will subsequent tests be started.   -->
+  <runnable name="top" type="group" sequential="no" foreach="(%BUILDS%)" index="build">
+    <parameters>
+      <!-- Override COLLAPSE to 1 in order to run each test once (i.e. ignore repeats) -->
+      <parameter name="COLLAPSE">0</parameter>
+      <parameter name="TOP_TESTLIST_FILE">(%RMDBDIR%)/testlist</parameter>
+      <parameter name="DEBUG">0</parameter>
+      <parameter name="INIT" type="tcl">[initTcl (%ROOTDIR%)]</parameter>
+      <parameter name="TESTCASES" type="tcl">[ReadTestlistFile (%TOP_TESTLIST_FILE%) (%COLLAPSE%) (%DEBUG%) (%INIT%)]</parameter>
+      <parameter name="BUILDS" type="tcl">[GetBuilds (%TESTCASES%)]</parameter>
+      <parameter name="ANCHORFILE">.UVMF_HOME</parameter>
+      <parameter name="ROOTDIR" type="tcl">[FindRootDir (%ANCHORFILE%) (%DEBUG%)]</parameter>
+    </parameters>
+    <members>
+      <member>build_group</member>
+    </members>
+  </runnable>
+
+  <!-- This group sequentially invokes the build operation for a particular testbench followed by starting
+       all of the simulations for that testbench -->
+  <runnable name="build_group" type="group" sequential="yes">
+    <members>
+      <member>build_task</member>
+      <member>run_fork</member>
+    </members>
+  </runnable>
+
+  <!-- The actual build operation. -->
+  <runnable name="build_task" type="task">
+    <parameters>
+      <parameter name="EXTRABUILDCMD" type="tcl">[GetBuildCmd (%build%)]</parameter>
+      <parameter name="BUILDDIR" type="tcl">[GetBuildDir (%build%)]</parameter>
+    </parameters>
+    <execScript launch="vsim">
+      <command>make -f (%BUILDDIR%)/Makefile libs build optimize UVMF_HOME=(%ROOTDIR%) (%EXTRABUILDCMD%)</command>
+    </execScript>
+  </runnable>
+
+  <!-- Level of grouping required to fork off all of the simulations in parallel -->
+  <runnable name="run_fork" type="group" sequential="no">
+    <members>
+      <member>run</member>
+    </members>
+  </runnable>
+
+  <runnable name="run" type="task" foreach="(%TESTCASES_FOR_BUILD%)" index="testname">
+    <parameters>
+      <parameter name="TESTCASES_FOR_BUILD" type="tcl">[GetTestcases (%build%) (%COLLAPSE%)]</parameter>
+      <parameter name="MODE">batch</parameter>
+      <parameter name="MODESW" type="tcl">[if {[string match "(%MODE%)" "gui"]} { list "-gui" } else { list "-c" }]</parameter>
+      <parameter name="UVM_TESTNAME" type="tcl">[lindex [split (%testname%) "-"] 1]</parameter>
+      <parameter name="ucdbfile">(%testname%).ucdb</parameter>
+      <parameter name="seed" type="tcl">[lindex [split (%testname%) "-"] 2]</parameter>
+      <parameter name="EXEC" type="tcl">[if {[string match "(%MODE%)" "gui"]} { list exec } ]</parameter>
+      <parameter name="tplanoptions">-format Excel</parameter>
+      <parameter name="tplanfile"></parameter>
+      <parameter name="TIMEOUT" type="tcl">[if {[string match "(%MODE%)" "gui"]} {list 7200} else {list 3600} ]</parameter>
+      <parameter name="DEBUGMODE">0</parameter>
+      <parameter name="EXTRARUNCMD" type="tcl">[GetRunCmd (%build%)]</parameter>
+      <parameter name="MVCHOME" type="tcl">[if {[FindMVCHome "Makefile"]} { return "-mvchome $::env(QUESTA_MVC_HOME)" }]</parameter>
+      <parameter name="mergefile">tracker.ucdb</parameter>
+      <parameter name="mergeoptions">-testassociated</parameter>
+    </parameters>
+    <localfile name="test.do" expand="yes">
+      <command>set BreakOnAssertion 2</command>
+      <command>set NoQuitOnFinish 1</command>
+      <command>set IterationLimit 140000</command>
+      <command>onerror { quit -f }</command>
+      <command>onbreak {resume};</command>
+      <command>if { (%DEBUGMODE%) == 1 } { log -r /* }</command>
+      <command>coverage save -onexit (%ucdbfile%)</command>
+      <command>coverage attr -name TESTNAME -value (%testname%)</command>
+      <command>if {[string match "(%MODE%)" "gui"]} {run 0; do (%RMDBDIR%)/wave.do} else {run -all;quit -f}</command>
+    </localfile>
+    <execScript launch="vsim" mintimeout="(%TIMEOUT%)">
+      <command>set uvmcontrol "none"                                                                     </command>
+      <command>set classdbg ""                                                                           </command>
+      <command>set xact_detail ""                                                                        </command>
+      <command>set msgmode ""                                                                            </command>
+      <command>set coverage "-coverage"                                                                  </command>
+      <command>if { (%DEBUGMODE%) } {                                                                    </command>
+      <command>  set top "optimized_debug_top_tb"                                                        </command>
+      <command>  set coverage ""                                                                         </command>
+      <command>} else {                                                                                  </command>
+      <command>  set top "optimized_batch_top_tb"                                                        </command>
+      <command>  set coverage "-coverage"                                                                </command>
+      <command>}                                                                                         </command>
+      <command>if { (%DEBUGMODE%) || [string match "(%MODE%)" "gui"] } {                                 </command>
+      <command>  set xact_detail "+uvm_set_config_int=*,enable_transaction_viewing,1"                    </command>
+      <command>  set msgmode "-msgmode both -displaymsgmode both"                                        </command>
+      <command>}                                                                                         </command>
+      <command>if { [string match "(%MODE%)" "gui"]} {                                                   </command>
+      <command>  set uvmcontrol "all"                                                                    </command>
+      <command>  set classdbg "-classdebug"                                                              </command>
+      <command>} elseif { (%DEBUGMODE%) == 1 } {                                                         </command>
+      <command>  set uvmcontrol "msglog,trlog"                                                           </command>
+      <command>}                                                                                         </command>
+      <command>  
+        exec vsim (%MODESW%) -lib (%TASKDIR%)/../../build_task/work $top
+         -do "test.do" -suppress 8887 -permit_unmatched_virtual_intf                                                        
+         +UVM_TESTNAME=(%UVM_TESTNAME%) +vrm_in_use $classdbg $coverage (%MVCHOME%)                      
+         -solvefaildebug +UVM_NO_RELNOTES -sv_seed (%seed%) -uvmcontrol=$uvmcontrol          
+         $xact_detail +notimingchecks (%EXTRARUNCMD%)
+      </command>                                                     
+    </execScript>
+  </runnable>
+
+  <usertcl name="default">
+
+    package require fileutil
+
+    variable recursion_check
+    variable tcdict
+    variable builddict 
+    variable file_read
+    variable root_dir
+
+    proc initTcl {rd} {
+      global file_read
+      global root_dir
+      set file_read 0
+      set root_dir $rd
+    }
+
+    ## Top level test list parser invocation.  Sets up some globals and then
+    ## fires off the internal reader (for purposes of nesting)
+    proc ReadTestlistFile {file_name {collapse 0} {debug 0} {init 0}} {
+      global recursion_check
+      global tcdict
+      global file_read
+      if {$file_read == 1} {
+        return ""
+      }
+      set recursion_check ""
+      set tcdict [dict create]
+      set builddict [dict create]
+      ReadTestlistFile_int $file_name $collapse $debug
+      if {$debug == 1} {
+        print_tcdict
+      }
+      set file_read 1
+      return ""
+    }
+
+    proc print_tcdict {} {
+      global tcdict
+      puts "DEBUG: tcdict contents:"
+      dict for {top testnames} $tcdict {
+        dict for {test seeds} $testnames {
+          foreach seed $seeds {
+            puts "\t$top-$test-$seed"
+          }
+        }
+      }
+    }
+
+    proc print_builddict {} {
+      global builddict
+      if {![info exists builddict]} {
+        return
+      }
+      dict for {buildname entry} $builddict {
+        puts [format "%s - %s" $buildname $entry]
+      }
+    } 
+
+    ## Find root directory of entire framework - by default look for a file named .UVMF_HOME and use
+    ## the directory where that file exists as the root directory
+    proc FindRootDir {{anchor_file ".UVMF_HOME"} {debug 0}} {
+      set plist [file split [pwd]]
+      while {[llength $plist] &gt; 1} {
+        if {$debug==1} {
+          puts [format "DEBUG : FindRootDir : %s" [file join {*}$plist]]
+        }
+        set tfile [file join {*}$plist $anchor_file]
+        if {[file isfile $tfile]} {
+          set start_dir [file join {*}$plist]
+          if {$debug==1} {
+            puts [format "FindRootDir: Found .UVMF_HOME file, root_dir set to %s" $start_dir]
+          }
+          return $start_dir
+        }
+        set plist [lreplace $plist [expr [llength $plist]-1] [expr [llength $plist]-1]]
+      }
+      puts [format "ERROR UNABLE TO DETERMINE ROOT DIRECTORY, .UVMF_HOME NOT FOUND IN UPWARD PATH"]
+      exit
+    }
+
+    ## Actual test list file reader.  See embedded comments for more detail
+    proc ReadTestlistFile_int {file_name collapse {debug 0}} {
+      global recursion_check
+      global tcdict
+      global builddict
+      global root_dir
+      set tops ""
+      ## Elaborate "^" at beginning of $file_name and expand with $root_dir
+      regsub -- {^\^} $file_name $root_dir file_name
+      ## Recursion is checked for, i.e. if a test list includes itself
+      if {[lsearch $recursion_check $file_name] >= 0} {
+        puts [format "ERROR RECURSION : %s" $file_name]
+        exit
+      }
+      if {$debug==1} {
+        puts [format "DEBUG: Opening file \"%s\"" $file_name]
+      }
+      lappend recursion_check $file_name
+      if {![file isfile $file_name]} {
+        puts [format "ERROR INVALID FILE : %s" $file_name]
+        exit
+      }  
+      set tfile [open $file_name r]
+      set rootdir [file dirname $file_name]
+      while {![eof $tfile]} {
+        gets $tfile line
+        ## Skip comment lines in testlist file - first column a # sign
+        if {[string range $line 0 0] != "#"} {
+          ## Skip whitespace
+          if {[llength $line] != 0} {
+            ##
+            ## Process TB_INFO lines, which has information regarding how to
+            ## build a particular testbench
+            ##
+            if {[string match "TB_INFO" [lindex $line 0]]} {
+              if {[llength $line] != 4} {
+                puts [format "ERROR TB_INFO ARGS : %s" $line]
+                quit
+              }
+              if {[info exists builddict] &amp;&amp; [dict exists $builddict [lindex $line 1]]} {
+                puts [format "ERROR TB_INFO for %s already exists" [lindex $line 1]]
+                quit
+              }
+              dict set builddict [lindex $line 1] "buildcmd" [lindex $line 2]
+              dict set builddict [lindex $line 1] "runcmd" [lindex $line 3]
+              dict set builddict [lindex $line 1] "builddir" $rootdir
+              if {$debug==1} {
+                puts [format "DEBUG: Registering testbench %s" [lindex $line 1]]
+              }
+            ##
+            ## Process TB lines, which should contain a unique build label
+            ##
+            } elseif {[string match "TB" [lindex $line 0]]} {
+              if {[llength $line] != 2} {
+                puts [format "ERROR TB ARGS : %s" $line]
+                quit
+              }
+              if {![info exists builddict] || ![dict exists $builddict [lindex $line 1]]} {
+                puts [format "ERROR TB - No TB_INFO entry for %s" [lindex $line 1]]
+                print_builddict
+                quit
+              }
+              set tops [lindex $line 1]
+              if {$debug == 1} {
+                puts [format "DEBUG: Current top \"%s\"" $tops]
+              }
+            ##
+            ## Process TEST lines, which will be stored according to the last TB seen
+            ## Each TEST line contains a test name, a repeat count, and some number of
+            ## seeds.
+            ##
+            } elseif {[string match "TEST" [lindex $line 0]]} {
+              if {[llength $tops] == 0} {
+                puts [format "ERROR TEST NO TOP SPECIFIED : %s" $line]
+                quit
+              }
+              if {[llength $line] == 1} {
+                puts [format "ERROR TEST NOT ENOUGH ARGS : %s" $line]
+                quit
+              }
+              if {[llength $line] == 2} {
+                set num 1;
+              } else {
+                set num [lindex $line 2]
+              }
+              set seedlist ""
+              if {$collapse == 0} {
+                for {set repeat 0} {$repeat &lt; [expr $num]} {incr repeat} {
+                  if {[lindex $line [expr $repeat + 3]] == ""} {
+                    lappend seedlist "random"
+                  } else {
+                    lappend seedlist [lindex $line [expr $repeat + 3]]
+                  }
+                }
+              } else {
+                lappend seedlist "0"
+              }
+              dict set tcdict $tops [lindex $line 1] $seedlist 
+              if {$debug == 1} {
+                puts [format "DEBUG: Added %d test %s for build %s" [llength $seedlist] [lindex $line 1] $tops]
+              }
+            ##
+            ## Process INCLUDE lines, which is another file to parse.  
+            ##
+            } elseif {[string match "INCLUDE" [lindex $line 0]]} {
+              if {$debug == 1} {
+                puts [format "DEBUG: Including file %s" [lindex $line 1]]
+              }
+              ReadTestlistFile_int [lindex $line 1] $collapse $debug
+            } else {
+              puts [format "ERROR UNKNOWN CMD: %s" $line]
+              quit
+            }
+          }
+        }
+      }
+      set recursion_check [lrange $recursion_check 0 end-1]
+      if {$debug==1} {
+        puts [format "DEBUG: Finished with file \"%s\"" $file_name]
+      }
+    }
+    
+    ## Called by the runnables, returns a list of testbenches to
+    ## build, produces the top-level of runnable hierarchy  
+    proc GetBuilds {args} {
+      global tcdict
+      return [dict keys $tcdict]
+    }
+
+    ## Called by the runnables, returns the build command unique to
+    ## this particular build.
+    proc GetBuildCmd {build} {
+      global builddict
+      return [dict get $builddict $build "buildcmd"]
+    }
+
+    ## Called by the runnables, returns the run command for this particular build.
+    proc GetRunCmd {build} {
+      global builddict
+      return [dict get $builddict $build "runcmd"]
+    }
+
+    proc GetBuildDir {build} {
+      global builddict
+      return [dict get $builddict $build "builddir"]
+    }
+
+    ## Called by the runnables, returns a list of tests to run for
+    ## a specified build.  If collapse is set, only return one 
+    ## instance of each test.  Otherwise, return one instance for
+    ## each seed.
+    proc GetTestcases {build collapse} {
+      global tcdict
+      set ret ""
+      dict for {test seeds} [dict get $tcdict $build] {
+        if {$collapse == 1} {
+          lappend ret [format "%s-%s-%s" $build $test [lindex $seeds 0]]
+        } else {
+          for {set repeat 0} {$repeat &lt; [llength $seeds]} {incr repeat} {
+            lappend ret [format "%s-%s-%d-%s" $build $test $repeat [lindex $seeds $repeat]]
+          }
+        }
+      }
+      return $ret
+    }
+
+    proc FindMVCHome { Makefile_name } {
+      set matchcnt [llength [fileutil::grep "mvchome" $Makefile_name]]
+      return $matchcnt
+    }
+
+    ## This will cause all UCDBs to be merged regardless of test status.  Default is to not merge in failing tests.
+    ## If a test does not pass, strip all coverage information except for assertions but include it in the merge.  The
+    ## intent is to ensure that test pass/fail information is maintained but bad tests do not contribute towards
+    ## coverage
+    proc OkToMerge {userdata} {
+      upvar $userdata data
+      set passfail $data(passfail)
+      set ucdbfile $data(ucdbfile)
+      if { ![ string match "passed" $passfail ] } {
+        exec vsim -c -viewcov $ucdbfile -do "coverage edit -keeponly -assert; coverage save $ucdbfile; quit"
+      }
+      return 1
+    }
+
+  </usertcl>
+
+</rmdb>

@@ -1,0 +1,76 @@
+uvmf:
+  interfaces:
+    ccs:
+      clock: clk
+      config_constraints: []
+      config_vars:
+      - comment: ''
+        isrand: 'False'
+        name: protocol_kind
+        type: bit [2:0]
+        value: '0'
+      - comment: ''
+        isrand: 'False'
+        name: reset_polarity
+        type: bit
+        value: '0'
+      existing_library_component: 'True'
+      gen_inbound_streaming_driver: 'False'
+      hdl_pkg_parameters: []
+      hdl_typedefs:
+      - name: protocol_kind_t
+        type: enum bit[2:0] {CCS = 3'b000, CCS_RDY = 3'b001, CCS_VLD = 3'b010, CCS_WAIT = 3'b011, CCS_SYNC = 3'b100}
+      hvl_pkg_parameters: []
+      hvl_typedefs: []
+      parameters:
+      - name: WIDTH
+        type: int
+        value: '32'
+      ports:
+      - dir: input
+        name: rdy
+        reset_value: '''b0'
+        width: '1'
+      - dir: output
+        name: vld
+        reset_value: '''b0'
+        width: '1'
+      - dir: output
+        name: dat
+        reset_value: '''b0'
+        width: WIDTH
+      reset: rst
+      reset_assertion_level: 'False'
+      response_info:
+        data: []
+        operation: 1'b1
+      transaction_constraints:
+      - comment: ''
+        name: wait_cycles_c
+        value: '{ wait_cycles <= 0; } // Constrain wait_cycles to be 0 cycles (no delay) for base test'
+      transaction_vars:
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: rtl_data
+        type: bit [WIDTH-1:0]
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'False'
+        isrand: 'True'
+        name: wait_cycles
+        type: int unsigned
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'False'
+        isrand: 'False'
+        name: iteration_count
+        type: int unsigned
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'False'
+        isrand: 'False'
+        name: empty
+        type: bit
+        unpacked_dimension: ''
+      use_dpi_link: 'False'

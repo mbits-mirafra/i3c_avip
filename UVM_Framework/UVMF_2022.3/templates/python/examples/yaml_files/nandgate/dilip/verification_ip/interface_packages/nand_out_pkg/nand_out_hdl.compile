@@ -1,0 +1,9 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ./nand_out_common.compile
+incdir:
+  - .
+src:
+  - src/nand_out_if.sv
+  - src/nand_out_monitor_bfm.sv
+  - src/nand_out_driver_bfm.sv

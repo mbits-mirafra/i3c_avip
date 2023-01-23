@@ -1,0 +1,121 @@
+{% set fname = "project_benches/{{name}}/tb/testbench/hdl_top.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Simulation Bench 
+// Unit            : HDL top level module
+// File            : hdl_top.sv
+//----------------------------------------------------------------------
+//                                          
+// Description: This top level module instantiates all synthesizable
+//    static content.  This and tb_top.sv are the two top level modules
+//    of the simulation.  
+//
+//    This module instantiates the following:
+//        DUT: The Design Under Test
+//        Interfaces:  Signal bundles that contain signals connected to DUT
+//        Driver BFM's: BFM's that actively drive interface signals
+//        Monitor BFM's: BFM's that passively monitor interface signals
+//
+//----------------------------------------------------------------------
+//
+{% endblock %}
+
+{% block contents %}
+
+import {{name}}_parameters_pkg::*;
+{% for agent in qvip_bfm_pkgs %}
+import {{agent}}_params_pkg::*;
+{% endfor %}
+import uvmf_base_pkg_hdl::*;
+
+
+
+module hdl_top;
+{% if veloceReady %}
+// pragma attribute hdl_top partition_module_xrtl                                            
+{% endif %}
+
+{% for agent in qvip_bfm_pkgs %}
+hdl_{{agent}} qvip_{{agent}}();
+{% endfor %}
+{% if veloceReady %}
+
+wire rst;
+wire clk;
+    clock_bfm #(CLK_PHASE_OFFSET_IN_PS) clk_if_h(clk);
+    sync_reset_bfm #(RST_POLARITY)      rst_if_h(clk, rst);
+
+{% else %}
+
+bit rst;
+bit clk;
+   // Instantiate a clk driver 
+   // tbx clkgen
+   initial begin
+      clk = 0;
+      #5ns;
+      forever #10ns clk = ~clk;
+   end
+   // Instantiate a rst driver
+   initial begin
+      repeat (10) @(posedge clk);
+      rst <= 1'b1;
+   end
+
+{% endif %}
+
+
+// Instantiate the signal bundle, monitor bfm and driver bfm for each interface.
+// The signal bundle, _if, contains signals to be connected to the DUT.
+// The monitor, monitor_bfm, observes the bus, _if, and captures transactions.
+// The driver, driver_bfm, drives transactions onto the bus, _if.
+
+{% for bfm in bfms %}
+{{bfm.ifPkg}}_if {% if bfm.parameters|length > 0 %}#({% endif %}{% for param in bfm.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if bfm.parameters|length > 0 %}) {% endif %} {{bfm.name}}_bus(.{{bfm.clk}}(clk), .{{bfm.rst}}(rst));
+{% endfor %}
+
+{% for bfm in bfms %}
+{{bfm.ifPkg}}_monitor_bfm {% if bfm.parameters|length > 0 %}#({% endif %}{% for param in bfm.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if bfm.parameters|length > 0 %}) {% endif %} {{bfm.name}}_mon_bfm({{bfm.name}}_bus);
+{% endfor %}
+
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+{{bfm.ifPkg}}_driver_bfm {% if bfm.parameters|length > 0 %}#({% endif %}{% for param in bfm.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if bfm.parameters|length > 0 %}) {% endif %} {{bfm.name}}_drv_bfm({{bfm.name}}_bus);
+{% endif %}
+{% endfor %}
+
+
+// UVMF_CHANGE_ME : Add DUT and connect to signals in _bus interfaces listed above
+// Instantiate DUT here
+
+initial begin {% if veloceReady %} // tbx vif_binding_block 
+{% endif %}
+    import uvm_pkg::uvm_config_db;
+// The monitor_bfm and driver_bfm for each interface is placed into the uvm_config_db.
+// They are placed into the uvm_config_db using the string names defined in the parameters package.
+// The string names are passed to the agent configurations by test_top through the top level configuration.
+// They are retrieved by the agents configuration class for use by the agent.
+
+{% for bfm in bfms %}
+uvm_config_db #( virtual {{bfm.ifPkg}}_monitor_bfm {% if bfm.parameters|length > 0 %}#({% endif %}{% for param in bfm.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if bfm.parameters|length > 0 %}) {% endif %} )::set( null , UVMF_VIRTUAL_INTERFACES , {{bfm.ifPkg}}_pkg_{{bfm.name}}_BFM , {{bfm.name}}_mon_bfm ); 
+{% endfor %}
+
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+uvm_config_db #( virtual {{bfm.ifPkg}}_driver_bfm {% if bfm.parameters|length > 0 %}#({% endif %}{% for param in bfm.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if bfm.parameters|length > 0 %}) {% endif %} )::set( null , UVMF_VIRTUAL_INTERFACES , {{bfm.ifPkg}}_pkg_{{bfm.name}}_BFM , {{bfm.name}}_drv_bfm  );
+{% endif %}
+{% endfor %}
+
+{% if veloceReady %}
+      uvm_config_db #(virtual clock_bfm #(CLK_PHASE_OFFSET_IN_PS))::set(null, UVMF_VIRTUAL_INTERFACES, CLOCK_CONTROLLER, clk_if_h);
+      uvm_config_db #(virtual sync_reset_bfm #(RST_POLARITY))::set(null, UVMF_VIRTUAL_INTERFACES, RESET_CONTROLLER, rst_if_h);
+{% endif %}
+
+  end
+
+endmodule
+
+{% endblock %}

@@ -1,0 +1,97 @@
+uvmf:
+  interfaces:
+    wb:
+      clock: clk
+      config_constraints: []
+      config_vars: []
+      gen_inbound_streaming_driver: 'False'
+      hdl_pkg_parameters: []
+      hdl_typedefs:
+      - name: wb_op_t
+        type: enum {WB_RESET, WB_WRITE, WB_READ}
+      hvl_pkg_parameters: []
+      hvl_typedefs: []
+      parameters:
+      - name: WB_ADDR_WIDTH
+        type: int
+        value: '32'
+      - name: WB_DATA_WIDTH
+        type: int
+        value: '16'
+      ports:
+      - dir: output
+        name: inta
+        reset_value: '''b0'
+        width: '1'
+      - dir: output
+        name: cyc
+        reset_value: '0'
+        width: '1'
+      - dir: output
+        name: stb
+        reset_value: '0'
+        width: '1'
+      - dir: output
+        name: adr
+        reset_value: '''b0'
+        width: WB_ADDR_WIDTH
+      - dir: output
+        name: we
+        reset_value: '0'
+        width: '1'
+      - dir: output
+        name: dout
+        reset_value: '''b0'
+        width: WB_DATA_WIDTH
+      - dir: input
+        name: din
+        reset_value: '''b0'
+        width: WB_DATA_WIDTH
+      - dir: output
+        name: err
+        reset_value: '''b0'
+        width: '1'
+      - dir: output
+        name: rty
+        reset_value: '''b0'
+        width: '1'
+      - dir: input
+        name: sel
+        reset_value: '''b0'
+        width: WB_DATA_WIDTH/8
+      - dir: input
+        name: q
+        reset_value: '''b0'
+        width: WB_DATA_WIDTH
+      - dir: input
+        name: ack
+        reset_value: 1'b0
+        width: '1'
+      reset: rst
+      reset_assertion_level: 'False'
+      response_info:
+        data: []
+        operation: 1'b1
+      transaction_constraints: []
+      transaction_vars:
+      - iscompare: 'False'
+        isrand: 'True'
+        name: op
+        type: wb_op_t
+        unpacked_dimension: ''
+      - iscompare: 'True'
+        isrand: 'True'
+        name: data
+        type: bit [WB_DATA_WIDTH-1:0]
+        unpacked_dimension: ''
+      - iscompare: 'True'
+        isrand: 'True'
+        name: addr
+        type: bit [WB_ADDR_WIDTH-1:0]
+        unpacked_dimension: ''
+      - iscompare: 'True'
+        isrand: 'True'
+        name: byte_select
+        type: bit [(WB_DATA_WIDTH/8)-1:0]
+        unpacked_dimension: ''
+      use_dpi_link: 'False'

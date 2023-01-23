@@ -1,0 +1,39 @@
+#-------------------------------------------------------------------------------
+# MetaData - Settings for this Template 
+#-------------------------------------------------------------------------------
+%metadata_begin
+  # Specify the version of your template
+  ::TemplateApi::setTmplSvtVersionOp "1.0" 
+  
+  # Specify the Type, Category and Description for this template
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Type"        -propertyValue "FILE"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Category"    -propertyValue "systemverilog_v1|Package"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Description" -propertyValue "Create a SystemVerilog Package" 
+
+  # Optionally declare the variables used in the template with defaults & descriptions
+  ::TemplateApi::addTmplVariableOp -name SV_PACKAGE  -desc "SystemVerilog Package Name" 
+
+  # Optionally initialize variable in included templates with the value of another variable  
+  ::TemplateApi::addTmplVariableOp -name UNIT_NAME -default %(SV_PACKAGE) -prompt 0
+  
+  # Specify the File naming rule for the file generated from this template
+  ::TemplateApi::setTmplFileNamingRuleOp "%(SV_PACKAGE).sv"
+%metadata_end
+
+
+#-------------------------------------------------------------------------------
+# Template code 
+#-------------------------------------------------------------------------------
+%text_begin
+%INCLUDE(-templateCategory "Header" -templateName "file_header.svt")
+
+//----------------------------------------------------------------------
+// %(SV_PACKAGE)
+//----------------------------------------------------------------------
+package %(SV_PACKAGE);
+  
+
+   
+endpackage: %(SV_PACKAGE)
+
+%text_end   

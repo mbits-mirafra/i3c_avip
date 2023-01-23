@@ -1,0 +1,6 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/{{name}}_pkg_hdl.vinfo" %}
+{% block contents %}
++incdir+@vinfodir
+@use ../../../uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+{{name}}_pkg_hdl.sv
+{% endblock %}

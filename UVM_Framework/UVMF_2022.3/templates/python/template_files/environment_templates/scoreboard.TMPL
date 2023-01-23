@@ -1,0 +1,192 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{env_name}}_env_pkg/{{src_dir}}{{name}}.svh" %}
+{% set conditional = "scoreboard" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//
+// DESCRIPTION: This analysis component contains analysis_exports for receiving
+//   data and analysis_ports for sending data.
+// 
+//   This analysis component has the following analysis_exports that receive the 
+//   listed transaction type.
+//   
+{% for export in exports %}
+//   {{export.name}} receives transactions of type  {{export.tType}}  
+{% endfor %}
+//
+//   This analysis component has the following analysis_ports that can broadcast 
+//   the listed transaction type.
+//
+{% for port in ports %}
+//  {{port.name}} broadcasts transactions of type {{port.tType}} 
+{% endfor %}
+//----------------------------------------------------------------------
+{% endblock %}
+{% block contents %}
+
+
+class {{name}} {{macro.paramDeclare(parameters)|indent(2)}} extends BASE_T;
+
+  // Factory registration of this class
+{{macro.compUtils(name,parameters)}}
+
+{% for DPIImport in DPIImports %}
+  // System Verilog variables for C function {{DPIImport.type}} {{DPIImport.name}} {{DPIImport.cArgs}} 
+{% for argument in DPIImport.arguments %}
+  {{argument['type']}}  {{argument['name']}} {{argument['unpacked_dimension']}};
+{% endfor %}
+{% endfor %}
+
+  // Instantiate a handle to the configuration of the environment in which this component resides
+  CONFIG_T configuration;
+
+{% if exports|length > 0 %}  
+  // Instantiate the analysis exports
+{% endif %}
+{% for export in exports %}
+  uvm_analysis_imp_{{export.name}} #({{export.tType}}, {{name}} {{macro.paramUse(parameters)|indent(30)}}) {{export.name}};
+{% endfor %}
+
+{% if ports|length > 0 %}  
+  // Instantiate the analysis ports
+{% endif %}
+{% for port in ports %}
+  uvm_analysis_port #({{port.tType}}) {{port.name}};
+{% endfor %}
+
+{% if qvip_exports|length > 0 %} 
+  // Instantiate QVIP analysis exports
+{% endif %}
+{% for export in qvip_exports %}
+  uvm_analysis_imp_{{export.name}} #(mvc_sequence_item_base, {{name}} {{macro.paramUse(parameters)|indent(30)}}) {{export.name}};
+{% endfor %}
+
+{% for port in ports %}
+  // Transaction variable for predicted values to be sent out {{port.name}}
+  typedef {{port.tType}} {{port.name}}_output_transaction_t;
+  {{port.name}}_output_transaction_t {{port.name}}_output_transaction;
+  // Code for sending output transaction out through {{port.name}}
+  // {{port.name}}.write({{port.name}}_output_transaction);
+{% endfor %}
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+
+  // FUNCTION: new
+  function new(string name, uvm_component parent);
+     super.new(name,parent);
+  // pragma uvmf custom new begin
+  // pragma uvmf custom new end
+  endfunction
+
+  // FUNCTION: build_phase
+  virtual function void build_phase (uvm_phase phase);
+
+{% for export in exports %}
+    {{export.name}} = new("{{export.name}}", this);
+{% endfor %}
+{% for export in qvip_exports %}
+    {{export.name}} = new("{{export.name}}", this);
+{% endfor %}
+{% for port in ports %}
+    {{port.name}} =new("{{port.name}}", this );
+{% endfor %}
+  // pragma uvmf custom build_phase begin
+  // pragma uvmf custom build_phase end
+  endfunction
+
+{% for export in exports %}
+  // FUNCTION: write_{{export.name}}
+  // Transactions received through {{export.name}} initiate the execution of this function.
+  // This function performs prediction of DUT output values based on DUT input, configuration and state
+  virtual function void write_{{export.name}}({{export.tType}} t);
+    // pragma uvmf custom {{export.name}}_scoreboard begin
+    `uvm_info("PRED", "Transaction Received through {{export.name}}", UVM_MEDIUM)
+    `uvm_info("PRED", {"            Data: ",t.convert2string()}, UVM_FULL)
+{% if ports|length > 0 %}
+    // Construct one of each output transaction type.
+{% endif %}
+{% for port in ports %}
+    {{port.name}}_output_transaction = {{port.name}}_output_transaction_t::type_id::create("{{port.name}}_output_transaction");
+{% endfor %}
+    //  UVMF_CHANGE_ME: Implement custom scoreboard here.  
+    `uvm_info("UNIMPLEMENTED_CUSTOM_SCOREBOARD", "******************************************************************************************************",UVM_NONE)
+    `uvm_info("UNIMPLEMENTED_CUSTOM_SCOREBOARD", "UVMF_CHANGE_ME: The {{name}}::write_{{export.name}} function needs to be completed with custom scoreboard functionality",UVM_NONE)
+    `uvm_info("UNIMPLEMENTED_CUSTOM_SCOREBOARD", "******************************************************************************************************",UVM_NONE)
+{% for DPIImport in DPIImports %}
+    // Calling C functions
+    {{DPIImport.name}}({% for argument in DPIImport.arguments %}{{argument['name']}}{% if not loop.last %},{% endif %}{% endfor %});
+{% endfor %} 
+{% for port in ports %}
+    // Code for sending output transaction out through {{port.name}}
+    {{port.name}}.write({{port.name}}_output_transaction);
+{% endfor %}
+    // pragma uvmf custom {{export.name}}_scoreboard end
+  endfunction
+
+{% endfor %}
+
+{% for export in qvip_exports %}
+  // FUNCTION: write_{{export.name}}
+  // QVIP transactions received through {{export.name}} initiate the execution of this function.
+  // This function casts incoming QVIP transactions into the correct protocol type and then performs prediction 
+  // of DUT output values based on DUT input, configuration and state
+  virtual function void write_{{export.name}}(mvc_sequence_item_base _t);
+    // pragma uvmf custom {{export.name}}_scoreboard begin
+    {{export.tType}} t;
+    if (!$cast(t,_t)) begin
+      `uvm_fatal("PRED","Cast from mvc_sequence_item_base to {{export.tType}} in write_{{export.name}} failed!")
+    end
+    `uvm_info("PRED", "Transaction Received through {{export.name}}", UVM_MEDIUM)
+    `uvm_info("PRED",{"            Data: ",t.convert2string()}, UVM_FULL)
+{% if ports|length > 0 %}
+    // Construct one of each output transaction type.
+{% endif %}
+{% for port in ports %}
+    {{port.name}}_output_transaction = {{port.name}}_output_transaction_t::type_id::create("{{port.name}}_output_transaction");
+{% endfor %}
+    //  UVMF_CHANGE_ME: Implement custom scoreboard here.  
+    `uvm_info("UNIMPLEMENTED_CUSTOM_SCOREBOARD", "******************************************************************************************************",UVM_NONE)
+    `uvm_info("UNIMPLEMENTED_CUSTOM_SCOREBOARD", "UVMF_CHANGE_ME: The {{name}}::write_{{export.name}} function needs to be completed with custom scoreboard functionality",UVM_NONE)
+    `uvm_info("UNIMPLEMENTED_CUSTOM_SCOREBOARD", "******************************************************************************************************",UVM_NONE)
+{% for DPIImport in DPIImports %}
+    // Calling C functions
+    {{DPIImport.name}}({% for argument in DPIImport.arguments %}{{argument['name']}}{% if not loop.last %},{% endif %}{% endfor %});
+{% endfor %} 
+{% for port in ports %}
+    // Code for sending output transaction out through {{port.name}}
+    {{port.name}}.write({{port.name}}_output_transaction);
+{% endfor %}
+    // pragma uvmf custom {{export.name}}_scoreboard end
+  endfunction
+  
+{% endfor %}
+
+  // FUNCTION: extract_phase
+  virtual function void extract_phase(uvm_phase phase);
+// pragma uvmf custom extract_phase begin
+     super.extract_phase(phase);
+// pragma uvmf custom extract_phase end
+  endfunction
+
+  // FUNCTION: check_phase
+  virtual function void check_phase(uvm_phase phase);
+// pragma uvmf custom check_phase begin
+     super.check_phase(phase);
+// pragma uvmf custom check_phase end
+  endfunction
+
+  // FUNCTION: report_phase
+  virtual function void report_phase(uvm_phase phase);
+// pragma uvmf custom report_phase begin
+     super.report_phase(phase);
+// pragma uvmf custom report_phase end
+  endfunction
+
+endclass 
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

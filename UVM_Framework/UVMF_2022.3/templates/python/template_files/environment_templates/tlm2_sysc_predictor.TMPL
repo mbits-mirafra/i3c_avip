@@ -1,0 +1,276 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{env_name}}_env_pkg/{{src_dir}}{{name}}.svh" %}
+{% set conditional = "tlm2_sysc_predictor" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// DESCRIPTION: This analysis component contains analysis_exports for receiving
+//   data and analysis_ports for sending data.
+// 
+//   This analysis component has the following analysis_exports that receive the 
+//   listed transaction type.
+//   
+{% for export in exports %}
+//     {{export.name}} receives transactions of type  {{export.tType}}  
+{% endfor %}
+//
+//   This analysis component has the following analysis_ports that can broadcast 
+//   the listed transaction type.
+//
+{% for port in ports %}
+//     {{port.name}} broadcasts transactions of type {{port.tType}} 
+{% endfor %}
+//----------------------------------------------------------------------
+{% endblock %}
+{% block contents %}
+
+import uvmc_pkg::*;
+
+// ===========================================================================
+// use UVM "imp" (implementation) macros to define unique target socket classname
+// `uvm_tlm_b_target_socket_decl(_XXX)   Will implement "b_transport_XXX"  for the user
+// `uvm_tlm_nb_target_socket_decl(_XXX)  Will implement "nb_transport_XXX" for the user
+// `include "uvm_tlm_target_socket_decl.svh"
+// =-=-=-=-=-=-=-=-=-=-=-=-=-= BEGIN INLINED INCLUDE
+//-------------------------------------------------------------------------------------
+//
+// Macro to create a tlm target socket with a user-defined b_transport(), nb_transport_fw callback name
+//
+//-------------------------------------------------------------------------------------
+
+
+////////////////////////////////////////////
+/// b_transport_XXX IMP
+////////////////////////////////////////////
+
+`define UVM_TLM_B_TRANSPORT_IMP_DECL(SFX,imp, T, t, delay)     \
+  task b_transport(T t, uvm_tlm_time delay);                   \
+    if (delay == null) begin                                   \
+       `uvm_error("PRED",                         \
+                  {get_full_name(),                            \
+                   ".b_transport() called with 'null' delay"}) \
+       return;                                                 \
+    end                                                        \
+    imp.b_transport``SFX(t, delay);                            \
+  endtask
+
+
+`define uvm_tlm_b_target_socket_decl(SFX)                               \
+class uvm_tlm_b_target_socket``SFX #(type IMP=int,                      \
+                                     type T=uvm_tlm_generic_payload)    \
+  extends uvm_tlm_b_target_socket_base #(T);                            \
+                                                                        \
+  local IMP m_imp;                                                      \
+                                                                        \
+  function new (string name, uvm_component parent, IMP imp = null);     \
+    super.new (name, parent);                                           \
+    if (imp == null) $cast(m_imp, parent);                              \
+    else m_imp = imp;                                                   \
+    if (m_imp == null)                                                  \
+       `uvm_error("PRED", {"b_target socket ", name,          \
+                                     " has no implementation"});        \
+  endfunction                                                           \
+                                                                        \
+  function void connect(this_type provider);                            \
+                                                                        \
+    uvm_component c;                                                    \
+                                                                        \
+    super.connect(provider);                                            \
+                                                                        \
+    c = get_comp();                                                     \
+    `uvm_error_context("PRED",                                 \
+       "You cannot call connect() on a target termination socket", c)   \
+  endfunction                                                           \
+                                                                        \
+  `UVM_TLM_B_TRANSPORT_IMP_DECL(SFX,m_imp, T, t, delay)                 \
+endclass
+
+
+////////////////////////////////////////////
+/// nb_transport_fw_XXX IMP
+////////////////////////////////////////////
+
+`define UVM_TLM_NB_TRANSPORT_FW_IMP_DECL(SFX,imp, T, P, t, p, delay)                \
+  function uvm_tlm_sync_e nb_transport_fw(T t, ref P p, input uvm_tlm_time delay);  \
+    if (delay == null) begin                                                        \
+       `uvm_error("PRED",                                              \
+                  {get_full_name(),                                                 \
+                   ".nb_transport_fw() called with 'null' delay"})                  \
+       return UVM_TLM_COMPLETED;                                                    \
+    end                                                                             \
+    return imp.nb_transport_fw``SFX(t, p, delay);                                   \
+  endfunction
+
+
+`define uvm_tlm_nb_target_socket_decl(SFX)                              \
+class uvm_tlm_nb_target_socket``SFX #(type IMP=int                      \
+                                     ,type T=uvm_tlm_generic_payload    \
+                                     ,type P=uvm_tlm_phase_e)           \
+  extends uvm_tlm_nb_target_socket_base #(T,P);                         \
+                                                                        \
+  local IMP m_imp;                                                      \
+                                                                        \
+  function new (string name, uvm_component parent, IMP imp = null);     \
+    super.new (name, parent);                                           \
+    if (imp == null) $cast(m_imp, parent);                              \
+    else m_imp = imp;                                                   \
+    bw_port = new("bw_port", get_comp());                               \
+    if (m_imp == null)                                                  \
+       `uvm_error("PRED", {"nb_target socket ", name,         \
+                                     " has no implementation"});        \
+  endfunction                                                           \
+                                                                        \
+  function void connect(this_type provider);                            \
+                                                                        \
+    uvm_component c;                                                    \
+                                                                        \
+    super.connect(provider);                                            \
+                                                                        \
+    c = get_comp();                                                     \
+    `uvm_error_context("PRED",                                 \
+       "You cannot call connect() on a target termination socket", c)   \
+  endfunction                                                           \
+                                                                        \
+  `UVM_TLM_NB_TRANSPORT_FW_IMP_DECL(SFX,m_imp, T, P, t, p, delay)       \
+endclass
+// =-=-=-=-=-=-=-=-=-=-=-=-=-= END INLINED INCLUDE
+
+
+
+{% for port in ports %}
+// Create target socket callbacks (b_transport, nb_transport_fw) with an appended name for uniqueness.
+`uvm_tlm_nb_target_socket_decl(_gp_{{port.name}})
+{% endfor %}
+// ===========================================================================
+
+class {{name}} {{macro.paramDeclare(parameters)|indent(2)}} extends uvm_component;
+
+  // Factory registration of this class
+{{macro.compUtils(name,parameters)}}
+
+  // Instantiate a handle to the configuration of the environment in which this component resides
+  CONFIG_T configuration;
+
+  // Instantiate the analysis exports
+{% for export in exports %}
+
+  // Transaction sequence items from agent monitor for Catapult resource arrive on this export
+  uvm_analysis_imp_{{export.name}} #({{export.tType}}, {{name}} {{macro.paramUse(parameters)|indent(30)}}) {{export.name}};
+  // Transaction sequence items converted to GP are sent out the nb port to SysC
+  uvm_tlm_nb_transport_fw_port #(uvm_tlm_generic_payload) gp_{{export.name}};
+
+{% endfor %}
+
+
+  // Instantiate the analysis ports
+{% for port in ports %}
+
+  // GP items from analysis port of Catapult C++ Predictor arrive on this port (blocking)
+  uvm_tlm_nb_target_socket_gp_{{port.name}} #({{name}} {{macro.paramUse(parameters)|indent(30)}},uvm_tlm_generic_payload,uvm_tlm_phase_e)  gp_{{port.name}};
+  // GP items are converted to transactions and sent out this analysis port to scoreboard
+  uvm_analysis_port #({{port.tType}}) {{port.name}};
+
+{% endfor %}
+
+{% for port in ports %}
+  // Transaction variable for predicted values to be sent out {{port.name}}
+  // {{port.tType}} {{port.name}}_output_transaction;
+  // Code for sending output transaction out through {{port.name}}
+  // {{port.name}}.write({{port.name}}_output_transaction);
+
+{% endfor %}
+
+  // FUNCTION: new
+  function new(string name, uvm_component parent);
+     super.new(name,parent);
+  endfunction
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+
+  // FUNCTION: build_phase
+  virtual function void build_phase (uvm_phase phase);
+    // Ports/Exports for transactions coming into predictor
+{% for export in exports %}
+    {{export.name}} = new("{{export.name}}", this);
+    gp_{{export.name}} = new("gp_{{export.name}}", this);
+{% endfor %}
+
+    // Ports for transactions coming out of predictor
+{% for port in ports %}
+    gp_{{port.name}} =new("gp_{{port.name}}", this );
+    {{port.name}} =new("{{port.name}}", this );
+{% endfor %}
+
+  endfunction
+
+  // FUNCTION: connect_phase
+  virtual function void connect_phase (uvm_phase phase);
+    super.connect_phase(phase);
+    // Connect tlm2 GP port to uvmc
+{% for export in exports %}
+    uvmc_tlm #(uvm_tlm_generic_payload)::connect(this.gp_{{export.name}},"gp_{{export.name}}");
+{% endfor %}
+{% for port in ports %}
+    uvmc_tlm #(uvm_tlm_generic_payload)::connect(this.gp_{{port.name}},"gp_{{port.name}}");
+{% endfor %}
+  endfunction
+
+{% for export in exports %}
+  // FUNCTION: write_{{export.name}}
+  // Transactions received through {{export.name}} initiate the execution of this function.
+  // Convert to TLM Generic Payload and write out to port (non-blocking)
+  //   phase always BEGIN_REQ (ignored by SystemC TLM code), status should always
+  //   be returned as UVM_TLM_COMPLETED (guaranteed by SystemC TLM code).
+  //
+  virtual function void write_{{export.name}}({{export.tType}} t);
+    uvm_tlm_sync_e status;
+    uvm_tlm_phase_e phase;
+    uvm_tlm_time delay = new("del", 1e-12);
+    `uvm_info("PRED",           "Transaction Received through {{export.name}}", UVM_HIGH)
+    `uvm_info("PRED", $psprintf("            Data: %s",t.convert2string()), UVM_FULL)
+    status = gp_{{export.name}}.nb_transport_fw(t.to_gp(),phase,delay);
+    if ( status != UVM_TLM_COMPLETED )
+      `uvm_error("PRED", "SystemC TLM did not return UVM_TLM_COMPLETED")
+  endfunction
+
+{% endfor %}
+
+{% for port in ports %}
+
+  //============================================================================================
+  // FUNCTION: nb_transport_fw_gp_{{port.name}}
+  // Non-Blocking nb_transport_fw callback for gp_{{port.name}} connection
+  //  - executed when SystemC TLM2 wrapper writes to output analysis port "gp_{{port.name}}_ap"
+  //
+  virtual function uvm_tlm_sync_e nb_transport_fw_gp_{{port.name}}(uvm_tlm_generic_payload gp, ref uvm_tlm_phase_e phase, input uvm_tlm_time delay);
+    int  unsigned  i;
+    bit  [63:0]    addr       = gp.get_address();   // actually 64 bit address
+    int  unsigned  size       = gp.get_data_length;
+    byte unsigned  gpData[]   = new[size];
+    {{port.tType}} {{port.name}}_output_transaction;
+	 if (gp.is_write()) begin
+      gp.get_data(gpData);
+      // create new transaction object
+      {{port.name}}_output_transaction = {{port.tType}}::type_id::create("{{port.name}}_output_transaction");
+      {{port.name}}_output_transaction.from_gp(gp); // transfer GP data into transaction
+      `uvm_info("PRED",           "Transaction Received through {{port.name}}", UVM_MEDIUM)
+      `uvm_info("PRED", $psprintf("            Data: %s",{{port.name}}_output_transaction.convert2string()), UVM_HIGH);
+      {{port.name}}.write({{port.name}}_output_transaction); // write to analysis port
+    end
+    else begin
+      $write("Debug nb_transport_fw_gp_{{port.name}}: @ %t: READ - NYI", $time);
+      $display("");
+    end
+    phase = END_RESP;
+  endfunction: nb_transport_fw_gp_{{port.name}}
+
+{% endfor %}
+
+endclass 
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

@@ -1,0 +1,87 @@
+uvmf:
+  interfaces:
+    FPU_out:
+      clock: clk
+      reset: rst
+      reset_assertion_level: 'False'
+
+      config_constraints: []
+      config_vars: []
+
+      hdl_typedefs:
+      - name: status_t
+        type: enum {STATUS_INEXACT, STATUS_OVERFLOW, STATUS_UNDERFLOW, STATUS_DIV_ZERO, STATUS_INFINITY, STATUS_ZERO, STATUS_QNAN, STATUS_SNAN, STATUS_SIZE}
+      - name: status_vector_t
+        type: bit [STATUS_SIZE-1:0]
+      hvl_typedefs: []
+
+ 
+      ports:
+      - name: ine
+        dir: input
+        width: '1'
+      - name: overflow
+        dir: input
+        width: '1'
+      - name: underflow
+        dir: input
+        width: '1'
+      - name: div_zero
+        dir: input
+        width: '1'
+      - name: inf
+        dir: input
+        width: '1'
+      - name: zero
+        dir: input
+        width: '1'
+      - name: qnan
+        dir: input
+        width: '1'
+      - name: snan
+        dir: input
+        width: '1'
+      - name: ready
+        dir: input
+        width: '1'
+        
+      response_info:
+        data: []
+        operation: 1'b0
+ 
+      transaction_constraints: []
+      transaction_vars:
+      - name: ine
+        type: bit
+        iscompare: 'True'
+        isrand: 'False'
+      - name: overflow
+        type: bit
+        iscompare: 'True'
+        isrand: 'False'
+      - name: underflow
+        type: bit
+        iscompare: 'True'
+        isrand: 'False'
+      - name: div_zero
+        type: bit
+        iscompare: 'True'
+        isrand: 'False'
+      - name: inf
+        type: bit
+        iscompare: 'True'
+        isrand: 'False'
+      - name: zero
+        type: bit
+        iscompare: 'True'
+        isrand: 'False'
+      - name: qnan
+        type: bit
+        iscompare: 'True'
+        isrand: 'False'
+      - name: snan
+        type: bit
+        iscompare: 'True'
+        isrand: 'False'
+
+        

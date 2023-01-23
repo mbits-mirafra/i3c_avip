@@ -1,0 +1,8 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../../verification_ip/interface_packages/nand_in_pkg/nand_in_hvl.compile
+  - ../../../verification_ip/interface_packages/nand_out_pkg/nand_out_hvl.compile
+
+src:
+  - nand_env_env_pkg.sv
+

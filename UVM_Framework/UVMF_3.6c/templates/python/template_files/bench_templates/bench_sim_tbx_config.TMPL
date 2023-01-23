@@ -1,0 +1,14 @@
+{% set fname = "project_benches/{{name}}/sim/tbx.config" %}
+
+{% block description %}
+
+{% endblock %}
+
+{% block contents %}
+
+comp -questa
+velsyn -D1S
+rtlc -allow_4ST
+
+{% endblock %}
+

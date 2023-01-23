@@ -1,0 +1,15 @@
+uvmf:
+  benches:
+    axi4_2x2_fabric:
+      active_passive: []
+      clock_half_period: 5ns
+      clock_phase_offset: 9ns
+      existing_library_component: 'True'
+      imports:
+      - name: mvc_pkg
+      - name: mgc_axi4_v1_0_pkg
+      interface_params: []
+      reset_assertion_level: 'False'
+      reset_duration: 200ns
+      top_env: axi4_2x2_fabric
+      use_dpi_link: 'False'

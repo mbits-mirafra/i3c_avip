@@ -1,0 +1,41 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_infact_proj/{{name}}_infact_sequence/{{name}}_infact_sequence.svh" %}
+{% set conditional = "inFact" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface infact sequence
+// File            : {{name}}_infact_sequence.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This sequences is a place holder for the infact sequence which will 
+// reach full coverage for the {{name}} transaction without redundancy.
+//
+// ****************************************************************************
+// 
+class {{name}}_infact_sequence {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}} = {{param.value}}{% if not loop.last %},{% endif %}                                
+{% endfor %}      ) {% endif %}
+extends {{name}}_sequence_base {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                             .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %};
+
+{%if paramDefs|length > 0%}
+  `uvm_object_param_utils( {{name}}_infact_sequence #(
+  {% for param in paramDefs %}                            {{param.name}}{% if not loop.last %},{% endif %}
+
+  {% endfor %}                          ))
+{% else %}
+  `uvm_object_utils({{name}}_infact_sequence)
+{% endif %}
+
+//*****************************************************************
+  function new(string name = "");
+    super.new(name);
+  endfunction: new
+
+endclass: {{name}}_infact_sequence
+{% endblock %}

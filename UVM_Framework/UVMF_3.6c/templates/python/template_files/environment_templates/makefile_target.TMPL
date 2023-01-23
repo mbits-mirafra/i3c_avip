@@ -1,0 +1,9 @@
+{% set fname = "verification_ip/environment_packages/{{name}}_env_pkg/Makefile" %}
+# {{name}} environment packages source and make target
+
+{{name}}_ENV_PKG =\
+		 $(UVMF_VIP_LIBRARY_HOME)/environment_packages/{{name}}_env_pkg/{{name}}_env_pkg.sv
+
+comp_{{name}}_env_pkg:
+		$(HVL_COMP_CMD) +incdir+$(UVMF_VIP_LIBRARY_HOME)/environment_packages/{{name}}_env_pkg $({{name}}_ENV_PKG)
+

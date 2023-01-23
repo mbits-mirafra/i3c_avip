@@ -1,0 +1,26 @@
+## To instantiate this subenv in a higher level, use this structure:
+##  qvip_subenvs :
+##    - { name: "<instance_name_of_subenv>", type: "axi4_2x2_fabric_qvip" }
+uvmf:
+  qvip_library:
+    version: '2019.4'
+    date: '10/16/2019:13:47'
+  qvip_environments:
+     "axi4_2x2_fabric_qvip":
+        agents:
+          - name: 'mgc_axi4_m0'
+            imports:
+              - "mvc_pkg"
+              - "mgc_axi4_v1_0_pkg"
+          - name: 'mgc_axi4_m1'
+            imports:
+              - "mvc_pkg"
+              - "mgc_axi4_v1_0_pkg"
+          - name: 'mgc_axi4_s0'
+            imports:
+              - "mvc_pkg"
+              - "mgc_axi4_v1_0_pkg"
+          - name: 'mgc_axi4_s1'
+            imports:
+              - "mvc_pkg"
+              - "mgc_axi4_v1_0_pkg"

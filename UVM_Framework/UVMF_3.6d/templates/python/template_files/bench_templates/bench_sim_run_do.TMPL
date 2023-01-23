@@ -1,0 +1,38 @@
+{% set fname = "project_benches/{{name}}/sim/run.do" %}
+
+{% block description %}
+{% endblock %}
+
+{% block contents %}
+file delete -force *~ *.ucdb vsim.dbg *.vstf *.log work *.mem *.transcript.txt certe_dump.xml *.wlf transcript covhtmlreport VRMDATA
+file delete -force design.bin qwave.db dpiheader.h visualizer*.ses
+file delete -force veloce.med veloce.wave veloce.map tbxbindings.h modelsim.ini edsenv velrunopts.ini
+file delete -force sv_connect.*
+vlib work 
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+%UVMF_HOME%\common\fli_pkg %UVMF_HOME%\common\fli_pkg\fli_pkg.sv
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+%UVMF_HOME%\uvmf_base_pkg -F %UVMF_HOME%\uvmf_base_pkg\uvmf_base_pkg_filelist_hvl.f
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+%UVMF_HOME%\uvmf_base_pkg -F %UVMF_HOME%\uvmf_base_pkg\uvmf_base_pkg_filelist_hdl.f
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+%UVMF_HOME%\common\uvm_co_emulation_utilities\clock -F %UVMF_HOME%\common\uvm_co_emulation_utilities\clock\clock_filelist_hvl.f
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+%UVMF_HOME%\common\uvm_co_emulation_utilities\clock -F %UVMF_HOME%\common\uvm_co_emulation_utilities\clock\clock_filelist_hdl.f
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+%UVMF_HOME%\common\uvm_co_emulation_utilities\reset -F %UVMF_HOME%\common\uvm_co_emulation_utilities\reset\reset_filelist_hvl.f
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+%UVMF_HOME%\common\uvm_co_emulation_utilities\reset -F %UVMF_HOME%\common\uvm_co_emulation_utilities\reset\reset_filelist_hdl.f
+vlog %UVMF_HOME%\common\uvm_co_emulation_utilities\memload\memload_pkg.sv %UVMF_HOME%\common\uvm_co_emulation_utilities\memload\src\memload.cc -dpiheader dpiheader.h -ccflags "-FPIC -I\include -DQUESTA"
+
+{% for agent in agent_pkgs %}
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+..\..\..\verification_ip\interface_packages\{{agent}}_pkg -F ..\..\..\verification_ip\interface_packages\{{agent}}_pkg\{{agent}}_filelist_hvl.f 
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+..\..\..\verification_ip\interface_packages\{{agent}}_pkg -F ..\..\..\verification_ip\interface_packages\{{agent}}_pkg\{{agent}}_filelist_hdl.f 
+{% endfor %}
+
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+..\..\..\verification_ip\environment_packages\{{env_name}}_env_pkg ..\..\..\verification_ip\environment_packages\{{env_name}}_env_pkg\{{env_name}}_env_pkg.sv
+
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+..\..\..\project_benches\abc\tb\parameters ..\..\..\project_benches\abc\tb\parameters\abc_parameters_pkg.sv
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+..\..\..\project_benches\abc\tb\sequences ..\..\..\project_benches\abc\tb\sequences\abc_sequences_pkg.sv
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+..\..\..\project_benches\abc\tb\tests ..\..\..\project_benches\abc\tb\tests\abc_test_pkg.sv
+echo "Compile your DUT here"
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+\home\student\tools\QVIP\10.4b\questa_mvc_src\sv +incdir+..\..\..\project_benches\abc\tb\testbench -F ..\..\..\project_benches\abc\tb\testbench\top_filelist_hvl.f
+vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps   +incdir+..\..\..\project_benches\abc\tb\testbench -F ..\..\..\project_benches\abc\tb\testbench\top_filelist_hdl.f
+vopt -32     hvl_top hdl_top   -o optimized_batch_top_tb
+vopt -32  +acc    hvl_top hdl_top   -o optimized_debug_top_tb
+vsim -i  -32  -sv_seed random +UVM_TESTNAME=test_top +UVM_VERBOSITY=UVM_HIGH  -t 1ns -permit_unmatched_virtual_intf +notimingchecks -suppress 8887   -i -uvmcontrol=all -msgmode both -classdebug -assertdebug +uvm_set_config_int=*,enable_transaction_viewing,1  -do " set NoQuitOnFinish 1; onbreak {resume}; run 0; do wave.do; set PrefSource(OpenOnBreak) 0; radix hex showbase; " optimized_debug_top_tb  &
+{% endblock %}
+

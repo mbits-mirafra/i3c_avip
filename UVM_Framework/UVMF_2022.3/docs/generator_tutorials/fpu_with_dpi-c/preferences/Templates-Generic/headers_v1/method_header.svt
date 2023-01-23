@@ -1,0 +1,20 @@
+#-------------------------------------------------------------------------------
+# MetaData - Settings for this Template 
+#-------------------------------------------------------------------------------
+%metadata_begin
+  # Specify the version of your template
+  ::TemplateApi::setTmplSvtVersionOp "1.0" 
+  
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Type"        -propertyValue "SNIPPET"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Category"    -propertyValue "Header"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Description" -propertyValue "Method Header" 
+%metadata_end
+
+#-------------------------------------------------------------------------------
+# Template code 
+#-------------------------------------------------------------------------------
+%text_begin
+//----------------------------------------------------------------------
+// %(METHOD_NAME)
+//----------------------------------------------------------------------
+%text_end

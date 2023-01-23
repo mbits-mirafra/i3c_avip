@@ -1,0 +1,152 @@
+# The purpose of this file is meant to provide a
+# starting point for the creation of a new YAML environment
+# description. Uncomment what you require to define a
+# given environment YAML file.
+
+uvmf:
+#  util_components:
+#    "predictor_name" :
+#      type: "predictor"
+#      analysis_exports :
+#        - name: "analysis_export_name"
+#          type: "transaction_type_including_any_parameters"
+#      qvip_analysis_exports :
+#        - name: "analysis_export_name"
+#          type: "transaction_type_including_any_parameters"
+#      analysis_ports : 
+#        - name: "analysis_port_name"
+#          type: "transaction_type_including_any_parameters"
+#      parameters:
+#        - name: "ENV_PARAMETER"
+#          type: "int"
+#          value: "120"
+  environments:
+    "environment_name" :
+      ## Set this flag to disable generation of this environment
+#      existing_library_component : "True"
+      ## Parameters for the environment
+#      parameters:
+#        - name: "ENV_PARAMETER"
+#          type: "int"
+#          value: "120"
+#      hvl_pkg_parameters:
+#        - name: "ENV_HVL_PKG_PARAMETER1"
+#          type: "parameter_type"
+#          value: "parameter_value"
+#      imports:
+#        - name: "name_of_package_to_be_imported"
+#       typedefs: 
+#         - name: "name_of_typedef"
+#           type: "definition_of_typedef"
+#      subenvs :
+#        - name: "sub_environment_insance_name"
+#          type: "sub_environment_package"
+#      qvip_subenvs:
+#        - name: "qvip_sub_environment_instance_name"
+#          type: "qvip_sub_environment_package"
+      agents :
+        - name: "agent_instance_name" 
+          type: "interface_name"
+#          initiator_responder: "INITIATOR_or_RESPONDER"
+#          parameters:
+#            - name: "IF_PARAMETER"
+#              value: "ENV_PARAMETER"
+#      non_uvmf_components :
+#        - name: "component_instance_name" 
+#          type: "component_type"
+#          parameters:
+#            - name: "COMP_PARAMETER"
+#              value: "COMP_PARAMETER"
+#      qvip_memory_agents :
+#        - name: "component_instance_name" 
+#          type: "qvip_memory_agent"
+#          qvip_environment: "environment_instance_name"
+#          parameters:
+#            - name: "COMP_PARAMETER"
+#              value: "COMP_PARAMETER"
+#      ## Analysis components are defined externally in a 'util_components' structure.
+#      ## They are instantiated here.
+#      analysis_components :
+#        - name: "predictor_instance_name"
+#          type: "predictor_name"
+#      ## Each scoreboard is keyed by the scoreboard instantiation name with
+#      ## information on the scoreboard type and what type of transaction it
+#      ## will be parsing
+#      scoreboards : 
+#        - name: "scoreboard_instance_name"
+#          sb_type: "uvmf_in_order_race_scoreboard"
+#          trans_type: "transaction_type_including_any_parameters"
+#          parameters:
+#            - name: "SB_PARAMETER_NAME"
+#              value: "SB_PARAMETER_VALUE"
+#      ## Define internal TLM connections. Each entry must have a 'driver' and
+#      ## a 'receiver' entry used to determine the full connection.
+#      analysis_ports :
+#        - name: "environment_analysis_port_instance_name"
+#          trans_type: "transaction_type_including_any_parameters"
+#          connected_to: "component_insance_name.component_analysis_port"
+#      analysis_exports :
+#        - name: "environment_analysis_export_instance_name"
+#          trans_type: "transaction_type_including_any_parameters"
+#          connected_to: "omponent_insance_name.component_analysis_export"
+#      Note regarding TLM connections:
+#          When connecting to UVMF agents, driver analysis_port_name is monitored_ap
+#          When connecting to expected side of UVMF scoreboards, receiver analysis_export_name is expected_analysis_export
+#          When connecting to actual side of UVMF scoreboards, receiver analysis_export_name is actual_analysis_export
+#      tlm_connections :
+#        - driver:   "component_instance_name.anlaysis_port_name"
+#          receiver: "component_instance_name.analysis_export_name"
+#          validate: "True_or_False"
+#      qvip_connections:
+#        - ap_key:   "associative_array_key"
+#          driver:   "envName_agentName"
+#          receiver: "component_instance_name.analysis_export_name"
+#          validate: "True_or_False"
+#      ## Environment-level configuration variables. Each entry is keyed with a 
+#      ## unique name and is assigned a 'type' and 'isrand' value.
+#      config_vars :
+#        - name: "has_predictor"
+#          type : "bit"      
+#          isrand : "False"
+#          value : "1"
+#        - name: "has_coverage"
+#          type : "bit"
+#          isrand : "False" 
+#          value : "1"
+#        - name: "has_sub_env"
+#          type : "bit"      
+#          isrand : "False" 
+#          value : "1"
+#      ## Environment-level configuration constraints. Each entry is keyed with
+#      ## a unique name  with the value being an SVA constraint block
+#      config_constraints:
+#        - name: "constraint_body_name"  
+#          value: "{ constraint; }"
+#      register_model:
+#        use_adapter: "True"
+#        use_explicit_prediction: "True"
+#        reg_model_package: "register_package_name"
+#        reg_block_class: "class_name_of_top_register_block"
+#        maps:
+#          - name: "bus_map"
+#            interface: "control_plane_in"
+#
+#      dpi_define:
+#        name: "new_shared_object_name"
+#        files:
+#          - "myFirstIfFile.c"
+#          - "mySecondIfFile.c"
+#        comp_args: "-c -DPRINT32 -O2"
+#        link_args: "-shared"
+#        imports:
+#          - name: "c_function_name"
+#            c_return_type: "void"
+#            sv_return_type: "void"
+#            c_args: "(unsigned int variable1, unsigned int variable2)"
+#            sv_args: 
+#              - name: "variable1"
+#                type: "int unsigned"
+#                dir: "input"
+#              - name: "variable2"
+#                type: "int unsigned"
+#                dir: "input"

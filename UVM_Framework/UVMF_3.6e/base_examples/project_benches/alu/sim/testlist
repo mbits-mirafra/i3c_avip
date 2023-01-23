@@ -1,0 +1,3 @@
+TB_INFO alu {UVMF_VIP_LIBRARY_HOME=../../../../../../../verification_ip UVMF_PROJECT_DIR=../../../../../../../project_benches/alu} {}
+TB alu
+TEST alu_random_test  1

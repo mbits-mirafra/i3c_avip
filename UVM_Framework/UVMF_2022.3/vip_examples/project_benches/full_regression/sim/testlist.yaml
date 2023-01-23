@@ -1,0 +1,6 @@
+uvmf_testlist:
+  include:
+    - ../../axi4_2x2_fabric/sim/testlist.yaml
+    - ../../qvip_axi4_example/sim/testlist.yaml
+    - ../../scatter_gather_dma/sim/testlist.yaml
+    - ../../vip_axi4_example/sim/testlist.yaml

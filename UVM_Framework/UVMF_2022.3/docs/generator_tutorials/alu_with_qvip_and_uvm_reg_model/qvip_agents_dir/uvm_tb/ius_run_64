@@ -1,0 +1,22 @@
+#!/bin/bash
+
+LD_LIBRARY_PATH=${QUESTA_MVC_HOME}/questa_mvc_core/:${IUS_HOME}/tools/cdsgcc/gcc//install/lib64:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH
+
+irun -sv -uvm -quiet -access +rwc -64bit -timescale 1ns/1ns \
+    +incdir+${QUESTA_MVC_HOME}/questa_mvc_src/sv \
+    ${QUESTA_MVC_HOME}/include/questa_mvc_svapi.sv \
+    +define+MAP_PROT_ATTR ${QUESTA_MVC_HOME}/questa_mvc_src/sv/mvc_pkg.sv \
+    +incdir+${QUESTA_MVC_HOME}/questa_mvc_src/sv/apb3 ${QUESTA_MVC_HOME}/questa_mvc_src/sv/apb3/mgc_apb3_v1_0_pkg.sv \
+    +incdir+../config_policies \
+    ../config_policies/qvip_agents_params_pkg.sv \
+    qvip_agents_pkg.sv \
+    +incdir+${QUESTA_MVC_HOME}/questa_mvc_src/sv/apb3/modules ${QUESTA_MVC_HOME}/questa_mvc_src/sv/apb3/modules/apb_master.sv \
+    default_clk_gen.sv \
+    default_reset_gen.sv \
+    hdl_qvip_agents.sv \
+    hvl_qvip_agents.sv \
+    -sv_root ${QUESTA_MVC_HOME}/questa_mvc_core/ \
+    -sv_lib libapb3_IN_SystemVerilog_IUS_full \
+    +UVM_TESTNAME=qvip_agents_test_base \
+    +SEQ=qvip_agents_vseq_base

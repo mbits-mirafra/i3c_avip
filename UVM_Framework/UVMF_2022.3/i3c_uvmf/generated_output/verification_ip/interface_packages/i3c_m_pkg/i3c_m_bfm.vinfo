@@ -1,0 +1,6 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+@use i3c_m_pkg_hdl.vinfo
++incdir+@vinfodir
+src/i3c_m_if.sv
+src/i3c_m_driver_bfm.sv
+src/i3c_m_monitor_bfm.sv

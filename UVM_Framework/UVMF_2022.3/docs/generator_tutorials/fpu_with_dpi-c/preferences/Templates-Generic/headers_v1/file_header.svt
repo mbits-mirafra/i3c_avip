@@ -1,0 +1,46 @@
+#-------------------------------------------------------------------------------
+# MetaData - Settings for this Template 
+#-------------------------------------------------------------------------------
+%metadata_begin
+  # Specify the version of your template
+  ::TemplateApi::setTmplSvtVersionOp "1.0" 
+  
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Type"        -propertyValue "SNIPPET"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Category"    -propertyValue "Header"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Description" -propertyValue "File Header" 
+
+  ::TemplateApi::addTmplVariableOp -name "COMPANY_NAME" -default "AAAA_Company" -required 1
+  ::TemplateApi::addTmplVariableOp -name "COMPANY_ADDRESS" -default "22 Acacia Avenue, HardRock, Calif. USA" -required 1
+  ::TemplateApi::addTmplVariableOp -name "YEAR" -default "2017" -required 1
+ 
+%metadata_end
+
+#-------------------------------------------------------------------------------
+# Template code 
+#-------------------------------------------------------------------------------
+%text_begin
+// ==============================================================================
+// =====           %(COMPANY_NAME), %(COMPANY_ADDRESS)             =====
+// ==============================================================================
+//! @file
+//  Project                : %(PROJ_NAME)
+//  Unit                   : %(UNIT_NAME)
+//! @brief %(DESCRIPTION) 
+//-------------------------------------------------------------------------------
+//  Created by             : %(USER)
+//  Creation Date          : %(DATE)
+//-------------------------------------------------------------------------------
+// Revision History:
+//  URL of HEAD            : $HeadURL$
+//  Revision of last commit: $Rev$  
+//  Author of last commit  : $Author$
+//  Date of last commit    : $Date$  
+//
+// ==============================================================================
+// This unpublished work contains proprietary information.
+// All right reserved. Supplied in confidence and must not be copied, used or disclosed 
+// for any purpose without express written permission.
+// %(Y_EAR) @ Copyright %(COMPANY_NAME) Ltd
+// ==============================================================================
+
+%text_end

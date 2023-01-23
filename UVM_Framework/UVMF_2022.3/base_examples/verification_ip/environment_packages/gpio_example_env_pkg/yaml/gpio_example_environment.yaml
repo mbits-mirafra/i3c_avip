@@ -1,0 +1,40 @@
+uvmf:
+  environments:
+    gpio_example:
+      agents:
+      - initiator_responder: INITIATOR
+        name: gpio_a
+        parameters:
+        - name: WRITE_PORT_WIDTH
+          value: '32'
+        - name: READ_PORT_WIDTH
+          value: '16'
+        type: gpio
+      - initiator_responder: INITIATOR
+        name: gpio_b
+        parameters:
+        - name: WRITE_PORT_WIDTH
+          value: '16'
+        - name: READ_PORT_WIDTH
+          value: '32'
+        type: gpio
+      analysis_components:
+      - name: gpio_reporter
+        parameters: []
+        type: gpio_predictor
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_vars: []
+      existing_library_component: 'True'
+      hvl_pkg_parameters: []
+      non_uvmf_components: []
+      parameters: []
+      qvip_memory_agents: []
+      scoreboards: []
+      subenvs: []
+      tlm_connections:
+      - driver: gpio_a.monitored_ap
+        receiver: gpio_reporter.gpio_a_ae
+      - driver: gpio_b.monitored_ap
+        receiver: gpio_reporter.gpio_b_ae

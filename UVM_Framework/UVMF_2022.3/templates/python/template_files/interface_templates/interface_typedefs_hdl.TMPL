@@ -1,0 +1,24 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_typedefs_hdl.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This file contains defines and typedefs to be compiled for use in
+// the simulation running on the emulator when using Veloce.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+
+{% block contents %}                                                                               
+
+{% for types in hdlTypedefs %}
+typedef {{types.type}} {{types.name}};
+{% endfor %}
+
+// pragma uvmf custom additional begin
+// pragma uvmf custom additional end
+
+{% endblock %}

@@ -1,0 +1,4 @@
+needs:
+  - ../tests/axi4_2x2_fabric_tests_pkg.compile
+src:
+  - hvl_top.sv

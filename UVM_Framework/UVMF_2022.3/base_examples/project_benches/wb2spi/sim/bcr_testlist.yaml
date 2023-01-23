@@ -1,0 +1,7 @@
+uvmf_testlist:
+  testbenches:
+    - name: "wb2spi"
+  tests:
+    - testbench: "wb2spi"
+    - name: "test_top"
+      repeat: 3

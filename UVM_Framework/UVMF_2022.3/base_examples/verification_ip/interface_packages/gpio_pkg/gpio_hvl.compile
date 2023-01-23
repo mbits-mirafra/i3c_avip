@@ -1,0 +1,5 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - gpio_common.compile
+src:
+  - gpio_pkg.sv

@@ -1,0 +1,30 @@
+## Common Makefile for inFact - this is included in each of the project bench Makefiles in order to
+## get access to targets for creating inFact graphs from sequence items
+
+gen_infact:
+	$(INFACT_HOME)/bin/infact cmd import_testbench \
+	$(PROTOCOL)_transaction \
+	-project $(UVMF_VIP_LIBRARY_HOME)/interface_packages/$(PROTOCOL)_infact_proj \
+	-sv_lib $(UVMF_PROJECT_DIR)/sim/work \
+	-unit $(PROTOCOL)_pkg \
+	-baseclass $(PROTOCOL)_random_sequence \
+	-style sv.class.uvm.sequence \
+	-component $(PROTOCOL)_infact_sequence \
+	-engine $(PROTOCOL)_infact_sequence
+	$(INFACT_HOME)/bin/infact cmd create_stimulus_strategy \
+	-name $(PROTOCOL)_fields -auto-bin-max 16 -enable-fc fields \
+	$(UVMF_VIP_LIBRARY_HOME)/interface_packages/$(PROTOCOL)_infact_proj/$(PROTOCOL)_infact_sequence/$(PROTOCOL)_infact_sequence.tmd
+	$(INFACT_HOME)/bin/infact cmd genproject -rebuild $(UVMF_VIP_LIBRARY_HOME)/interface_packages/$(PROTOCOL)_infact_proj
+
+ungen_infact:
+	rm -rf $(UVMF_VIP_LIBRARY_HOME)/interface_packages/$(PROTOCOL)_infact_proj/$(PROTOCOL)_infact_sequence/$(PROTOCOL)_infact_sequence.svh
+	touch $(UVMF_VIP_LIBRARY_HOME)/interface_packages/$(PROTOCOL)_infact_proj/$(PROTOCOL)_infact_sequence/$(PROTOCOL)_infact_sequence.svh
+
+build_infact: comp_uvm_pkg comp_uvmf_base_pkg comp_$(PROTOCOL)_pkg gen_infact
+
+build_all_infact:
+	for PROT in $(PROTOCOLS); \
+	do \
+	$(MAKE) -f ./Makefile build_infact PROTOCOL=$$PROT; \
+	done
+

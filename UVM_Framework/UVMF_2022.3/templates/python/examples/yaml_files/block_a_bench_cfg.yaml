@@ -1,0 +1,13 @@
+# YAML file describing the block_a bench. Close to the
+# bare minimum of what is required, which is the top_env
+# to instantiate within the bench. Other entries control
+# the behavior of the clock and reset.
+uvmf:
+  benches:
+    "block_a" :
+      ## Specify the top-level block
+      top_env: "block_a"
+      clock_half_period: "6ns"
+      clock_phase_offset: "21ns"
+      reset_assertion_level: "True"
+      reset_duration: "250ns"

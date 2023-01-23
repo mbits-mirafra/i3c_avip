@@ -1,0 +1,4 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+src: 
+  - axi4_2x2_fabric_env_pkg.sv

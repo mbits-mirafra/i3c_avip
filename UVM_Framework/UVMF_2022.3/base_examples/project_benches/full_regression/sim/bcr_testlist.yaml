@@ -1,0 +1,7 @@
+uvmf_testlist:
+  include:
+    - ../../ahb2wb/sim/bcr_testlist.yaml
+    - ../../wb2spi/sim/bcr_testlist.yaml
+    - ../../ahb2spi/sim/bcr_testlist.yaml
+    - ../../alu/sim/bcr_testlist.yaml
+    - ../../gpio_example/sim/bcr_testlist.yaml

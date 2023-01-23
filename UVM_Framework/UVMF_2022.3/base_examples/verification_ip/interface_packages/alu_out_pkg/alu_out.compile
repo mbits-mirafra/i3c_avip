@@ -1,0 +1,4 @@
+needs:
+  - alu_out_hvl.compile
+  - alu_out_hdl.compile
+  

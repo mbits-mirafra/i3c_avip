@@ -1,0 +1,25 @@
+h1 {color:blue}
+table {table-layout:auto;border-collapse:collapse}
+th {background-color:silver}
+tr.row1 {background-color:#FFFF99}
+td {text-align:center}
+td.left {text-align:left}
+p {text-indent:50px;text-align:justify}
+.customData {color:blue} 
+
+ul.maketree, ul.maketree ul, ul.maketree li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+ul.maketree ul { padding-left: 0.3em; }
+ul.maketree li {
+  border-left: 1px dotted #000;
+  padding-left: 13px;
+  background: url(dotted.gif) scroll no-repeat 1px 0.8em;
+}
+ul.maketree li.last {
+  border-left-width: 0px;
+  padding-left: 14px;
+  background: url(dottedangle.gif) scroll no-repeat left top;
+}

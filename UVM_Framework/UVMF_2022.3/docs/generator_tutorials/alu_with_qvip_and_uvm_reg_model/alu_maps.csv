@@ -1,0 +1,9 @@
+Block Name,BlockMap Name,BlockMap Description,BlockMap is default,BlockMap Instance Name,BlockMap Instance Address,BlockMap Instance Access,BlockMap Address Offset
+alu_reg_model,apb_map,ALU APB top block map,TRUE,alu.apb_map,0x00,,
+,,,,,,,
+alu_block,apb_map,SW sub block map,TRUE,a_reg_reg,0x00,,
+alu_block,apb_map,,,b_reg_reg,0x04,,
+alu_block,apb_map,,,op_reg_reg,0x08,,
+alu_block,apb_map,,,result_reg_reg,0x0C,,
+alu_block,apb_map,,,ctrl_reg_reg,0x10,,
+alu_block,apb_map,,,scratch_mem_mem,0x14,,

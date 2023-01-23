@@ -1,0 +1,15 @@
+# YAML file describing the bench. Not much is needed here, besides
+# the top level bench name and the AXI4 QVIP Package needed for
+# stimulus generation and recognition of MVC types.
+uvmf:
+  global:
+    ## This is the header that will get appylied to every file generated for this bench
+    header: |-
+      // Created by: Vijay Gill
+      // E-mail:     vijay_gill@mentor.com
+      // Date:       2019/11/05
+  benches:
+    "axi4_2x2_fabric" :
+      top_env: "axi4_2x2_fabric"
+#      imports:
+#        - { name: '' }

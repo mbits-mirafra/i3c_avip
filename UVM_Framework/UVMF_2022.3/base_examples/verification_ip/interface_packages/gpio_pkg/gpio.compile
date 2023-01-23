@@ -1,0 +1,4 @@
+needs:
+  - gpio_hvl.compile
+  - gpio_hdl.compile
+  

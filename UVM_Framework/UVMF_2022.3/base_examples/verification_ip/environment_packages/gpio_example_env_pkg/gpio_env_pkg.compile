@@ -1,0 +1,5 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../interface_packages/gpio_pkg/gpio_hvl.compile
+src: 
+  - gpio_example_env_pkg.sv

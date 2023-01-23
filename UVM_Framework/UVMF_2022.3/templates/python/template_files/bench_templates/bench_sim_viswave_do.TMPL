@@ -1,0 +1,22 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/viswave.do" %}
+{% block description %} {% endblock %}
+
+{% block contents %}
+
+onerror resume
+wave tags F0
+wave update off
+
+{% for bfm in bfms %}
+wave spacer -backgroundcolor Salmon { {{bfm.name}} }
+wave add uvm_test_top.{{bfm.sub_env_path}}.{{bfm.agent_inst_name}}.{{bfm.agent_inst_name}}_monitor.txn_stream -radix string -tag F0
+wave group {{bfm.name}}_bus
+wave add -group {{bfm.name}}_bus hdl_top.{{bfm.name}}_bus.* -radix hexadecimal -tag F0
+wave group {{bfm.name}}_bus -collapse
+wave insertion [expr [wave index insertpoint] +1]
+{% endfor %}
+
+wave update on
+WaveSetStreamView
+
+{% endblock %}

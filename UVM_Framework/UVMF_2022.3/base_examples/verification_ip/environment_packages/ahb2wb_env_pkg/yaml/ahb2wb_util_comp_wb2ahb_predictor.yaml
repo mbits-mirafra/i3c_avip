@@ -1,0 +1,19 @@
+uvmf:
+  util_components:
+    wb2ahb_predictor:
+      analysis_exports:
+      - name: wb_ae
+        type: 'wb_transaction #(.WB_DATA_WIDTH(WB_DATA_WIDTH), .WB_ADDR_WIDTH(WB_ADDR_WIDTH))'
+      analysis_ports:
+      - name: wb_ap
+        type: 'wb_transaction #(.WB_DATA_WIDTH(WB_DATA_WIDTH), .WB_ADDR_WIDTH(WB_ADDR_WIDTH))'
+      - name: ahb_ap
+        type: ahb_transaction
+      parameters:
+      - name: WB_DATA_WIDTH
+        type: int
+        value: '16'
+      - name: WB_ADDR_WIDTH
+        type: int
+        value: '32'
+      type: predictor

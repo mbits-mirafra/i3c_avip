@@ -1,0 +1,8 @@
+uvmf_testlist:
+  testbenches:
+    - name: "wb2spi"
+      extra_build_options: "UVMF_VIP_LIBRARY_HOME=../../../../../../../../verification_ip UVMF_PROJECT_DIR=../../../../../../../wb2spi"
+  tests:
+    - testbench: "wb2spi"
+    - name: "test_top"
+      repeat: 3

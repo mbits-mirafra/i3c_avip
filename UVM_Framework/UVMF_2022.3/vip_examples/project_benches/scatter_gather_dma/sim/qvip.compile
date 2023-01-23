@@ -1,0 +1,9 @@
+
+incdir:
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv
+  - $SCATTER_GATHER_DMA_QVIP_DIR_NAME
+src:
+  - $QUESTA_MVC_HOME/include/questa_mvc_svapi.svh
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/mvc_pkg.sv
+  - -f $SCATTER_GATHER_DMA_QVIP_DIR_NAME/scatter_gather_dma_qvip_filelist.f
+  - $SCATTER_GATHER_DMA_QVIP_DIR_NAME/hdl_scatter_gather_dma_qvip.sv

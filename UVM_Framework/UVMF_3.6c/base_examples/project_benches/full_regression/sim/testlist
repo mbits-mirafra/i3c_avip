@@ -1,0 +1,11 @@
+INCLUDE ^/base_examples/project_benches/ahb2spi/sim/testlist
+INCLUDE ^/base_examples/project_benches/alu/sim/testlist
+INCLUDE ^/base_examples/project_benches/gpio_example/sim/testlist
+INCLUDE ^/vip_examples/project_benches/qvip_ahb_example/sim/testlist
+INCLUDE ^/vip_examples/project_benches/qvip_axi3_example/sim/testlist
+INCLUDE ^/vip_examples/project_benches/qvip_axi4_example/sim/testlist
+INCLUDE ^/vip_examples/project_benches/qvip_ethernet_parallel/sim/testlist
+INCLUDE ^/vip_examples/project_benches/qvip_ethernet_serial/sim/testlist
+INCLUDE ^/vip_examples/project_benches/qvip_pcie_3.0_pipe_example/sim/testlist
+INCLUDE ^/vip_examples/project_benches/qvip_pcie_3.0_serial_example/sim/testlist
+INCLUDE ^/vip_examples/project_benches/qvip_usb3_pipe_example_bench/sim/testlist

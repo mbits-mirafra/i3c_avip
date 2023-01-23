@@ -1,0 +1,3 @@
+TB_INFO qvip_axi4_example {UVMF_VIP_LIBRARY_HOME=../../../../../../../verification_ip UVMF_PROJECT_DIR=../../../../../../../project_benches/qvip_axi4_example} {}
+TB qvip_axi4_example
+TEST test_top 3 0

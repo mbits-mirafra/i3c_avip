@@ -1,0 +1,7 @@
+{% set fname = "project_benches/{{name}}/rtl/rtl.vinfo" %}
+
+{% block contents %}
+//UVMF_CHANGE_ME: Add your hdl source files, or a pkg reference to them below
++incdir+@vinfodir
+verilog/{{name}}.v
+{% endblock %}

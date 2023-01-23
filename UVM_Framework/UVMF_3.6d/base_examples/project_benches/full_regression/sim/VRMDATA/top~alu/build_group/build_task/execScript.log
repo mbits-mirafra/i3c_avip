@@ -1,0 +1,384 @@
+# make -f /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/sim/Makefile libs build optimize UVMF_HOME=/mnt/hgfs/vmware/UVMF_Q
+# ** Error: make[1]: Entering directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~alu/build_group/build_task'
+# test -e work || vlib work 
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:35 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg" /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv 
+# -- Compiling package fli_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:45 on Nov 07,2014, Elapsed time: 0:00:10
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:45 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# -- Compiling package uvmf_base_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:45 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:45 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:45 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_in_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_in_pkg/alu_in_filelist_hvl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:45 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_in_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_in_pkg/alu_in_filelist_hvl.f 
+# -- Compiling package alu_in_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling package alu_in_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package alu_in_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:46 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_in_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_in_pkg/alu_in_filelist_hdl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:46 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_in_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_in_pkg/alu_in_filelist_hdl.f 
+# -- Compiling package alu_in_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling interface alu_in_if
+# -- Compiling package alu_in_if_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_in_pkg_hdl
+# -- Compiling interface alu_in_if
+# -- Compiling interface alu_in_monitor_bfm
+# -- Compiling package alu_in_monitor_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_in_pkg_hdl
+# -- Compiling interface alu_in_monitor_bfm
+# -- Importing package alu_in_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Compiling interface alu_in_driver_bfm
+# -- Compiling package alu_in_driver_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_in_pkg_hdl
+# -- Compiling interface alu_in_driver_bfm
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:46 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_out_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_out_pkg/alu_out_filelist_hvl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:46 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_out_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_out_pkg/alu_out_filelist_hvl.f 
+# -- Compiling package alu_out_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling package alu_out_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package alu_out_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:47 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_out_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_out_pkg/alu_out_filelist_hdl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:47 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_out_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/alu_out_pkg/alu_out_filelist_hdl.f 
+# -- Compiling package alu_out_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling interface alu_out_if
+# -- Compiling package alu_out_if_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_out_pkg_hdl
+# -- Compiling interface alu_out_if
+# -- Compiling interface alu_out_monitor_bfm
+# -- Compiling package alu_out_monitor_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_out_pkg_hdl
+# -- Compiling interface alu_out_monitor_bfm
+# -- Importing package alu_out_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Compiling interface alu_out_driver_bfm
+# -- Compiling package alu_out_driver_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_out_pkg_hdl
+# -- Compiling interface alu_out_driver_bfm
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:47 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/alu_env_pkg /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/alu_env_pkg/alu_env_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:47 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/alu_env_pkg" /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/alu_env_pkg/alu_env_pkg.sv 
+# -- Compiling package alu_env_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_in_pkg
+# -- Importing package alu_in_pkg_hdl
+# -- Importing package alu_out_pkg
+# -- Importing package alu_out_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:48 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/parameters /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/parameters/alu_parameters_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:48 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/parameters" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/parameters/alu_parameters_pkg.sv 
+# -- Compiling package alu_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:48 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/sequences /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/sequences/alu_sequences_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:48 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/sequences" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/sequences/alu_sequences_pkg.sv 
+# -- Compiling package alu_sequences_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_in_pkg
+# -- Importing package alu_in_pkg_hdl
+# -- Importing package alu_out_pkg
+# -- Importing package alu_out_pkg_hdl
+# -- Importing package alu_env_pkg
+# -- Importing package alu_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:48 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/tests /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/tests/alu_test_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:48 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/tests" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/tests/alu_test_pkg.sv 
+# -- Compiling package alu_test_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_in_pkg
+# -- Importing package alu_in_pkg_hdl
+# -- Importing package alu_out_pkg
+# -- Importing package alu_out_pkg_hdl
+# -- Importing package alu_env_pkg
+# -- Importing package alu_sequences_pkg
+# -- Importing package alu_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:49 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/rtl/verilog/alu.v
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:49 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/rtl/verilog/alu.v 
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	alu
+# End time: 09:59:49 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/testbench/top_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:49 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/testbench/top_filelist_hvl.f 
+# -- Compiling package hvl_top_sv_unit
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package alu_test_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package alu_in_pkg
+# -- Importing package alu_in_pkg_hdl
+# -- Importing package alu_out_pkg
+# -- Importing package alu_out_pkg_hdl
+# -- Importing package alu_env_pkg
+# -- Importing package alu_sequences_pkg
+# -- Importing package alu_parameters_pkg
+# -- Compiling module hvl_top
+# 
+# Top level modules:
+# 	hvl_top
+# End time: 09:59:49 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/testbench/top_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:49 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/alu/tb/testbench/top_filelist_hdl.f 
+# -- Compiling package hdl_top_sv_unit
+# -- Importing package alu_parameters_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling module hdl_top
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	hdl_top
+# End time: 09:59:50 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vopt  +cover=sbcef+/hdl_top/DUT  hvl_top hdl_top   -o optimized_batch_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:50 on Nov 07,2014
+# vopt "+cover=sbcef+/hdl_top/DUT" hvl_top hdl_top -o optimized_batch_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface alu_out_if
+# -- Loading interface alu_out_monitor_bfm
+# -- Loading interface alu_out_driver_bfm
+# -- Loading interface alu_in_if
+# -- Loading interface alu_in_monitor_bfm
+# -- Loading interface alu_in_driver_bfm
+# -- Loading module alu
+# Optimizing 39 design-units (inlining 0/2 module instances, 0/0 UDP instances):
+# -- Optimizing interface alu_in_driver_bfm(fast__1)
+# -- Optimizing module alu(fast)
+# -- Inlining interface alu_out_if(fast__2)
+# -- Inlining interface alu_in_if(fast__2)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing interface alu_in_monitor_bfm(fast__1)
+# -- Optimizing interface alu_out_monitor_bfm(fast__1)
+# -- Optimizing interface alu_out_driver_bfm(fast__1)
+# -- Optimizing interface alu_in_if(fast__2)
+# -- Optimizing interface alu_out_if(fast__2)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package alu_out_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package alu_in_pkg_hdl(fast)
+# -- Optimizing package alu_out_if_sv_unit(fast)
+# -- Optimizing package alu_out_monitor_bfm_sv_unit(fast)
+# -- Optimizing package alu_out_driver_bfm_sv_unit(fast)
+# -- Optimizing package alu_in_if_sv_unit(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package alu_in_monitor_bfm_sv_unit(fast)
+# -- Optimizing package alu_in_driver_bfm_sv_unit(fast)
+# -- Optimizing package alu_out_pkg(fast)
+# -- Optimizing package alu_in_pkg(fast)
+# -- Optimizing interface alu_out_if(fast)
+# -- Optimizing interface alu_out_if(fast__1)
+# -- Optimizing interface alu_out_monitor_bfm(fast)
+# -- Optimizing interface alu_out_driver_bfm(fast)
+# -- Optimizing interface alu_in_if(fast)
+# -- Optimizing interface alu_in_if(fast__1)
+# -- Optimizing interface alu_in_monitor_bfm(fast)
+# -- Optimizing interface alu_in_driver_bfm(fast)
+# -- Optimizing package alu_parameters_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package alu_env_pkg(fast)
+# -- Optimizing package alu_sequences_pkg(fast)
+# -- Optimizing package alu_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_batch_top_tb
+# End time: 10:00:22 on Nov 07,2014, Elapsed time: 0:00:32
+# Errors: 0, Warnings: 0
+# vopt  +acc   hvl_top hdl_top   -o optimized_debug_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:25 on Nov 07,2014
+# vopt "+acc" hvl_top hdl_top -o optimized_debug_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface alu_out_if
+# -- Loading interface alu_out_monitor_bfm
+# -- Loading interface alu_out_driver_bfm
+# -- Loading interface alu_in_if
+# -- Loading interface alu_in_monitor_bfm
+# -- Loading interface alu_in_driver_bfm
+# -- Loading module alu
+# Optimizing 39 design-units (inlining 0/2 module instances, 0/0 UDP instances):
+# -- Optimizing interface alu_in_driver_bfm(fast__1)
+# -- Optimizing module alu(fast)
+# -- Optimizing interface alu_in_monitor_bfm(fast__1)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing interface alu_out_monitor_bfm(fast__1)
+# -- Optimizing interface alu_out_driver_bfm(fast__1)
+# -- Optimizing interface alu_in_if(fast__2)
+# -- Optimizing interface alu_out_if(fast__2)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package alu_out_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package alu_in_pkg_hdl(fast)
+# -- Optimizing package alu_out_if_sv_unit(fast)
+# -- Optimizing package alu_out_monitor_bfm_sv_unit(fast)
+# -- Optimizing package alu_out_driver_bfm_sv_unit(fast)
+# -- Optimizing package alu_in_if_sv_unit(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package alu_in_monitor_bfm_sv_unit(fast)
+# -- Optimizing package alu_in_driver_bfm_sv_unit(fast)
+# -- Optimizing package alu_out_pkg(fast)
+# -- Optimizing package alu_in_pkg(fast)
+# -- Optimizing interface alu_out_if(fast)
+# -- Optimizing interface alu_out_if(fast__1)
+# -- Optimizing interface alu_out_monitor_bfm(fast)
+# -- Optimizing interface alu_out_driver_bfm(fast)
+# -- Optimizing interface alu_in_if(fast)
+# -- Optimizing interface alu_in_if(fast__1)
+# -- Optimizing interface alu_in_monitor_bfm(fast)
+# -- Optimizing interface alu_in_driver_bfm(fast)
+# -- Optimizing package alu_parameters_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package alu_env_pkg(fast)
+# -- Optimizing package alu_sequences_pkg(fast)
+# -- Optimizing package alu_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_debug_top_tb
+# End time: 10:00:49 on Nov 07,2014, Elapsed time: 0:00:24
+# Errors: 0, Warnings: 0
+# make[1]: Leaving directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~alu/build_group/build_task'
+# make[1]: Warning: File `/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/alu_env_pkg/Makefile' has modification time 3.6e+07 s in the future
+# make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+# Executing ONERROR command at macro ./execScript.do line 1
+# quit -f

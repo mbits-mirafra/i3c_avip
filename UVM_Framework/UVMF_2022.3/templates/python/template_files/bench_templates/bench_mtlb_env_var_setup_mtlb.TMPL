@@ -1,0 +1,23 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/setup_{{name}}_environment_variables.source" %}
+{% set conditional = "mtlbReady" %}
+#----------------------------------------------------------------------
+#                                          
+# DESCRIPTION: This script identifies environment variables that need to be set to run a simulation
+#
+#----------------------------------------------------------------------
+
+# Reference generated RTL:
+setenv {{name}}_VERILOG_DUT_SRC 
+
+# Reference generated pred DPI-C source:
+setenv {{name}}_ENV_DPI_SRC  
+
+# Reference include directories for generated pred DPI-C source:
+setenv {{name}}_ENV_GCC_COMP_ARGUMENTS
+
+# Reference generated stimulus DPI-C source:
+setenv {{name}}_input_agent_IF_DPI_SRC  
+
+# Reference include directories for generated stimulus DPI-C source:
+setenv {{name}}_input_agent_IF_GCC_COMP_ARGUMENTS  
+

@@ -1,0 +1,29 @@
+{% set fname = "verification_ip/environment_packages/{{name}}_env_pkg/src/{{name}}_infact_env_sequence.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Environment
+// Unit            : Environment infact sequence
+// File            : {{name}}_infact_env_sequence.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This sequences is a place holder for the infact sequence at the 
+// environment level which will generated desired scenarios without redundancy.
+//
+// ****************************************************************************
+// 
+class {{name}}_infact_env_sequence extends {{name}}_env_sequence_base;
+
+  // declaration macros
+  `uvm_object_utils({{name}}_infact_env_sequence)
+
+//*****************************************************************
+  function new(string name = "");
+    super.new(name);
+  endfunction: new
+
+endclass: {{name}}_infact_env_sequence
+{% endblock %}

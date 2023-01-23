@@ -1,0 +1,16 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/testbench/hdl_top.compile" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+incdir:
+  - ${uvm_path}/src
+  - .
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ../parameters/{{name}}_parameters_pkg.compile
+{% for bfm in bfm_pkgs %}
+  - ../../../{{relative_bench_from_cwd}}/{{vip_location}}/{{interface_location}}/{{bfm}}_pkg/{{bfm}}_hdl.compile
+{% endfor %}
+src:
+  - hdl_top.sv
+{% endblock %}

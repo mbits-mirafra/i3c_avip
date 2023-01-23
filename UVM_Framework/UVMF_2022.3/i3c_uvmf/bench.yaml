@@ -1,0 +1,10 @@
+uvmf:
+  benches:
+    "i3c":
+       active_passive:
+         - bfm_name: "m_agent"
+           value: "ACTIVE"
+         - bfm_name: "s_agent"
+           value: "ACTIVE"
+       top_env: "env"
+       veloce_ready: "True"

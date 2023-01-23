@@ -1,0 +1,2 @@
+src:
+  - vip_axi4_bench_parameters_pkg.sv

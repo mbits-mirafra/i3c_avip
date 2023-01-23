@@ -1,0 +1,10 @@
+incdir:
+  - ${uvm_path}/src
+  - .
+
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../interface_packages/wb_pkg/wb_hvl.compile
+  - ../../interface_packages/ahb_pkg/ahb_hvl.compile
+src: 
+  - ahb2wb_env_pkg.sv

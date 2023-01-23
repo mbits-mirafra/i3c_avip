@@ -1,0 +1,10 @@
+incdir:
+  - .
+
+needs:
+  - alu_in_common.compile
+  
+src:
+  - src/alu_in_if.sv
+  - src/alu_in_driver_bfm.sv
+  - src/alu_in_monitor_bfm.sv

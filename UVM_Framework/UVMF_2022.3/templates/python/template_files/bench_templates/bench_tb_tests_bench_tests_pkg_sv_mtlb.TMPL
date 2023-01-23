@@ -1,0 +1,73 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/tests/{{name}}_tests_pkg_mtlb.sv" %}
+{% set conditional = "mtlbReady" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+// Generated for MTLB flow
+//
+//----------------------------------------------------------------------
+//
+// DESCRIPTION: This package contains all tests currently written for
+//     the simulation project.  Once compiled, any test can be selected
+//     from the vsim command line using +UVM_TESTNAME=yourTestNameHere
+//
+// CONTAINS:
+//     -<test_top>
+//     -<example_derived_test>
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+package {{name}}_tests_pkg;
+
+   import uvm_pkg::*;
+   import uvmf_base_pkg::*;
+   import {{name}}_parameters_pkg::*;
+   import {{env_name}}_env_pkg::*;
+   import {{name}}_sequences_pkg::*;
+{% for bfm in bfm_pkgs %}
+  import {{bfm}}_pkg::*;
+  import {{bfm}}_pkg_hdl::*;
+{% endfor %}
+{% for agent in qvip_bfm_pkgs %}
+   import {{agent}}_pkg::*;
+{% endfor %}
+{% for ext_import in external_imports %}
+   import {{ext_import}}::*;
+{% endfor %}
+
+{% if useCoEmuClkRstGen %}
+   import clock_pkg::*;
+   import reset_pkg::*;
+{% endif %}
+
+   `include "uvm_macros.svh"
+
+  // pragma uvmf custom package_imports_additional begin 
+  // pragma uvmf custom package_imports_additional end
+
+   `include "{{src_dir}}test_top.svh"
+   `include "{{src_dir}}register_test.svh"
+   `include "{{src_dir}}example_derived_test.svh"
+   `include "{{src_dir}}DPI_stimgen_test.svh"
+   `include "{{src_dir}}read_from_file_test.svh"
+{% if inFactEnabled %}
+   `include "{{src_dir}}infact_test_base.svh"
+{% endif %}
+
+  // pragma uvmf custom package_item_additional begin
+  // UVMF_CHANGE_ME : When adding new tests to the src directory
+  //    be sure to add the test file here so that it will be
+  //    compiled as part of the test package.  Be sure to place
+  //    the new test after any base tests of the new test.
+  // pragma uvmf custom package_item_additional end
+
+endpackage
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

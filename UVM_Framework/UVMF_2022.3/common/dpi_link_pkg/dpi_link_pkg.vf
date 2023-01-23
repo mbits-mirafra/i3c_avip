@@ -1,0 +1,7 @@
+
+
+// ------- dpi_link_pkg.vinfo --------
++incdir+/home/guest/projects/mcd_dpi_link/UVMF_FRAMEWORK/common/dpi_link_pkg
++incdir+${MCD_TB_TOOLS_DIR}
+/home/guest/projects/mcd_dpi_link/UVMF_FRAMEWORK/common/dpi_link_pkg/dpi_link_pkg.sv
+-suppress 2286

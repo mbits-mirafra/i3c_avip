@@ -1,0 +1,41 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{name}}_pkg_hdl.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//     
+// PACKAGE: This file defines all of the files contained in the
+//    interface package that needs to be compiled and synthesized
+//    for running on Veloce.
+//
+// CONTAINS:
+//    - <{{name}}_typedefs_hdl>
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+package {{name}}_pkg_hdl;
+  
+  import uvmf_base_pkg_hdl::*;
+
+  // pragma uvmf custom package_imports_additional begin 
+  // pragma uvmf custom package_imports_additional end
+
+  // Parameters defined as HDL parameters
+{% for param in hdlPkgParamDefs %}
+  parameter {{param.type}} {{param.name}}{% if param.value != None %} = {{param.value}}{% endif %};
+{% endfor %}
+
+  `include "{{src_dir}}{{name}}_typedefs_hdl.svh"
+  `include "{{src_dir}}{{name}}_macros.svh"
+
+  // pragma uvmf custom package_item_additional begin
+  // pragma uvmf custom package_item_additional end
+
+endpackage
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

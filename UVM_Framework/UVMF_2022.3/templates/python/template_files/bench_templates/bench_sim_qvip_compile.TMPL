@@ -1,0 +1,18 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/qvip.compile" %}
+{% set conditional = "using_qvip" %}
+
+{% block contents %}
+incdir:
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv
+{% for var in qvip_pkg_env_variables %}
+  - ${{var}}_DIR_NAME
+{% endfor %}
+src:
+  - $QUESTA_MVC_HOME/include/questa_mvc_svapi.svh
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/mvc_pkg.sv
+{% for var in qvip_pkg_env_variables %}
+  - -f ${{var}}_DIR_NAME/{{qvip_bfm_pkgs[loop.index-1]}}_filelist.f
+  - ${{var}}_DIR_NAME/hdl_{{qvip_bfm_pkgs[loop.index-1]}}.sv
+{% endfor %}
+{% endblock %}
+

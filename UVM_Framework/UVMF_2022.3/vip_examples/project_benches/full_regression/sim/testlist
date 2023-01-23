@@ -1,0 +1,4 @@
+INCLUDE ../../axi4_2x2_fabric/sim/testlist
+INCLUDE ../../qvip_axi4_example/sim/testlist
+INCLUDE ../../scatter_gather_dma/sim/testlist
+INCLUDE ../../vip_axi4_example/sim/testlist

@@ -1,0 +1,6 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../../../verification_ip/environment_packages/vip_axi4_env_pkg/vip_axi4_env_pkg.compile
+  - ../sequences/vip_axi4_bench_sequences_pkg.compile
+src:
+  - vip_axi4_bench_test_pkg.sv

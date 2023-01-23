@@ -1,0 +1,6 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+incdir:
+  - .
+src:
+  - ccs_pkg.sv

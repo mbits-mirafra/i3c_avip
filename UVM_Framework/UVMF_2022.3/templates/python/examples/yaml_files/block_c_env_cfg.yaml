@@ -1,0 +1,63 @@
+# The block_c environment YAML example shows what a YAML configuration
+# file looks like that incorporates QVIP in addition to custom non-QVIP
+# interfaces. The "qvip_subenvs" section instantiates a "qvip_agents"
+# sub-environment that was produced by the QVIP Configurator utility.
+# The command file to produce this QVIP sub-environment is located
+# in $UVMF_HOME/templates/qvip_configurator.
+uvmf:
+  environments:
+    "block_c":
+      agents:
+        - name: "mem_in"
+          type: "mem"
+        - name: "mem_out"
+          type: "mem"
+        - name: "pkt_out"
+          type: "pkt"
+      qvip_subenvs:
+        - name: "qvip_env"
+          type: "qvip_agents"
+      analysis_components:
+        - name: "blk_c_pred"
+          type: "block_c_predictor"
+      scoreboards:
+        - name:       "mem_sb"
+          sb_type:    "uvmf_in_order_scoreboard"
+          trans_type: "mem_transaction"
+        - name:       "pkt_sb"
+          sb_type:    "uvmf_in_order_scoreboard"
+          trans_type: "pkt_transaction"
+        - name:       "axi4_slave_sb"
+          sb_type:    "uvmf_in_order_scoreboard"
+          trans_type: "mvc_sequence_item_base"
+        - name:       "apb3_cfg_sb"
+          sb_type:    "uvmf_in_order_scoreboard"
+          trans_type: "mvc_sequence_item_base"
+      qvip_connections:
+        - ap_key:   "trans_ap"
+          driver:   "qvip_env_axi4_master_0"
+          receiver: "blk_c_pred.axi4_master_0_ae"
+        - ap_key:   "trans_ap"
+          driver:   "qvip_env_axi4_master_1"
+          receiver: "blk_c_pred.axi4_master_1_ae"
+        - ap_key:   "trans_ap"
+          driver:   "qvip_env_axi4_slave"
+          receiver: "axi4_slave_sb.actual_analysis_export"
+        - ap_key:   "trans_ap"
+          driver:   "qvip_env_apb3_config_master"
+          receiver: "apb3_cfg_sb.actual_analysis_export"
+      tlm_connections:
+        - driver:   "mem_in.monitored_ap"
+          receiver: "blk_c_pred.mem_in_ae"
+        - driver:   "blk_c_pred.mem_sb_ap"
+          receiver: "mem_sb.expected_analysis_export"
+        - driver:   "blk_c_pred.pkt_sb_ap"
+          receiver: "pkt_sb.expected_analysis_export"
+        - driver:   "blk_c_pred.axi4_slave_ap"
+          receiver: "axi4_slave_sb.expected_analysis_export"
+        - driver:   "blk_c_pred.apb3_config_master_ap"
+          receiver: "apb3_cfg_sb.expected_analysis_export"
+        - driver:   "mem_out.monitored_ap"
+          receiver: "mem_sb.actual_analysis_export"
+        - driver:   "pkt_out.monitored_ap"
+          receiver: "pkt_sb.actual_analysis_export"

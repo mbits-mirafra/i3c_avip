@@ -1,0 +1,30 @@
+{% set fname = "{{bench_location}}/{{name}}/{{name}}_sve.F" %}
+
+// UVM
++incdir+${UVM_HOME}/src
+${UVM_HOME}/{{src_dir}}uvm_pkg.sv
+
+// Common UVMF files
+-f ${UVMF_HOME}/common/common_sve.f
+
+// BFM Files
+{%for bfm in bfm_pkgs %}-F ${UVMF_VIP_LIBRARY_HOME}/{{interface_location}}/{{bfm}}_pkg/{{bfm}}_pkg_sve.F
+{% endfor %}
+
+// Environment Files
+-F ${UVMF_VIP_LIBRARY_HOME}/{{environment_location}}/{{env_name}}_env_pkg/{{env_name}}_env_pkg_sve.F
+
+// Bench Files
++incdir+./tb/tests
+./tb/tests/{{name}}_tests_pkg.sv
+
++incdir+./tb/sequences
+./tb/sequences/{{name}}_sequences_pkg.sv
+
++incdir+./tb/parameters
+./tb/parameters/{{name}}_parameters_pkg.sv
+
+./tb/testbench/hdl_top.sv
+./tb/testbench/hvl_top.sv
+
+

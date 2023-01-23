@@ -1,0 +1,6 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+@use ahb_pkg_hdl.vinfo
++incdir+@vinfodir
+src/ahb_if.sv
+src/ahb_driver_bfm.sv
+src/ahb_monitor_bfm.sv

@@ -1,0 +1,218 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/sequences/{{src_dir}}{{name}}_bench_sequence_base.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//
+// Description: This file contains the top level and utility sequences
+//     used by test_top. It can be extended to create derivative top
+//     level sequences.
+//
+//----------------------------------------------------------------------
+//
+{% endblock %}
+
+{% block contents %}
+
+
+typedef {{env_name}}_env_configuration {{macro.paramUseNested(envParamDefs)|indent(8)}} {{env_name}}_env_configuration_t;
+
+class {{name}}_bench_sequence_base extends uvmf_sequence_base #(uvm_sequence_item);
+
+  `uvm_object_utils( {{name}}_bench_sequence_base );
+
+  // pragma uvmf custom sequences begin
+
+typedef {{env_name}}_env_sequence_base #(
+        .CONFIG_T({{env_name}}_env_configuration_t){% if envParamDefs|length > 0 %}{% for param in envParamDefs -%}{% if loop.first %},
+{% endif %}
+        .{{param.name}}({{param.value}}){% if not loop.last %},
+{% endif %}{% endfor %}
+{% endif %}
+
+        )
+        {{env_name}}_env_sequence_base_t;
+rand {{env_name}}_env_sequence_base_t {{env_name}}_env_seq;
+
+
+
+  // UVMF_CHANGE_ME : Instantiate, construct, and start sequences as needed to create stimulus scenarios.
+  // Instantiate sequences here
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+{% if bfm.initResp == 'INITIATOR' %}
+{% if inFactEnabled == True %}
+  typedef {{bfm.ifPkg}}_sequence_base {{macro.paramUseNested(bfm.parameters)|indent(8)}} {{bfm.name}}_base_seq_t;
+{% endif %}
+  typedef {{bfm.ifPkg}}_random_sequence {{macro.paramUseNested(bfm.parameters)|indent(8)}} {{bfm.name}}_random_seq_t;
+  {{bfm.name}}_random_seq_t {{bfm.name}}_random_seq;
+{% else %}
+  typedef {{bfm.ifPkg}}_responder_sequence {{macro.paramUseNested(bfm.parameters)|indent(8)}} {{bfm.name}}_responder_seq_t;
+  {{bfm.name}}_responder_seq_t {{bfm.name}}_responder_seq;
+{% endif %}
+{% endif %}
+{% endfor %}
+  // pragma uvmf custom sequences end
+
+  // Sequencer handles for each active interface in the environment
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+  typedef {{bfm.ifPkg}}_transaction {{macro.paramUseNested(bfm.parameters)|indent(8)}} {{bfm.name}}_transaction_t;
+  uvm_sequencer #({{bfm.name}}_transaction_t)  {{bfm.name}}_sequencer; 
+{% endif %}
+{% endfor %}
+
+{% if qvip_bfms|length > 0 %}
+  // Sequencer handles for each QVIP interface
+{% for agent in qvip_bfms %}
+  mvc_sequencer {{agent.unique_id_with_underscores}}{{agent.name}}_sqr;
+{% endfor %}
+{% endif %}
+
+  // Top level environment configuration handle
+  {{env_name}}_env_configuration_t top_configuration;
+
+  // Configuration handles to access interface BFM's
+{% for bfm in bfms %}
+  {{bfm.ifPkg}}_configuration {{macro.paramUseNested(bfm.parameters)|indent(8)}} {{bfm.name}}_config;
+{% endfor %}
+{% if topEnvHasRegisterModel %}
+  // Local handle to register model for convenience
+  {{regBlockClass}} reg_model;
+  uvm_status_e status;
+{% endif %}
+{% if useCoEmuClkRstGen %}
+  //variable: clk_ctrl
+  //Clock Proxy Object used to control the Clock
+  // Must be extended clock_ctrl object and not clock_ctrl_base because
+  // bfm is set here.  Usage elsewhere in testbench can just use a
+  // clock_ctrl_base handle.
+  clock_ctrl_base clk_ctrl;
+  
+  //variable: reset_ctrl
+  //Reset Proxy Object used to control Reset
+  // Must be extended reset_ctrl object and not reset_ctrl_base because bfm
+  // is set here.  Usage elsewhere in testbench can just use a reset_ctrl_base
+  // handle
+  reset_ctrl_base reset_ctrl;
+{% endif %}
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+
+  // ****************************************************************************
+  function new( string name = "" );
+    super.new( name );
+    // Retrieve the configuration handles from the uvm_config_db
+
+    // Retrieve top level configuration handle
+    if ( !uvm_config_db#({{env_name}}_env_configuration_t)::get(null,UVMF_CONFIGURATIONS, "TOP_ENV_CONFIG",top_configuration) ) begin
+      `uvm_info("CFG", "*** FATAL *** uvm_config_db::get can not find TOP_ENV_CONFIG.  Are you using an older UVMF release than what was used to generate this bench?",UVM_NONE);
+      `uvm_fatal("CFG", "uvm_config_db#({{env_name}}_env_configuration_t)::get cannot find resource TOP_ENV_CONFIG");
+    end
+
+    // Retrieve config handles for all agents
+{% for bfm in bfms %}
+    if( !uvm_config_db #( {{bfm.ifPkg}}_configuration{{macro.paramUseNested(bfm.parameters)|indent(8)}} )::get( null , UVMF_CONFIGURATIONS , {{bfm.name}}_BFM , {{bfm.name}}_config ) ) 
+      `uvm_fatal("CFG" , "uvm_config_db #( {{bfm.ifPkg}}_configuration )::get cannot find resource {{bfm.name}}_BFM" )
+{% endfor %}
+
+    // Assign the sequencer handles from the handles within agent configurations
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+    {{bfm.name}}_sequencer = {{bfm.name}}_config.get_sequencer();
+{% endif %}
+{% endfor %}
+
+{% if qvip_bfms|length > 0 %}
+    // Retrieve QVIP sequencer handles from the uvm_config_db
+{% for agent in qvip_bfms %}
+{% if  agent.activity == 'ACTIVE' %}
+    if( !uvm_config_db #(mvc_sequencer)::get( null,UVMF_SEQUENCERS,"{{agent.unique_id}}{{agent.name}}", {{agent.unique_id_with_underscores}}{{agent.name}}_sqr) ) 
+      `uvm_warning("CFG" , "uvm_config_db #( mvc_sequencer )::get cannot find resource {{agent.name}}" ) 
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if topEnvHasRegisterModel %}
+    reg_model = top_configuration.{{env_name}}_rm;
+{% endif %}
+
+{% if useCoEmuClkRstGen %}
+    if ( !uvm_config_db #( clock_ctrl_base )::get(null,UVMF_CLOCK_APIS, CLOCK_CONTROLLER, clk_ctrl) ) begin
+      `uvm_fatal("CFG" , "uvm_config_db #( clock_ctrl_base )::get cannot find resource CLOCK_CONTROLLER" )
+    end
+    if ( !uvm_config_db #(reset_ctrl_base )::get(null, UVMF_RESET_APIS, RESET_CONTROLLER, reset_ctrl) ) begin
+      `uvm_fatal("CFG" , "uvm_config_db #( sync_reset_ctrl )::get cannot find resource RESET_CONTROLLER" )
+    end
+{% endif %}
+
+    // pragma uvmf custom new begin
+    // pragma uvmf custom new end
+
+  endfunction
+
+  // ****************************************************************************
+  virtual task body();
+    // pragma uvmf custom body begin
+
+    // Construct sequences here
+
+    {{env_name}}_env_seq = {{env_name}}_env_sequence_base_t::type_id::create("{{env_name}}_env_seq");
+
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+{% if  bfm.initResp == 'INITIATOR' %}
+    {{bfm.name}}_random_seq     = {{bfm.name}}_random_seq_t::type_id::create("{{bfm.name}}_random_seq");
+{% else %}
+    {{bfm.name}}_responder_seq  = {{bfm.name}}_responder_seq_t::type_id::create("{{bfm.name}}_responder_seq");
+{% endif %}{% endif %}
+{% endfor %}
+    fork
+{% for bfm in bfms %}
+      {{bfm.name}}_config.wait_for_reset();
+{% endfor %}
+    join
+{% if topEnvHasRegisterModel %}
+    reg_model.reset();
+{% endif %}
+    // Start RESPONDER sequences here
+    fork
+{% for bfm in bfms %}
+{% if bfm.activity == 'ACTIVE' %}{% if bfm.initResp == 'RESPONDER' %}
+      {{bfm.name}}_responder_seq.start({{bfm.name}}_sequencer);
+{% endif %}{% endif %}
+{% endfor %}
+    join_none
+    // Start INITIATOR sequences here
+    fork
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}{% if bfm.initResp == 'INITIATOR' %}
+      repeat (25) {{bfm.name}}_random_seq.start({{bfm.name}}_sequencer);
+{% endif %}{% endif %}
+{% endfor %}
+    join
+{% if useCoEmuClkRstGen %}
+    clk_ctrl.wait_clocks(25);
+{% else %}
+
+{{env_name}}_env_seq.start(top_configuration.vsqr);
+
+    // UVMF_CHANGE_ME : Extend the simulation XXX number of clocks after 
+    // the last sequence to allow for the last sequence item to flow 
+    // through the design.
+    fork
+{% for bfm in bfms %}
+      {{bfm.name}}_config.wait_for_num_clocks(400);
+{% endfor %}
+    join
+{% endif %}
+
+    // pragma uvmf custom body end
+  endtask
+
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

@@ -1,0 +1,6 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+@use ccs_pkg_hdl.vinfo
++incdir+@vinfodir
+src/ccs_if.sv
+src/ccs_driver_bfm.sv
+src/ccs_monitor_bfm.sv

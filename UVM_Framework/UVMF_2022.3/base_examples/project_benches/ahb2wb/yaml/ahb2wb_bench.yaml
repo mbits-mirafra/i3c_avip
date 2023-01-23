@@ -1,0 +1,22 @@
+uvmf:
+  benches:
+    ahb2wb:
+      active_passive:
+      - bfm_name: wb
+        value: ACTIVE
+      - bfm_name: ahb
+        value: ACTIVE
+      clock_half_period: 5ns
+      clock_phase_offset: 9ns
+      interface_params: []
+      parameters:
+      - name: WB_DATA_WIDTH
+        type: int
+        value: '16'
+      - name: WB_ADDR_WIDTH
+        type: int
+        value: '32'
+      reset_assertion_level: 'False'
+      reset_duration: 200ns
+      top_env: ahb2wb
+      use_dpi_link: 'False'

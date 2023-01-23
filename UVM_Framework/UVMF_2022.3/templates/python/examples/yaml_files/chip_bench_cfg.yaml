@@ -1,0 +1,56 @@
+# The chip bench incorporates two sub-environments, block_a and block_b. 
+# Two of the underlying interfaces are intended to be bound to signals
+# inside of a DUT and therefore need to be placed in PASSIVE (monitoring)
+# mode.  This is achieved via the "active_passive" entry in the YAML.
+uvmf:
+  benches:
+    "chip" :
+      ## Specify the top-level block
+      top_env: "chip"
+      #use_bcr: "True"
+      clock_half_period: "6ns"
+      clock_phase_offset: "21ns"
+      reset_assertion_level: "True"
+      reset_duration: "250ns"
+      parameters:
+        - name: "TEST_CP_IN_DATA_WIDTH" 
+          type: "int"
+          value: "28"
+        - name: "TEST_CP_IN_ADDR_WIDTH" 
+          type: "int"
+          value: "37"
+        - name: "TEST_CP_OUT_ADDR_WIDTH"
+          type: "int"
+          value: "37"
+        - name: "TEST_UDP_DATA_WIDTH"   
+          type: "int"
+          value: "28"
+      top_env_params:
+        - name: "CHIP_CP_IN_DATA_WIDTH" 
+          value: "TEST_CP_IN_DATA_WIDTH" 
+        - name: "CHIP_CP_IN_ADDR_WIDTH" 
+          value: "TEST_CP_IN_ADDR_WIDTH" 
+        - name: "CHIP_CP_OUT_ADDR_WIDTH"
+          value: "TEST_CP_OUT_ADDR_WIDTH"
+        - name: "CHIP_UDP_DATA_WIDTH"   
+          value: "TEST_UDP_DATA_WIDTH"   
+      active_passive:   
+        - bfm_name: "block_a_env_control_plane_out"
+          value: "PASSIVE"
+        - bfm_name: "block_b_env_control_plane_in" 
+          value: "PASSIVE"
+      interface_params:
+        - bfm_name: "block_b_env_control_plane_in"
+          value:
+            - name: "ADDR_WIDTH"
+              value: "TEST_CP_IN_ADDR_WIDTH"
+            - name: "DATA_WIDTH"
+              value: "TEST_CP_IN_DATA_WIDTH"
+        - bfm_name: "block_b_env_control_plane_out"
+          value:
+            - name: "ADDR_WIDTH"
+              value: "TEST_CP_OUT_ADDR_WIDTH"
+        - bfm_name: "block_b_env_unsecure_data_plane_in"
+          value:
+            - name: "DATA_WIDTH"
+              value: "TEST_UDP_DATA_WIDTH"

@@ -1,0 +1,15 @@
+{% set fname = "verification_ip/environment_packages/{{name}}_env_pkg/Makefile" %}
+# {{name}} environment packages source and make target
+
+# Include all requisite sub-environment package targets for this bench
+{% for sub_env in subEnvironments %}
+include $(UVMF_VIP_LIBRARY_HOME)/environment_packages/{{sub_env.envPkg}}_env_pkg/Makefile
+{% endfor %}
+
+{{name}}_ENV_PKG =\
+		 $(UVMF_VIP_LIBRARY_HOME)/environment_packages/{{name}}_env_pkg/{{name}}_env_pkg.sv
+
+comp_{{name}}_env_pkg: {% for sub_env in subEnvironments %} comp_{{sub_env.envPkg}}_env_pkg {% endfor %}
+
+		$(HVL_COMP_CMD) +incdir+$(UVMF_VIP_LIBRARY_HOME)/environment_packages/{{name}}_env_pkg $({{name}}_ENV_PKG)
+

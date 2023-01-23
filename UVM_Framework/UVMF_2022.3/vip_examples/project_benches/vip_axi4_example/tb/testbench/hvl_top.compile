@@ -1,0 +1,4 @@
+needs:
+  - ../tests/vip_axi4_bench_test_pkg.compile
+src:
+  - hvl_top.sv

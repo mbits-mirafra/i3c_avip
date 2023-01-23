@@ -1,0 +1,122 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{name}}_env_pkg/{{src_dir}}{{name}}_env_sequence_base.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This file contains environment level sequences that will
+//    be reused from block to top level simulations.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+class {{name}}_env_sequence_base #( 
+      type CONFIG_T{% if paramDefs|length > 0 %}{% for param in paramDefs -%}{% if loop.first %},
+{% endif %}
+      {{param.type}} {{param.name}}{% if param.value != None %} = {{param.value}}{% endif %}{% if not loop.last %},
+{% endif %}{% endfor %}
+{% endif %}
+
+      ) extends uvmf_virtual_sequence_base #(.CONFIG_T(CONFIG_T));
+
+
+  `uvm_object_param_utils( {{name}}_env_sequence_base #(
+                           CONFIG_T{% if paramDefs|length > 0 %}{% for param in paramDefs -%}{% if loop.first %},
+{% endif %}
+                           {{param.name}}{% if not loop.last %},
+{% endif %}{% endfor %}
+{% endif %}
+
+                           ) );
+
+  {% for regModel in regModels %}
+// Handle to the environments register model
+// This handle needs to be set before use.
+  {{regModel.regBlockClass}}  reg_model;
+{% endfor %}
+
+// This {{name}}_env_sequence_base contains a handle to a {{name}}_env_configuration object 
+// named configuration.  This configuration variable contains a handle to each 
+// sequencer within each agent within this environment and any sub-environments.
+// The configuration object handle is automatically assigned in the pre_body in the
+// base class of this sequence.  The configuration handle is retrieved from the
+// virtual sequencer that this sequence is started on.
+// Available sequencer handles within the environment configuration:
+
+  // Initiator agent sequencers in {{name}}_environment:
+{% for agent in agents %}
+{% if agent.initResp == "INITIATOR" %}
+    // configuration.{{agent.name}}_config.sequencer
+{% endif %}
+{% endfor %}
+
+  // Responder agent sequencers in {{name}}_environment:
+{% for agent in agents %}
+{% if agent.initResp == "RESPONDER" %}
+    // configuration.{{agent.name}}_config.sequencer
+{% endif %}
+{% endfor %}
+
+{% if subEnvironments|length > 0 %}
+  // Virtual sequencers in sub-environments located in sub-environment configuration
+{% for sub_env in subEnvironments %}
+    // configuration.{{sub_env.name}}_config.vsqr
+{% endfor %}
+{% endif %}
+
+{% for agent in agents %}{% if agent.initResp == "INITIATOR" %}
+    typedef {{agent.ifPkg}}_random_sequence{{macro.paramUseNested(agent.parameters)|indent(16)}} {{agent.name}}_random_sequence_t;
+    {{agent.name}}_random_sequence_t {{agent.name}}_rand_seq;
+{% endif %}
+
+{% endfor %}
+
+{% for sub_env in subEnvironments %}
+typedef {{sub_env.envPkg}}_env_sequence_base #(
+        .CONFIG_T({{sub_env.envPkg}}_env_configuration{{macro.paramUseNested(sub_env.parameters)|indent(16)}}){% if sub_env.parameters|length > 0 %}{% for param in sub_env.parameters -%}{% if loop.first %},
+{% endif %}
+        .{{param.name}}({{param.value}}){% if not loop.last %},
+{% endif %}{% endfor %}{% endif %}
+
+        ) 
+        {{sub_env.name}}_sequence_base_t;
+rand {{sub_env.name}}_sequence_base_t {{sub_env.name}}_seq;
+
+{% endfor %}
+
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+  
+  function new(string name = "" );
+    super.new(name);
+{% for agent in agents %}{% if agent.initResp == "INITIATOR" %}
+    {{agent.name}}_rand_seq = {{agent.name}}_random_sequence_t::type_id::create("{{agent.name}}_rand_seq");
+{% endif %}{% endfor %}
+
+{% for sub_env in subEnvironments %}
+    {{sub_env.name}}_seq = {{sub_env.name}}_sequence_base_t::type_id::create("{{sub_env.name}}_seq");
+{% endfor %}
+
+  endfunction
+
+  virtual task body();
+
+{% for agent in agents %}{% if agent.initResp == "INITIATOR" %}
+    if ( configuration.{{agent.name}}_config.sequencer != null )
+       repeat (25) {{agent.name}}_rand_seq.start(configuration.{{agent.name}}_config.sequencer);
+{% endif %}{% endfor %}
+
+{% for sub_env in subEnvironments %}
+    {{sub_env.name}}_seq.start(configuration.{{sub_env.name}}_config.vsqr);
+{% endfor %}
+
+  endtask
+
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

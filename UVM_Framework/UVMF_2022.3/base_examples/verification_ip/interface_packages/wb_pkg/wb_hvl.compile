@@ -1,0 +1,6 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - wb_common.compile
+
+src:
+  - wb_pkg.sv

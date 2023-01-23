@@ -1,0 +1,17 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/{{name}}_bench_mtlb_prep.sh" %}
+{% set conditional = "mtlbReady" %}
+{% set isExecutable = True %}
+#----------------------------------------------------------------------
+#                                          
+# DESCRIPTION: This script  replaces base files with mtlb flow files
+#
+#----------------------------------------------------------------------
+cp -f ./Makefile_mtlb Makefile
+cp -f ../tb/sequences/{{name}}_sequences_pkg_mtlb.sv ../tb/sequences/{{name}}_sequences_pkg.sv
+cp -f ../tb/sequences/{{src_dir}}DPI_stimgen_sequence_mtlb.svh ../tb/sequences/{{src_dir}}DPI_stimgen_sequence.svh
+cp -f ../tb/sequences/{{src_dir}}read_from_file_sequence_mtlb.svh ../tb/sequences/{{src_dir}}read_from_file_sequence.svh
+cp -f ../tb/testbench/hdl_top_mtlb.sv ../tb/testbench/hdl_top.sv
+cp -f ../tb/tests/{{name}}_tests_pkg_mtlb.sv ../tb/tests/{{name}}_tests_pkg.sv
+cp -f ../tb/tests/{{src_dir}}DPI_stimgen_test_mtlb.svh ../tb/tests/{{src_dir}}DPI_stimgen_test.svh
+cp -f ../tb/tests/{{src_dir}}read_from_file_test_mtlb.svh ../tb/tests/{{src_dir}}read_from_file_test.svh
+cp -f ./wave_mtlb.do ./wave.do

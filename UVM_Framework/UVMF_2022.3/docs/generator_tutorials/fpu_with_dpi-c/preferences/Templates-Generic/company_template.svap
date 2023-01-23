@@ -1,0 +1,158 @@
+<?xml version='1.0'?>
+<project description="{}" fileCount="21" name="company_template" type="Template" uniqueProjectId="company_template_12229454231481898928" version="1.3">
+   <preferencesFile>./company_template_sva_prefs.tcl</preferencesFile>
+   <folder name="vhdl">
+      <folder name="combined">
+         <file>
+            <path>./vhdl/combined/ent_arch.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+      </folder>
+      <folder name="package">
+         <file>
+            <path>./vhdl/package/package.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+      </folder>
+      <folder name="seperate">
+         <file>
+            <path>./vhdl/seperate/arch.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+         <file>
+            <path>./vhdl/seperate/entity.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+      </folder>
+   </folder>
+   <folder name="systemverilog_v1">
+      <folder name="SV_include">
+         <file>
+            <path>./systemverilog_v1/SV_include/SV_include.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+      </folder>
+      <folder name="SV_Package">
+         <file>
+            <path>./systemverilog_v1/SV_Package/SV_pkg.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+      </folder>
+      <folder name="SV_Program">
+         <file>
+            <path>./systemverilog_v1/SV_Program/SV_program.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+      </folder>
+      <folder name="SV_Class">
+         <file>
+            <path>./systemverilog_v1/SV_Class/class.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+         <file>
+            <path>./systemverilog_v1/SV_Class/class_body.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+         <file>
+            <path>./systemverilog_v1/SV_Class/SV_class.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+         <file>
+            <path>./systemverilog_v1/SV_Class/SV_class_body.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+      </folder>
+      <folder name="SV_interface">
+         <file>
+            <path>./systemverilog_v1/SV_interface/SV_interface.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+      </folder>
+      <folder name="SV_module">
+         <file>
+            <path>./systemverilog_v1/SV_module/SV_module.svt</path>
+            <dialect>TEMPLATE</dialect>
+            <forceParseType>None</forceParseType>
+            <invalidParserNode>0</invalidParserNode>
+         </file>
+      </folder>
+   </folder>
+   <folder name="headers_v1">
+      <file>
+         <path>./headers_v1/class_header.svt</path>
+         <dialect>TEMPLATE</dialect>
+         <forceParseType>None</forceParseType>
+         <invalidParserNode>0</invalidParserNode>
+      </file>
+      <file>
+         <path>./headers_v1/file_header.svt</path>
+         <dialect>TEMPLATE</dialect>
+         <forceParseType>None</forceParseType>
+         <invalidParserNode>0</invalidParserNode>
+      </file>
+      <file>
+         <path>./headers_v1/method_header.svt</path>
+         <dialect>TEMPLATE</dialect>
+         <forceParseType>None</forceParseType>
+         <invalidParserNode>0</invalidParserNode>
+      </file>
+      <file>
+         <path>./headers_v1/module_header.svt</path>
+         <dialect>TEMPLATE</dialect>
+         <forceParseType>None</forceParseType>
+         <invalidParserNode>0</invalidParserNode>
+      </file>
+   </folder>
+   <folder name="verilog">
+      <file>
+         <path>./verilog/verilog_include.svt</path>
+         <dialect>TEMPLATE</dialect>
+         <forceParseType>None</forceParseType>
+         <invalidParserNode>0</invalidParserNode>
+      </file>
+      <file>
+         <path>./verilog/verilog_module.svt</path>
+         <dialect>TEMPLATE</dialect>
+         <forceParseType>None</forceParseType>
+         <invalidParserNode>0</invalidParserNode>
+      </file>
+   </folder>
+   <folder name="headers">
+      <file>
+         <path>./headers/company_header.svt</path>
+         <dialect>TEMPLATE</dialect>
+         <forceParseType>None</forceParseType>
+         <invalidParserNode>0</invalidParserNode>
+      </file>
+      <file>
+         <path>./headers/libraries.svt</path>
+         <dialect>TEMPLATE</dialect>
+         <forceParseType>None</forceParseType>
+         <invalidParserNode>0</invalidParserNode>
+      </file>
+   </folder>
+</project>

@@ -1,0 +1,34 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/{{name}}_mtlb.mk" %}
+{% set conditional = "mtlbReady" %}
+{% block description %}
+#
+#----------------------------------------------------------------------
+#                                          
+# DESCRIPTION: This makefile is used to make file substitutions within
+#    the bench, environment, and interfaces in order to complete 
+#    generation of a UVMF environment for a design characterized using
+#    DPI-C.  This Makefile copies files ending with _mtlb over files 
+#    with similar, but non mtlb flow, functionality.
+#
+#----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+# pragma uvmf custom additional begin
+# pragma uvmf custom additional end
+
+# Execute the scripts to replace non-mtlb flow files with mtlb flow files
+mtlb_conversion:
+{% for bfm in bfm_pkg_env_variables %}
+	# Execute the shell for the {{bfm.ifPkg}} interface package.
+	cd {{relative_vip_from_sim}}/{{interface_location}}/{{bfm.ifPkg}}_pkg; ./{{bfm.ifPkg}}_interface_mtlb_prep.sh; cd -;
+	#
+{% endfor %}
+	# Execute the shell for the {{env_name}} environment package
+	cd {{relative_vip_from_sim}}/{{environment_location}}/{{env_name}}_env_pkg; ./{{env_name}}_environment_mtlb_prep.sh; cd -
+	#
+	# Execute the shell for the {{name}} bench
+	./{{name}}_bench_mtlb_prep.sh;
+
+{% endblock %}

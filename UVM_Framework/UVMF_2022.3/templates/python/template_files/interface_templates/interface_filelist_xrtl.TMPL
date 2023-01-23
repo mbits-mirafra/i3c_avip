@@ -1,0 +1,7 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{name}}_filelist_xrtl.f" %}
+$UVMF_VIP_LIBRARY_HOME/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_if.sv
+$UVMF_VIP_LIBRARY_HOME/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_monitor_bfm.sv
+$UVMF_VIP_LIBRARY_HOME/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_driver_bfm.sv
+{%if genInBoundStreamingDriver %}
+$UVMF_VIP_LIBRARY_HOME/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_ibs_driver_bfm.sv
+{% endif %}

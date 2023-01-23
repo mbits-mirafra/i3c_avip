@@ -1,0 +1,50 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/compile.do" %}
+# Tcl do file for compile of {{name}} interface
+
+# pragma uvmf custom additional begin
+# pragma uvmf custom additional end
+
+{% if DPIFiles|length > 0 %}
+# Build from associated DPI C source
+if {$tcl_platform(pointerSize)==8} {
+  quietly set gcc_comp_arch "-m64"
+} else {
+  quietly set gcc_comp_arch "-m32"
+}
+
+# OS-dependent arguments for DPI compile and link
+switch $tcl_platform(platform) {
+  unix {
+    quietly set gcc_out_ext "so"
+    quietly set gcc_comp_args "-fPIC"
+  } 
+  windows {
+    quietly set gcc_out_ext "dll"
+    quietly set gcc_comp_args ""
+  }
+  default {
+    quietly echo "Unknown OS platform detected in compile.do"
+    quit -code 103
+  }
+}
+
+{% for cFile in DPIFiles %}
+set cmd [format "gcc %s -I%s/{{interface_location}}/{{name}}_pkg/dpi {{DPICompArgs}} %s %s/{{interface_location}}/{{name}}_pkg/dpi/{{cFile}}" $gcc_comp_arch $env({{vipLibEnvVariable}}) $gcc_comp_args $env({{vipLibEnvVariable}}) ]
+eval $cmd
+{% endfor %} 
+quietly set ofiles ""
+{% for cFile in DPIFiles %}
+quietly append ofiles " " [regsub -- {([^\.]*)\.c} {{cFile}} {\1.o}]
+{% endfor %}
+set gcccmd [format "gcc %s {{DPILinkArgs}} %s -o {{soName}}.%s" $gcc_comp_arch $ofiles $gcc_out_ext ]
+eval $gcccmd
+{% endif %}
+
+vlog -sv -timescale 1ps/1ps -suppress 2223,2286 +incdir+$env({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg \
+  -F $env({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg/{{name}}_filelist_hdl.f
+
+vlog -sv -timescale 1ps/1ps -suppress 2223,2286 {% if useDpiLink %}+incdir+$env(UVMF_HOME)/common/dpi_link_pkg {% endif %}+incdir+$env({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg \
+  -F $env({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg/{{name}}_filelist_hvl.f
+
+vlog -sv -timescale 1ps/1ps -suppress 2223,2286 +incdir+$env({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg \
+  -F $env({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg/{{name}}_filelist_xrtl.f

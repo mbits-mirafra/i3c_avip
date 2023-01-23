@@ -1,0 +1,80 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/Makefile" %}
+# {{name}} interface packages source
+# pragma uvmf custom additional begin
+# pragma uvmf custom additional end
+
+{{name}}_PKG         = \
+{% if useDpiLink %}	+incdir+$(UVMF_HOME)/common/dpi_link_pkg \
+{% endif %}
+	+incdir+$({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg \
+	-F $({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg/{{name}}_filelist_hvl.f 
+
+{{name}}_PKG_HDL         = \
+	+incdir+$({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg \
+	-F $({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg/{{name}}_filelist_hdl.f 
+
+{{name}}_PKG_XRTL         = \
+	+incdir+$(UVMF_VIP_LIBRARY_HOME)/{{interface_location}}/{{name}}_pkg \
+	-F $(UVMF_VIP_LIBRARY_HOME)/{{interface_location}}/{{name}}_pkg/{{name}}_filelist_xrtl.f 
+
+COMP_{{name}}_PKG_TGT_0 = q_comp_{{name}}_pkg
+COMP_{{name}}_PKG_TGT_1 = v_comp_{{name}}_pkg
+COMP_{{name}}_PKG_TGT = $(COMP_{{name}}_PKG_TGT_$(USE_VELOCE))
+
+comp_{{name}}_pkg: $(COMP_{{name}}_PKG_TGT) {% if DPIFiles|length > 0 %} comp_{{name}}_pkg_c_files {% endif %}
+
+
+q_comp_{{name}}_pkg:
+	$(HDL_COMP_CMD) $({{name}}_PKG_HDL)
+	$(HVL_COMP_CMD) $({{name}}_PKG)
+	$(HDL_COMP_CMD) $({{name}}_PKG_XRTL) 
+
+v_comp_{{name}}_pkg:
+	$(HVL_COMP_CMD) $({{name}}_PKG_HDL)
+	$(HVL_COMP_CMD) $({{name}}_PKG)
+	$(VELANALYZE_CMD) $({{name}}_PKG_HDL) 
+	$(VELANALYZE_HVL_CMD) $({{name}}_PKG) 
+	$(HDL_COMP_CMD) $({{name}}_PKG_XRTL)
+
+{%if DPIFiles != ""%}
+ifeq ($(MTI_VCO_MODE),64)
+  GCC_COMP_ARCH = -m64
+else
+  GCC_COMP_ARCH = -m32
+endif
+
+export {{name}}_IF_DPI_SRC ?= $({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg/dpi
+
+C_FILE_COMPILE_LIST_{{name}}_pkg	= \
+{% for cFile in DPIFiles %}
+	$({{name}}_IF_DPI_SRC)/{{cFile}} \
+{% endfor %}
+
+O_FILE_COMPILE_LIST_{{name}}_pkg = $(notdir $(C_FILE_COMPILE_LIST_{{name}}_pkg:.c=.o))
+
+GCC_COMP_ARGS_{{name}}_pkg	+= -I$({{name}}_IF_DPI_SRC) \
+	-fPIC {{DPICompArgs}}
+
+GCC_COMP_ARGS_{{name}}_pkg	+= $({{name}}_IF_GCC_COMP_ARGUMENTS)
+
+GCC_LINK_ARGS_{{name}}_pkg	+= \
+	{{DPILinkArgs}} \
+ 	-o {{soName}}.so
+
+comp_{{name}}_pkg_c_files:
+	@echo "--------------------------------"
+	@echo "Compiling Interface C source"
+	@echo "--------------------------------"
+	gcc $(GCC_COMP_ARCH) $(GCC_COMP_ARGS_{{name}}_pkg) $(C_FILE_COMPILE_LIST_{{name}}_pkg)
+	@echo "--------------------------------"
+	@echo "Linking Interface C objects into a shared object"
+	@echo "--------------------------------"
+	gcc $(GCC_COMP_ARCH) $(GCC_LINK_ARGS_{{name}}_pkg) $(O_FILE_COMPILE_LIST_{{name}}_pkg)
+	@echo "--------------------------------"
+{% endif %}
+
+{% if useDpiLink %}
+{{name}}_tc.o: dpiheader.h
+	${GPP} -I $(UVMF_HOME)/common/dpi_link_pkg -I . -I${QUESTA_HOME}/include -fPIC \
+	$({{vipLibEnvVariable}})/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_tc.cpp -shared -o {{name}}_tc.o 
+{% endif %}

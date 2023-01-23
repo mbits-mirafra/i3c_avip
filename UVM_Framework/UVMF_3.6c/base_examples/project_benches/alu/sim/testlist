@@ -1,0 +1,3 @@
+TB_INFO alu {} {}
+TB alu
+TEST alu_random_test 5

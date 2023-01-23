@@ -1,0 +1,75 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/sequences/{{src_dir}}read_from_file_sequence_mtlb.svh" %}
+{% set conditional = "mtlbReady" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+// Generated for MTLB flow
+//
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This file contains the top level sequence used in  read_from_file_test.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+class read_from_file_sequence extends {{name}}_bench_sequence_base;
+
+  `uvm_object_utils( read_from_file_sequence );
+
+  function new(string name = "" );
+    super.new(name);
+  endfunction
+
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+{% if bfm.initResp == 'INITIATOR' %}
+typedef {{bfm.ifPkg}}_read_from_file_sequence  {{bfm.name}}_read_from_file_seq_t;
+{{bfm.name}}_read_from_file_seq_t {{bfm.name}}_read_from_file_seq;
+{% endif %}
+{% endif %}
+{% endfor %}
+
+
+  // ****************************************************************************
+  virtual task body();
+    // Construct sequences here
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+{% if bfm.initResp == 'INITIATOR' %}
+   {{bfm.name}}_read_from_file_seq     = {{bfm.name}}_read_from_file_seq_t::type_id::create("{{bfm.name}}_read_from_file_seq");
+{% endif %}
+{% endif %}
+{% endfor %}
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+{% if bfm.initResp == 'INITIATOR' %}
+      {{bfm.name}}_config.wait_for_reset();
+{% endif %}
+{% endif %}
+{% endfor %}
+    // Start INITIATOR sequences here
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+{% if bfm.initResp == 'INITIATOR' %}
+       {{bfm.name}}_read_from_file_seq.start({{bfm.name}}_sequencer);
+{% endif %}
+{% endif %}
+{% endfor %}
+    // UVMF_CHANGE_ME : Allow time for remiaining data to flush through design
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+{% if bfm.initResp == 'INITIATOR' %}
+      {{bfm.name}}_config.wait_for_num_clocks(400);
+{% endif %}
+{% endif %}
+{% endfor %}
+  endtask
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

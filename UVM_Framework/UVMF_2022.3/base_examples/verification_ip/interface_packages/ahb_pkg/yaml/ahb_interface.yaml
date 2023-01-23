@@ -1,0 +1,78 @@
+uvmf:
+  interfaces:
+    ahb:
+      clock: hclk
+      config_constraints: []
+      config_vars: []
+      gen_inbound_streaming_driver: 'False'
+      hdl_pkg_parameters: []
+      hdl_typedefs:
+      - name: ahb_op_t
+        type: enum {AHB_RESET, AHB_READ, AHB_WRITE}
+      hvl_pkg_parameters: []
+      hvl_typedefs: []
+      parameters: []
+      ports:
+      - dir: output
+        name: haddr
+        reset_value: '''b0'
+        width: '32'
+      - dir: output
+        name: hwdata
+        reset_value: '''b0'
+        width: '16'
+      - dir: output
+        name: htrans
+        reset_value: '''b0'
+        width: '2'
+      - dir: output
+        name: hburst
+        reset_value: '''b0'
+        width: '3'
+      - dir: output
+        name: hsize
+        reset_value: '''b0'
+        width: '3'
+      - dir: output
+        name: hwrite
+        reset_value: '''b0'
+        width: '1'
+      - dir: output
+        name: hsel
+        reset_value: '''b0'
+        width: '1'
+      - dir: input
+        name: hready
+        reset_value: '''b0'
+        width: '1'
+      - dir: input
+        name: hrdata
+        reset_value: '''b0'
+        width: '16'
+      - dir: input
+        name: hresp
+        reset_value: '''b0'
+        width: '2'
+      reset: hresetn
+      reset_assertion_level: 'False'
+      response_info:
+        data: []
+        operation: 1'b1
+      transaction_constraints: []
+      transaction_vars:
+      - iscompare: 'False'
+        isrand: 'True'
+        name: op
+        type: ahb_op_t
+        unpacked_dimension: ''
+      - iscompare: 'True'
+        isrand: 'True'
+        name: data
+        type: bit [15:0]
+        unpacked_dimension: ''
+      - iscompare: 'True'
+        isrand: 'True'
+        name: addr
+        type: bit [31:0]
+        unpacked_dimension: ''
+      use_dpi_link: 'False'

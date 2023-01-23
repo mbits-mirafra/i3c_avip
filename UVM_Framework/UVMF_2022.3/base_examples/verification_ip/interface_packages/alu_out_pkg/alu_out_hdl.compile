@@ -1,0 +1,10 @@
+incdir:
+  - .
+
+needs:
+  - alu_out_common.compile
+  
+src:
+  - src/alu_out_if.sv
+  - src/alu_out_driver_bfm.sv
+  - src/alu_out_monitor_bfm.sv

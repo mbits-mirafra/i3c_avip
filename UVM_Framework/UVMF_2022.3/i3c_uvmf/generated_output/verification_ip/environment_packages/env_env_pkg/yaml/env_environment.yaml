@@ -1,0 +1,47 @@
+uvmf:
+  environments:
+    env:
+      agents:
+      - initiator_responder: INITIATOR
+        name: m_agent
+        type: i3c_m
+      - initiator_responder: INITIATOR
+        name: s_agent
+        type: i3c_s
+      analysis_components:
+      - name: i3c_sb
+        parameters: []
+        type: i3c_scoreboard
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_vars:
+      - comment: ''
+        isrand: 'False'
+        name: has_scoreboard
+        type: bit
+        value: 1'b1
+      - comment: ''
+        isrand: 'False'
+        name: no_of_masters
+        type: int
+        value: ''
+      - comment: ''
+        isrand: 'False'
+        name: no_of_slaves
+        type: int
+        value: ''
+      existing_library_component: 'True'
+      hvl_pkg_parameters: []
+      non_uvmf_components: []
+      parameters: []
+      qvip_memory_agents: []
+      scoreboards: []
+      subenvs: []
+      tlm_connections:
+      - driver: m_agent.monitored_ap
+        receiver: i3c_sb.m_sb_ep
+        validate: 'True'
+      - driver: s_agent.monitored_ap
+        receiver: i3c_sb.s_sb_ep
+        validate: 'True'

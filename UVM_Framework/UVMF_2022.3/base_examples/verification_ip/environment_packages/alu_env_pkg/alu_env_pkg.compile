@@ -1,0 +1,6 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../interface_packages/alu_in_pkg/alu_in_hvl.compile
+  - ../../interface_packages/alu_out_pkg/alu_out_hvl.compile
+src: 
+  - alu_env_pkg.sv

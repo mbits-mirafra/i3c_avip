@@ -1,0 +1,101 @@
+#!/bin/csh -f
+
+# modified for linux
+
+set FIRST    = ( ncsim virsims tvs vish vsim xray cve gdb hce_ simmips sn_wish )
+#set FIRST    = ( ncsim virsims tvs vish vsim xray cve gdb hce_ simmips sn_wish v2.main.exe)
+#set NO_FIRST_KILL  = "mwlr|xraydbg"
+set NO_FIRST_KILL  = "mwlr|xraydbg|v2.main.exe"
+set NUKE     = ( tvs simppc simmips xraydbg mwlr vish vsim gdb hce_ ncsim sn_wish v2.main.exe)
+
+set execs = ( $FIRST:q )
+set first = 0
+set nuke = 0
+
+# works for sun5 and hppa and linux
+
+setenv VCO `uname -s | sed -e 's/SunOS/ss5/' | sed -e 's/Linux/ixl/' `
+
+set noglob
+if ("$VCO" == "ixl") then
+    #set psflags = -efl
+    #set idcolmn = 'print $4'
+    set psflags = uxwww
+    set idcolmn = 'print $2'
+else if ($VCO == "ss5") then
+    set psflags = -ef
+    set idcolmn = 'print $2'
+else
+    set psflags = -ef
+    set idcolmn = 'print $2'
+endif
+
+    
+
+if ( -x /usr/bin/whoami ) then
+    set me = ` /usr/bin/whoami `
+else if ( -x /usr/ucb/whoami ) then
+    set me = ` /usr/ucb/whoami `
+else 
+    set me = ` whoami `
+endif
+
+if ($me == "") then
+   echo "killsim: Cannot find whoami....Bye."
+   exit 1
+endif
+
+   
+foreach exec ($execs:q)
+
+
+    set simlist =  `/bin/ps $psflags | egrep $me | egrep -e "$exec:q" | egrep -v 'ftp|lmgrd|wget|killsim|rlogin|egrep|gnome-terminal|vi |pxedit|netscape|grep|$NO_FIRST_KILL' | awk "{ $idcolmn }" ` 
+    #echo exec= $exec
+    #echo simlist first = $simlist
+    #echo "/bin/ps $psflags | egrep $me | egrep -e "$exec:q" | egrep -v 'ftp|lmgrd|wget|killsim|rlogin|egrep|gnome-terminal|vi |pxedit|netscape|grep|$NO_FIRST_KILL'"
+    if ( "$simlist" != "") then
+	if ($first == 0) then
+	    echo "Processes to kill: "
+	    set first = 1
+	endif
+	/bin/ps $psflags | egrep $me | egrep -e "$exec:q" | egrep -v 'ftp|lmgrd|wget|killsim|rlogin|egrep|gnome-terminal|vi |pxedit|netscape|grep|$NO_FIRST_KILL' 
+	foreach i ($simlist)
+		/bin/kill  $i
+	end
+    endif
+end
+
+# some delay for processes to exit
+set i = 50
+while ( $i > 0 ) 
+   @ i--
+end
+
+# if any still around, nuke 'em.
+set exec = ( $NUKE:q )
+foreach exec ($execs:q)
+    set simlist =  `/bin/ps $psflags | egrep $me | egrep -e "$exec:q" | egrep -v 'ftp|lmgrd|wget|killsim|rlogin|egrep|gnome-terminal|vi |pxedit|netscape|grep' | awk "{ $idcolmn }" ` 
+    #echo simlist nuke = $simlist
+    if ( "$simlist" != "") then
+	if ($nuke == 0) then
+	    echo "Processes to nuke: "
+	    set nuke = 1
+	endif
+	/bin/ps $psflags | egrep $me | egrep -e "$exec:q" | egrep -v 'ftp|lmgrd|wget|killsim|rlogin|egrep|gnome-terminal|vi |pxedit|netscape|grep|$NO_FIRST_KILL' 
+	foreach i ($simlist)
+		/bin/kill  -9 $i
+	end
+    endif
+end
+
+# look for xterm pid file, to kill xterm's
+if ( -r ".xterm_pid" ) then
+    foreach pid ( "`cat .xterm_pid`" )
+        set psPid = `/bin/ps | awk '{ print $1 }' | grep $pid`
+        if ( $psPid == $pid ) then
+            kill $pid
+        endif
+    end
+endif
+
+

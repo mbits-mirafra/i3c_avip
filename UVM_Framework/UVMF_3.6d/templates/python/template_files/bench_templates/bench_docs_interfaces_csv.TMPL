@@ -1,0 +1,16 @@
+{% set fname = "project_benches/{{name}}/docs/interfaces.csv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+{% endblock %}
+
+{% block contents %}
+
+,
+Interface Description, Interface Type, Interface Transaction, Interface Name,
+{% for agent in agents %}
+{{agent.name}}, {{agent.ifPkg}}_driver_bfm {{agent.ifPkg}}_monitor_bfm, {{agent.ifPkg}}_transaction, {{agent.ifPkg}}_pkg_{{agent.name}}_BFM,
+{% endfor %}
+
+{% endblock %}
+

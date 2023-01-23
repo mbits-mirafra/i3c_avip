@@ -1,0 +1,10 @@
+incdir:
+  - .
+
+needs:
+  - gpio_common.compile
+  
+src:
+  - src/gpio_if.sv
+  - src/gpio_driver_bfm.sv
+  - src/gpio_monitor_bfm.sv

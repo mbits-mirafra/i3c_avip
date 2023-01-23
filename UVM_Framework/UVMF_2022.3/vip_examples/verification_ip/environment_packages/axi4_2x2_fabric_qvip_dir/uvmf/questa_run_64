@@ -1,0 +1,13 @@
+export AXI4_2X2_FABRIC_QVIP_DIR_NAME=$(pwd)
+
+echo "Setting up work directory"
+vlib work
+
+vlog -f axi4_2x2_fabric_qvip_filelist.f +incdir+${QUESTA_MVC_HOME}/questa_mvc_src/sv \
+    hdl_axi4_2x2_fabric_qvip.sv \
+    hvl_axi4_2x2_fabric_qvip.sv 
+echo "Optimisation step"
+vopt -o top_opt hdl_axi4_2x2_fabric_qvip hvl_axi4_2x2_fabric_qvip
+
+echo "Running test"
+vsim -c -mvchome ${QUESTA_MVC_HOME} top_opt +nowarnTSCALE -t 1ns -do "run -all; quit" +UVM_TESTNAME=axi4_2x2_fabric_qvip_test_base +SEQ=axi4_2x2_fabric_qvip_vseq_base

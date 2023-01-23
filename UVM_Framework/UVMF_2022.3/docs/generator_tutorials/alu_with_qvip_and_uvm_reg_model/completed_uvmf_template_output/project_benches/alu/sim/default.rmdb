@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<rmdb version="1.0" loadtcl="default" toprunnables="top" options="-l vrun.log" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <runnable name="top" type="group" sequential="yes">
+    <parameters>
+      <!-- Override COLLAPSE to 1 in order to run each test once (i.e. ignore repeats) -->
+      <parameter name="COLLAPSE">0</parameter>
+      <parameter name="TOP_TESTLIST_FILE">(%RMDBDIR%)/testlist</parameter>
+      <parameter name="DEBUG">0</parameter>
+      <parameter name="INIT" type="tcl">[initTcl (%ROOTDIR%)]</parameter>
+      <parameter name="TESTCASES" type="tcl">[ReadTestlistFile (%TOP_TESTLIST_FILE%) (%COLLAPSE%) (%DEBUG%) (%INIT%)]</parameter>
+      <parameter name="BUILDS" type="tcl">[GetBuilds (%TESTCASES%)]</parameter>
+      <parameter name="ANCHORFILE">.UVMF_HOME</parameter>
+      <parameter name="ROOTDIR" type="tcl">[list $env(UVMF_HOME)]</parameter>
+      <parameter name="CODE_COVERAGE_ENABLE">1</parameter>
+      <parameter name="mergefile">(%DATADIR%)/tracker.ucdb</parameter>
+      <parameter name="mergeoptions">-testassociated</parameter>
+      <parameter name="HTML_REPORT_ARGS">-details -source -verbose -htmldir coverage_report</parameter>
+      <parameter name="USE_VIS">1</parameter>
+      <parameter name="DUMP_WAVES">0</parameter>
+      <parameter name="VIS_DUMP_OPTIONS">+report+signal+memory=512</parameter>
+    </parameters>
+    <members>
+      <member>each_top</member>
+      <member>report</member>
+    </members>
+  </runnable>  
+
+  <!-- This is actually a group of runnables forked off in parallel, depending on how many
+       different testbenches were specified in the test list files.  Each testbench is assumed to require its
+       own build operation, and only after that build has completed will subsequent tests be started.   -->
+  <runnable name="each_top" type="group" sequential="no" foreach="(%BUILDS%)" index="build">
+    <members>
+      <member>build_group</member>
+    </members>
+  </runnable>
+
+  <!-- This group sequentially invokes the build operation for a particular testbench followed by starting
+       all of the simulations for that testbench -->
+  <runnable name="build_group" type="group" sequential="yes">
+    <members>
+      <member>build_task</member>
+      <member>run_fork</member>
+    </members>
+  </runnable>
+
+  <!-- The actual build operation. -->
+  <runnable name="build_task" type="task">
+    <parameters>
+      <parameter name="EXTRABUILDCMD" type="tcl">[GetBuildCmd (%build%)]</parameter>
+      <parameter name="BUILDDIR" type="tcl">[GetBuildDir (%build%)]</parameter>
+      <parameter name="CODE_COVERAGE" type="tcl">[ if { (%CODE_COVERAGE_ENABLE%) } { return "CODE_COVERAGE_ENABLE=1" } else { return "" }]</parameter>
+    </parameters>
+    <execScript launch="vsim">
+      <command>make -f (%BUILDDIR%)/Makefile libs build optimize UVMF_HOME=(%ROOTDIR%) USE_VIS=(%USE_VIS%) (%CODE_COVERAGE%) (%EXTRABUILDCMD%)</command>
+    </execScript>
+  </runnable>
+
+  <!-- Level of grouping required to fork off all of the simulations in parallel -->
+  <runnable name="run_fork" type="group" sequential="no">
+    <members>
+      <member>run</member>
+    </members>
+  </runnable>
+
+  <runnable name="run" type="task" foreach="(%TESTCASES_FOR_BUILD%)" index="testname">
+    <parameters>
+      <parameter name="TESTCASES_FOR_BUILD" type="tcl">[GetTestcases (%build%) (%COLLAPSE%)]</parameter>
+      <parameter name="UVM_TESTNAME" type="tcl">[lindex [split (%testname%) "-"] 1]</parameter>
+      <parameter name="ucdbfile">(%testname%).ucdb</parameter>
+      <parameter name="seed" type="tcl">[lindex [split (%testname%) "-"] 3]</parameter>
+      <parameter name="tplanoptions">-format Excel -datafields "Section,Title,Description,Link,Type,Weight,Goal"</parameter>
+<!--      <parameter name="tplanoptions">-format Word -datalabels "WEIGHT,GOAL,TYPE,LINK,DESCRIPTION"</parameter> -->
+      <parameter name="tplanfile">(%RMDBDIR%)/ALU_functional_verification_plan_2020.1.xml</parameter>
+      <parameter name="TIMEOUT">3600</parameter>
+      <parameter name="DEBUGMODE">0</parameter>
+      <parameter name="EXTRARUNCMD" type="tcl">[GetRunCmd (%build%)]</parameter>
+      <parameter name="MVCHOME" type="tcl">[if {[FindMVCHome "(%RMDBDIR%)/Makefile"]} { return "-mvchome $::env(QUESTA_MVC_HOME)" }]</parameter>
+      <parameter name="UVM_VERBOSITY" type="tcl">[ if { (%DEBUGMODE%) } { return "UVM_HIGH" } else { return "UVM_LOW" }]</parameter>
+      <parameter name="TOP">optimized_batch_top_tb</parameter>
+      <parameter name="CODE_COVERAGE" type="tcl">[ if { (%CODE_COVERAGE_ENABLE%) } { return "-coverage" } else { return "" }]</parameter>
+      <parameter name="VIS_ARGS" type="tcl">[ if { (%USE_VIS%) &amp;&amp; ( (%DEBUGMODE%) || (%DUMP_WAVES%) ) } { return "-qwavedb=(%VIS_DUMP_OPTIONS%)" } else { return "" }]</parameter>
+    </parameters>
+    <localfile name="test.do" expand="yes">
+      <command>set BreakOnAssertion 2</command>
+      <command>set NoQuitOnFinish 1</command>
+      <command>set IterationLimit 140000</command>
+      <command>onerror { quit -f }</command>
+      <command>onbreak {resume};</command>
+      <command>coverage save -onexit (%ucdbfile%)</command>
+      <command>coverage attr -name TESTNAME -value (%testname%)</command>
+      <command>run -all;quit -f</command>
+    </localfile>
+    <execScript launch="vsim" mintimeout="(%TIMEOUT%)">
+      <command>
+         exec vsim -c -lib (%TASKDIR%)/../../build_task/work (%TOP%)
+         -do "test.do" -suppress 8887 -permit_unmatched_virtual_intf                                                        
+         +UVM_TESTNAME=(%UVM_TESTNAME%) +vrm_in_use (%CODE_COVERAGE%) (%MVCHOME%)  
+         +UVM_VERBOSITY=(%UVM_VERBOSITY%) -solvefaildebug +UVM_NO_RELNOTES (%VIS_ARGS%)
+         -sv_seed (%seed%) -uvmcontrol=none +notimingchecks (%EXTRARUNCMD%)
+      </command>                                                     
+    </execScript>
+  </runnable>
+
+  <runnable name="report" type="task">
+    <execScript>
+      <command>vcover report -html (%mergefile%) (%HTML_REPORT_ARGS%)</command>
+    </execScript>
+  </runnable>
+
+  <usertcl name="default" file="(%ROOTDIR%)/scripts/default_rmdb.tcl">
+    This space left intentionally blank - see file 'default_rmdb.tcl' for user Tcl procedures used in 
+    the code above. It is in a separate file for easier debug.
+  </usertcl>
+
+</rmdb>

@@ -1,0 +1,9 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ../parameters/axi4_2x2_fabric_parameters_pkg.compile
+src:
+  - -f $AXI4_2X2_FABRIC_QVIP_DIR_NAME/axi4_2x2_fabric_qvip_filelist.f
+  - $AXI4_2X2_FABRIC_QVIP_DIR_NAME/hdl_axi4_2x2_fabric_qvip.sv
+  - hdl_top.sv
+incdir:
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv

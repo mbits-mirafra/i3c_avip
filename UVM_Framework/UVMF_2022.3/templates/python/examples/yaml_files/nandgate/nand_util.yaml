@@ -1,0 +1,23 @@
+uvmf:
+  util_components:
+    "nand_predictor":
+      type: predictor
+
+      analysis_exports:
+      - name: "nand_in_agent_ae"
+        type: 'nand_in_transaction'
+
+      analysis_ports:    
+      - name: "nand_sco_ap"
+        type: 'nand_out_transaction'
+
+
+    "nand_scoreboard":
+      type: scoreboard
+
+      analysis_exports:
+      - name: "nand_out_pred_sb_ae"
+        type: 'nand_out_transaction'
+
+      - name: "nand_out_ag_sb_ae"
+        type: 'nand_out_transaction'

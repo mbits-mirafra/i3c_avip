@@ -1,0 +1,53 @@
+uvmf:
+  interfaces:
+    gpio:
+      clock: clk
+      config_constraints: []
+      config_vars: []
+      existing_library_component: 'True'
+      gen_inbound_streaming_driver: 'False'
+      hdl_pkg_parameters: []
+      hdl_typedefs:
+      - name: gpio_op_t
+        type: enum { GPIO_WR, GPIO_RD }
+      hvl_pkg_parameters: []
+      hvl_typedefs: []
+      parameters:
+      - name: READ_PORT_WIDTH
+        type: int
+        value: '4'
+      - name: WRITE_PORT_WIDTH
+        type: int
+        value: '4'
+      ports:
+      - dir: input
+        name: read_port
+        reset_value: '''b0'
+        width: READ_PORT_WIDTH
+      - dir: output
+        name: write_port
+        reset_value: '''b0'
+        width: WRITE_PORT_WIDTH
+      reset: rst
+      reset_assertion_level: 'True'
+      response_info:
+        data: []
+        operation: 1'b1
+      transaction_constraints: []
+      transaction_vars:
+      - iscompare: 'False'
+        isrand: 'False'
+        name: op
+        type: gpio_op_t
+        unpacked_dimension: ''
+      - iscompare: 'False'
+        isrand: 'False'
+        name: read_port
+        type: logic [READ_PORT_WIDTH-1:0]
+        unpacked_dimension: ''
+      - iscompare: 'False'
+        isrand: 'False'
+        name: write_port
+        type: logic [WRITE_PORT_WIDTH-1:0]
+        unpacked_dimension: ''
+      use_dpi_link: 'False'

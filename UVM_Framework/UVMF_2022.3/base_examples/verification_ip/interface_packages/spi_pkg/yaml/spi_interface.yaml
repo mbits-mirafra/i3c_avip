@@ -1,0 +1,49 @@
+uvmf:
+  interfaces:
+    spi:
+      clock: sck
+      config_constraints: []
+      config_vars: []
+      existing_library_component: 'True'
+      gen_inbound_streaming_driver: 'False'
+      hdl_pkg_parameters: []
+      hdl_typedefs:
+      - name: spi_op_t
+        type: enum {SPI_SLAVE_READ, SPI_SLAVE_WRITE}
+      - name: spi_dir_t
+        type: enum {MOSI, MISO, TO_SPI, FROM_SPI}
+      hvl_pkg_parameters: []
+      hvl_typedefs: []
+      parameters: []
+      ports:
+      - dir: output
+        name: mosi
+        reset_value: '''b0'
+        width: '1'
+      - dir: input
+        name: miso
+        reset_value: '''b0'
+        width: '1'
+      reset: rst
+      reset_assertion_level: 'True'
+      response_info:
+        data: []
+        operation: 1'b1
+      transaction_constraints: []
+      transaction_vars:
+      - iscompare: 'False'
+        isrand: 'False'
+        name: dir
+        type: spi_dir_t
+        unpacked_dimension: ''
+      - iscompare: 'True'
+        isrand: 'False'
+        name: mosi_data
+        type: bit [7:0]
+        unpacked_dimension: ''
+      - iscompare: 'True'
+        isrand: 'False'
+        name: miso_data
+        type: bit [7:0]
+        unpacked_dimension: ''
+      use_dpi_link: 'False'

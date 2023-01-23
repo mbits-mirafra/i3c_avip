@@ -1,0 +1,41 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/tests/{{src_dir}}infact_test_base.svh" %}
+{% set conditional = "infact_enabled" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This test extends test_top to provide a baseline
+//    for all tests that invoke inFact for stimulus 
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+class infact_test_base extends test_top;
+
+  `uvm_component_utils( infact_test_base );
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+
+  function new(string name = "infact_test_base", uvm_component parent = null );
+    super.new(name,parent);
+  endfunction
+
+  virtual function void build_phase(uvm_phase phase);
+    // The factory override below replaces the default top-level sequence 
+    // with the infact base-level sequence
+    set_type_override("{{name}}_bench_sequence_base", "infact_{{name}}_bench_sequence_base");
+    // Execute the build_phase of test_top AFTER the factory override has been made
+    super.build_phase(phase);
+  endfunction
+
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/testlist" %}
+
+{% block description %}
+
+{% endblock %}
+
+{% block contents %}
+
+# Test list for use by RMDB file
+# File syntax is
+# TB_INFO <tb_name> { <special args for build command> } { <special args for run command > }
+# TB <tb_name> ## All subsequent tests will run on this bench until a different "TB" line is seen
+# TEST <testname> <repeat_count> <1st_seed> ... <nth seed>
+# If not enough seeds are provided then random seeds are used to pad
+# If no repeat count is given, default is 1
+# pragma uvmf custom tb_info begin
+{% if useBCR %}
+TB_INFO {{name}} { } { }  
+{% else %}
+TB_INFO {{name}} { UVMF_VIP_LIBRARY_HOME=../../../../../{{relative_vip_from_sim}} UVMF_PROJECT_DIR=../../../../../../../{{name}} } { {% if svLibNames|length > 0 %}{% for svLibName in svLibNames %} -sv_lib ../../build_task/{{svLibName}}{% endfor %}{% endif %} }
+{% endif %}
+# pragma uvmf custom tb_info end
+TB {{name}}
+# pragma uvmf custom regression_suite begin
+TEST test_top 3
+{% if inFactEnabled %}
+TEST infact_test_base 3
+{% endif %}
+# pragma uvmf custom regression_suite end
+
+
+{% endblock %}
+

@@ -1,0 +1,7 @@
+uvmf_testlist:
+  include:
+    - ../../ahb2wb/sim/testlist.yaml
+    - ../../wb2spi/sim/testlist.yaml
+    - ../../ahb2spi/sim/testlist.yaml
+    - ../../alu/sim/testlist.yaml
+    - ../../gpio_example/sim/testlist.yaml

@@ -1,0 +1,478 @@
+# make -f /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/sim/Makefile libs build optimize UVMF_HOME=/mnt/hgfs/vmware/UVMF_Q
+# ** Error: make[1]: Entering directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_axi3_example/build_group/build_task'
+# test -e work || vlib work 
+# echo "Compiling infrastructure files"
+# Compiling infrastructure files
+# vlog -sv /home/student/tools/QVIP/10.4b/include/questa_mvc_svapi.svh
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:44 on Nov 07,2014
+# vlog -sv /home/student/tools/QVIP/10.4b/include/questa_mvc_svapi.svh 
+# -- Compiling package QUESTA_MVC
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:01:45 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/mvc_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:45 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/mvc_pkg.sv 
+# -- Compiling package mvc_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# ** Note: (vlog-2286) Using implicit +incdir+/home/student/tools/Questa/10.4c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling package addr_map_pkg
+# -- Compiling package rw_txn_pkg
+# -- Importing package mvc_pkg
+# -- Compiling package cache_utils_pkg
+# -- Compiling package cache_model_pkg
+# -- Compiling package slave_mem_models_pkg
+# -- Compiling package rw_api_seq_pkg
+# -- Importing package rw_txn_pkg
+# -- Compiling package txn_logger_pkg
+# -- Compiling package rw_delay_db_pkg
+# -- Importing package addr_map_pkg
+# -- Compiling package bmp_image_seq_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:01:45 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# echo "Compiling protocol package"
+# Compiling protocol package
+# vlog +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi/mgc_axi_v1_0_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:45 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi/mgc_axi_v1_0_pkg.sv 
+# -- Compiling package mgc_axi_v1_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_api_seq_pkg
+# -- Importing package txn_logger_pkg
+# -- Importing package rw_delay_db_pkg
+# ** Note: (vlog-2286) Using implicit +incdir+/home/student/tools/Questa/10.4c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling interface mgc_axi
+# -- Compiling package mgc_axi_v1_0_pkg_sv_unit
+# -- Importing package mgc_axi_v1_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_api_seq_pkg
+# -- Importing package txn_logger_pkg
+# -- Importing package rw_delay_db_pkg
+# -- Compiling interface mgc_axi
+# -- Compiling module mgc_axi_master_module
+# -- Compiling module mgc_axi_monitor_module
+# -- Compiling module mgc_axi_slave_module
+# 
+# Top level modules:
+# 	mgc_axi_master_module
+# 	mgc_axi_monitor_module
+# 	mgc_axi_slave_module
+# End time: 10:02:07 on Nov 07,2014, Elapsed time: 0:00:22
+# Errors: 0, Warnings: 0
+# echo "Compiling testbench"
+# Compiling testbench
+# vlog +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv  /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi/modules/axi_master.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:07 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi/modules/axi_master.sv 
+# -- Compiling module axi_master
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	axi_master
+# End time: 10:02:08 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv  /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi/modules/axi_slave.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:08 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi/modules/axi_slave.sv 
+# -- Compiling module axi_slave
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	axi_slave
+# End time: 10:02:08 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv  /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi/modules/axi_monitor.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:08 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/axi/modules/axi_monitor.sv 
+# -- Compiling module axi_monitor
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	axi_monitor
+# End time: 10:02:08 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:08 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg" /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv 
+# -- Compiling package fli_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:09 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:09 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# -- Compiling package uvmf_base_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:09 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:09 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:09 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg /mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg/qvip_utils_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:09 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg" /mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg/qvip_utils_pkg.sv 
+# -- Compiling package qvip_utils_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:09 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hvl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:09 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hvl.f 
+# -- Compiling package wb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling package wb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package wb_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:10 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hdl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:10 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hdl.f 
+# -- Compiling package wb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling interface wb_if
+# -- Compiling package wb_if_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_if
+# -- Compiling interface wb_monitor_bfm
+# -- Compiling package wb_monitor_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_monitor_bfm
+# -- Importing package wb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Compiling interface wb_driver_bfm
+# -- Compiling package wb_driver_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_driver_bfm
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:10 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/vip_axi3_example_env_pkg /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/vip_axi3_example_env_pkg/vip_axi3_example_env_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:10 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/vip_axi3_example_env_pkg" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/vip_axi3_example_env_pkg/vip_axi3_example_env_pkg.sv 
+# -- Compiling package vip_axi3_example_env_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_axi_v1_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_api_seq_pkg
+# -- Importing package txn_logger_pkg
+# -- Importing package rw_delay_db_pkg
+# -- Importing package qvip_utils_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:12 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/parameters /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/parameters/qvip_axi3_example_parameters_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:12 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/parameters" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/parameters/qvip_axi3_example_parameters_pkg.sv 
+# -- Compiling package qvip_axi3_example_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:12 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/sequences /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/sequences/qvip_axi3_example_sequences_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:12 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/sequences" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/sequences/qvip_axi3_example_sequences_pkg.sv 
+# -- Compiling package qvip_axi3_example_sequences_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_axi_v1_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_api_seq_pkg
+# -- Importing package txn_logger_pkg
+# -- Importing package rw_delay_db_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:13 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/tests /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/tests/qvip_axi3_example_test_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:13 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/tests" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/tests/qvip_axi3_example_test_pkg.sv 
+# -- Compiling package qvip_axi3_example_test_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package vip_axi3_example_env_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_axi_v1_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_api_seq_pkg
+# -- Importing package txn_logger_pkg
+# -- Importing package rw_delay_db_pkg
+# -- Importing package qvip_utils_pkg
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package qvip_axi3_example_parameters_pkg
+# -- Importing package qvip_axi3_example_sequences_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:02:15 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv /mnt/hgfs/vmware/UVMF_Q/common/modules/AXI_slave_v.v
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:15 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /mnt/hgfs/vmware/UVMF_Q/common/modules/AXI_slave_v.v 
+# -- Compiling module AXI_slave_v
+# 
+# Top level modules:
+# 	AXI_slave_v
+# End time: 10:02:15 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench/clk_reset.sv  
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:15 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench/clk_reset.sv 
+# -- Compiling module clk_reset
+# 
+# Top level modules:
+# 	clk_reset
+# End time: 10:02:15 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench/top_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:15 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench/top_filelist_hvl.f 
+# -- Compiling package hvl_top_sv_unit
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Compiling module hvl_top
+# 
+# Top level modules:
+# 	hvl_top
+# End time: 10:02:15 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench/top_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:15 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_axi3_example/tb/testbench/top_filelist_hdl.f 
+# -- Compiling package hdl_top_sv_unit
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_axi_v1_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_api_seq_pkg
+# -- Importing package txn_logger_pkg
+# -- Importing package rw_delay_db_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package vip_axi3_example_env_pkg
+# -- Importing package qvip_utils_pkg
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package qvip_axi3_example_test_pkg
+# -- Importing package qvip_axi3_example_parameters_pkg
+# -- Importing package qvip_axi3_example_sequences_pkg
+# -- Compiling module hdl_top
+# 
+# Top level modules:
+# 	hdl_top
+# End time: 10:02:18 on Nov 07,2014, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+# vopt  +cover=sbcef+/hdl_top/DUT  hvl_top hdl_top   -o optimized_batch_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:02:18 on Nov 07,2014
+# vopt "+cover=sbcef+/hdl_top/DUT" hvl_top hdl_top -o optimized_batch_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading package mtiUvm.questa_uvm_pkg
+# -- Loading module hdl_top
+# -- Loading interface mgc_axi
+# -- Loading module AXI_slave_v
+# -- Loading module clk_reset
+# Optimizing 31 design-units (inlining 1/3 module instances, 0/0 UDP instances):
+# -- Optimizing interface mgc_axi(fast__1)
+# -- Optimizing module AXI_slave_v(fast)
+# -- Inlining module clk_reset(fast)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package QUESTA_MVC(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package slave_mem_models_pkg(fast)
+# -- Optimizing package addr_map_pkg(fast)
+# -- Optimizing package mvc_pkg(fast)
+# -- Optimizing package rw_delay_db_pkg(fast)
+# -- Optimizing package txn_logger_pkg(fast)
+# -- Optimizing package rw_txn_pkg(fast)
+# -- Optimizing package rw_api_seq_pkg(fast)
+# -- Optimizing package mgc_axi_v1_0_pkg(fast)
+# -- Optimizing package mgc_axi_v1_0_pkg_sv_unit(fast)
+# -- Optimizing interface mgc_axi(fast)
+# -- Optimizing package qvip_axi3_example_parameters_pkg(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package wb_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package wb_pkg(fast)
+# -- Optimizing package qvip_utils_pkg(fast)
+# -- Optimizing package qvip_axi3_example_sequences_pkg(fast)
+# -- Optimizing package vip_axi3_example_env_pkg(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/vip_axi3_example_env_pkg/src/vip_axi3_example_translator.svh(70): (vopt-2250) Function "transform" has no return value assignment.
+# -- Optimizing package qvip_axi3_example_test_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# Optimized design name is optimized_batch_top_tb
+# End time: 10:03:26 on Nov 07,2014, Elapsed time: 0:01:08
+# Errors: 0, Warnings: 1
+# vopt  +acc   hvl_top hdl_top   -o optimized_debug_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:29 on Nov 07,2014
+# vopt "+acc" hvl_top hdl_top -o optimized_debug_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading package mtiUvm.questa_uvm_pkg
+# -- Loading module hdl_top
+# -- Loading interface mgc_axi
+# -- Loading module AXI_slave_v
+# -- Loading module clk_reset
+# Optimizing 31 design-units (inlining 0/3 module instances, 0/0 UDP instances):
+# -- Optimizing interface mgc_axi(fast__1)
+# -- Optimizing module AXI_slave_v(fast)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing module clk_reset(fast)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package QUESTA_MVC(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package slave_mem_models_pkg(fast)
+# -- Optimizing package addr_map_pkg(fast)
+# -- Optimizing package mvc_pkg(fast)
+# -- Optimizing package rw_delay_db_pkg(fast)
+# -- Optimizing package txn_logger_pkg(fast)
+# -- Optimizing package rw_txn_pkg(fast)
+# -- Optimizing package rw_api_seq_pkg(fast)
+# -- Optimizing package mgc_axi_v1_0_pkg(fast)
+# -- Optimizing package mgc_axi_v1_0_pkg_sv_unit(fast)
+# -- Optimizing interface mgc_axi(fast)
+# -- Optimizing package qvip_axi3_example_parameters_pkg(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package wb_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package wb_pkg(fast)
+# -- Optimizing package qvip_utils_pkg(fast)
+# -- Optimizing package qvip_axi3_example_sequences_pkg(fast)
+# -- Optimizing package vip_axi3_example_env_pkg(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/vip_axi3_example_env_pkg/src/vip_axi3_example_translator.svh(70): (vopt-2250) Function "transform" has no return value assignment.
+# -- Optimizing package qvip_axi3_example_test_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# Optimized design name is optimized_debug_top_tb
+# End time: 10:04:30 on Nov 07,2014, Elapsed time: 0:01:01
+# Errors: 0, Warnings: 1
+# make[1]: Leaving directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_axi3_example/build_group/build_task'
+# make[1]: Warning: File `/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/vip_axi3_example_env_pkg/Makefile' has modification time 3.5e+07 s in the future
+# make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+# Executing ONERROR command at macro ./execScript.do line 1
+# quit -f

@@ -1,0 +1,40 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/veloce.config" %}
+
+{% block description %}
+
+{% endblock %}
+
+{% block contents %}
+
+{% if veloceReady %}
+
+# pragma uvmf custom additional begin
+comp -num_boards 1
+comp -hvl questa
+# Please choose the correct emulator type code for
+#   comp -platform command or else velcomp will fail
+# Available types are:
+# - Veloce2 Quattro: D2
+# - Veloce2 Maximus: D2M
+# - Veloce Strato TiL, Ti, and Mi: Strato
+# - Veloce Strato M and Strato T: StratoM
+# - comp -platform <emulator type code>
+comp -platform Strato
+
+rtlc -enable_tbx_pragma_checks
+rtlc -allow_4ST
+rtlc -allow_MDR
+rtlc -compile_display
+rtlc -xwave_siglist xwaves.sigs
+# pragma uvmf custom additional end
+
+{% else %}
+
+This file intentionally left blank. 
+It is needed for UVMF testbench acceleration using the Veloce emulator, and so it 
+may be deleted as long as you are just using only pure simulation with Questa alone.
+
+{% endif %}
+
+{% endblock %}
+

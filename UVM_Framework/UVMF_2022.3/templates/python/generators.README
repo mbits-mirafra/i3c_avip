@@ -1,0 +1,32 @@
+Version and Package Support:
+========================================================================================
+
+The code used to generate UVMF environments using API and YAML are written in Python. It 
+have been tested to work using Python 2.6/2.7 as well as Python 3.7. 
+
+If using Python 2, everything should work out-of-the-box as all required packages are 
+shipped with the installation:
+ - yaml
+ - jinja2
+ - markupsafe
+ - voluptuous
+
+If using Python 3, the user is responsible for installing some of these packages:
+ - yaml
+ - jinja2
+ - markupsafe
+
+NOTE: It appears that these packages come as part of Anaconda Python3 so no further
+      installations should be required.
+
+
+API Usage and Search Paths:
+========================================================================================
+
+If using the YAML-based generators, this section can be skipped.
+
+If using the API directly, you will need to point sys.path to the $UVMF_HOME/templates/python
+directory, either by directly appending/prepending to the variable in your own script or
+through some other means, such as setting the $PYTHONPATH environment variable:
+
+  setenv PYTHONPATH ${PYTHONPATH}:${UVMF_HOME}/templates/python

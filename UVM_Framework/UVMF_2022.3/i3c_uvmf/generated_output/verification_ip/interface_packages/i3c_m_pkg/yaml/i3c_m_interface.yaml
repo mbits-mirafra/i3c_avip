@@ -1,0 +1,178 @@
+uvmf:
+  interfaces:
+    i3c_m:
+      clock: clock
+      config_constraints: []
+      config_vars:
+      - comment: ''
+        isrand: 'False'
+        name: is_active
+        type: uvm_active_passive_enum
+        value: ''
+      - comment: ''
+        isrand: 'False'
+        name: no_of_slaves
+        type: int
+        value: ''
+      - comment: ''
+        isrand: 'False'
+        name: shift_dir
+        type: shift_direction_e
+        value: ''
+      - comment: ''
+        isrand: 'False'
+        name: slave_address_array
+        type: bit [SLAVE_ADDRESS_WIDTH-1:0]
+        value: ''
+      - comment: ''
+        isrand: 'False'
+        name: slave_register_address_array
+        type: bit [7:0]
+        value: ''
+      - comment: ''
+        isrand: 'True'
+        name: primary_prescalar
+        type: bit [2:0]
+        value: ''
+      - comment: ''
+        isrand: 'True'
+        name: secondary_prescalar
+        type: bit [2:0]
+        value: ''
+      - comment: ''
+        isrand: 'False'
+        name: baudrate_divisor
+        type: int
+        value: ''
+      - comment: ''
+        isrand: 'False'
+        name: has_coverage
+        type: bit
+        value: ''
+      existing_library_component: 'True'
+      gen_inbound_streaming_driver: 'False'
+      hdl_pkg_parameters: []
+      hdl_typedefs: []
+      hvl_pkg_parameters: []
+      hvl_typedefs: []
+      parameters: []
+      ports:
+      - dir: input
+        name: scl_i
+        reset_value: 1'b0
+        width: '1'
+      - dir: output
+        name: scl_o
+        reset_value: 1'b0
+        width: '1'
+      - dir: output
+        name: sda_o
+        reset_value: 1'b0
+        width: '1'
+      - dir: input
+        name: sda_i
+        reset_value: 1'b0
+        width: '1'
+      - dir: output
+        name: scl_oen
+        reset_value: 1'b0
+        width: '1'
+      - dir: output
+        name: sda_oen
+        reset_value: 1'b0
+        width: '1'
+      reset: reset
+      reset_assertion_level: 'True'
+      transaction_constraints:
+      - comment: ''
+        name: sl_ack_con
+        value: '{ slave_add_ack==1; }'
+      - comment: ''
+        name: reg_ack_con
+        value: '{ reg_add_ack==1; }'
+      transaction_vars:
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: read_write
+        type: read_write_e
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'False'
+        name: scl
+        type: bit
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: sda
+        type: bit
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: wr_data
+        type: bit [DATA_WIDTH-1:0]
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: rd_data
+        type: 'bit [DATA_WIDTH-1:0] '
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: slave_address
+        type: bit [SLAVE_ADDRESS_WIDTH-1:0]
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: register_address
+        type: bit [REGISTER_ADDRESS_WIDTH-1:0]
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: size
+        type: bit [31:0]
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'False'
+        name: ack
+        type: bit
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: index
+        type: bit [NO_OF_SLAVES-1:0]
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: raddr
+        type: bit [7:0]
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: slave_add_ack
+        type: bit
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'True'
+        name: reg_add_ack
+        type: bit
+        unpacked_dimension: ''
+      - comment: ''
+        iscompare: 'True'
+        isrand: 'False'
+        name: wr_data_ack
+        type: bit
+        unpacked_dimension: ''
+      use_dpi_link: 'False'

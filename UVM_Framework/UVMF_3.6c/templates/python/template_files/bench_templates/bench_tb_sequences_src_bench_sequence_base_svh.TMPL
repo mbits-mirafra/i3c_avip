@@ -1,0 +1,120 @@
+{% set fname = "project_benches/{{name}}/tb/sequences/src/{{name}}_sequence_base.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Simulation Bench 
+// Unit            : Bench Sequence Base
+// File            : {{name}}_sequence_base.svh
+//----------------------------------------------------------------------
+//
+// Description: This file contains the top level and utility sequences
+//     used by test_top. It can be extended to create derivative top
+//     level sequences.
+//
+//----------------------------------------------------------------------
+//
+{% endblock %}
+
+{% block contents %}
+
+class {{name}}_sequence_base extends uvmf_sequence_base #(uvm_sequence_item);
+
+  `uvm_object_utils( {{name}}_sequence_base );
+
+  // Instantiate sequences here
+{% for agent in agents %}
+{{agent.ifPkg}}_random_sequence {{agent.name}}_random_seq;
+{% endfor %}
+
+  // Sequencer handles for each active interface in the environment
+  // Configuration handles to access interface BFM's
+{% for agent in agents %}
+uvm_sequencer #({{agent.ifPkg}}_transaction)  {{agent.name}}_sequencer; 
+{% endfor %}
+{% for agent in agents %}
+{{agent.ifPkg}}_configuration                 {{agent.name}}_config;
+{% endfor %}
+
+{% if veloceReady %}
+
+  //variable: clk_ctrl
+  //Clock Proxy Object used to control the Clock
+  // Must be extended clock_ctrl object and not clock_ctrl_base because
+  // bfm is set here.  Usage elsewhere in testbench can just use a
+  // clock_ctrl_base handle.
+  clock_ctrl #(CLK_PHASE_OFFSET_IN_PS) clk_ctrl;
+  
+  //variable: reset_ctrl
+  //Reset Proxy Object used to control Reset
+  // Must be extended reset_ctrl object and not reset_ctrl_base because bfm
+  // is set here.  Usage elsewhere in testbench can just use a reset_ctrl_base
+  // handle
+  sync_reset_ctrl #(RST_POLARITY) reset_ctrl;
+
+{% endif %}
+
+// ****************************************************************************
+  function new( string name = "" );
+     super.new( name );
+
+  // Retrieve the sequencer handles from the uvm_config_db
+{% for agent in agents %}
+if( !uvm_config_db #( uvm_sequencer #({{agent.ifPkg}}_transaction) )::get( null , UVMF_SEQUENCERS , {{agent.ifPkg}}_pkg_{{agent.name}}_BFM , {{agent.name}}_sequencer ) ) 
+`uvm_error("Config Error" , "uvm_config_db #( uvm_sequencer #({{agent.ifPkg}}_transaction) )::get cannot find resource {{agent.ifPkg}}_pkg_{{agent.name}}_BFM" ) 
+{% endfor %}
+
+  // Retrieve the configuration handles from the uvm_config_db
+{% for agent in agents %}
+if( !uvm_config_db #( {{agent.ifPkg}}_configuration )::get( null , UVMF_CONFIGURATIONS , {{agent.ifPkg}}_pkg_{{agent.name}}_BFM , {{agent.name}}_config ) ) 
+`uvm_error("Config Error" , "uvm_config_db #( {{agent.ifPkg}}_configuration )::get cannot find resource {{agent.ifPkg}}_pkg_{{agent.name}}_BFM" )
+{% endfor %}
+
+{% if veloceReady %}
+      if ( !uvm_config_db #( clock_ctrl #(CLK_PHASE_OFFSET_IN_PS))::get(null,UVMF_VIRTUAL_INTERFACES, RESET_CONTROLLER, clk_ctrl) ) begin
+         `uvm_error("Config Error" , "uvm_config_db #( clock_ctrl )::get cannot find resource CLOCK_CONTROLLER" )
+      end
+
+      if ( !uvm_config_db #(sync_reset_ctrl #(RST_POLARITY))::get(null, UVMF_VIRTUAL_INTERFACES, RESET_CONTROLLER, reset_ctrl) ) begin
+         `uvm_error("Config Error" , "uvm_config_db #( sync_reset_ctrl )::get cannot find resource RESET_CONTROLLER" )
+      end
+{% endif %}
+
+
+  endfunction
+
+
+// ****************************************************************************
+  virtual task body();
+
+  // Construct sequences here
+{% for agent in agents %}
+{{agent.name}}_random_seq     = {{agent.ifPkg}}_random_sequence::type_id::create("{{agent.name}}_random_seq");
+{% endfor %}
+
+  // Start sequences here
+{% for agent in agents %}
+{{agent.name}}_random_seq.start({{agent.name}}_sequencer);
+{% endfor %}
+
+{% if veloceReady %}
+
+    clk_ctrl.wait_clocks(100);
+
+{% else %}
+
+   // Delay to allow for design latency
+{% for agent in agents %}
+{{agent.name}}_config.wait_for_num_clocks(100);
+{% endfor %}
+
+{% endif %}
+
+
+
+  endtask
+
+endclass
+
+{% endblock %}

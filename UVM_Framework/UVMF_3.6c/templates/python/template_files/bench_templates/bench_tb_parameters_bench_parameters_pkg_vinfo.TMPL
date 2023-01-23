@@ -1,0 +1,6 @@
+{% set fname = "project_benches/{{name}}/tb/parameters/{{name}}_parameters_pkg.vinfo" %}
+
+{% block contents %}
++incdir+@vinfodir
+{{name}}_parameters_pkg.sv
+{% endblock %}

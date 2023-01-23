@@ -1,0 +1,83 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_monitor_proxy.svh" %}
+{% extends "base_template.TMPL" %}
+{% set conditional = "dpi_link" %}
+{% block description %}
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION:  This class communicates with the monitor BFM using the 
+//      DPI link C routines.  Transaction variables are packed into a bit
+//      stream that is used as arguments to the C routines.  This allows 
+//      for generic C routines that can be used with any interface package
+//      using DPI link for BFM communication.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+{% block contents %}
+
+typedef class {{name}}_monitor;
+
+class {{name}}_monitor_proxy {%if paramDefs|length > 0%}      #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}}{% if param.value != None %} = {{param.value}}{% endif %}{% if not loop.last %},{% endif %}           
+{% endfor %}      )
+{% endif %} extends dpi_link_proxy;
+{%if paramDefs|length > 0%}
+	`uvm_object_param_utils({{name}}_monitor_proxy{%if paramDefs|length > 0%} #({% for param in paramDefs %}.{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}{% endfor %}) {% endif %})
+{% else %}
+	`uvm_object_utils({{name}}_monitor_proxy)
+{% endif %}
+
+        {{name}}_monitor {%if paramDefs|length > 0%} #({% for param in paramDefs %}.{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}{% endfor %}) {% endif %} {{name}}_monitor_h;
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+  
+	protected function new(string name = "{{name}}_monitor_proxy");
+		super.new(name);
+                C_initialize_monitor(get_xrtl_path());
+	endfunction
+
+	`dpi_link_proxy_get({{name}}_monitor_proxy{%if paramDefs|length > 0%} #({% for param in paramDefs %}.{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}{% endfor %}) {% endif %} )
+
+        function void configure(
+                  uvmf_active_passive_t act_pass,
+                  uvmf_initiator_responder_t   init_resp{% if configVars|length >0 %},{% endif %}
+                  {% for config in configVars %}
+
+                  {{config.type}} {{config.name}} {% if not loop.last %}, {% endif %}
+                  
+                  {% endfor %}
+                  );
+                  c_bit_array_t c_{{name}}_bit_array;
+                  c_{{name}}_bit_array = {act_pass,init_resp{% if configVars|length >0 %},{% endif %}{% for config in configVars %}{{config.name}}{% if not loop.last %}, {% endif %}{% endfor %} };
+                  C_configure(get_xrtl_path(), c_{{name}}_bit_array);
+                  {act_pass,init_resp{% if configVars|length >0 %},{% endif %}{% for config in configVars %} {{config.name}}{% if not loop.last %}, {% endif %}{% endfor %}}= c_{{name}}_bit_array; 
+           endfunction
+
+	function void start_monitoring();
+		C_start_monitoring(get_xrtl_path());
+	endfunction
+
+        task  wait_for_reset();
+            C_wait_for_reset(get_xrtl_path());
+        endtask
+
+         task wait_for_num_clocks(int clocks);
+             c_bit_array_t c_{{name}}_bit_array;
+             c_{{name}}_bit_array = {clocks};
+             C_wait_for_num_clocks(get_xrtl_path(), c_{{name}}_bit_array);
+        endtask
+
+       function void notify_transaction_bit_vec( input c_bit_array_t bit_vec_in);
+{% for txn in transVars %}             {{txn.type}} {{txn.name}} {{txn.unpackedDim}};
+{% endfor %}
+            { {% for txn in transVars %}{{txn.name}}{% if not loop.last %},{% endif %}{% endfor %}}=bit_vec_in;
+            {{name}}_monitor_h.notify_transaction({% for txn in transVars %}{{txn.name}}{% if not loop.last %},{% endif %}{% endfor %});
+        endfunction
+
+endclass
+
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

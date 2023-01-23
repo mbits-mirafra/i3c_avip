@@ -1,0 +1,85 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_ibs_driver.svh" %}
+{% set conditional = "gen_inbound_streaming_driver" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: This class passes transactions between the sequencer
+//        and the BFM driver interface.  It accesses the driver BFM 
+//        through the bfm handle. This driver
+//        passes transactions to the driver BFM through the access
+//        task.  
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+class {{name}}_ibs_driver {{macro.paramDeclare(paramDefs)|indent(8)}} extends {{name}}_driver {{macro.paramUse(paramDefs)|indent(16)}};
+
+{{macro.compUtils([ name,'_ibs_driver']|join(""),paramDefs)}}
+
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+//
+  function new( string name = "", uvm_component parent=null );
+    super.new( name, parent );
+  endfunction
+
+// ****************************************************************************
+  virtual function void configure(input CONFIG_T cfg);
+    bfm.configure(
+{% if veloceReady %}
+      cfg.active_passive,
+      cfg.initiator_responder{% if configVars|length > 0 %},{% endif %}
+
+{% for config in configVars %}
+      cfg.{{config.name}}{{macro.commalist(loop)}}
+{%- endfor %}
+);                    
+{% else %}
+      cfg);
+{% endif %}
+  endfunction
+
+// ****************************************************************************
+  virtual function void set_bfm_proxy_handle();
+    {%if not useDpiLink %}bfm.proxy = this;{% endif %}
+  endfunction
+
+// ****************************************************************************              
+  virtual task access( inout REQ txn );
+    if (configuration.initiator_responder==RESPONDER) begin
+      if ({{responseOperation}}) begin
+        bfm.do_response_ready(
+{% for trans in responseList %}          txn.{{trans.name}}{{macro.commalist(loop)}}
+{%- endfor %}
+        );
+      end
+      bfm.response(
+{% if veloceReady %}
+{% for trans in transVars %}        txn.{{trans.name}}{{macro.commalist(loop)}}
+{%- endfor %}
+{% else %}
+        txn 
+{% endif %}        
+      );
+    end else begin    
+      bfm.access(
+{% if veloceReady %}
+{% for trans in transVars %}        txn.{{trans.name}}{{macro.commalist(loop)}}
+{%- endfor %}
+{% else %}
+      txn 
+{% endif %}
+    );
+    end
+  endtask
+
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

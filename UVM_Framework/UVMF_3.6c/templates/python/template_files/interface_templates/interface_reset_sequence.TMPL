@@ -1,0 +1,44 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_reset_sequence.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface Reset Sequence
+// File            : {{name}}_reset_sequence.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This file contains the sequence used to initiate a reset on the {{name}} bus.
+//
+// ****************************************************************************
+class {{name}}_reset_sequence extends {{name}}_sequence_base;
+
+  // declaration macros
+  `uvm_object_utils({{name}}_reset_sequence)
+
+//*****************************************************************
+  function new(string name = "");
+    super.new(name);
+  endfunction: new
+
+// ****************************************************************************
+// TASK : body()
+// This task is automatically executed when this sequence is started using the 
+// start(sequencerHandle) task.
+//
+  task body();
+
+    begin
+      req={{name}}_transaction::type_id::create("req");
+      // req.op = rst_op;
+
+      start_item(req);
+      finish_item(req);
+    end
+
+  endtask: body
+
+endclass: {{name}}_reset_sequence
+{% endblock %}

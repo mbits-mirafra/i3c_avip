@@ -1,0 +1,11 @@
+uvmf:
+  util_components:
+    nand_predictor:
+      analysis_exports:
+      - name: nand_in_agent_ae
+        type: nand_in_transaction
+      analysis_ports:
+      - name: nand_sco_ap
+        type: nand_out_transaction
+      existing_library_component: 'True'
+      type: predictor

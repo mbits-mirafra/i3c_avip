@@ -1,0 +1,8 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+
+src:
+  - $QUESTA_MVC_HOME/include/questa_mvc_svapi.sv
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/mvc_pkg.sv
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/axi4/mgc_axi4_v1_0_pkg.sv
+  - qvip_axi4_bench_sequences_pkg.sv

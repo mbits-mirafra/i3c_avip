@@ -1,0 +1,4 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/FPU_in_pkg/FPU_in_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/FPU_out_pkg/FPU_out_pkg.vinfo
+FPU_env_pkg.sv

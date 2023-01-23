@@ -1,0 +1,33 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/testbench/hvl_top.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This module loads the test package and starts the UVM phases.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+module hvl_top;
+
+import uvm_pkg::*;
+import {{name}}_tests_pkg::*;
+
+  // pragma uvmf custom module_item_additional begin
+  // pragma uvmf custom module_item_additional end
+
+  initial begin
+    $timeformat(-9,3,"ns",5);
+    run_test();
+  end
+
+endmodule
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

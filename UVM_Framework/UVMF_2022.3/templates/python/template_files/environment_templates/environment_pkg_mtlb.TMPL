@@ -1,0 +1,85 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{name}}_env_pkg/{{name}}_env_pkg_mtlb.sv" %}
+{% set conditional = "mtlbReady" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//     
+// PACKAGE: This file defines all of the files contained in the
+//    environment package that will run on the host simulator.
+//
+// CONTAINS:
+//     - <{{name}}_configuration.svh>
+//     - <{{name}}_environment.svh>
+//     - <{{name}}_env_sequence_base.svh>
+{% for acName in acTypes %}
+//     - <{{acName}}.svh>
+{% endfor %}
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+package {{name}}_env_pkg;
+
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
+  import uvmf_base_pkg::*;
+{% for ext_import in external_imports %}
+  import {{ext_import}}::*;
+{% endfor %}
+{% for agent in agent_pkgs %}
+  import {{agent}}_pkg::*;
+  import {{agent}}_pkg_hdl::*;
+{% endfor %}
+{% for regModel in regModels %}
+  import {{regModel.regModelPkg}}::*;
+{% endfor %}
+{% for sub_env in env_pkgs %}
+  import {{sub_env}}_env_pkg::*;
+{% endfor %}
+{% if qvipSubEnvironments|length > 0 %}
+{% if qvipMemoryAgents|length > 0 %}
+  import qvip_utils_pkg::*;
+{% endif %}
+{% endif %}
+{% for sub_env in qvipSubEnvironments %}
+  import {{sub_env.envPkg}}_pkg::*;
+  import {{sub_env.envPkg}}_params_pkg::*;
+{% endfor %}
+{% for DPIImport in DPIImports %}
+  import "DPI-C" context function {{DPIImport.svType}} {{DPIImport.name}} ({% for argument in DPIImport.arguments %}{{argument['dir']}} {{argument['type']}} {{argument['name']}} {% if argument['unpacked_dimension'] %}{{argument['unpacked_dimension']}}{% endif %} {% if not loop.last %},{% endif %}{% endfor %});
+{% endfor %} 
+{% for impdecl in impDecls %}
+  `uvm_analysis_imp_decl(_{{impdecl}})
+{% endfor %}
+
+  // pragma uvmf custom package_imports_additional begin
+  // pragma uvmf custom package_imports_additional end
+
+  // Parameters defined as HVL parameters
+{% for param in hvlPkgParamDefs %}
+  parameter {{param.type}} {{param.name}} = {{param.value}};
+{% endfor %}
+
+  `include "{{src_dir}}{{name}}_env_typedefs.svh"
+  `include "{{src_dir}}{{name}}_env_configuration.svh"
+{% for acName in acTypes %}
+  `include "{{src_dir}}{{acName}}.svh"
+{% endfor %}
+  `include "{{src_dir}}{{name}}_environment.svh"
+  `include "{{src_dir}}{{name}}_env_sequence_base.svh"
+
+  // pragma uvmf custom package_item_additional begin
+  // UVMF_CHANGE_ME : When adding new environment level sequences to the src directory
+  //    be sure to add the sequence file here so that it will be
+  //    compiled as part of the environment package.  Be sure to place
+  //    the new sequence after any base sequence of the new sequence.
+  // pragma uvmf custom package_item_additional end
+
+endpackage
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

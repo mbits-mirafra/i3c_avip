@@ -1,0 +1,56 @@
+uvmf:
+  environments:
+    wb2spi:
+      agents:
+      - initiator_responder: INITIATOR
+        name: wb
+        parameters:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+        type: wb
+      - initiator_responder: RESPONDER
+        name: spi
+        type: spi
+      analysis_components:
+      - name: wb2spi_pred
+        parameters:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+        type: wb2spi_predictor
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_vars: []
+      existing_library_component: 'True'
+      hvl_pkg_parameters: []
+      non_uvmf_components: []
+      parameters:
+      - name: WB_DATA_WIDTH
+        type: int
+        value: '16'
+      - name: WB_ADDR_WIDTH
+        type: int
+        value: '32'
+      qvip_memory_agents: []
+      register_model:
+        maps:
+        - interface: wb
+          name: bus_map
+        use_adapter: 'True'
+        use_explicit_prediction: 'True'
+      scoreboards:
+      - name: wb2spi_sb
+        sb_type: uvmf_in_order_scoreboard
+        trans_type: spi_transaction
+      subenvs: []
+      tlm_connections:
+      - driver: wb.monitored_ap
+        receiver: wb2spi_pred.wb_ae
+      - driver: wb2spi_pred.wb2spi_sb_ap
+        receiver: wb2spi_sb.expected_analysis_export
+      - driver: spi.monitored_ap
+        receiver: wb2spi_sb.actual_analysis_export

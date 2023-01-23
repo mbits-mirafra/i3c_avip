@@ -1,0 +1,75 @@
+
+<html><head>
+  <title>Verification Run Manager Status Report</title>
+  <link rel="StyleSheet" media="screen" href="../css/vrmreport.css">
+</head><body>
+<h1>Verification Run Manager Status Report</h1>
+<table cellspacing="2" cellpadding="3">
+       <tr><td class="odd" >Testname</td>
+           <td class="even">qvip_axi4_example-test_top-0</td></tr>
+       <tr><td class="odd" >Action</td>
+           <td class="even">top~qvip_axi4_example/build_group/run_fork/run~qvip_axi4_example-test_top-0/execScript</td></tr>
+  <tr><td class="odd" >Status</td>
+      <td class="bgRed">Skipped</td>
+  <tr><td class="odd" >Log File</td>
+      <td class="even"><a href="file:/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_axi4_example/build_group/run_fork/run~qvip_axi4_example-test_top-0/execScript.log">/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_axi4_example/build_group/run_fork/run~qvip_axi4_example-test_top-0/execScript.log</a></td>
+</table>
+<h3>Per-test attributes:</h3>
+<table cellspacing="2" cellpadding="3">
+  <tr><th class="odd">Attribute</th><th class="even">Value</th></tr>
+  <tr><td class="odd" >Action context (Runnable)</td>
+      <td class="even">top~qvip_axi4_example/build_group/run_fork/run~qvip_axi4_example-test_top-0</td></tr>
+  <tr><td class="odd" >Script name</td>
+      <td class="even">execScript</td></tr>
+  <tr><td class="odd" >Date/Time</td>
+      <td class="even"><span class="strip">Fri Nov 07 10:04:23 PST 2014</span></td></tr>
+  <tr><td class="odd" >UCDB File</td>
+      <td class="even">--</td></tr>
+  <tr><td class="odd" >Queued</td>
+      <td class="even">--</td></tr>
+  <tr><td class="odd" >Elapsed</td>
+      <td class="even">--</td></tr>
+  <tr><td class="odd" >CPU Time</td>
+      <td class="even">--</td></tr>
+  <tr><td class="odd" >Hostname</td>
+      <td class="even">--</td></tr>
+  <tr><td class="odd" >Username</td>
+      <td class="even">--</td></tr>
+  <tr><td class="odd" >Seed</td>
+      <td class="even">--</td></tr>
+</table>
+           <h3>Script (defined in Runnable 'run'):</h3>
+           <pre>
+           set uvmcontrol "none"
+           set classdbg ""
+           set xact_detail ""
+           set msgmode ""
+           set coverage "-coverage"
+           if { (%DEBUGMODE%) } {
+           set top "optimized_debug_top_tb"
+           set coverage ""
+           } else {
+           set top "optimized_batch_top_tb"
+           set coverage "-coverage"
+           }
+           if { (%DEBUGMODE%) || [string match "(%MODE%)" "gui"] } {
+           set xact_detail "+uvm_set_config_int=*,enable_transaction_viewing,1"
+           set msgmode "-msgmode both -displaymsgmode both"
+           }
+           if { [string match "(%MODE%)" "gui"]} {
+           set uvmcontrol "all"
+           set classdbg "-classdebug"
+           } elseif { (%DEBUGMODE%) == 1 } {
+           set uvmcontrol "msglog,trlog"
+           }
+           exec vsim (%MODESW%) -lib (%TASKDIR%)/../../build_task/work $top
+         -do "test.do" -suppress 8887 -permit_unmatched_virtual_intf
+         +UVM_TESTNAME=(%UVM_TESTNAME%) +vrm_in_use $classdbg $coverage (%MVCHOME%)
+         -solvefaildebug +UVM_NO_RELNOTES -sv_seed (%seed%) -uvmcontrol=$uvmcontrol
+         $xact_detail +notimingchecks (%EXTRARUNCMD%)
+           </pre>
+<h3>Other information:</h3>
+<dl><dt>Most recent event change record:</dt>
+    <dd>20141107T100423 done top~qvip_axi4_example/build_group/run_fork/run~qvip_axi4_example-test_top-0/execScript skipped</dd></dl>
+</body></html>
+

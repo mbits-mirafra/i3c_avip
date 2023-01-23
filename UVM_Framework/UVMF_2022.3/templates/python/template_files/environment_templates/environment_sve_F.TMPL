@@ -1,0 +1,17 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{name}}_env_pkg/{{name}}_env_pkg_sve.F" %}
+
+// UVM
++incdir+${UVM_HOME}/src
+${UVM_HOME}/{{src_dir}}uvm_pkg.sv
+
+// Common UVMF files
+-f ${UVMF_HOME}/common/common_sve.f
+
+// Sub-Environments
+{% for sub_env in subEnvironments %}
+-F ${UVMF_VIP_LIBRARY_HOME}/{{environment_location}}/{{sub_env.envPkg}}_env_pkg/{{sub_env.envPkg}}_env_pkg_sve.F
+{% endfor %}
+
++incdir+.
+./{{name}}_env_pkg.sv
+

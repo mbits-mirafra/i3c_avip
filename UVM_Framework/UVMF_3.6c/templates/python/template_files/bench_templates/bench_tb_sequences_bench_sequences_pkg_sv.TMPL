@@ -1,0 +1,48 @@
+{% set fname = "project_benches/{{name}}/tb/sequences/{{name}}_sequences_pkg.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Simulation Bench 
+// Unit            : Sequences Package
+// File            : {{name}}_sequences_pkg.sv
+//----------------------------------------------------------------------
+//
+// DESCRIPTION: This package includes all high level sequence classes used 
+//     in the environment.  These include utility sequences and top
+//     level sequences.
+//
+// CONTAINS:
+//     -<{{name}}_sequence_base>
+//     -<example_derived_test_sequence>
+//
+//----------------------------------------------------------------------
+//
+{% endblock %}
+
+{% block contents %}
+
+package {{name}}_sequences_pkg;
+
+   import uvm_pkg::*;
+   import questa_uvm_pkg::*;
+   import uvmf_base_pkg::*;
+{% for agent in agent_pkgs %}
+   import {{agent}}_pkg::*;
+{% endfor %}
+   import {{name}}_parameters_pkg::*;
+
+{% if veloceReady %}
+   import clock_pkg::*;
+   import reset_pkg::*;
+{% endif %}
+  
+   `include "uvm_macros.svh"
+
+   `include "src/{{name}}_sequence_base.svh"
+   `include "src/example_derived_test_sequence.svh"
+
+endpackage
+
+{% endblock %}

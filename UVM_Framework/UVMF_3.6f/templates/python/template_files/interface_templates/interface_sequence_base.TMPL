@@ -1,0 +1,84 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_sequence_base.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface Sequence Base
+// File            : {{name}}_sequence_base.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This file contains the class used as the base class for all sequences
+// for this interface.
+//
+// ****************************************************************************
+// ****************************************************************************
+class {{name}}_sequence_base {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}} = {{param.value}}{% if not loop.last %},{% endif %}                                
+{% endfor %}      ) {% endif %}
+extends uvmf_sequence_base #(
+                             .REQ({{name}}_transaction {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                                 .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %}),
+                             .RSP({{name}}_transaction {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                                 .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %}));
+
+{%if paramDefs|length > 0%}
+  `uvm_object_param_utils( {{name}}_sequence_base #(
+  {% for param in paramDefs %}                            {{param.name}}{% if not loop.last %},{% endif %}
+
+  {% endfor %}                          ))
+{% else %}
+  `uvm_object_utils( {{name}}_sequence_base )
+{% endif %}
+
+  // variables
+  {{name}}_transaction {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                     .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                     ) {% endif %} req;
+  {{name}}_transaction {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                     .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                     ) {% endif %} rsp;
+
+// Event for identifying when a response was received from the sequencer
+event new_rsp;
+// ****************************************************************************
+// TASK : get_responses()
+// This task recursively gets sequence item responses from the sequencer.
+//
+virtual task get_responses();
+   fork
+      begin
+         // Block until new rsp available
+         get_response(rsp);
+         // New rsp received.  Indicate to sequence using event.
+         ->new_rsp;
+         // Display the received response transaction
+         `uvm_info("NEW_RSP", {"New response transaction:",rsp.convert2string()}, UVM_MEDIUM)
+      end
+   join_none
+endtask
+
+// ****************************************************************************
+// TASK : pre_body()
+// This task is called automatically when start is called with call_pre_post set to 1 (default).
+// By calling get_responses() within pre_body() any derived sequences are automatically 
+// processing response transactions.
+//
+virtual task pre_body();
+   get_responses();
+endtask
+
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+//
+  function new( string name ="");
+    super.new( name );
+  endfunction
+
+endclass
+{% endblock %}

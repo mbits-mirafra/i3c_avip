@@ -1,0 +1,3 @@
+TB_INFO vip_axi4_example {} {}
+TB vip_axi4_example
+TEST test_top 3 

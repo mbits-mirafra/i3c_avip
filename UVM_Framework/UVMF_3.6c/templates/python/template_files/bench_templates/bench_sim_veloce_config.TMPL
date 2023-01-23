@@ -1,0 +1,16 @@
+{% set fname = "project_benches/{{name}}/sim/veloce.config" %}
+
+{% block description %}
+
+{% endblock %}
+
+{% block contents %}
+
+# Converted from tbx.config through tools/qa/scripts/config2config.pl
+comp -num_boards 1 # Always put. If something comes later, this will be overwritten.
+comp -hvl questa # From: "comp -questa"
+comp -platform D1S # From: "velsyn -D1S"
+rtlc -allow_4ST
+
+{% endblock %}
+

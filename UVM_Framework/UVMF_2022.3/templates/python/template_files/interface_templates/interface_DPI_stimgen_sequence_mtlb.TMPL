@@ -1,0 +1,160 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_DPI_stimgen_sequence_mtlb.svh" %}
+{% set conditional = "mtlbReady" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+// 
+// Generated for MTLB flow
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface DPI stimulus generation sequence
+// File            : {{name}}_DPI_stimgen_sequence.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This sequences uses the DPI-C function to generate stimulus values and sends it 
+// to the UVM driver.
+//
+// ****************************************************************************
+// This sequence constructs a {{name}}_transaction and uses DPI-C to create stimulus values.
+// 
+class {{name}}_DPI_stimgen_sequence {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}} = {{param.value}}{% if not loop.last %},{% endif %}                                
+{% endfor %}      )
+{% endif %}
+extends {{name}}_sequence_base {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                             .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %};
+
+{%if paramDefs|length > 0%}
+  `uvm_object_param_utils( {{name}}_DPI_stimgen_sequence #(
+  {% for param in paramDefs %}                         {{param.name}}{% if not loop.last %},{% endif %}
+
+  {% endfor %}                          ))
+{% else %}
+  `uvm_object_utils({{name}}_DPI_stimgen_sequence)
+{% endif %}
+
+int cycles_to_run;   // 0: initiates forever loop.  !0: fixed number of cycles
+{% for DPIImport in DPIImports -%}
+{% if DPIImport.name.endswith('_output') %}
+{% for argument in DPIImport.arguments -%}
+{% if argument['unpacked_dimension'] and argument['dir'] == 'output' -%}
+{{argument['type']}}  {{argument['name']}} {% if argument['unpacked_dimension'] %}{{argument['unpacked_dimension']}}{% endif %};
+{% else %}
+{{argument['type']}}  {{argument['name']}} {% if argument['unpacked_dimension'] %}{{argument['unpacked_dimension']}}{% endif %};
+{% endif -%}
+{% endfor -%}
+{% endif %}
+{% endfor -%} 
+
+//*****************************************************************
+  function new(string name = "");
+    super.new(name); 
+  endfunction: new
+
+// ****************************************************************************
+// TASK : gen_next_cycle()
+//
+  task gen_next_cycle();
+                start_item(req);
+{% for DPIImport in DPIImports %}
+{% if DPIImport.name.endswith('_output') %}
+    // Calling output C function
+    {{DPIImport.name}}(
+{%- for argument in DPIImport.arguments -%}
+{% if argument['unpacked_dimension'] -%}
+   {% if argument['dir']=='input' or argument['dir']=='inout' %}
+       {{argument['name']}}{% else %}       {{argument['name']}}{% endif %}
+{% else %}
+   {% if argument['dir']=='input' or argument['dir']=='inout' -%}
+        {% if argument['name'] != 'objhandle'%}
+    {% endif %}       {{argument['name']}}{% else %}
+    req.{{argument['name']}}{% endif -%}{% endif -%}{% if not loop.last -%},
+{% endif -%}{% endfor -%}
+    );
+{% endif %}
+{% endfor -%} 
+
+{% for DPIImport in DPIImports %}
+{% if DPIImport.name.endswith('_update') %}
+    // Calling output C function
+    {{DPIImport.name}}(
+{%- for argument in DPIImport.arguments -%}
+{% if argument['unpacked_dimension'] -%}
+   {% if argument['dir']=='input' or argument['dir']=='inout' %}
+       {{argument['name']}}{% else %}       {{argument['name']}}{% endif %}
+{% else %}
+   {% if argument['dir']=='input' or argument['dir']=='inout' -%}
+        {% if argument['name'] != 'objhandle'%}
+    {% endif %}       {{argument['name']}}{% else %}
+    req.{{argument['name']}}{% endif -%}{% endif -%}{% if not loop.last -%},
+{% endif -%}{% endfor -%}
+    );
+{% endif %}
+{% endfor %} 
+{% for DPIImport in DPIImports -%}{% for argument in DPIImport.arguments -%}
+{% if argument['unpacked_dimension'] and argument['dir'] == 'output' -%}
+{% for i in range(argument['unpacked_dimension']|replace("]","")|replace("[","")|int) %}
+    req.{{argument['name']}}_{{i}}  = {{argument['name']}}[{{i}}];
+{% endfor -%}{% endif -%}{% endfor -%}{% endfor %} 
+
+{% for DPIImport in DPIImports %}
+{% if DPIImport.name.endswith('_output') %}
+{%- for argument in DPIImport.arguments -%}
+{% if argument['dir']!='input' %}
+{% if argument['unpacked_dimension'] and argument['unpacked_dimension'] %}
+
+    // Entries = {{argument['unpacked_dimension']}}
+{% for i in range(argument['unpacked_dimension']|replace("]","")|replace("[","")|int) %}
+    req.{{argument['name']}}_{{i}}  = {{argument['name']}}[{{i}}];
+{% endfor -%}
+
+{% else %}
+    req.{{argument['name']}}  = {{argument['name']}};
+{% endif %}
+{% endif %}
+{% endfor %}{% endif -%}{% endfor %}
+
+    finish_item(req);
+endtask
+
+// ****************************************************************************
+// TASK : body()
+// This task is automatically executed when this sequence is started using the 
+// start(sequencerHandle) task.
+//
+  task body();
+
+    begin
+      // Construct the transaction
+      req={{name}}_transaction{%if paramDefs|length > 0%} #( 
+{% for param in paramDefs %}                .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}               ) {% endif %}::type_id::create("req");
+
+      // Call DPI-C function to initialize the persistent DPI-C values
+{% for DPIImport in DPIImports %}{% if DPIImport.name.endswith('_initialize') %}
+     objhandle = {{DPIImport.name}}(objhandle);
+{% endif %}{% endfor %}
+
+      // Call DPI-C to produce stimulus values
+      if ( cycles_to_run == 0) begin
+          forever gen_next_cycle();
+      end else begin
+          repeat(cycles_to_run) gen_next_cycle();
+      end
+    end
+
+{% for DPIImport in DPIImports %}{% if DPIImport.name.endswith('_terminate') %}
+    {{DPIImport.name}}(objhandle);
+{% endif %}{% endfor %}
+
+  endtask: body
+
+endclass: {{name}}_DPI_stimgen_sequence
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

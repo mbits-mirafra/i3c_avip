@@ -1,0 +1,384 @@
+# make -f /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/sim/Makefile libs build optimize UVMF_HOME=/mnt/hgfs/vmware/UVMF_Q
+# ** Error: make[1]: Entering directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~ahb2wb/build_group/build_task'
+# test -e work || vlib work 
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:34 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg" /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv 
+# -- Compiling package fli_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:50 on Nov 07,2014, Elapsed time: 0:00:16
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:50 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# -- Compiling package uvmf_base_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:53 on Nov 07,2014, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:53 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:53 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hvl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:53 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hvl.f 
+# -- Compiling package wb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling package wb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package wb_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:54 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hdl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:54 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hdl.f 
+# -- Compiling package wb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling interface wb_if
+# -- Compiling package wb_if_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_if
+# -- Compiling interface wb_monitor_bfm
+# -- Compiling package wb_monitor_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_monitor_bfm
+# -- Importing package wb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Compiling interface wb_driver_bfm
+# -- Compiling package wb_driver_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_driver_bfm
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:54 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/ahb_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:55 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/ahb_filelist_hvl.f 
+# -- Compiling package ahb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling package ahb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package ahb_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:55 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/ahb_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:55 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/ahb_filelist_hdl.f 
+# -- Compiling package ahb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling interface ahb_if
+# -- Compiling package ahb_if_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package ahb_pkg_hdl
+# -- Compiling interface ahb_if
+# -- Compiling interface ahb_monitor_bfm
+# -- Compiling package ahb_monitor_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package ahb_pkg_hdl
+# -- Compiling interface ahb_monitor_bfm
+# -- Importing package ahb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Compiling interface ahb_driver_bfm
+# -- Compiling package ahb_driver_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package ahb_pkg_hdl
+# -- Compiling interface ahb_driver_bfm
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:56 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/ahb2wb_env_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:56 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg" /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/ahb2wb_env_pkg.sv 
+# -- Compiling package ahb2wb_env_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package ahb_pkg
+# -- Importing package ahb_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:56 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/parameters /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/parameters/ahb2wb_parameters_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:56 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/parameters" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/parameters/ahb2wb_parameters_pkg.sv 
+# -- Compiling package ahb2wb_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:56 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/sequences /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/sequences/ahb2wb_sequences_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:56 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/sequences" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/sequences/ahb2wb_sequences_pkg.sv 
+# -- Compiling package ahb2wb_sequences_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package ahb_pkg
+# -- Importing package ahb_pkg_hdl
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package ahb2wb_env_pkg
+# -- Importing package ahb2wb_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:57 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/tests /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/tests/ahb2wb_test_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:57 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/tests" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/tests/ahb2wb_test_pkg.sv 
+# -- Compiling package ahb2wb_test_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package ahb_pkg
+# -- Importing package ahb_pkg_hdl
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package ahb2wb_env_pkg
+# -- Importing package ahb2wb_sequences_pkg
+# -- Importing package ahb2wb_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 09:59:57 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/rtl/verilog/ahb2wb.v
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:57 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/rtl/verilog/ahb2wb.v 
+# -- Compiling module ahb2wb
+# 
+# Top level modules:
+# 	ahb2wb
+# End time: 09:59:57 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/testbench/top_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:57 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/testbench/top_filelist_hvl.f 
+# -- Compiling package hvl_top_sv_unit
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package ahb2wb_test_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package ahb_pkg
+# -- Importing package ahb_pkg_hdl
+# -- Importing package wb_pkg
+# -- Importing package wb_pkg_hdl
+# -- Importing package ahb2wb_env_pkg
+# -- Importing package ahb2wb_sequences_pkg
+# -- Importing package ahb2wb_parameters_pkg
+# -- Compiling module hvl_top
+# 
+# Top level modules:
+# 	hvl_top
+# End time: 09:59:58 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/testbench/top_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:58 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/ahb2wb/tb/testbench/top_filelist_hdl.f 
+# -- Compiling package hdl_top_sv_unit
+# -- Importing package ahb2wb_parameters_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling module hdl_top
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	hdl_top
+# End time: 09:59:59 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vopt  +cover=sbcef+/hdl_top/DUT  hvl_top hdl_top   -o optimized_batch_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 09:59:59 on Nov 07,2014
+# vopt "+cover=sbcef+/hdl_top/DUT" hvl_top hdl_top -o optimized_batch_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface ahb_if
+# -- Loading interface ahb_monitor_bfm
+# -- Loading interface ahb_driver_bfm
+# -- Loading interface wb_if
+# -- Loading interface wb_monitor_bfm
+# -- Loading interface wb_driver_bfm
+# -- Loading module ahb2wb
+# Optimizing 39 design-units (inlining 0/2 module instances, 0/0 UDP instances):
+# -- Inlining interface ahb_if(fast__2)
+# -- Inlining interface wb_if(fast__2)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing interface wb_driver_bfm(fast__1)
+# -- Optimizing interface ahb_if(fast__2)
+# -- Optimizing interface ahb_driver_bfm(fast__1)
+# -- Optimizing interface wb_monitor_bfm(fast__1)
+# -- Optimizing interface ahb_monitor_bfm(fast__1)
+# -- Optimizing module ahb2wb(fast)
+# -- Optimizing interface wb_if(fast__2)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package ahb_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package wb_pkg_hdl(fast)
+# -- Optimizing package ahb_if_sv_unit(fast)
+# -- Optimizing package ahb_monitor_bfm_sv_unit(fast)
+# -- Optimizing package ahb_driver_bfm_sv_unit(fast)
+# -- Optimizing package wb_if_sv_unit(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package wb_monitor_bfm_sv_unit(fast)
+# -- Optimizing package wb_driver_bfm_sv_unit(fast)
+# -- Optimizing package ahb_pkg(fast)
+# -- Optimizing package wb_pkg(fast)
+# -- Optimizing interface ahb_if(fast)
+# -- Optimizing interface ahb_if(fast__1)
+# -- Optimizing interface ahb_monitor_bfm(fast)
+# -- Optimizing interface ahb_driver_bfm(fast)
+# -- Optimizing interface wb_if(fast)
+# -- Optimizing interface wb_if(fast__1)
+# -- Optimizing interface wb_monitor_bfm(fast)
+# -- Optimizing interface wb_driver_bfm(fast)
+# -- Optimizing package ahb2wb_parameters_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package ahb2wb_env_pkg(fast)
+# -- Optimizing package ahb2wb_sequences_pkg(fast)
+# -- Optimizing package ahb2wb_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_batch_top_tb
+# End time: 10:00:34 on Nov 07,2014, Elapsed time: 0:00:35
+# Errors: 0, Warnings: 0
+# vopt  +acc   hvl_top hdl_top   -o optimized_debug_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:34 on Nov 07,2014
+# vopt "+acc" hvl_top hdl_top -o optimized_debug_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface ahb_if
+# -- Loading interface ahb_monitor_bfm
+# -- Loading interface ahb_driver_bfm
+# -- Loading interface wb_if
+# -- Loading interface wb_monitor_bfm
+# -- Loading interface wb_driver_bfm
+# -- Loading module ahb2wb
+# Optimizing 39 design-units (inlining 0/2 module instances, 0/0 UDP instances):
+# -- Optimizing interface wb_driver_bfm(fast__1)
+# -- Optimizing interface ahb_if(fast__2)
+# -- Optimizing interface ahb_driver_bfm(fast__1)
+# -- Optimizing interface wb_monitor_bfm(fast__1)
+# -- Optimizing interface ahb_monitor_bfm(fast__1)
+# -- Optimizing module ahb2wb(fast)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing interface wb_if(fast__2)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package ahb_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package wb_pkg_hdl(fast)
+# -- Optimizing package ahb_if_sv_unit(fast)
+# -- Optimizing package ahb_monitor_bfm_sv_unit(fast)
+# -- Optimizing package ahb_driver_bfm_sv_unit(fast)
+# -- Optimizing package wb_if_sv_unit(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package wb_monitor_bfm_sv_unit(fast)
+# -- Optimizing package wb_driver_bfm_sv_unit(fast)
+# -- Optimizing package ahb_pkg(fast)
+# -- Optimizing package wb_pkg(fast)
+# -- Optimizing interface ahb_if(fast)
+# -- Optimizing interface ahb_if(fast__1)
+# -- Optimizing interface ahb_monitor_bfm(fast)
+# -- Optimizing interface ahb_driver_bfm(fast)
+# -- Optimizing interface wb_if(fast)
+# -- Optimizing interface wb_if(fast__1)
+# -- Optimizing interface wb_monitor_bfm(fast)
+# -- Optimizing interface wb_driver_bfm(fast)
+# -- Optimizing package ahb2wb_parameters_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package ahb2wb_env_pkg(fast)
+# -- Optimizing package ahb2wb_sequences_pkg(fast)
+# -- Optimizing package ahb2wb_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_debug_top_tb
+# End time: 10:00:58 on Nov 07,2014, Elapsed time: 0:00:24
+# Errors: 0, Warnings: 0
+# make[1]: Leaving directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~ahb2wb/build_group/build_task'
+# make[1]: Warning: File `/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/Makefile' has modification time 3.6e+07 s in the future
+# make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+# Executing ONERROR command at macro ./execScript.do line 1
+# quit -f

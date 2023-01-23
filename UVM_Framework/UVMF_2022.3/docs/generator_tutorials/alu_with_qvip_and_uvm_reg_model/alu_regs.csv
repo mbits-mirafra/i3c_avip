@@ -1,0 +1,16 @@
+Register Name,Register Description,Register Address,Register Width,Register Access,Register Reset Value,Register Constraints,Register Custom Type,Field Name,Field Description,Field Offset,Field Width,Field Access,Field Reset Value,Field is Covered,Field is Reserved,Field is Volatile,Field Constraints
+a_reg,Operand A Register,0x0,32,RW,0x0,,,,,,,,,,,,
+a_reg,,,,,,,,rsvrd,Reserved,8,24,RO,0x0,FALSE,TRUE,,
+a_reg,,,,,,,,a,Operand A,0,8,RW,0x0,TRUE,,,constraint op_a_c {a.value[7:0] < 5;}
+b_reg,Operand B Register,0x04,32,RW,0x0,,,,,,,,,,,,
+b_reg,,,,,,,,rsvrd,Reserved,8,24,RO,0x0,FALSE,TRUE,,
+b_reg,,,,,,,,b,Operand B,0,8,RW,0x0,TRUE,,,constraint op_b_c {b.value[7:0] < 15;}
+op_reg,Operation Register,0x08,32,RW,0x0,,,,,,,,,,,,
+op_reg,,,,,,,,rsvrd,Reserved,3,29,RO,0x0,FALSE,TRUE,,
+op_reg,,,,,,,,op,Operation,0,3,RW,0x0,TRUE,,,
+result_reg,Result Register,0x0C,32,RO,0x0,,,,,,,,,,,,
+result_reg,,,,,,,,rsvrd,Reserved,16,16,RO,0x0,FALSE,TRUE,,
+result_reg,,,,,,,,rslt,Result,0,16,RW,0x0,TRUE,,,
+ctrl_reg,Control Register,0x010,32,WO,0x0,,,,,,,,,,,,
+ctrl_reg,,,,,,,,rsvrd,Reserved,1,31,RO,0x0,FALSE,TRUE,,
+ctrl_reg,,,,,,,,strt,Perform Operation,0,1,WO,0x0,TRUE,,,

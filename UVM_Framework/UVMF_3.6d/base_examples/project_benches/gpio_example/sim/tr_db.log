@@ -1,0 +1,15 @@
+  CREATE_STREAM @0 {NAME:gpio_seq T:TVM SCOPE:uvm_test_top.environment.gpio_agent.sequencer STREAM:1}
+BEGIN @0 {TXH:2 STREAM:1 NAME:gpio_seq TIME=0  TYPE="Begin_No_Parent, Link" LABEL:"" DESC=""}
+BEGIN @0 {TXH:3 STREAM:1 NAME:gpio_trans TIME=0  TYPE="Begin_End, Link" LABEL:"" DESC=""}
+  LINK @0 {TXH1:2 TXH2:3 RELATION=child}
+END @0 {TXH:3 TIME=0}
+FREE @0 {TXH:3}
+END @0 {TXH:2 TIME=0}
+FREE @0 {TXH:2}
+BEGIN @15 {TXH:4 STREAM:1 NAME:gpio_seq TIME=0  TYPE="Begin_No_Parent, Link" LABEL:"" DESC=""}
+BEGIN @15 {TXH:5 STREAM:1 NAME:gpio_trans TIME=0  TYPE="Begin_End, Link" LABEL:"" DESC=""}
+  LINK @15 {TXH1:4 TXH2:5 RELATION=child}
+END @15 {TXH:5 TIME=0}
+FREE @15 {TXH:5}
+END @15 {TXH:4 TIME=0}
+FREE @15 {TXH:4}

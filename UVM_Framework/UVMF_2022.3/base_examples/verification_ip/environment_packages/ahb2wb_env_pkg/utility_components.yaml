@@ -1,0 +1,18 @@
+uvmf:
+  util_components:
+    "ahb2wb_predictor" :
+      type: "predictor"
+      analysis_exports :
+        - name: "ahb_ae"
+          type: "ahb_transaction"
+      analysis_ports : 
+        - name: "wb_ap"
+          type: "wb_transaction #(.WB_DATA_WIDTH(WB_DATA_WIDTH), .WB_ADDR_WIDTH(WB_ADDR_WIDTH))"
+    "wb2ahb_predictor" :
+      type: "predictor"
+      analysis_exports :
+        - name: "wb_ae"
+          type: "wb_transaction #(.WB_DATA_WIDTH(WB_DATA_WIDTH), .WB_ADDR_WIDTH(WB_ADDR_WIDTH))"
+      analysis_ports : 
+        - name: "wb_ap"
+          type: "wb_transaction #(.WB_DATA_WIDTH(WB_DATA_WIDTH), .WB_ADDR_WIDTH(WB_ADDR_WIDTH))"

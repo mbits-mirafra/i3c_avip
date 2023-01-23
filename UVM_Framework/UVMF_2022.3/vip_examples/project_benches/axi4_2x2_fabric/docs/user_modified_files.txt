@@ -1,0 +1,21 @@
+# Add targets for DUT and QVIP compilation
+$UVMF_HOME/vip_examples/project_benches/axi4_2x2_fabric/sim/Makefile
+
+# Complete DUT instantiation and connections in top-level testbench module
+$UVMF_HOME/vip_examples/project_benches/axi4_2x2_fabric/tb/testbench/hdl_top.sv
+
+# Add DUT RTL files to be included in compilation
+$UVMF_HOME/vip_examples/project_benches/axi4_2x2_fabric/rtl/verilog/axi4_interconnect_NxN.sv
+
+# Add any Stimulus/Sequences needed for Stimulus Generation
+$UVMF_HOME/vip_examples/project_benches/axi4_2x2_fabric/tb/sequences/axi4_2x2_fabric_sequences_pkg.sv
+$UVMF_HOME/vip_examples/project_benches/axi4_2x2_fabric/tb/sequences/src/axi4_2x2_fabric_bench_sequence_base.svh
+$UVMF_HOME/vip_examples/project_benches/axi4_2x2_fabric/tb/sequences/src/ex1_simple_rd_wr.svh
+
+# Needed to edit Environment class to parameterize predictors correctly and enable QVIP transaction printing
+$UVMF_HOME/vip_examples/verification_ip/environment_packages/axi4_2x2_fabric_env_pkg/src/axi4_2x2_fabric_environment.svh
+
+# Fill-in/complete user prediction logic for proper analysis and account for QVIP parameterization
+$UVMF_HOME/vip_examples/verification_ip/environment_packages/axi4_2x2_fabric_env_pkg/src/axi4_master_predictor.svh
+$UVMF_HOME/vip_examples/verification_ip/environment_packages/axi4_2x2_fabric_env_pkg/src/axi4_slave_predictor.svh
+$UVMF_HOME/vip_examples/verification_ip/environment_packages/axi4_2x2_fabric_env_pkg/src/axi4_slave_rw_predictor.svh

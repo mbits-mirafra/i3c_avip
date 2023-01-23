@@ -1,0 +1,5 @@
+src:
+  - uvmf_base_pkg.sv
+
+needs:
+  - uvmf_base_pkg_hdl.compile

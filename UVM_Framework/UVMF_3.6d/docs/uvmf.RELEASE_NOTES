@@ -1,0 +1,325 @@
+UVMF Release Notes
+
+Version   Date        Updates
+-------               -----------------------------------------------------------------------------
+V3.6d     05/09/2016  Updated Users Guide in the docs directory
+
+                      uvmf_driver_base now uses get_next_item and item_done instead of get.  
+
+                      Added debug features for array of interface names.  To use set TEST_VERBOSITY = UVM_DEBUG.
+                      
+                      Added template features:
+                           Generate analysis components, including predictors.
+                           Instantiate analysis components, icluding predictors, in environment config file.
+                           Instantiate scoreboards in environment config file.
+                           Connect components within environment config file.
+                           Instantiate sub environments within environment config file.
+                           Generate block and chip level benches using bench config file.
+                      
+                      Added infact base sequence.
+                      
+                      Updated QVIP examples for QVIP 10.5 release.
+                      
+                      -----------------------------------------------------------------------------
+                      Changes required for 3.6c code to be compatable with 3.6d: None
+                      -----------------------------------------------------------------------------
+
+Version   Date        Updates
+-------               -----------------------------------------------------------------------------
+V3.6c     01/12/2016  Updated Users Guide in the docs directory
+
+                      Changed end_of_test_activity_check failure from a warning to an error. 
+                      This check can be disabled using the disable_end_of_test_activity_check function.
+                      
+                      Introduction of example, project, groups.  These include base_examples, vip_examples
+                      and vista_examples.  Each example group includes its own project_benches and
+                      verification_ip directories.
+
+                      Common packages and modules moved into common folder under the UVMF_3.6c root folder.
+                      The scripts and uvmf_base_pkg folders also moved under UVMF_3.6c root folder.  This
+                      allows UVMF core code (UVMF release code unmodified by user) to be located separately
+                      from user project_benches and user verification_ip folders.  User project_benches 
+                      and verification_ip can also reside separately.  The following environment variables
+                      allow for independent placement of uvmf core, project benches and verification ip folders:
+                      UVMF_HOME             - Points to UVMF core ( released )  code
+                      UVMF_VIP_LIBRARY_HOME - Points to ( user ) verification_ip folder
+                      UVMF_PROJECT_DIR      - Points to ( user ) project_benches folder
+                      
+                      Added support for multiple block level environments within an environment to share 
+                      a single UVM monitor and monitor BFM pair. This required a backward compatable
+                      addition to uvmf_parameterized_agent.svh and the addition of a new resource 
+                      group named UVMF_MONITORS.  Use and details covered in Users Guide.
+                      
+                      Template changes: Removed automatic generation of clk and rst signal in interface 
+                      generation. Clock and reset identification now done through clock and reset 
+                      interface variables. Add agent function now requires clock and reset be identified 
+                      so that connection in hdl_top can be done through port connections on the signal 
+                      bundle interface. Updated configuration examples to reflect new functionality.
+                      
+                      Template updates to use emulation ready clock, reset and time advancer generator 
+                      module when bench configuration file sets veloceReady to True. 
+                      
+                      Removed jinja2 third party package from UVMF release
+
+                      -----------------------------------------------------------------------------
+                      Changes required for 3.6c code to be compatable with 3.6b: None
+                      -----------------------------------------------------------------------------
+
+Version   Date        Updates
+-------               -----------------------------------------------------------------------------
+V3.6b     11/02/2015  Updated Users Guide in the docs directory
+                      Fixed interface template bug: 
+                           Configuration class covergroup name needed to be unique to support multiple 
+                           instantiations when coverage is used.  Configuration class covergroup name 
+                           set to interface name used to identify virtual interface handle and sequencer 
+                           handle.
+
+                      All interface clk's now driven at hdl_top to reflect typical usage.
+
+                      Added more UVMF_CHANGE_ME string to files to identify areas where code additions are required.
+
+                      -----------------------------------------------------------------------------
+                      Changes required for 3.6b code to be compatable with 3.6a: None
+                      -----------------------------------------------------------------------------
+
+V3.6a     08/25/2015  Updated Users Guide in the docs directory
+
+                      Fixed a couple python interface bugs: 
+                         1) Task arguments needed direction declaration.
+                         2) Driver BFM missing vector size declarations
+                      
+                      Removed Apache license and Mentor identification from python generated source files.
+
+                      uvm_config_db::get call failures in agent now generate `uvm_fatal rather than `uvm_error.
+
+                      Makefile changes that touched all makefiles and file lists:
+                         1) Changed makefile names from makefile to Makefile
+                         2) Moved include of UVMF package makefiles from verification_ip/scripts/Makefile 
+                            to project makefiles. This was to fix issue when generated UVMF tar file did 
+                            not include all interface or environment packages
+                         3) Added makefile env variables as recommended by Mike Baird to enable verification_ip 
+                            and project_benches to reside in different locations. They are no longer required 
+                            to be under the same parent directory.
+                         4) Updated python interface and environment templates according to above makefile changes.
+
+                      Added vinfo mechanism for compiling in Windows and Linux
+
+                      -----------------------------------------------------------------------------
+                      Changes required for 3.6a code to be compatable with 3.5b: 
+                      Interface Packages:
+                          1) makefile:
+                                 Replace: $(ROOT_DIR)/../../../verification_ip    with $(UVMF_VIP_LIBRARY_HOME)
+                                 Replace: $(UVM_VIP_LIBRARY_HOME)/verification_ip with $(UVMF_VIP_LIBRARY_HOME)
+                                 Rename to Makefile
+                          2) *filelist*:
+                                 Replace: $ROOT_DIR/../../../verification_ip      with $UVMF_VIP_LIBRARY_HOME
+                      Environment Packages:
+                          1) makefile:
+                                 Replace: $(ROOT_DIR)/../../../verification_ip    with $(UVMF_VIP_LIBRARY_HOME)
+                                 Rename to Makefile
+                      Project benches:
+                          1) makefile:
+                                 Add: UVMF_HOME ?= $(firstword $(wildcard $(addsuffix /UVMF_*,. .. ../.. ../../.. ../../../.. ../../../../..)))
+                                 Add: export UVMF_VIP_LIBRARY_HOME ?= $(UVMF_HOME)/verification_ip                                      
+                                 Add: export UVMF_PROJECT_DIR ?= $(UVMF_HOME)/project_benches/ahb2wb                                           
+                                 Add: export EXTERNAL_PROJECT_LIBRARY_HOME ?= PATH_TO_EXTERNAL_VERIFICATION_LIBRARY
+                                 Add: include $(UVMF_VIP_LIBRARY_HOME)/interface_packages/ifName for any interface packages used
+                                 Add: include $(UVMF_VIP_LIBRARY_HOME)/environment_packages/envName for any environment packages used
+                                 Remove: export ROOT_DIR ?= .                                                                              
+                                 Remove: UVM_VIP_LIBRARY_MAKEFILE ?= $(ROOT_DIR)/../../../verification_ip/scripts
+                                 Replace: $(UVM_VIP_LIBRARY_MAKEFILE)/makefile with $(UVMF_VIP_LIBRARY_HOME)/scripts/Makefile
+                                 Replace: $(ROOT_DIR)/.. with $(UVMF_PROJECT_DIR)
+                                 Rename to Makefile
+                      -----------------------------------------------------------------------------
+
+V3.5b     05/19/2015  Python template updates.
+
+                      UVM register model added to wb2spi and ahb2spi examples to demonstrate block level and 
+                      block to chip level register model reuse.
+
+                      QVIP examples updated to use connectivity and EZ-QVIP features.
+
+                      Added variable named enable_reg_adaptation of type bit to uvmf_environment_configuration_base to support block to 
+                      top UVM register model reuse.
+
+                      Initial predictor setup to support SC ALU model use within ALU example for Vista integration.
+
+                      makefile updates.
+
+                      Added qvip_usb3_pipe_example.
+
+                      Added vip_ahb_example and vip_axi4_example benches as unified variants of the qvip_ahb_example and qvip_axi4_examples benches.
+                      These examples demonstrate interoperability between QVIP and VTL VIP for simulation and emulation.
+
+                      Added SHA3 example.
+
+                      -----------------------------------------------------------------------------
+                      Changes required for 3.5b code to be compatable with 3.5a: None
+                      -----------------------------------------------------------------------------
+
+V3.5a     04/11/2015  Comment and code alignment cleanup.
+
+                      Changed BFM_T to BFM_BIND_T in uvmf_monitor_base and uvmf_driver_base. This is to accomodate SV
+                      virtual interface communication with the BFM as well as DPI based communication with the BFM.
+
+                      Parameter order consistent between uvmf_driver_base and uvmf_monitor_base
+
+                      Removed start_end_delta variable in uvmf_transaction_base in favor of using existing duration variable.
+
+                      Added required parameters to proxy handle in gpio_driver_bfm.
+
+                      Implemented wait_for_num_clocks task in wb_monitor_bfm and wb_configuration.
+
+                      Added two optional arguments to initialize function in uvmf_environment_configuration_base.  The first 
+                      argument is a uvm_reg_block handle.  This is to support block to top UVM register model reuse.
+                      The second argument is a dynamic array of uvmf_active_passive_t variables.  This is for optional setting 
+                      of agent active/passive state from the test_top level. 
+
+                      Added variable named enable_reg_prediction of type bit to uvmf_environment_configuration_base to support block to 
+                      top UVM register model reuse.
+
+                      Added a variable named transaction_status of type uvm_status_e to uvmf_transaction_base.  This variable is used 
+                      to return bus operation status from the BFM.
+
+                      Added a variable named return_transaction_response of type bit to uvmf_parameterized_agent_configuration_base.  
+                      If set, the UVM driver will send a response transaction to the sequencer. Added a get_driver() and get_put_driver() 
+                      task to the uvmf_driver_base.  The return_transaction_response flag determines which task is executed in the run_phase. 
+
+                      Changed BFM instance names in hdl_top where the instance name matched the type name.
+
+                      Removed the sequence_lib file in each environment_package.  Replaced with a sequence base for each environment_package.  
+                      This sequence base is to be extended from for reusable environment level sequences.
+
+                      set_configuration() in uvmf_environment_base changed to set_config() to be consistent with uvmf_driver_base and uvmf_monitor_base.
+
+                      Added set_config() function in parameterized agent to be consistent with uvmf_environment_base, uvmf_driver_base and uvmf_monitor_base
+
+                      Added uvmf_parameterized_1agent_environment.
+
+                      -----------------------------------------------------------------------------
+                      Changes required for 3.4a code to be compatable with 3.5a:
+                          1) Change BFM_T to BFM_BIND_T in classes extending uvmf_driver_base and uvmf_monitor_base
+                          2) Change DRIVER_BFM_T to DRIVER_BFM_BIND_T in classes extending uvmf_parameterized_agent_configuration_base
+                          3) Add the following arguments to the initialize function declaration in classes extending uvmf_environment_configuration_base
+                                    uvm_reg_block register_model = null,
+                                    uvmf_active_passive_t interface_activity[] = null
+                      -----------------------------------------------------------------------------
+
+V3.4a     03/24/2015  Removed bfm api's from configuration class. Agent monitor and drivers do not access virtual interfaces 
+                      through the configuration class. The monitor and drivers access the virtual interfaces directly. They 
+                      still retrieve the interface handle from the configuration.
+
+                      set_configuration used to pass configuration handles into and down through environments
+
+                      Parameterized agent will use config db to retrieve its configuration only if the configuration handle 
+                      is null. This allows backward compatibility while allowing for direct assignment of configuration from environment.
+
+                      Removed sequence_lib files from interface packages. Each sequence resides in a separate file.
+
+                      Added uvmf_environment_configuration_base.svh and uvmf_sequence_base.svh to make component and sequence 
+                      extension consistently from a uvmf base class.
+
+                      Changed configure_interface function name to initialize within configurations for clarity. Prototyped initialize 
+                      call within uvmf_environment_configuration_base.svh. Interface_name variable within initialize function call is 
+                      now a dynamic array of strings to accomodate a variable number of interfaces.
+
+                      Added parameters within uvmf_base_pkg_hdl to replace use of strings for "VIRTUAL_INTERFACES", "SEQUENCERS", 
+                      "CONFIGURATIONS" and "AGENT_CONFIG". Values for parameters set to original string values for backward compatibility.
+
+                      Each bench now contains an example test named example_derived_test that uses the factory to override the base 
+                      sequence with a sequence named example_derived_test_sequence.
+
+                      Default make target now displays make target options
+
+                      start_monitoring() function used in examples to initiate push mode of monitor communication from BFM to uvm monitor.
+
+                      -----------------------------------------------------------------------------
+                      Changes required for 3.3x code to be compatable with 3.4a:
+                          1) For each interface package, remove bfm api classes from agent configuration class
+                                    a) Move functions and tasks from class extending monitor_bfm_api into class extending uvmf_monitor_base
+                                    b) Move functions and tasks from class extending driver_bfm_api  into class extending uvmf_driver_base
+                                    c) Remove files extending monitor_bfm_api and driver_bfm_api
+                                    d) Change functions and tasks in class extending uvmf_driver_base to use BFM handle in uvmf_driver_base
+                                    e) Change functions and tasks in class extending uvmf_monitor_base to use BFM handle in uvmf_monitor_base
+                      -----------------------------------------------------------------------------
+
+3.3a      02/25/2015  Changes to support classic style agent where driver and monitor perform protocol implementation directly. 
+                      This mode does not use a monitor bfm and driver bfm. It also does not access the virtual interface 
+                      through the configuration class. In order to implement this change the core variables from uvmf_..._base 
+                      was placed into a uvmf_...._root class that the uvmf_...._base extends. No functionality of existing 
+                      examples has changed. All non-qvip examples remain puresim and veloce compatible seamlessly. These 
+                      changes affected the monitor base, driver base and parameterized agent configuration base. 
+
+3.3       01/17/2015  All interface packages and associated benches fully Veloce compliant
+
+                      Run example benches on Veloce using: cli_veloce, debug_veloce
+
+                      Added AXI4 QVIP example
+
+                      PCIe Serial QVIP example updated to 10.4
+
+                      Added UVMF 1.0 to UVMF 2.0 conversion scripts to repository
+          
+3.2       08/28/2014  Added race scoreboards to uvmf_base_pkg
+
+                      Changed start_time and end_time variables in uvmf_transaction_base from unsigned int to time
+
+                      VRM updates
+
+                      Changed _hdl includes to imports
+
+3.1       08/25/2014  Replaced some defines with parameters for persistance in packages
+
+                      VRM updates
+
+                      Remove clocking blocks in advance of porting interface packages to Veloce
+
+                      Added file lists for package compilation
+
+3.0       08/14/2014  VRM updates
+                      Common interface uvm driver code moved to uvm_driver_base
+
+                      Common interface uvm monitor code moved to uvm_monitor_base
+
+                      Added uvmf_driver_api_base to uvmf_base_pkg and uvmf_parameterized_agent_configuration_base
+
+                      Added uvmf_monitor_api_base to uvmf_base_pkg and uvmf_parameterized_agent_configuration_base
+
+                      Move driver  api's from configuration to uvmf_driver_api_base
+
+                      Move monitor api's from configuration to uvmf_monitor_api_base
+
+                      dut_top renamed hdl_top to match Veloce naming convention for synthesizable code
+
+                      tb_top  renamed hvl_top to match Veloce naming convention for non synthesizable code
+
+                      Synthesizable moved into separate package for synthesis 
+
+                      -----------------------------------------------------------------------------
+                      Changes required for 2.0 code to be compatable with 3.4a:
+                          1) Rename dut_top to hdl_top in all project benches
+                          2) Rename tb_top  to hvl_top in all project benches
+                      -----------------------------------------------------------------------------
+
+2.0       07/16/2014  mgc_base_pkg now named uvmf_base_pkg
+
+                      Preceeded all classes in uvmf_base_pkg with  uvmf_
+
+                      Added VRM to all benches
+
+                      UVM command line processing support for enable/disable interface transaction viewing
+
+                      Tested in Questa 10.3
+
+                      Added Natural Docs
+
+                      -----------------------------------------------------------------------------
+                      Changes required for 1.0 code to be compatable with 2.0:
+                          1) Use scripts located in verification_ip/scripts/UVMF1.0_to_UVMF2.0_scripts to do the following:
+                                    a) Change mgc_base_pkg to uvmf_base_pkg
+                                    b) Append all uvmf_base_pkg files and classes with uvmf_
+                                    b) Prepend uvmf_ to instantiations and extensions in all interface, environment and benches
+                      -----------------------------------------------------------------------------
+          
+1.0       04/06/2014  Initial git checkin
+

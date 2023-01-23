@@ -1,0 +1,34 @@
+uvmf:
+  benches:
+    wb2spi:
+      active_passive:
+      - bfm_name: wb
+        value: ACTIVE
+      - bfm_name: spi
+        value: ACTIVE
+      clock_half_period: 5ns
+      clock_phase_offset: 9ns
+      existing_library_component: 'True'
+      interface_params:
+      - bfm_name: wb
+        value:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+      parameters:
+      - name: WB_DATA_WIDTH
+        type: int
+        value: '8'
+      - name: WB_ADDR_WIDTH
+        type: int
+        value: '2'
+      reset_assertion_level: 'False'
+      reset_duration: 200ns
+      top_env: wb2spi
+      top_env_params:
+      - name: WB_DATA_WIDTH
+        value: WB_DATA_WIDTH
+      - name: WB_ADDR_WIDTH
+        value: WB_ADDR_WIDTH
+      use_dpi_link: 'False'

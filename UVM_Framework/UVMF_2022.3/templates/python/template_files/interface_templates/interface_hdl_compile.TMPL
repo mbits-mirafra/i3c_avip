@@ -1,0 +1,14 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{name}}_hdl.compile" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ./{{name}}_common.compile
+incdir:
+  - .
+src:
+  - src/{{name}}_if.sv
+  - src/{{name}}_monitor_bfm.sv
+  - src/{{name}}_driver_bfm.sv
+{% endblock %}

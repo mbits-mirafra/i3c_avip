@@ -1,0 +1,4 @@
+#TB_INFO vip_axi4_example {} {}
+TB_INFO vip_axi4_example { UVMF_VIP_LIBRARY_HOME=../../../../../../../../verification_ip UVMF_PROJECT_DIR=../../../../../../../vip_axi4_example } { }
+TB vip_axi4_example
+TEST test_top 3 

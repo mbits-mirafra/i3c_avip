@@ -1,0 +1,3 @@
+
+$UVMF_HOME/base_examples/verification_ip/interface_packages/alu_out_pkg/alu_out_pkg_hdl.sv
+$UVMF_HOME/base_examples/verification_ip/interface_packages/alu_out_pkg/alu_out_pkg.sv

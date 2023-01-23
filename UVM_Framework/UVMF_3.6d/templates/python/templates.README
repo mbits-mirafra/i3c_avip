@@ -1,0 +1,72 @@
+=============================================================================
+                     UVMF Python Templates
+=============================================================================
+This directory contains a Python module and requisite template data that can be
+used to produce a completely new UVMF interface, environment and/or bench code.  
+The input to the generator is a Python configuration script that imports the 
+uvmf_gen.py Python module (located in this directory) as well as specifying the 
+work to be done. 
+
+Here are the steps to utilize the template generators:
+
+1) Confirm Python version on machine is at least 2.6
+
+   %> python -V
+   Python 2.6.6
+ 
+2) A $PYTHONPATH environment variable is used to specify the directory path 
+   where the uvmf_gen.py module resides (is same as path for this README file). 
+   Thus need to set $PYTHONPATH environment variable properly, e.g.,
+
+   setenv PYTHONPATH {your_path_to_framework}/templates/python
+
+   NOTE:
+   This script relies on the Jinja2 package to operate.  If you find these
+   missing the following commands may come in handy:
+      1. You'll need root access or know someone with root access for
+         all of these steps.
+      2. Modern versions of Python will come with the "pip" installer. If 
+         the "pip" command is unavailable due to an older Python version
+         then it first needs to be installed as root.
+         a. Download pip installer here:
+             https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+         b. Make the downloaded file executable
+         c. Execute installer as root, i.e. "sudo ./get-pip.py"
+      3. Run the following to install Jinja2:
+         sudo pip install Jinja2
+
+4) Execute/Copy/Rename/Edit one of the provided examples underneath ./examples 
+   to specify what work is to be done, make the file executable and then 
+   simply run renamed file, e.g.,
+
+   %> ./my_example_config.py
+  
+   FYI The config file can be located anywhere, i.e. it doesn't have to reside in 
+   ./examples.
+
+   * There are two examples located in two sub-directories underneath ./examples, 
+     one that utilizes a single config file (creating everything) and a multi-file 
+     example with config files for individual agents, environment and bench.
+
+   * Any config file that imports the uvmf_gen module (all existing examples do
+     this) has a built-in help utility for information on command-line switches:
+
+        %> ./my_example_config.py --help
+
+   * The default output location is the current working directory but a command-
+     line option can redirect the output.  Therefore it would be best to either 
+     run the config script from an empty directory or redirect it somewhere else.
+
+More information...
+-----------------------------------------------------------------------------
+Template files (.TMPL) are written in Jinja2 template syntax.  See the Jinja2 
+documentation at http://jinja.pocoo.org/docs/dev/templates for more 
+information on how to modify the existing template files or add your own.
+
+There are three main generators currently available:
+  * Interface - Generates all files associated with a new agent/interface.
+                Template files are located in ./interface_templates
+  * Environment - Generates all files associated with an environment.
+                  Template files are located in ./environment_templates
+  * Bench - Generates all files associated with a project bench.  Template
+            files are located in ./bench_templates

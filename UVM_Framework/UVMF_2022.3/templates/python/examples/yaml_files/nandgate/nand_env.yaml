@@ -1,0 +1,28 @@
+uvmf:
+  environments:
+    "nand_env":
+      agents:
+      - name: "nand_in_agent"
+        type: "nand_in"
+        initiator_responder: "INITIATOR"
+
+      - name: "nand_out_agent"
+        type: "nand_out"
+        initiator_responder: "RESPONDER"
+
+      analysis_components:
+      - name: "nand_pred"
+        type: "nand_predictor"
+
+      - name: "nand_sco"
+        type: "nand_scoreboard"
+
+      tlm_connections:
+      - driver: "nand_in_agent.monitored_ap"
+        receiver: "nand_pred.nand_in_agent_ae"
+
+      - driver: "nand_pred.nand_sco_ap"
+        receiver: "nand_sco.nand_out_pred_sb_ae"
+
+      - driver: "nand_out_agent.monitored_ap"
+        receiver: "nand_sco.nand_out_ag_sb_ae"

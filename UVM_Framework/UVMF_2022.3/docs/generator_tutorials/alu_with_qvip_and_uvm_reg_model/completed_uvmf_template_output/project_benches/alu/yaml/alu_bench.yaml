@@ -1,0 +1,54 @@
+uvmf:
+  benches:
+    alu:
+      active_passive:
+      - bfm_name: alu_in_agent
+        value: ACTIVE
+      - bfm_name: alu_out_agent
+        value: PASSIVE
+      clock_half_period: 5ns
+      clock_phase_offset: 9ns
+      existing_library_component: 'True'
+      imports:
+      - name: mvc_pkg
+      - name: mgc_apb3_v1_0_pkg
+      interface_params:
+      - bfm_name: alu_in_agent
+        value:
+        - name: ALU_IN_OP_WIDTH
+          value: TEST_ALU_IN_OP_WIDTH
+      - bfm_name: alu_out_agent
+        value:
+        - name: ALU_OUT_RESULT_WIDTH
+          value: TEST_ALU_OUT_RESULT_WIDTH
+      parameters:
+      - name: TEST_ALU_IN_OP_WIDTH
+        type: int
+        value: '8'
+      - name: TEST_ALU_OUT_RESULT_WIDTH
+        type: int
+        value: '16'
+      - name: TEST_APB_ADDR_WIDTH
+        type: int
+        value: '32'
+      - name: TEST_APB_WDATA_WIDTH
+        type: int
+        value: '32'
+      - name: TEST_APB_RDATA_WIDTH
+        type: int
+        value: '32'
+      reset_assertion_level: 'False'
+      reset_duration: 200ns
+      top_env: alu
+      top_env_params:
+      - name: APB_RDATA_WIDTH
+        value: TEST_APB_RDATA_WIDTH
+      - name: APB_WDATA_WIDTH
+        value: TEST_APB_WDATA_WIDTH
+      - name: APB_ADDR_WIDTH
+        value: TEST_APB_ADDR_WIDTH
+      - name: ALU_OUT_RESULT_WIDTH
+        value: TEST_ALU_OUT_RESULT_WIDTH
+      - name: ALU_IN_OP_WIDTH
+        value: TEST_ALU_IN_OP_WIDTH
+      use_dpi_link: 'False'

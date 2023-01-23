@@ -1,0 +1,245 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{name}}_env_pkg/{{src_dir}}{{name}}_env_configuration.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: THis is the configuration for the {{name}} environment.
+//  it contains configuration classes for each agent.  It also contains
+//  environment level configuration variables.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+class {{name}}_env_configuration {{macro.paramDeclare(paramDefs)|indent(13)}}
+extends uvmf_environment_configuration_base;
+
+{{macro.objUtils([ name,'_env_configuration']|join(""),paramDefs)}}
+
+{% for config in configVars %}
+{% if config.comment|length > 0 %}  // {{config.comment}}
+{% endif %}
+  {% if config.isrand %}rand {% endif %}{{config.type}} {{config.name}}{% if config.unpackedDim != '' %} {{config.unpackedDim}} {% endif %}{% if config.value != '' %} = {{config.value}}{% endif %};
+{% endfor %}
+
+//Constraints for the configuration variables:
+{% for cnstr in configVarsConstraints %}
+{% if cnstr.comment|length > 0 %}  // {{cnstr.comment}}
+{% endif %}
+  constraint {{cnstr.name}} {{cnstr.type}}
+{% endfor %}
+
+{% for regModel in regModels %}
+// Instantiate the register model
+  {{regModel.regBlockClass}}  {{name}}_rm;
+{% endfor %}
+
+  covergroup {{name}}_configuration_cg;
+    // pragma uvmf custom covergroup begin
+    option.auto_bin_max=1024;
+{% for config in configVars %}
+{% if config.unpackedDim != '' %}//{% endif %}    coverpoint {{config.name}};
+{% endfor %}
+    // pragma uvmf custom covergroup end
+  endgroup
+
+{% for sub_env in subEnvironments %}
+typedef {{sub_env.envPkg}}_env_configuration{{macro.paramUseNested(sub_env.parameters)|indent(16)}} {{sub_env.name}}_config_t;
+rand {{sub_env.name}}_config_t {{sub_env.name}}_config;
+
+{% endfor %}
+
+{% for agent in agents %}
+    typedef {{agent.ifPkg}}_configuration{{macro.paramUseNested(agent.parameters)|indent(16)}} {{agent.name}}_config_t;
+    rand {{agent.name}}_config_t {{agent.name}}_config;
+
+{% endfor %}
+
+{% for sub_env in subEnvironments %}
+    string                {{sub_env.name}}_interface_names[];
+    uvmf_active_passive_t {{sub_env.name}}_interface_activity[];
+{% endfor %}
+
+{% for sub_env in qvipSubEnvironments %}
+    {{sub_env.envPkg}}_env_configuration     {{sub_env.name}}_config;
+    string                                   {{sub_env.name}}_interface_names[];
+    uvmf_active_passive_t                    {{sub_env.name}}_interface_activity[];
+{% endfor %}
+
+  typedef uvmf_virtual_sequencer_base #(.CONFIG_T({{name}}_env_configuration{{macro.paramUse(paramDefs)|indent(22)}})) {{name}}_vsqr_t;
+  {{name}}_vsqr_t vsqr;
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+// This function constructs the configuration object for each agent in the environment.
+//
+  function new( string name = "" );
+    super.new( name );
+
+{% for sub_env in subEnvironments %}
+   {{sub_env.name}}_config = {{sub_env.name}}_config_t::type_id::create("{{sub_env.name}}_config");
+{% endfor %}
+
+{% for agent in agents %}
+    {{agent.name}}_config = {{agent.name}}_config_t::type_id::create("{{agent.name}}_config");
+{% endfor %}
+
+{% for sub_env in qvipSubEnvironments %}
+    {{sub_env.name}}_config = {{sub_env.envPkg}}_env_configuration::type_id::create("{{sub_env.name}}_config");
+{% endfor %}
+
+    {{name}}_configuration_cg=new;
+    `uvm_warning("COVERAGE_MODEL_REVIEW", "A covergroup has been constructed which may need review because of either generation or re-generation with merging.  Please note that configuration variables added as a result of re-generation and merging are not automatically added to the covergroup.  Remove this warning after the covergroup has been reviewed.")
+
+  // pragma uvmf custom new begin
+  // pragma uvmf custom new end
+  endfunction
+
+// ****************************************************************************
+// FUNCTION : set_vsqr()
+// This function is used to assign the vsqr handle.
+  virtual function void set_vsqr( {{name}}_vsqr_t vsqr);
+     this.vsqr = vsqr;
+  endfunction : set_vsqr
+
+// ****************************************************************************
+// FUNCTION: post_randomize()
+// This function is automatically called after the randomize() function 
+// is executed.
+//
+  function void post_randomize();
+    super.post_randomize();
+    // pragma uvmf custom post_randomize begin
+    // pragma uvmf custom post_randomize end
+  endfunction
+  
+// ****************************************************************************
+// FUNCTION: convert2string()
+// This function converts all variables in this class to a single string for
+// logfile reporting. This function concatenates the convert2string result for
+// each agent configuration in this configuration class.
+//
+  virtual function string convert2string();
+    // pragma uvmf custom convert2string begin
+    return {
+     {% if configVars|length > 0 %}$sformatf("{% for config in configVars %}{{config.name}}:0x%x {% endfor %}"{% for config in configVars %},{{config.name}}{% endfor %}){% if agents|length > 0 or subEnvironments|length > 0 or qvipSubEnvironments|length > 0 %},{% endif %}{% endif %}
+
+{% for agent in agents %}
+     "\n", {{agent.name}}_config.convert2string{% if not loop.last %},
+{% endif %}{% endfor %}
+{% if agents|length > 0 %}{% if subEnvironments|length > 0 or qvipSubEnvironments|length > 0 %},{% endif %}{% endif %}
+
+{% for subEnv in subEnvironments %}
+     "\n", {{subEnv.name}}_config.convert2string{% if not loop.last %},
+{% endif %}
+{% endfor %}
+{% if subEnvironments|length > 0 %}{% if qvipSubEnvironments|length > 0 %},{% endif %}{% endif %}
+
+{% for sub_env in qvipSubEnvironments %}
+     "\n", {{sub_env.name}}_config.convert2string{% if not loop.last %},
+{% endif %}
+{% endfor %}
+
+       };
+    // pragma uvmf custom convert2string end
+  endfunction
+// ****************************************************************************
+// FUNCTION: initialize();
+// This function configures each interface agents configuration class.  The 
+// sim level determines the active/passive state of the agent.  The environment_path
+// identifies the hierarchy down to and including the instantiation name of the
+// environment for this configuration class.  Each instance of the environment 
+// has its own configuration class.  The string interface names are used by 
+// the agent configurations to identify the virtual interface handle to pull from
+// the uvm_config_db.  
+//
+  function void initialize(uvmf_sim_level_t sim_level, 
+                                      string environment_path,
+                                      string interface_names[],
+                                      uvm_reg_block register_model = null,
+                                      uvmf_active_passive_t interface_activity[] = {}
+                                     );
+
+    super.initialize(sim_level, environment_path, interface_names, register_model, interface_activity);
+
+{% if subEnvironments|length > 0 %}  // Interface initialization for sub-environments
+{% endif %}
+{% for sub_env in subEnvironments %}
+{% if sub_env.numAgents > 0 %}
+    {{sub_env.name}}_interface_names    = new[{{sub_env.numAgents}}];
+    {{sub_env.name}}_interface_activity = new[{{sub_env.numAgents}}];
+
+    {{sub_env.name}}_interface_names     = interface_names[{{sub_env.agentMinIndex}}:{{sub_env.agentMaxIndex}}];
+    {{sub_env.name}}_interface_activity  = interface_activity[{{sub_env.agentMinIndex}}:{{sub_env.agentMaxIndex}}];
+{% endif %}
+{% endfor %}
+
+{% if qvipSubEnvironments|length > 0 %}  // Interface initialization for QVIP sub-environments
+{% endif %}
+{% for sub_env in qvipSubEnvironments %}
+    {{sub_env.name}}_interface_names    = new[{{sub_env.numAgents}}];
+    {{sub_env.name}}_interface_activity = new[{{sub_env.numAgents}}];
+
+    {{sub_env.name}}_interface_names     = interface_names[{{sub_env.agentMinIndex}}:{{sub_env.agentMaxIndex}}];
+    {{sub_env.name}}_interface_activity  = interface_activity[{{sub_env.agentMinIndex}}:{{sub_env.agentMaxIndex}}];
+
+{% endfor %}
+
+{% if agents|length > 0 %}  // Interface initialization for local agents
+{% endif %}
+{% for agent in agents %}
+     {{agent.name}}_config.initialize( interface_activity[{{agent.agentIndex}}], {environment_path,".{{agent.name}}"}, interface_names[{{agent.agentIndex}}]);
+     {{agent.name}}_config.initiator_responder = {{agent.initResp}};
+     // {{agent.name}}_config.has_coverage = 1;
+{% endfor %}
+
+{% for regModel in regModels %}
+    // pragma uvmf custom reg_model_config_initialize begin
+    // Register model creation and configuation
+    if (register_model == null) begin
+      {{name}}_rm = {{regModel.regBlockClass}}::type_id::create("{{name}}_rm");
+      {{name}}_rm.build();
+      {{name}}_rm.lock_model();
+{% if regModel.adapterType != 'None' %}
+      enable_reg_adaptation = {% if regModel.useAdapter %}1{% else %}0{% endif %};
+{% endif %}
+{% if regModel.transactionType != 'None' %}
+      enable_reg_prediction = {% if regModel.useExplicitPrediction %}1{% else %}0{% endif %};
+{% endif %}
+    end else begin
+      $cast({{name}}_rm,register_model);
+{% if regModel.transactionType != 'None' %}
+      enable_reg_prediction = {% if regModel.useExplicitPrediction %}1{% else %}0{% endif %};
+{% endif %}
+    end
+    // pragma uvmf custom reg_model_config_initialize end
+{% endfor %}
+
+{% for sub_env in subEnvironments %}
+     {{sub_env.name}}_config.initialize( sim_level, {environment_path,".{{sub_env.name}}"}, {{sub_env.name}}_interface_names, {% if ((sub_env.regModelPkg != None) and (regModels|length > 0)) %}{{name}}_rm.{{sub_env.name}}_rm{% else %}null{% endif %},   {{sub_env.name}}_interface_activity);
+{% endfor %}
+
+{% for sub_env in qvipSubEnvironments %}
+     {{sub_env.name}}_config.initialize( sim_level, {environment_path,".{{sub_env.name}}"}, {{sub_env.name}}_interface_names, null,   {{sub_env.name}}_interface_activity);
+{% endfor %}
+
+{% for configVariable in configVariableValues %}
+     {{configVariable.name}} = {{configVariable.value}};
+{% endfor %}
+
+  // pragma uvmf custom initialize begin
+  // pragma uvmf custom initialize end
+
+  endfunction
+
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

@@ -1,0 +1,170 @@
+uvmf:
+  environments:
+    "block_b" :
+      ## Parameters for the environment
+      parameters:
+        - name: "CP_IN_DATA_WIDTH"
+          type: "int"
+          value: "120"
+        - name: "CP_IN_ADDR_WIDTH"
+          type: "int"
+          value: "110"
+        - name: "CP_OUT_ADDR_WIDTH"
+          type: "int"
+          value: "111"
+        - name: "UDP_DATA_WIDTH"
+          type: "int"
+          value: "140"
+      ## Package-level parameters. These are defined for the HVL package but there
+      ## is an equivalent entry for HDL.
+      hvl_pkg_parameters:
+        - name: "ENV_HVL_PKG_PARAMETER1"
+          type: "integer"
+          value: "92"
+        - name: "ENV_HVL_PKG_PARAMETER2"
+          type: "integer"
+          value: "29"
+      ## DPI routines are defined here. See documentation for full details, but when defined this
+      ## will prompt the creation of DPI-C source containing the specified empty functions with the
+      ## desired argument list as well as the DPI-C declarations on the SV side.
+      dpi_define:
+        files:
+          - "myFirstFile.c"
+          - "mySecondFile.c"
+        comp_args: "-c -DPRINT32 -O2"
+        link_args: "-shared"
+        name: "blockBEnvPkgCFunctions"
+        imports:
+          - sv_return_type: "void"
+            c_return_type: "void"
+            name: "hello_world_from_environment"
+            c_args: "(unsigned int variable1, unsigned int variable2)"
+            sv_args:
+              - name: "variable1"
+                type: "int unsigned"
+                dir: "input"
+              - name: "variable2"
+                type: "int unsigned"
+                dir: "input"
+          - sv_return_type: "void"
+            c_return_type: "void"
+            name: "good_bye_world_from_environment"
+            c_args: "(unsigned int variable3, unsigned int variable4)"
+            sv_args:
+              - name: "variable3"
+                type: "int unsigned"
+                dir: "input"
+              - name: "variable4"
+                type: "int unsigned"
+                dir: "input"
+      ## Agents are defined in a LIST so that the order is maintained. This is important
+      ## because of how the BFMs are passed in at the bench utilize this same order when
+      ## this environment's initialize() routine is called.
+      agents :
+        - name: "control_plane_in" 
+          type: "mem"
+          parameters:
+            - name: "ADDR_WIDTH"
+              value: "CP_IN_ADDR_WIDTH"
+            - name: "DATA_WIDTH"
+              value: "CP_IN_DATA_WIDTH"
+        - name: "control_plane_out"
+          type: "mem"
+          parameters:
+            - name: "ADDR_WIDTH"
+              value : "CP_OUT_ADDR_WIDTH"
+        - name: "unsecure_data_plane_in"
+          type: "pkt"
+          parameters:
+            - name: "DATA_WIDTH"
+              value : "UDP_DATA_WIDTH"
+        - name: "unsecure_data_plane_out"
+          type: "pkt"
+      ## Analysis components are defined externally in a 'util_components' structure.
+      ## They are instantiated here.
+      analysis_components :
+        - name: "control_plane_pred"
+          type: "control_plane_predictor"
+          parameters:
+            - name: "ae_mem_transaction_t"
+              value: "mem_transaction#(.ADDR_WIDTH(CP_IN_ADDR_WIDTH),.DATA_WIDTH(CP_IN_DATA_WIDTH))"
+            - name: "ap_mem_transaction_t"
+              value: "mem_transaction #(.ADDR_WIDTH(CP_OUT_ADDR_WIDTH))"
+        - name: "unsecure_data_plane_pred"
+          type: "unsecure_data_plane_predictor"
+          parameters:
+            - name: "control_plane_in_ae_t"
+              value: "mem_transaction #(.ADDR_WIDTH(CP_IN_ADDR_WIDTH),.DATA_WIDTH(CP_IN_DATA_WIDTH))"
+            - name: "unsecure_data_plane_in_ae_t"
+              value: "pkt_transaction #(.DATA_WIDTH(UDP_DATA_WIDTH))"
+            - name: "unsecure_data_plane_sb_ap_t"
+              value: "pkt_transaction"
+      ## Each scoreboard is keyed by the scoreboard instantiation name with
+      ## information on the scoreboard type and what type of transaction it
+      ## will be parsing
+      scoreboards : 
+        - name: "control_plane_sb"
+          sb_type: "uvmf_in_order_race_scoreboard"
+          trans_type: "mem_transaction #(.ADDR_WIDTH(CP_OUT_ADDR_WIDTH))"
+        - name: "unsecure_data_plane_sb"
+          sb_type: "uvmf_in_order_race_scoreboard"
+          trans_type: "pkt_transaction"
+      ## Define internal TLM connections. Each entry must have a 'driver' and
+      ## a 'receiver' entry used to determine the full connection.
+      tlm_connections :
+        # Connection 0
+        - driver:   "control_plane_in.monitored_ap"
+          receiver: "control_plane_pred.control_plane_in_ae"
+        # Connection 1
+        - driver:   "control_plane_in.monitored_ap"
+          receiver: "unsecure_data_plane_pred.control_plane_in_ae"
+        # Connection 2
+        - driver:   "unsecure_data_plane_in.monitored_ap"
+          receiver: "unsecure_data_plane_pred.unsecure_data_plane_in_ae"
+        # Connection 3
+        - driver:   "control_plane_pred.control_plane_sb_ap"
+          receiver: "control_plane_sb.expected_analysis_export"
+        # Connection 4
+        - driver:   "unsecure_data_plane_pred.unsecure_data_plane_sb_ap"
+          receiver: "unsecure_data_plane_sb.expected_analysis_export"
+        # Connection 5
+        - driver:   "control_plane_out.monitored_ap"
+          receiver: "control_plane_sb.actual_analysis_export"
+        # Connection 6
+        - driver:   "unsecure_data_plane_out.monitored_ap"
+          receiver: "unsecure_data_plane_sb.actual_analysis_export"
+      ## Environment-level configuration variables. Each entry is keyed with a 
+      ## unique name and is assigned a 'type' and 'isrand' value.
+      config_vars :
+        - name: "block_b_cfgVar1"
+          type : "bit"      
+          isrand : "False"
+        - name: "block_b_cfgVar3"
+          type : "bit [3:0]"
+          isrand : "True" 
+        - name: "block_b_cfgVar4"
+          type : "int"      
+          isrand : "True" 
+        - name: "block_b_cfgVar5"
+          type : "int"      
+          isrand : "True" 
+      ## Environment-level configuration constraints. Each entry is keyed with
+      ## a unique name  with the value being an SVA constraint block
+      config_constraints:
+        - name: "element_range_c"  
+          value: "{ block_b_cfgVar4>block_b_cfgVar5; }"
+        - name: "non_negative_c"   
+          value: "{ (block_b_cfgVar1==0) -> block_b_cfgVar4==0;}"
+      ## Specify the need for a UVM register model. The "use_adapter" and "use_explicit_prediction"
+      ## entries MUST be "True", and only one map entry is supported that must be associated with an
+      ## interface defined within this environment. This will produce an empty register model with the
+      ## appropriate connections to the rest of the environment. User will then need to overlay their
+      ## own UVM register model package on top of the one produced by the generator.
+      register_model:
+        use_adapter: "True"
+        use_explicit_prediction: "True"
+        reg_model_package: "blkb_reg_pkg"
+        reg_block_class: "blkb_reg_block"
+        maps:
+          - name: "bus_map"
+            interface: "control_plane_in"

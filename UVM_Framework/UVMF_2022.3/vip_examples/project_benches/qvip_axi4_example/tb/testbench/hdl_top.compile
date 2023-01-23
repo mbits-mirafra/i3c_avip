@@ -1,0 +1,8 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ../parameters/qvip_axi4_bench_parameters_pkg.compile
+src:
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/axi4/modules/axi4_master.sv
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/axi4/modules/axi4_monitor.sv
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/axi4/modules/axi4_slave.sv
+  - hdl_top.sv

@@ -1,0 +1,17 @@
+# The block_c bench instantiates the block_c environment as it's top-level.
+# That environment incorporates a QVIP sub-environment produced by the QVIP
+# Configurator tool. Due to the use of QVIP, some QVIP packages must be imported
+# as part of the YAML.
+uvmf:
+  benches:
+    "block_c":
+      top_env: "block_c"
+      #use_bcr: "True"
+      clock_half_period: "6ns"
+      clock_phase_offset: "21ns"
+      reset_assertion_level: "True"
+      reset_duration: "250ns"
+      imports:
+        - name: "mgc_apb3_v1_0_pkg"
+        - name: "mgc_pcie_v2_0_pkg"
+        - name: "mgc_axi4_v1_0_pkg"

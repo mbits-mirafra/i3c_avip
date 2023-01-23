@@ -1,0 +1,15 @@
+options:
+  # Use the following data structure and set the environment variable name and 'value' entry
+  # appropriately to point to the requisite QVIP subenvironments for this bench. This allows users
+  # to avoid having to set environment variables directly in their shell
+  env_vars:
+# pragma uvmf custom SCATTER_GATHER_DMA_QVIP_info begin
+    SCATTER_GATHER_DMA_QVIP_DIR_NAME: 
+      value: ../../../verification_ip/environment_packages/scatter_gather_dma_qvip_dir/uvmf
+      resolve_path: True
+      override: True
+# pragma uvmf custom SCATTER_GATHER_DMA_QVIP_info end
+flows:
+  base:
+    variables:
+      using_qvip: True

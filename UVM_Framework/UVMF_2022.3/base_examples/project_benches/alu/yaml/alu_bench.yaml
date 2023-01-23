@@ -1,0 +1,20 @@
+uvmf:
+  benches:
+    alu:
+      active_passive:
+      - bfm_name: alu_in_agent
+        value: ACTIVE
+      - bfm_name: alu_out_agent
+        value: PASSIVE
+      clock_half_period: 5ns
+      clock_phase_offset: 9ns
+      existing_library_component: 'True'
+      interface_params: []
+      parameters:
+      - name: ALU_IN_OP_WIDTH
+        type: int
+        value: '8'
+      reset_assertion_level: 'False'
+      reset_duration: 200ns
+      top_env: alu
+      use_dpi_link: 'False'

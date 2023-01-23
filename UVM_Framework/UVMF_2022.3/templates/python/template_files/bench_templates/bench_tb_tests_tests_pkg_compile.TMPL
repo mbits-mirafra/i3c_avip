@@ -1,0 +1,15 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/tests/{{name}}_tests_pkg.compile" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+{% for bfm in bfm_pkgs %}
+  - ../../../{{relative_bench_from_cwd}}/{{vip_location}}/{{interface_location}}/{{bfm}}_pkg/{{bfm}}.compile
+{% endfor %}
+  - ../../../{{relative_bench_from_cwd}}/{{vip_location}}/{{environment_location}}/{{env_name}}_env_pkg/{{env_name}}_env_pkg.compile
+  - ../parameters/{{name}}_parameters_pkg.compile
+  - ../sequences/{{name}}_sequences_pkg.compile
+src:
+  - {{name}}_tests_pkg.sv
+{% endblock %}

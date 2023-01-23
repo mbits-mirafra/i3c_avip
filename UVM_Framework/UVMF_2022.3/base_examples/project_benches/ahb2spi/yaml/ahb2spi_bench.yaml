@@ -1,0 +1,44 @@
+uvmf:
+  benches:
+    ahb2spi:
+      active_passive:
+      - bfm_name: ahb2wb_wb
+        value: PASSIVE
+      - bfm_name: ahb2wb_ahb
+        value: ACTIVE
+      - bfm_name: wb2spi_wb
+        value: PASSIVE
+      - bfm_name: wb2spi_spi
+        value: ACTIVE
+      clock_half_period: 6ns
+      clock_phase_offset: 21ns
+      existing_library_component: 'True'
+      interface_params:
+      - bfm_name: ahb2wb_wb
+        value:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+      - bfm_name: wb2spi_wb
+        value:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+      parameters:
+      - name: WB_DATA_WIDTH
+        type: int
+        value: '16'
+      - name: WB_ADDR_WIDTH
+        type: int
+        value: '32'
+      reset_assertion_level: 'False'
+      reset_duration: 250ns
+      top_env: ahb2spi
+      top_env_params:
+      - name: WB_DATA_WIDTH
+        value: WB_DATA_WIDTH
+      - name: WB_ADDR_WIDTH
+        value: WB_ADDR_WIDTH
+      use_dpi_link: 'False'

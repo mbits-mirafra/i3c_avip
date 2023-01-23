@@ -1,0 +1,92 @@
+
+# This file defines the interface of type 'pkt'. This interface is slightly more complex than
+# the 'mem' interface through the use of parameters. All fields are optional unless otherwise
+# noted.
+
+uvmf:
+  interfaces:
+    "pkt" :
+      clock: "pclk"                          # Name of clock (required)
+      reset: "prst"                          # Name of reset (required)
+      reset_assertion_level: "True"          # Polarity of the reset (True=active high)
+      parameters:                            # Parameters for interface. Each has a name, type and
+        - name: "DATA_WIDTH"                 #   an optional default value
+          type: "int"
+          value: "240"
+        - name: "STATUS_WIDTH"
+          type: "int"
+          value: "230"
+      ports:                                 # All ports must have a name, a width and a direction. The
+        - name: "sop"                        #   direction is relative to the INITIATOR or MASTER
+          width: "1"                         #   The width can be an integer value or reference a parameter
+          dir: "output"                         
+          reset_value: "1'b0"
+        - name: "eop"    
+          width: "1"            
+          dir: "output"
+          reset_value: "1'b0"
+        - name: "rdy"    
+          width: "1"            
+          dir: "input" 
+          reset_value: "1'b1"
+        - name: "data"   
+          width: "DATA_WIDTH"   
+          dir: "output"
+          reset_value: "'bz"
+        - name: "status" 
+          width: "STATUS_WIDTH" 
+          dir: "input"
+          reset_value: "'bz" 
+      transaction_vars:                      # Transaction variables all must be given a name and type (which
+        - name: "data"                       #   can reference a typedef or a parameter) as well as indicate
+          type: "bit [DATA_WIDTH-1:0]"       #   if the field can be randomized (isrand) and used as part of 
+          isrand: "False"                    #   a scoreboard comparison operation (iscompare)
+          iscompare: "True"                     
+        - name: "dst_address" 
+          type: "bit [DATA_WIDTH-1:0]"  
+          isrand: "True" 
+          iscompare: "True"
+        - name: "status"      
+          type: "bit [STATUS_WIDTH-1:0]"
+          isrand: "True" 
+          iscompare: "True"
+      transaction_constraints:               # Each entry will define a separate constraint block in the
+        - name: "valid_dst_c"                #   sequence item class
+          value: "{ dst_address inside {1,2,4,8,16,32,64,128,256,512,1024,2048}; }"
+      config_vars:                           # Each entry defines a configuration variable in the interface's
+        - name: "src_address"                #   config object. They can be flagged as random via 'isrand'
+          type: "bit [DATA_WIDTH-1:0]"
+          isrand: "True"
+      config_constraints:                    # Eacn entry will define a separate constraint block in the
+        - name: "valid_dst_c"                #   configuration 
+          value: "{ src_address inside {[63:16], 1025}; }"
+      dpi_define:                            # Define all desired DPI functions in this structure
+        name: "pktPkgCFunctions"             #   Specify the name of the shared object for the DPI routines
+        files:                               #   Specify the names of C files to produce. Only the first
+          - "myFirstIfFile.c"                #    file will have code, the rest will be empty
+          - "mySecondIfFile.c"
+        comp_args: "-c -DPRINT32 -O2"        #   Specify any compile arguments to use
+        link_args: "-shared"                 #   Specify any link arguments to use
+        imports:                                                         # Info for each DPI import. Includes a name, return types for both SV and C,
+          - name: "hello_world_from_interface"                           #   argument list for C as well as a more detailed argument list for SV.
+            c_return_type: "void"                                        #   The generated content will be a mostly empty C function that does nothing
+            sv_return_type: "void"                                       #   but print something when called.
+            c_args: "(unsigned int variable1, unsigned int variable2)"
+            sv_args: 
+              - name: "variable1"
+                type: "int unsigned"
+                dir: "input"
+              - name: "variable2"
+                type: "int unsigned"
+                dir: "input"
+          - name: "good_bye_world_from_interface"
+            c_return_type: "void"
+            sv_return_type: "void"
+            c_args: "(unsigned int variable3, unsigned int variable4)"
+            sv_args: 
+              - name: "variable3"
+                type: "int unsigned"
+                dir: "input"
+              - name: "variable4"
+                type: "int unsigned"
+                dir: "input"

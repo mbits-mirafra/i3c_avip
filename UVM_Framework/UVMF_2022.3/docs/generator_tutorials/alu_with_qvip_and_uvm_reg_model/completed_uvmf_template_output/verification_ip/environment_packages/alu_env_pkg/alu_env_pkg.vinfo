@@ -1,0 +1,6 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/alu_in_pkg/alu_in_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/alu_out_pkg/alu_out_pkg.vinfo
+registers/alu_reg_pkg.sv
++incdir+@vinfodir
+alu_env_pkg.sv

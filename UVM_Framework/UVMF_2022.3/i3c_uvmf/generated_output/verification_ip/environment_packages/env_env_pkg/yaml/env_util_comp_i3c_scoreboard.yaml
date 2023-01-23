@@ -1,0 +1,10 @@
+uvmf:
+  util_components:
+    i3c_scoreboard:
+      analysis_exports:
+      - name: m_sb_ep
+        type: m_agent_transaction
+      - name: s_sb_ep
+        type: s_agent_transaction
+      existing_library_component: 'True'
+      type: scoreboard

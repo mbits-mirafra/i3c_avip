@@ -1,0 +1,53 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_agent.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//
+// DESCRIPTION: Protocol specific agent class definition
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+class {{name}}_agent {{macro.paramDeclare(paramDefs)|indent(5)}} extends uvmf_parameterized_agent #(
+                    .CONFIG_T({{name}}_configuration {{macro.paramUse(paramDefs)|indent(30)}}),
+                    .DRIVER_T({{name}}_driver {{macro.paramUse(paramDefs)|indent(30)}}),
+                    .MONITOR_T({{name}}_monitor {{macro.paramUse(paramDefs)|indent(31)}}),
+                    .COVERAGE_T({{name}}_transaction_coverage {{macro.paramUse(paramDefs)|indent(32)}}),
+                    .TRANS_T({{name}}_transaction {{macro.paramUse(paramDefs)|indent(29)}})
+                    );
+
+{{macro.compUtils([ name,'_agent']|join(""),paramDefs)}}
+
+// pragma uvmf custom class_item_additional begin
+// pragma uvmf custom class_item_additional end
+
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+//
+  function new( string name = "", uvm_component parent = null );
+    super.new( name, parent );
+  endfunction
+
+// ****************************************************************************
+  // FUNCTION: build_phase
+  virtual function void build_phase(uvm_phase phase);
+// pragma uvmf custom build_phase_pre_super begin
+// pragma uvmf custom build_phase_pre_super end
+    super.build_phase(phase);
+    if (configuration.active_passive == ACTIVE) begin
+      // Place sequencer handle into configuration object
+      // so that it may be retrieved from configuration 
+      // rather than using uvm_config_db
+      configuration.sequencer = this.sequencer;
+    end
+  endfunction
+  
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

@@ -1,0 +1,9 @@
+TB_INFO ahb2spi {} {}
+TB ahb2spi 
+## Request that test_top run 3 times.  Twice with specific seeds, the last an implicit random run
+TEST test_top 3 4523456 1023496
+## Run example_derived_test 5 times, one explicitly random seed, two specific seeds and the last two implicitly random
+TEST example_derived_test 5 random 89223125 196389563
+## Include the block bench regressions as well.  The "^" (carat) symbol represents the root directory
+INCLUDE ^/base_examples/project_benches/ahb2wb/sim/testlist
+INCLUDE ^/base_examples/project_benches/wb2spi/sim/testlist

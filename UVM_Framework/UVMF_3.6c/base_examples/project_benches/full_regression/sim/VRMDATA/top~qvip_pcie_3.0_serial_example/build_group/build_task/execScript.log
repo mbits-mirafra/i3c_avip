@@ -1,0 +1,449 @@
+# make -f /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/sim/Makefile libs build optimize UVMF_HOME=/mnt/hgfs/vmware/UVMF_Q
+# ** Error: make[1]: Entering directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_pcie_3.0_serial_example/build_group/build_task'
+# test -e work || vlib work 
+# echo "Compiling infrastructure files"
+# Compiling infrastructure files
+# vlog -sv /home/student/tools/QVIP/10.4b/include/questa_mvc_svapi.svh
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:05:51 on Nov 07,2014
+# vlog -sv /home/student/tools/QVIP/10.4b/include/questa_mvc_svapi.svh 
+# -- Compiling package QUESTA_MVC
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:05:51 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/mvc_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:05:51 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/mvc_pkg.sv 
+# -- Compiling package mvc_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# ** Note: (vlog-2286) Using implicit +incdir+/home/student/tools/Questa/10.4c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling package addr_map_pkg
+# -- Compiling package rw_txn_pkg
+# -- Importing package mvc_pkg
+# -- Compiling package cache_utils_pkg
+# -- Compiling package cache_model_pkg
+# -- Compiling package slave_mem_models_pkg
+# -- Compiling package rw_api_seq_pkg
+# -- Importing package rw_txn_pkg
+# -- Compiling package txn_logger_pkg
+# -- Compiling package rw_delay_db_pkg
+# -- Importing package addr_map_pkg
+# -- Compiling package bmp_image_seq_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:05:52 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# echo "Compiling protocol package"
+# Compiling protocol package
+# vlog  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/pcie /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/pcie/mgc_pcie_v2_0_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:05:52 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/pcie" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/pcie/mgc_pcie_v2_0_pkg.sv 
+# -- Compiling package mgc_pcie_v2_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_txn_pkg
+# ** Note: (vlog-2286) Using implicit +incdir+/home/student/tools/Questa/10.4c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling interface mgc_pcie
+# -- Compiling package mgc_pcie_v2_0_pkg_sv_unit
+# -- Importing package mgc_pcie_v2_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_txn_pkg
+# -- Compiling interface mgc_pcie
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:25 on Nov 07,2014, Elapsed time: 0:00:33
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:25 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg" /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv 
+# -- Compiling package fli_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:25 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:25 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# -- Compiling package uvmf_base_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:26 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:26 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:26 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg /mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg/qvip_utils_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:26 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg" /mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg/qvip_utils_pkg.sv 
+# -- Compiling package qvip_utils_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:26 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hvl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:26 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hvl.f 
+# -- Compiling package wb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling package wb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package wb_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:27 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hdl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:27 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/wb_filelist_hdl.f 
+# -- Compiling package wb_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling interface wb_if
+# -- Compiling package wb_if_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_if
+# -- Compiling interface wb_monitor_bfm
+# -- Compiling package wb_monitor_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_monitor_bfm
+# -- Importing package wb_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Compiling interface wb_driver_bfm
+# -- Compiling package wb_driver_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package wb_pkg_hdl
+# -- Compiling interface wb_driver_bfm
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:27 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/home/student/tools/QVIP/10.4b/examples/pcie/common +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_pcie_3_0_serial_example_env_pkg /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_pcie_3_0_serial_example_env_pkg/qvip_pcie_3_0_serial_example_env_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:27 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/home/student/tools/QVIP/10.4b/examples/pcie/common" "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_pcie_3_0_serial_example_env_pkg" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_pcie_3_0_serial_example_env_pkg/qvip_pcie_3_0_serial_example_env_pkg.sv 
+# -- Compiling package qvip_pcie_3_0_serial_example_env_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_pcie_v2_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package qvip_utils_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:29 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/examples/pcie/common +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/parameters /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/parameters/qvip_pcie_3_0_serial_example_parameters_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:29 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/examples/pcie/common" "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/parameters" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/parameters/qvip_pcie_3_0_serial_example_parameters_pkg.sv 
+# -- Compiling package qvip_pcie_3_0_serial_example_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:29 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/examples/pcie/common +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/sequences /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/sequences/qvip_pcie_3_0_serial_example_sequences_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:29 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/examples/pcie/common" "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/sequences" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/sequences/qvip_pcie_3_0_serial_example_sequences_pkg.sv 
+# -- Compiling package qvip_pcie_3_0_serial_example_sequences_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_pcie_v2_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_txn_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:35 on Nov 07,2014, Elapsed time: 0:00:06
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/tests /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/tests/qvip_pcie_3_0_serial_example_test_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:35 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/tests" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/tests/qvip_pcie_3_0_serial_example_test_pkg.sv 
+# -- Compiling package qvip_pcie_3_0_serial_example_test_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package qvip_pcie_3_0_serial_example_parameters_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_env_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_pcie_v2_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package qvip_utils_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_sequences_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:37 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/examples/pcie/common +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/pcie/modules/pcie_rc_serial.sv /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/pcie/modules/ref_clk_generator.sv 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:37 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/examples/pcie/common" "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/pcie/modules/pcie_rc_serial.sv /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/pcie/modules/ref_clk_generator.sv 
+# -- Compiling module pcie_rc_serial
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Compiling module ref_clk_generator
+# 
+# Top level modules:
+# 	pcie_rc_serial
+# 	ref_clk_generator
+# End time: 10:06:37 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv /home/student/tools/QVIP/10.4b/examples/pcie/common/pcie_ep_serial_dummy_dut.sv 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:37 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /home/student/tools/QVIP/10.4b/examples/pcie/common/pcie_ep_serial_dummy_dut.sv 
+# -- Compiling module pcie_ep_serial_dummy_dut
+# -- Importing package mgc_pcie_v2_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_txn_pkg
+# 
+# Top level modules:
+# 	pcie_ep_serial_dummy_dut
+# End time: 10:06:39 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench/top_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:39 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench/top_filelist_hvl.f 
+# -- Compiling package hvl_top_sv_unit
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Compiling module hvl_top
+# 
+# Top level modules:
+# 	hvl_top
+# End time: 10:06:39 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench/top_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:39 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench/top_filelist_hdl.f 
+# -- Compiling module hdl_top
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package qvip_pcie_3_0_serial_example_test_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_parameters_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_env_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_pcie_v2_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package qvip_utils_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_sequences_pkg
+# 
+# Top level modules:
+# 	hdl_top
+# End time: 10:06:41 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vopt  +cover=sbcef+/hdl_top/DUT  hvl_top hdl_top   -o optimized_batch_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:41 on Nov 07,2014
+# vopt "+cover=sbcef+/hdl_top/DUT" hvl_top hdl_top -o optimized_batch_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading package mtiUvm.questa_uvm_pkg
+# -- Loading module hdl_top
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package qvip_pcie_3_0_serial_example_test_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_parameters_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_env_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_pcie_v2_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package qvip_utils_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_sequences_pkg
+# -- Loading module ref_clk_generator
+# -- Loading module pcie_rc_serial
+# -- Loading interface mgc_pcie
+# -- Loading module pcie_ep_serial_dummy_dut
+# Optimizing 27 design-units (inlining 2/4 module instances, 0/0 UDP instances):
+# -- Optimizing interface mgc_pcie(fast__1)
+# -- Optimizing interface mgc_pcie(fast__2)
+# -- Inlining module ref_clk_generator(fast)
+# -- Inlining module pcie_rc_serial(fast)
+# -- Optimizing module hdl_top(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench/hdl_top.sv(87): (vopt-2685) [TFMPC] - Too few port connections for 'rc'.  Expected 8, found 7.
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench/hdl_top.sv(87): (vopt-2718) [TFMPC] - Missing connection for port 'wake_up_n'.
+# -- Optimizing module pcie_ep_serial_dummy_dut(fast)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package QUESTA_MVC(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package slave_mem_models_pkg(fast)
+# -- Optimizing package addr_map_pkg(fast)
+# -- Optimizing package mvc_pkg(fast)
+# -- Optimizing package rw_txn_pkg(fast)
+# -- Optimizing package mgc_pcie_v2_0_pkg(fast)
+# -- Optimizing package mgc_pcie_v2_0_pkg_sv_unit(fast)
+# -- Optimizing interface mgc_pcie(fast)
+# -- Optimizing package qvip_pcie_3_0_serial_example_parameters_pkg(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package qvip_utils_pkg(fast)
+# -- Optimizing package qvip_pcie_3_0_serial_example_sequences_pkg(fast)
+# -- Optimizing package qvip_pcie_3_0_serial_example_env_pkg(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_pcie_3_0_serial_example_env_pkg/src/qvip_pcie_serial_example_translator.svh(60): (vopt-2250) Function "transform" has no return value assignment.
+# -- Optimizing package qvip_pcie_3_0_serial_example_test_pkg(fast)
+# Optimized design name is optimized_batch_top_tb
+# End time: 10:07:51 on Nov 07,2014, Elapsed time: 0:01:10
+# Errors: 0, Warnings: 3
+# vopt  +acc   hvl_top hdl_top   -o optimized_debug_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:07:52 on Nov 07,2014
+# vopt "+acc" hvl_top hdl_top -o optimized_debug_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading package mtiUvm.questa_uvm_pkg
+# -- Loading module hdl_top
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package qvip_pcie_3_0_serial_example_test_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_parameters_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_env_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_pcie_v2_0_pkg
+# -- Importing package addr_map_pkg
+# -- Importing package slave_mem_models_pkg
+# -- Importing package rw_txn_pkg
+# -- Importing package qvip_utils_pkg
+# -- Importing package qvip_pcie_3_0_serial_example_sequences_pkg
+# -- Loading module ref_clk_generator
+# -- Loading module pcie_rc_serial
+# -- Loading interface mgc_pcie
+# -- Loading module pcie_ep_serial_dummy_dut
+# Optimizing 27 design-units (inlining 0/4 module instances, 0/0 UDP instances):
+# -- Optimizing interface mgc_pcie(fast__1)
+# -- Optimizing interface mgc_pcie(fast__2)
+# -- Optimizing module pcie_rc_serial(fast)
+# -- Optimizing module pcie_ep_serial_dummy_dut(fast)
+# -- Optimizing module ref_clk_generator(fast)
+# -- Optimizing module hdl_top(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench/hdl_top.sv(87): (vopt-2685) [TFMPC] - Too few port connections for 'rc'.  Expected 8, found 7.
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_pcie_3.0_serial_example/tb/testbench/hdl_top.sv(87): (vopt-2718) [TFMPC] - Missing connection for port 'wake_up_n'.
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package QUESTA_MVC(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package slave_mem_models_pkg(fast)
+# -- Optimizing package addr_map_pkg(fast)
+# -- Optimizing package mvc_pkg(fast)
+# -- Optimizing package rw_txn_pkg(fast)
+# -- Optimizing package mgc_pcie_v2_0_pkg(fast)
+# -- Optimizing package mgc_pcie_v2_0_pkg_sv_unit(fast)
+# -- Optimizing interface mgc_pcie(fast)
+# -- Optimizing package qvip_pcie_3_0_serial_example_parameters_pkg(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package qvip_utils_pkg(fast)
+# -- Optimizing package qvip_pcie_3_0_serial_example_sequences_pkg(fast)
+# -- Optimizing package qvip_pcie_3_0_serial_example_env_pkg(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_pcie_3_0_serial_example_env_pkg/src/qvip_pcie_serial_example_translator.svh(60): (vopt-2250) Function "transform" has no return value assignment.
+# -- Optimizing package qvip_pcie_3_0_serial_example_test_pkg(fast)
+# Optimized design name is optimized_debug_top_tb
+# End time: 10:08:35 on Nov 07,2014, Elapsed time: 0:00:43
+# Errors: 0, Warnings: 3
+# make[1]: Leaving directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_pcie_3.0_serial_example/build_group/build_task'
+# make[1]: Warning: File `/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_pcie_3_0_serial_example_env_pkg/Makefile' has modification time 3.5e+07 s in the future
+# make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+# Executing ONERROR command at macro ./execScript.do line 1
+# quit -f

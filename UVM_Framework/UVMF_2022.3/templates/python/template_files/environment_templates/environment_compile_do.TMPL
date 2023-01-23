@@ -1,0 +1,57 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{name}}_env_pkg/compile.do" %}
+# Tcl do file for compile of {{name}} interface
+
+# pragma uvmf custom additional begin
+# pragma uvmf custom additional end
+
+{% if DPIFiles|length > 0 %}
+# Build from associated DPI C source
+if {$tcl_platform(pointerSize)==8} {
+  quietly set gcc_comp_arch "-m64"
+} else {
+  quietly set gcc_comp_arch "-m32"
+}
+
+# OS-dependent arguments for DPI compile and link
+switch $tcl_platform(platform) {
+  unix {
+    set gcc_out_ext "so"
+    set gcc_comp_args "-fPIC"
+  } 
+  windows {
+    set gcc_out_ext "dll"
+    set gcc_comp_args ""
+  }
+  default {
+    echo "Unknown OS platform detected in compile.do"
+    quit -code 103
+  }
+}
+
+quietly set ofiles ""
+{% for cFile in DPIFiles %}
+set cmd [format "gcc %s -I%s/{{environment_location}}/{{name}}_env_pkg/dpi {{DPICompArgs}} %s %s/{{environment_location}}/{{name}}_env_pkg/dpi/{{cFile}}" $gcc_comp_arch $env(UVMF_VIP_LIBRARY_HOME) $gcc_comp_args $env(UVMF_VIP_LIBRARY_HOME)]
+eval $cmd
+quietly set ofiles [format "%s %s" $ofiles [regsub -- {([^\.]*)\.c} {{cFile}} {\1.o}]]
+{% endfor %}
+set cmd [format "gcc %s {{DPILinkArgs}} %s -o {{soName}}.%s" $gcc_comp_arch $ofiles $gcc_out_ext ]
+eval $cmd
+{% endif %}
+
+{% for sub_env in env_pkgs %}
+# Include build for sub-environment {{sub_env}}_env_pkg
+quietly set cmd [format "source %s/{{environment_location}}/{{sub_env}}_env_pkg/compile.do" $env(UVMF_VIP_LIBRARY_HOME)]
+eval $cmd
+{% endfor %}
+
+quietly set cmd [format "vlog -timescale 1ps/1ps +incdir+%s/{{environment_location}}/{{name}}_env_pkg" $env(UVMF_VIP_LIBRARY_HOME)]
+{% if regModels|length > 0 %}
+{% for regModel in regModels %}
+quietly set cmd [format "%s %s/{{environment_location}}/{{name}}_env_pkg/registers/{{regModel.regModelPkg}}.sv" $cmd $env(UVMF_VIP_LIBRARY_HOME)]
+{% endfor %}
+{% endif %}
+quietly set cmd [format "%s %s/{{environment_location}}/{{name}}_env_pkg/{{name}}_env_pkg.sv" $cmd $env(UVMF_VIP_LIBRARY_HOME)]
+eval $cmd
+
+
+

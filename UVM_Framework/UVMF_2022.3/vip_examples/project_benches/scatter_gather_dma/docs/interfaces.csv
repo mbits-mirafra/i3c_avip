@@ -1,0 +1,13 @@
+//----------------------------------------------------------------------
+// Created with uvmf_gen version 2021.1
+//----------------------------------------------------------------------
+// pragma uvmf custom header begin
+// pragma uvmf custom header end
+//----------------------------------------------------------------------
+//----------------------------------------------------------------------
+//
+
+,
+Interface Description, Interface Type, Interface Transaction, Interface Name,
+dma_done_rsc, ccs_driver_bfm ccs_monitor_bfm, ccs_transaction, ccs_pkg_dma_done_rsc_BFM,
+

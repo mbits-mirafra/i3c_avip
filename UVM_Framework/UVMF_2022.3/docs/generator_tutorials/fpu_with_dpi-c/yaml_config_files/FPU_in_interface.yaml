@@ -1,0 +1,75 @@
+uvmf:
+  interfaces:
+    FPU_in:
+      clock: clk
+      reset: rst
+      reset_assertion_level: 'False'
+
+      config_constraints: []
+      config_vars: []
+
+      hdl_typedefs:
+      - name: fpu_op_t
+        type: enum {add_op, sub_op, mul_op, div_op, sqr_op}
+      - name: fpu_rnd_t
+        type: enum {even_rnd, zero_rnd, up_rnd, down_rnd}
+      - name: reqstruct
+        type: struct  {shortreal  a; shortreal  b; fpu_op_t op; fpu_rnd_t round;}
+      - name: rspstruct
+        type: struct  {shortreal  a; shortreal  b; fpu_op_t op; fpu_rnd_t round; shortreal result;}
+      hvl_typedefs: []
+
+      parameters:
+      - name: FP_WIDTH
+        type: int
+        value: '32'
+
+      ports:
+      - name: ready
+        dir: input
+        width: '1'
+      - name: start
+        dir: output
+        width: '1'
+      - name: op
+        dir: output
+        width: '3'
+      - name: rmode
+        dir: output
+        width: '2'
+      - name: a
+        dir: output
+        width: FP_WIDTH
+      - name: b
+        dir: output
+        width: FP_WIDTH
+      - name: result
+        dir: input
+        width: FP_WIDTH
+
+      response_info:
+        data: []
+        operation: 1'b0
+
+      transaction_vars:
+      - name: op
+        type: fpu_op_t
+        iscompare: 'True'
+        isrand: 'True'
+      - name: rmode
+        type: fpu_rnd_t
+        iscompare: 'True'
+        isrand: 'True'
+      - name: a
+        type: bit [FP_WIDTH-1:0]
+        iscompare: 'True'
+        isrand: 'True'
+      - name: b
+        type: bit [FP_WIDTH-1:0]
+        iscompare: 'True'
+        isrand: 'True'      
+      - name: result
+        type: bit [FP_WIDTH-1:0]
+        iscompare: 'True'
+        isrand: 'False'
+        

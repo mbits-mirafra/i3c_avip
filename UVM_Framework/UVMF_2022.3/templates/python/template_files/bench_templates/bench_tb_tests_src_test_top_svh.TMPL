@@ -1,0 +1,141 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/tests/{{src_dir}}test_top.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+// Description: This top level UVM test is the base class for all
+//     future tests created for this project.
+//
+//     This test class contains:
+//          Configuration:  The top level configuration for the project.
+//          Environment:    The top level environment for the project.
+//          Top_level_sequence:  The top level sequence for the project.
+//                                        
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+typedef {{env_name}}_env_configuration {{macro.paramUseNested(envParamDefs)|indent(8)}}{{env_name}}_env_configuration_t;
+typedef {{env_name}}_environment {{macro.paramUseNested(envParamDefs)|indent(8)}}{{env_name}}_environment_t;
+
+class test_top extends uvmf_test_base #(.CONFIG_T({{env_name}}_env_configuration_t), 
+                                        .ENV_T({{env_name}}_environment_t), 
+                                        .TOP_LEVEL_SEQ_T({{name}}_bench_sequence_base));
+
+  `uvm_component_utils( test_top );
+
+{% if qvip_bfm_pkgs|length > 0 %}
+// This message handler can be used to redirect QVIP Memeory Model messages through
+// the UVM messaging mecahanism.  How to enable and use it is described in 
+//      $UVMF_HOME/common/utility_packages/qvip_utils_pkg/src/qvip_report_catcher.svh
+qvip_memory_message_handler message_handler;
+{% endif %}
+
+{% if useCoEmuClkRstGen %}
+  //variable: clk_ctrl
+  //Clock Proxy Object used to control the Clock
+  // Must be extended clock_ctrl object and not clock_ctrl_base because
+  // bfm is set here.  Usage elsewhere in testbench can just use a
+  // clock_ctrl_base handle.
+  clock_ctrl #(INIT_CLOCK_HALF_PERIOD) clk_ctrl;
+  
+  //variable: reset_ctrl
+  //Reset Proxy Object used to control Reset
+  // Must be extended reset_ctrl object and not reset_ctrl_base because bfm
+  // is set here.  Usage elsewhere in testbench can just use a reset_ctrl_base
+  // handle
+  sync_reset_ctrl #(RST_POLARITY,
+                    INITIAL_IDLE_CYCLES,
+                    RESET_ACTIVE_CYCLES) reset_ctrl;
+{% endif %}
+
+  string interface_names[] = {
+{% for agent in resource_parameter_names %}
+    {{agent.unique_id_with_underscores}}{{agent.name}} /* {{agent.agent_name}}     [{{loop.index-1}}] */ {% if not loop.last %}, 
+{% endif %}
+{% endfor %}
+
+};
+
+uvmf_active_passive_t interface_activities[] = { 
+{% for agent in resource_parameter_names %}
+    {{agent.activity}} /* {{agent.agent_name}}     [{{loop.index-1}}] */ {% if not loop.last %}, 
+{% endif %}
+{% endfor %}
+  };
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+
+  // ****************************************************************************
+  // FUNCTION: new()
+  // This is the standard systemVerilog constructor.  All components are 
+  // constructed in the build_phase to allow factory overriding.
+  //
+  function new( string name = "", uvm_component parent = null );
+     super.new( name ,parent );
+  endfunction
+
+
+{% if useCoEmuClkRstGen %}
+  // ****************************************************************************
+  // FUNCTION: setup_clock_reset_controllers()
+  // 
+  //
+  function void setup_clock_reset_controllers();
+    virtual clock_bfm #(INIT_CLOCK_HALF_PERIOD) clk_bfm;
+    virtual sync_reset_bfm #(RST_POLARITY,
+                             INITIAL_IDLE_CYCLES,
+                             RESET_ACTIVE_CYCLES) sync_rst_bfm;
+    // Construct the clock controller proxy
+    clk_ctrl = clock_ctrl #(INIT_CLOCK_HALF_PERIOD)::type_id::create("clk_ctrl");
+    //Set the bfm handle in the clk_ctrl
+    if (!uvm_config_db#(virtual clock_bfm #(INIT_CLOCK_HALF_PERIOD) )::get(null, UVMF_VIRTUAL_INTERFACES, CLOCK_CONTROLLER, clk_bfm)) begin
+      `uvm_fatal("CFG", "Could not get the Clock BFM Interface")
+    end
+    clk_ctrl.set_bfm(clk_bfm);
+    // Make clock controller proxy available to environment
+    uvm_config_db #( clock_ctrl_base )::set(null, UVMF_CLOCK_APIS, CLOCK_CONTROLLER, clk_ctrl);
+
+    // Construct the reset controller proxy
+    reset_ctrl = sync_reset_ctrl #(RST_POLARITY, INITIAL_IDLE_CYCLES, RESET_ACTIVE_CYCLES)::type_id::create("reset_ctrl");
+    //Set the bfm handle in the reset_ctrl
+    if (!uvm_config_db#(virtual sync_reset_bfm #(RST_POLARITY, INITIAL_IDLE_CYCLES, RESET_ACTIVE_CYCLES))::get(null, UVMF_VIRTUAL_INTERFACES, RESET_CONTROLLER, sync_rst_bfm)) begin
+      `uvm_fatal("CFG", "Could not get the Reset BFM Interface")
+    end
+    reset_ctrl.set_bfm(sync_rst_bfm);
+    // Make reset controller proxy available to environment
+    uvm_config_db #( reset_ctrl_base )::set(null, UVMF_RESET_APIS, RESET_CONTROLLER, reset_ctrl);
+  endfunction
+{% endif %}
+
+  // ****************************************************************************
+  // FUNCTION: build_phase()
+  // The construction of the configuration and environment classes is done in
+  // the build_phase of uvmf_test_base.  Once the configuraton and environment
+  // classes are built then the initialize call is made to perform the
+  // following: 
+  //     Monitor and driver BFM virtual interface handle passing into agents
+  //     Set the active/passive state for each agent
+  // Once this build_phase completes, the build_phase of the environment is
+  // executed which builds the agents.
+  //
+  virtual function void build_phase(uvm_phase phase);
+// pragma uvmf custom build_phase_pre_super begin
+// pragma uvmf custom build_phase_pre_super end
+    super.build_phase(phase);
+    // pragma uvmf custom configuration_settings_post_randomize begin
+    // pragma uvmf custom configuration_settings_post_randomize end
+    configuration.initialize(NA, "uvm_test_top.environment", interface_names, null, interface_activities);
+{% if useCoEmuClkRstGen %}
+    setup_clock_reset_controllers();
+{% endif %}
+  endfunction
+
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

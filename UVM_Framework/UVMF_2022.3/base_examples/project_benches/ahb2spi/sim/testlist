@@ -1,0 +1,15 @@
+# Test list for use by RMDB file
+# File syntax is
+# TEST <testname> <repeat_count> <1st_seed> ... <nth seed>
+# If not enough seeds are provided then random seeds are used to pad
+# If no repeat count is given, default is 1
+#TB_INFO ahb2spi { } { }   
+TB_INFO ahb2spi { UVMF_VIP_LIBRARY_HOME=../../../../../../../../verification_ip UVMF_PROJECT_DIR=../../../../../../../ahb2spi } { }
+TB ahb2spi
+# pragma uvmf custom regression_suite begin
+TEST test_top 3
+TEST regmodel_test 
+TEST register_test 
+# pragma uvmf custom regression_suite end
+
+

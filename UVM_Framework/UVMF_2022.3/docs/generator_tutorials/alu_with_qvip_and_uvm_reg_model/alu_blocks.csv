@@ -1,0 +1,9 @@
+Block Name,Block Description,Block Coverage,Block Backdoor,Block Component Name,Block Instance Name,Block Instance Type,Block Instance Description,Block Instance Dimension,Block Instance Backdoor,Block Instance No Reg Tests,Block Instance No Reg Access Test,Block Instance No Reg Shared Access Test,Block Instance No Reg Bit Bash Test,Block Instance No Reg HW Reset Test,Block Instance No Mem Tests,Block Instance No Mem Access Test,Block Instance No Mem Shared Access Test,Block Instance No Mem Walk Test,Project Extra Imports
+alu_reg_model,Top block for the ALU design,UVM_CVR_ADDR_MAP,top.dut,alu_block,alu,block,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+alu_block,ALU,UVM_CVR_ADDR_MAP,,a_reg,a_reg_reg,,Operand A,,,,,,,,,,,,
+alu_block,,,,b_reg,b_reg_reg,,Operand B,,,,,,,,,,,,
+alu_block,,,,op_reg,op_reg_reg,,Operation,,,,,,,,,,,,
+alu_block,,,,result_reg,result_reg_reg,,Result,,,,,,1,,,,,,
+alu_block,,,,ctrl_reg,ctrl_reg_reg,,Control,,,,,,,,,,,,
+alu_block,,,,scratch_mem,scratch_mem_mem,,MEM instances,,,,,,,,,,,,

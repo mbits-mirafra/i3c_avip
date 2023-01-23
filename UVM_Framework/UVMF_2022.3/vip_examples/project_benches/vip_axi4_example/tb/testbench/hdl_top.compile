@@ -1,0 +1,15 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ../parameters/vip_axi4_bench_parameters_pkg.compile
+src:
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/axi4/modules/axi4_master.sv
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/axi4/modules/axi4_monitor.sv
+  - $QUESTA_MVC_HOME/questa_mvc_src/sv/axi4/modules/axi4_slave.sv
+  - $UVMF_HOME/common/mgc_vip/axi4/mgc_axi4_master_hvl.sv
+  - $UVMF_HOME/common/mgc_vip/axi4/mgc_axi4_master_hdl.sv
+  - $UVMF_HOME/common/mgc_vip/axi4/mgc_axi4_monitor_hvl.sv
+  - $UVMF_HOME/common/mgc_vip/axi4/mgc_axi4_monitor_hdl.sv
+  - $UVMF_HOME/common/mgc_vip/axi4/mgc_axi4_slave_hvl.sv
+  - $UVMF_HOME/common/mgc_vip/axi4/mgc_axi4_slave_hdl.sv
+  - $UVMF_HOME/common/mgc_vip/axi4/mgc_axi4_signal_if.sv
+  - hdl_top.sv

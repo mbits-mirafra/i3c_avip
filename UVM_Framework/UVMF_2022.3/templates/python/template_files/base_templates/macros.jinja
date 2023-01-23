@@ -1,0 +1,73 @@
+{# Generate a list of parameters for use when declaring a specialization #}
+{# This is just a comma-delimited list of names, no values or 'dot' notation #}
+{% macro paramList(paramlist,indent="") -%}
+{% if paramlist|length > 0 %}
+{% for param in paramlist -%}
+  {% if loop.first %}#(
+{% endif %}{{indent}}{{param.name}}{{commalist(loop,",\n")}}{% endfor %}
+
+{{indent}})
+{% endif %}
+{% endmacro %}
+
+{# Generate a list of parameter declarations with possible default values #}
+{% macro paramDeclare(paramlist) -%}
+{% if paramlist|length > 0 %}
+{% for param in paramlist -%}
+  {% if loop.first %}#(
+{% endif %}{{param.type}} {{param.name}}{% if param.value != None %} = {{param.value}}{% endif %}{{commalist(loop,",\n")}}{% endfor %}
+
+)
+{% endif %}
+{% endmacro %}
+
+{# Generate a list of parameters to use when declaring a class specialization #}
+{# This list uses the "dot" notation to pass current scope parameters of the same name down #}
+{% macro paramUse(paramlist,indent="") -%}
+{% if paramlist|length > 0 %}
+{% for param in paramlist -%}
+  {% if loop.first %}#(
+{% endif %}
+.{{param.name}}({{param.name}}){{commalist(loop,",\n")}}{% endfor %}
+
+)
+{% endif %}
+{% endmacro %}
+
+{# Generate a list of parameters to use when instantiating a nested class specialization #}
+{# that does not have a common underlying parameter name, using both the name and value #}
+{# items of each element in the list #}
+{% macro paramUseNested(paramlist) -%}
+{% if paramlist|length > 0 %}
+{% for param in paramlist -%}
+  {% if loop.first %}#(
+{% endif %}
+.{{param.name}}({{param.value}}){{commalist(loop,",\n")}}{% endfor %}
+
+)
+{% endif %}
+{% endmacro %}
+
+{# General use macro to join a list together. Default is a comma and newline but can also #}
+{# specify an ending delimiter as well #}
+{% macro commalist(myloop,delim=",\n",enddelim="") -%}
+{% if not myloop.last %}{{delim}}{% else %}{{enddelim}}{% endif -%}
+{% endmacro %}
+
+{# Produce a component utils declaration. If paramlist is not empty, will make it parameterized #}
+{% macro compUtils(name,paramlist) -%}
+{% if paramlist|length > 0 %}
+  `uvm_component_param_utils( {{name}} {{paramList(paramlist)|indent(30)}})
+{%- else %}
+  `uvm_component_utils( {{name}} )
+{%- endif -%}
+{% endmacro %}
+
+{# Produce an object utils declaration. If paramlist is not empty, will make it parameterized #}
+{% macro objUtils(name,paramlist) -%}
+{% if paramlist|length > 0 %}
+  `uvm_object_param_utils( {{name}} {{paramList(paramlist)|indent(27)}})
+{%- else %}
+  `uvm_object_utils( {{name}} )
+{%- endif -%}
+{% endmacro %}

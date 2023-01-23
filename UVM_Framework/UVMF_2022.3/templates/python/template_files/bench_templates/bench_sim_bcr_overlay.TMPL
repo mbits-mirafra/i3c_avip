@@ -1,0 +1,40 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/bcr_overlay.flow" %}
+{% set conditional = "need_overlay" %}
+options:
+{% if qvip_pkg_env_variables|length > 0 %}
+  # Use the following data structure and set the environment variable name and 'value' entry
+  # appropriately to point to the requisite QVIP subenvironments for this bench. This allows users
+  # to avoid having to set environment variables directly in their shell
+  env_vars:
+{% for qvip_env_var in qvip_pkg_env_variables %}
+# pragma uvmf custom {{qvip_env_var}}_info begin
+    {{qvip_env_var}}_DIR_NAME: 
+      value: the_environment_variable_named_{{qvip_env_var}}_DIR_NAME_needs_to_point_to_the_QVIP_configurator_generated_code_for_this_sub_environment
+      resolve_path: False  # Set this to True if the value above is changed to something containing variable references
+# pragma uvmf custom {{qvip_env_var}}_info end
+{% endfor %}
+{% endif %}
+{% if inFactEnabled %}
+  # Default flow is infact since this bench contains infact stimulus
+  default: infact
+{% endif %}
+flows:
+{% if qvip_pkg_env_variables|length > 0 %}
+  base:
+    variables:
+      using_qvip: True
+{% endif %}
+{% if inFactEnabled %}
+  infact:
+    variables:
+      tests_compile_file: ../tb/tests/{{name}}_tests_pkg.compile
+      infact_top: {{name}}_infact_sequences_pkg
+      bfms:
+{% for bfm in bfms %}
+        - name: {{bfm.name}}
+          class: {{name}}_sequences_pkg::{{bfm.name}}_{{bfm.ifPkg}}_transaction
+          extra: ""
+          cov_strategy: ${sim_dir}/{{relative_vip_from_sim}}/{{interface_location}}/{{bfm.ifPkg}}_pkg/{{src_dir}}{{bfm.ifPkg}}_infact_coverage_strategy.csv
+          output: infact_genfiles/infact_{{bfm.name}}_{{bfm.ifPkg}}_transaction_gen.svh
+{% endfor %}
+{% endif %}

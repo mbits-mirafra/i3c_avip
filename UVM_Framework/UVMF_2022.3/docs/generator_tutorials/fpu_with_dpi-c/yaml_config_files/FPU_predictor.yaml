@@ -1,0 +1,10 @@
+uvmf:
+  util_components:
+    FPU_predictor:
+      analysis_exports:
+      - name: FPU_in_agent_ae
+        type: 'FPU_in_transaction #()'
+      analysis_ports:
+      - name: FPU_sb_ap
+        type: 'FPU_in_transaction #()'
+      type: predictor

@@ -1,0 +1,266 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{name}}_env_pkg/{{src_dir}}{{name}}_environment.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This environment contains all agents, predictors and
+// scoreboards required for the block level design.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+class {{name}}_environment {{macro.paramDeclare(paramDefs)|indent(2)}} extends uvmf_environment_base #(
+    .CONFIG_T( {{name}}_env_configuration {{macro.paramUse(paramDefs)|indent(22)}}
+  ));
+{{macro.compUtils([ name,'_environment']|join(""),paramDefs)}}
+
+{% for sub_env in subEnvironments %}
+  typedef {{sub_env.envPkg}}_environment{{macro.paramUseNested(sub_env.parameters)|indent(16)}} {{sub_env.name}}_t;
+  {{sub_env.name}}_t {{sub_env.name}};
+   
+{% endfor %}
+
+{% for sub_env in qvipSubEnvironments %}
+  {{sub_env.envPkg}}_environment #()  {{sub_env.name}};
+
+{% endfor %}
+
+{% for ap in analysis_ports %}
+  uvm_analysis_port #({{ap.tType}}) {{ap.name}};
+{% endfor %}
+{% for ep in analysis_exports %}
+  uvm_analysis_export #({{ep.tType}}) {{ep.name}};
+{% endfor %}
+
+{% for agent in qvip_ap_names %}
+  uvm_analysis_port #( mvc_sequence_item_base ) {{agent.name}}_{{agent.agent}}_ap [string];
+{% endfor %}
+
+{% for agent in agents %}
+  typedef {{agent.ifPkg}}_agent {{macro.paramUseNested(agent.parameters)|indent(16)}} {{agent.name}}_t;
+  {{agent.name}}_t {{agent.name}};
+
+{% endfor %}
+
+{% for nonUvmfComp in nonUvmfComponents %}
+ typedef {{nonUvmfComp.type}} {{macro.paramUseNested(nonUvmfComp.parameters)|indent(16)}} {{nonUvmfComp.name}}_t;
+   {{nonUvmfComp.name}}_t {{nonUvmfComp.name}};
+{% endfor %}
+
+{% for qvipMemAgent in qvipMemoryAgents %}
+ typedef {{qvipMemAgent.type}} {{macro.paramUseNested(qvipMemAgent.parameters)|indent(16)}} {{qvipMemAgent.name}}_t;
+   {{qvipMemAgent.name}}_t {{qvipMemAgent.name}};
+{% endfor %}
+
+{% for analysisComp in analysisComponents %}
+  typedef {{analysisComp.type}} {{macro.paramUseNested(analysisComp.parameters)|indent(16)}} {{analysisComp.name}}_t;
+  {{analysisComp.name}}_t {{analysisComp.name}};
+{% endfor %}
+
+{% for scoreboard in scoreboards %}
+  typedef {{scoreboard.sType}} #(.T({{scoreboard.tType}}){% if scoreboard.parameters|length > 0 %},{% endif %}{% for param in scoreboard.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if scoreboard.parameters|length > 0 %}{% endif %})  {{scoreboard.name}}_t;
+  {{scoreboard.name}}_t {{scoreboard.name}};
+{% endfor %}
+
+{% for c2eConn in c2eConnections %}
+  uvm_analysis_port #({{c2eConn.tType}}) {{c2eConn.name}};
+{% endfor %}
+{% for regModel in regModels %}
+{% if regModel.adapterType != None %}
+{% if regModel.qvipAgent == "True" %}
+// UVMF_CHANGE_ME: QVIP_AGENT_USED_FOR_REG_MAP: 
+// Identify the UVM reg adapter in the QVIP installation for the protocol agent.
+// Change the typedef below to reflect the reg adapter class type and any parameters.
+// Be sure to modify the envioronment package to import the QVIP protocol package 
+// that contains the selected adapter.
+{% endif %}
+   // Instantiate register model adapter and predictor
+   typedef {{regModel.adapterType}}    reg_adapter_t;
+   reg_adapter_t    reg_adapter;
+{% endif %}
+{% if regModel.transactionType != None %}
+{% if regModel.qvipAgent == "True" %}
+// UVMF_CHANGE_ME: QVIP_AGENT_USED_FOR_REG_MAP:
+// Identify the sequence_item type, including any parameters, used by the reg adapter
+// type specified above.  Parameterize the uvm_reg_predictor to use this sequence item
+// type, including any parameters of the sequence item.
+{% endif %}
+   typedef uvm_reg_predictor #({{regModel.transactionType}}) reg_predictor_t;
+   reg_predictor_t    reg_predictor;
+{% endif %}
+{% endfor %}
+
+
+  typedef uvmf_virtual_sequencer_base #(.CONFIG_T({{name}}_env_configuration{{macro.paramUse(paramDefs)|indent(22)}})) {{name}}_vsqr_t;
+  {{name}}_vsqr_t vsqr;
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+ 
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+//
+  function new( string name = "", uvm_component parent = null );
+    super.new( name, parent );
+  endfunction
+
+// ****************************************************************************
+// FUNCTION: build_phase()
+// This function builds all components within this environment.
+//
+  virtual function void build_phase(uvm_phase phase);
+// pragma uvmf custom build_phase_pre_super begin
+// pragma uvmf custom build_phase_pre_super end
+    super.build_phase(phase);
+{% for sub_env in subEnvironments %}
+    {{sub_env.name}} = {{sub_env.name}}_t::type_id::create("{{sub_env.name}}",this);
+    {{sub_env.name}}.set_config(configuration.{{sub_env.name}}_config);
+{% endfor %}
+{% for sub_env in qvipSubEnvironments %}
+    {{sub_env.name}} = {{sub_env.envPkg}}_environment#()::type_id::create("{{sub_env.name}}",this);
+    {{sub_env.name}}.set_config(configuration.{{sub_env.name}}_config);
+{% endfor %}
+{% for ap in analysis_ports %}
+    {{ap.name}} = new("{{ap.name}}",this);
+{% endfor %}
+{% for ep in analysis_exports %}
+    {{ep.name}} = new("{{ep.name}}",this);
+{% endfor %}
+{% for agent in agents %}
+    {{agent.name}} = {{agent.name}}_t::type_id::create("{{agent.name}}",this);
+    {{agent.name}}.set_config(configuration.{{agent.name}}_config);
+{% endfor %}
+{% for nonUvmfComp in nonUvmfComponents %}
+    {{nonUvmfComp.name}} = {{nonUvmfComp.name}}_t::type_id::create("{{nonUvmfComp.name}}",this);
+{% endfor %}
+{% for qvipMemAgent in qvipMemoryAgents %}
+    {{qvipMemAgent.name}} = {{qvipMemAgent.name}}_t::type_id::create("{{qvipMemAgent.name}}",this);
+    {{qvipMemAgent.name}}.set_if_name({get_full_name(),".{{qvipMemAgent.qvipEnv}}",".{{qvipMemAgent.name}}"});
+{% endfor %}
+{% for analysisComp in analysisComponents %}
+    {{analysisComp.name}} = {{analysisComp.name}}_t::type_id::create("{{analysisComp.name}}",this);
+{% if analysisComp.extDef == False %}
+    {{analysisComp.name}}.configuration = configuration;
+{% endif %}
+{% endfor %}
+{% for scoreboard in scoreboards %}
+    {{scoreboard.name}} = {{scoreboard.name}}_t::type_id::create("{{scoreboard.name}}",this);
+{% endfor %}
+{% for c2eConn in c2eConnections %}
+   {{c2eConn.name}} = new("{{c2eConn.name}}",this);
+{% endfor %}
+{% for regModel in regModels %}
+// pragma uvmf custom reg_model_build_phase begin
+{% if regModel.transactionType != None %}
+  // Build register model predictor if prediction is enabled
+  if (configuration.enable_reg_prediction) begin
+    reg_predictor = reg_predictor_t::type_id::create("reg_predictor", this);
+  end
+{% endif %}
+// pragma uvmf custom reg_model_build_phase end
+{% endfor %}
+
+    vsqr = {{name}}_vsqr_t::type_id::create("vsqr", this);
+    vsqr.set_config(configuration);
+    configuration.set_vsqr(vsqr);
+
+    // pragma uvmf custom build_phase begin
+    // pragma uvmf custom build_phase end
+  endfunction
+
+// ****************************************************************************
+// FUNCTION: connect_phase()
+// This function makes all connections within this environment.  Connections
+// typically inclue agent to predictor, predictor to scoreboard and scoreboard
+// to agent.
+//
+  virtual function void connect_phase(uvm_phase phase);
+// pragma uvmf custom connect_phase_pre_super begin
+// pragma uvmf custom connect_phase_pre_super end
+    super.connect_phase(phase);
+{% for conn in connections %}
+    {{conn.name}}.{{conn.pName}}.connect({{conn.subscriberName}}.{{conn.aeName}});
+{% endfor %}
+{% for agent in qvip_ap_names %}
+    {{agent.name}}_{{agent.agent}}_ap = {{agent.name}}.{{agent.agent}}.ap; 
+{% endfor %}
+{% for connection in qvipConnections %}
+    {{connection.output_component}}_ap["{{connection.output_port_name}}"].connect({{connection.input_component}}.{{connection.input_component_export_name}});
+{% endfor %}
+{% for sub_env in qvipSubEnvironments %}
+{% for agent in sub_env.qvip_if_name %}
+    if ( configuration.{{sub_env.name}}_interface_activity[{{loop.index0}}] == ACTIVE )
+       uvm_config_db #(mvc_sequencer)::set(null,UVMF_SEQUENCERS,configuration.{{sub_env.name}}_interface_names[{{loop.index0}}],{{sub_env.name}}.{{agent}}.m_sequencer  );
+{% endfor %}
+{% endfor %}
+{% for ap in analysis_ports %}
+    {{ap.connection}}.connect({{ap.name}});
+{% endfor %}
+{% for ep in analysis_exports %}
+    {{ep.name}}.connect({{ep.connection}});
+{% endfor %}
+    // pragma uvmf custom reg_model_connect_phase begin
+{% for regModel in regModels %}
+{% if regModel.adapterType != None %}
+    // Create register model adapter if required
+    if (configuration.enable_reg_prediction ||
+        configuration.enable_reg_adaptation)
+{% if regModel.qvipAgent == "True" %}
+// UVMF_CHANGE_ME: QVIP_AGENT_USED_FOR_REG_MAP:
+// Uncomment the construction of the reg adapter below.  This was commented so that the 
+// generated code would compile and run as generated.  The uvm_reg_adapter is a virtual
+// class so it can not be constructed.  Once the type is changed to a QVIP reg adapter
+// type, it must be constructed.
+{% endif %}
+      {% if regModel.qvipAgent == "True" %}//{% endif %}reg_adapter = reg_adapter_t::type_id::create("reg_adapter");
+    // Set sequencer and adapter in register model map
+    if ((configuration.enable_reg_adaptation) && ({{regModel.sequencer}}.{% if regModel.qvipAgent == "True" %}m_{% endif %}sequencer != null ))
+      configuration.{{name}}_rm.{{regModel.busMap}}.set_sequencer({{regModel.sequencer}}.{% if regModel.qvipAgent == "True" %}m_{% endif %}sequencer, reg_adapter);
+    // Set map and adapter handles within uvm predictor
+    if (configuration.enable_reg_prediction) begin
+      reg_predictor.map     = configuration.{{name}}_rm.{{regModel.busMap}};
+      reg_predictor.adapter = reg_adapter;
+      // The connection between the agent analysis_port and uvm_reg_predictor 
+      // analysis_export could cause problems due to a uvm register package bug,
+      // if this environment is used as a sub-environment at a higher level.
+      // The uvm register package does not construct sub-maps within register
+      // sub blocks.  While the connection below succeeds, the execution of the
+      // write method associated with the analysis_export fails.  It fails because
+      // the write method executes the get_reg_by_offset method of the register
+      // map, which is null because of the uvm register package bug.
+      // The call works when operating at block level because the uvm register 
+      // package constructs the top level register map.  The call fails when the 
+      // register map associated with this environment is a sub-map.  Construction
+      // of the sub-maps must be done manually.
+      //{{regModel.sequencer}}.monitored_ap.connect(reg_predictor.bus_in);
+    end
+{% endif %}
+{% endfor %}
+    // pragma uvmf custom reg_model_connect_phase end
+  endfunction
+
+// ****************************************************************************
+// FUNCTION: end_of_simulation_phase()
+// This function is executed just prior to executing run_phase.  This function
+// was added to the environment to sample environment configuration settings
+// just before the simulation exits time 0.  The configuration structure is 
+// randomized in the build phase before the environment structure is constructed.
+// Configuration variables can be customized after randomization in the build_phase
+// of the extended test.
+// If a sequence modifies values in the configuration structure then the sequence is
+// responsible for sampling the covergroup in the configuration if required.
+//
+  virtual function void start_of_simulation_phase(uvm_phase phase);
+     configuration.{{name}}_configuration_cg.sample();
+  endfunction
+
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

@@ -1,0 +1,3 @@
+INCLUDE ^/base_examples/project_benches/ahb2spi/sim/testlist
+INCLUDE ^/base_examples/project_benches/alu/sim/testlist
+INCLUDE ^/base_examples/project_benches/gpio_example/sim/testlist

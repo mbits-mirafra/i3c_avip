@@ -1,0 +1,73 @@
+package require RunManager
+namespace eval runmgr {
+  set rm_gone 0
+  set rm_stat 0
+  set rm_mesg {}
+  proc rm_status {stat {mesg {}}} {
+    variable rm_stat
+    variable rm_mesg
+    set rm_stat $stat
+    set rm_mesg $mesg
+    return
+  }
+  proc rm_message {mesg {stat {0}}} {
+    catch {RunManager::Main -dest 59942@localhost.localdomain -send user -code $stat -message $mesg top~ahb2spi/build_group/build_task/execScript}
+    return
+  }
+  proc rm_done {} {
+    variable rm_gone
+    variable rm_stat
+    variable rm_mesg
+    if {$rm_gone} {
+      puts stderr "Blocking bogus 'done' (top~ahb2spi/build_group/build_task/execScript)"
+    } else {
+      catch {RunManager::Main -dest 59942@localhost.localdomain -send done -code $rm_stat -message $rm_mesg top~ahb2spi/build_group/build_task/execScript}
+    }
+    set rm_gone 1
+    return
+  }
+}
+rename quit runmgr::rm_quit
+proc quit {args} {
+  if {[lindex $args 0] eq {-sim}} {
+    eval runmgr::rm_quit $args
+  } else {
+    set code [lsearch $args {-code}]
+    if {0 <= $code} {
+      runmgr::rm_status [lindex $args [incr code]]
+    }
+    transcript file {}
+    runmgr::rm_quit -sim
+    cd /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim
+    runmgr::rm_done
+    eval runmgr::rm_quit $args
+    puts stderr "Fake 'quit $args' returned (Oops...)"
+  }
+}
+rename vsim runmgr::rm_vsim
+proc vsim {args} {
+  if {[info exists ::env(MTI_VRUN_INTERACTIVE)]} {
+    exec vsim -i -onfinish stop -do execScript.do
+    quit -f
+  } else {
+    eval runmgr::rm_vsim $args
+  }
+}
+transcript on
+onbreak {resume}
+onerror {runmgr::rm_status 1 {Runtime error}}
+onElabError {runmgr::rm_status 1 {Elaboration error}; quit -f}
+quietly set ::env(XML2UCDB_INI_PATH) {/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim}
+quietly set ::env(MTI_VRM_CONTEXT) {top~ahb2spi/build_group/build_task/execScript}
+if {[info exists ::env(MTI_VRUN_INTERACTIVE)]} {
+  quietly set ::env(MTI_VRUN_VSIMOPTIONS) {-i}
+} else {
+  quietly set ::env(MTI_VRUN_VSIMOPTIONS) {-c}
+}
+quietly catch {
+  cd /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~ahb2spi/build_group/build_task
+  catch {RunManager::Main -dest 59942@localhost.localdomain -send start top~ahb2spi/build_group/build_task/execScript}
+  transcript file execScript.log
+  do execScript.do
+}
+quit -f

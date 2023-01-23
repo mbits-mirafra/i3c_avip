@@ -1,0 +1,13 @@
+uvmf:
+  benches:
+    "nand_ben":
+      active_passive:
+      - bfm_name: "nand_in_agent"
+        value: "ACTIVE"
+     
+      - bfm_name: "nand_out_agent"
+        value: "PASSIVE"
+      
+      veloce_ready: "False"
+      top_env: "nand_env" 
+

@@ -1,0 +1,61 @@
+uvmf:
+  environments:
+    "alu" :
+      imports:
+        - name: "mvc_pkg"
+        - name: "mgc_apb3_v1_0_pkg"
+      parameters:
+        - name: "ALU_IN_OP_WIDTH"
+          type: "int"
+          value: "8"
+        - name: "ALU_OUT_RESULT_WIDTH"
+          type: "int"
+          value: "16"
+        - name: "APB_ADDR_WIDTH"
+          type: "int"
+          value: "32"
+        - name: "APB_WDATA_WIDTH"
+          type: "int"
+          value: "32"
+        - name: "APB_RDATA_WIDTH"
+          type: "int"
+          value: "32"
+      ## Agents are defined in a LIST so that the order is maintained. This is important
+      ## because of how the BFMs are passed in at the bench utilize this same order when
+      ## this environment's initialize() routine is called.
+      agents :
+        - name: "alu_in_agent" 
+          type: "alu_in"
+          parameters:
+            - {name: "ALU_IN_OP_WIDTH", value: "ALU_IN_OP_WIDTH"}
+        - name: "alu_out_agent" 
+          type: "alu_out"
+          parameters:
+            - {name: "ALU_OUT_RESULT_WIDTH", value: "ALU_OUT_RESULT_WIDTH"}
+      qvip_subenvs:
+        - name: "qvip_agents_env"
+          type: "qvip_agents"
+      ## Analysis components are defined externally in a 'util_components' structure.
+      ## They are instantiated here.
+      analysis_components :
+        - name: "alu_pred"
+          type: "alu_predictor"
+      ## Each scoreboard is keyed by the scoreboard instantiation name with
+      ## information on the scoreboard type and what type of transaction it
+      ## will be parsing
+      scoreboards : 
+        - name: "alu_sb"
+          sb_type: "uvmf_in_order_scoreboard"
+          trans_type: "alu_out_transaction #(.ALU_OUT_RESULT_WIDTH(ALU_OUT_RESULT_WIDTH))"
+      tlm_connections :
+        - driver:   "alu_in_agent.monitored_ap"
+          receiver: "alu_pred.alu_in_agent_ae"
+        - driver:   "alu_pred.alu_sb_ap"
+          receiver: "alu_sb.expected_analysis_export"
+        - driver:   "alu_out_agent.monitored_ap"
+          receiver: "alu_sb.actual_analysis_export"
+      register_model :
+        use_adapter: "True"
+        use_explicit_prediction: "True"
+        maps:
+          - { name: "apb_map", interface: "alu_in_agent" }

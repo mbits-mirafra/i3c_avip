@@ -1,0 +1,15 @@
+uvmf:
+  util_components:
+    axi4_slave_rw_predictor:
+      analysis_exports:
+      - name: axi4_s1_ae
+        type: rw_txn
+      - name: axi4_s0_ae
+        type: rw_txn
+      analysis_ports:
+      - name: axi4_m1_ap
+        type: rw_txn
+      - name: axi4_m0_ap
+        type: rw_txn
+      existing_library_component: 'True'
+      type: predictor

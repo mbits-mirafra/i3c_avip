@@ -1,0 +1,49 @@
+{% set fname = "project_benches/{{name}}/tb/tests/{{name}}_test_pkg.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Simulation Bench 
+// Unit            : Test package
+// File            : {{name}}_test_pkg.sv
+//----------------------------------------------------------------------
+//
+// DESCRIPTION: This package contains all tests currently written for
+//     the simulation project.  Once compiled, any test can be selected
+//     from the vsim command line using +UVM_TESTNAME=yourTestNameHere
+//
+// CONTAINS:
+//     -<test_top>
+//     -<example_derived_test>
+//
+{% endblock %}
+
+{% block contents %}
+
+package {{name}}_test_pkg;
+
+   import uvm_pkg::*;
+   import questa_uvm_pkg::*;
+   import uvmf_base_pkg::*;
+   import {{name}}_parameters_pkg::*;
+   import {{env_name}}_env_pkg::*;
+   import {{name}}_sequences_pkg::*;
+{% for agent in qvip_bfm_pkgs %}
+   import {{agent}}_pkg::*;
+{% endfor %}
+
+{% if veloceReady %}
+   import clock_pkg::*;
+   import reset_pkg::*;
+{% endif %}
+
+   `include "uvm_macros.svh"
+
+   `include "src/test_top.svh"
+   `include "src/example_derived_test.svh"
+
+endpackage
+
+{% endblock %}
+

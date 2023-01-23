@@ -1,0 +1,65 @@
+# YAML structure that defines the 'dma' interface
+uvmf:
+  # All interfaces must live underneath the 'interfaces' structure
+  interfaces:
+    # Each interface must be given a unique name
+    "dma":
+      # The name of the clock & reset are the only required
+      # elements for each interface
+      clock: "clock"
+      reset: "reset"
+      # Reset assertion level specified as True will make this
+      # interface sensitive to an active HIGH reset
+      reset_assertion_level: "True"
+      # Define parameters for this interface. All classes
+      # associated with this interface will be parameterized
+      # accordingly. If no 'value' entry is provided there will
+      # be no default value for the parameter. 
+      parameters:
+        - name: "DATA_WIDTH"
+          type: "int"
+          value: "16"
+        - name: "ADDR_WIDTH"
+          type: "int"
+          value: "8" 
+      # Specify the ports associated with this interface. The
+      # direction is from the perspective of the interface (as opposed to
+      # the DUT) if the interface is configured to run as INITIATOR
+      ports: 
+        - name: "rd_en"
+          width: "1"         
+          dir: "output"
+          reset_value: "1'b0"
+        - name: "wr_en"
+          width: "1"         
+          dir: "output"
+          reset_value: "1'b0"
+        - name: "addr" 
+          width: "ADDR_WIDTH"
+          dir: "output"
+          reset_value: "'bz"
+        - name: "wdata"
+          width: "DATA_WIDTH"
+          dir: "output"
+          reset_value: "'bz"
+        - name: "rdata"
+          width: "DATA_WIDTH"
+          dir: "input"
+          reset_value: "'bz" 
+      # Specify transaction variables associated with this interface's
+      # desired sequence item. Each entry can be specified as random as well
+      # as something to be used as part of the sequence item's compare 
+      # function
+      transaction_vars:
+        - name: "addr"
+          type: "bit [ADDR_WIDTH-1:0]"
+          isrand: "True"
+          iscompare: "True"
+        - name: "data"
+          type: "bit [DATA_WIDTH-1:0]"
+          isrand: "True"
+          iscompare: "True"
+        - name: "wr"
+          type: "bit"                 
+          isrand: "True"
+          iscompare: "True"

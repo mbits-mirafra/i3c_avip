@@ -1,0 +1,55 @@
+{% set fname = "project_benches/{{name}}/tb/parameters/{{name}}_parameters_pkg.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Simulation Bench 
+// Unit            : Bench level parameters package
+// File            : {{name}}_parameters_pkg.sv
+//----------------------------------------------------------------------
+//                                          
+{% endblock %}
+
+{% block contents %}
+
+package {{name}}_parameters_pkg;
+
+import uvmf_base_pkg_hdl::*;
+
+// These parameters are used to uniquely identify each interface.  The monitor_bfm and
+// driver_bfm are placed into and retrieved from the uvm_config_db using these string 
+// names as the field_name. The parameter is also used to enable transaction viewing 
+// from the command line for selected interfaces using the UVM command line processing.
+
+{% for agent in agents %}
+parameter string {{agent.ifPkg}}_pkg_{{agent.name}}_BFM  = "{{agent.ifPkg}}_pkg_{{agent.name}}_BFM";    /* [{{loop.index-1}}] */
+{% endfor %}
+
+string interface_names[] = {
+{% for agent in agents %}
+    {{agent.ifPkg}}_pkg_{{agent.name}}_BFM /* {{agent.name}}     [{{loop.index-1}}] */ {% if not loop.last %}, 
+{% endif %}
+{% endfor %}
+
+};
+
+uvmf_active_passive_t interface_activities[] = { 
+{% for agent in agents %}
+    {{agent.activity}} /* {{agent.name}}     [{{loop.index-1}}] */ {% if not loop.last %}, 
+{% endif %}
+{% endfor %}
+
+};
+
+
+{% if veloceReady %}
+parameter CLK_PHASE_OFFSET_IN_PS     = 2000; //Cannot be 0 according to Veloce
+parameter RST_POLARITY               = 0;
+parameter string CLOCK_CONTROLLER = "clock_controller";
+parameter string RESET_CONTROLLER = "reset_controller";
+{% endif %}
+
+endpackage
+
+{% endblock %}

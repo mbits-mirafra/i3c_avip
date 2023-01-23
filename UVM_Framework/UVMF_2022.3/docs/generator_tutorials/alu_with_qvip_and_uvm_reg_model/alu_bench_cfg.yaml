@@ -1,0 +1,101 @@
+uvmf:
+  benches:
+    "alu" :
+# Name: top_env
+# Type: string
+# Description: (Required) Specify the name of the top-level environment to
+#                         instantiate in this bench. YAML definition for this
+#                         environment must be provided.
+      top_env: "alu"
+      clock_half_period: "5ns"
+      clock_phase_offset: "9ns"
+      reset_assertion_level: "False"
+      reset_duration: "200ns"
+      imports:
+        - name: "mgc_apb3_v1_0_pkg"
+      parameters:
+        - name: "TEST_ALU_IN_OP_WIDTH"
+          type: "int"
+          value: "8"
+        - name: "TEST_ALU_OUT_RESULT_WIDTH"
+          type: "int"
+          value: "16"
+        - name: "TEST_APB_ADDR_WIDTH"
+          type: "int"
+          value: "32"
+        - name: "TEST_APB_WDATA_WIDTH"
+          type: "int"
+          value: "32"
+        - name: "TEST_APB_RDATA_WIDTH"
+          type: "int"
+          value: "32"
+      top_env_params:
+        - name: "ALU_IN_OP_WIDTH"
+          value: "TEST_ALU_IN_OP_WIDTH"
+        - name: "ALU_OUT_RESULT_WIDTH"
+          value: "TEST_ALU_OUT_RESULT_WIDTH"
+        - name: "APB_ADDR_WIDTH"
+          value: "TEST_APB_ADDR_WIDTH"
+        - name: "APB_WDATA_WIDTH"
+          value: "TEST_APB_WDATA_WIDTH"
+        - name: "APB_RDATA_WIDTH"
+          value: "TEST_APB_RDATA_WIDTH"
+      interface_params:
+        - bfm_name: "alu_in_agent"
+          value:
+            - {name: "ALU_IN_OP_WIDTH", value: "TEST_ALU_IN_OP_WIDTH"}
+        - bfm_name: "alu_out_agent"
+          value:
+            - {name: "ALU_OUT_RESULT_WIDTH", value: "TEST_ALU_OUT_RESULT_WIDTH"}
+      active_passive:
+        - {bfm_name: "alu_in_agent", value: "ACTIVE"}
+        - {bfm_name: "alu_out_agent", value: "PASSIVE"}
+
+# Name
+# Type
+# Description
+#top_env
+#string
+#top_env_params
+#List of parameter_use_schema
+#List of parameters to apply at the instantiation of the top-level environment
+#parameters
+#List of parameter_def_schema
+#List of parameters to be defined at the top-level
+#veloce_ready
+#True|False
+#Produce emulation-ready code when set to “True”
+#infact_ready
+#True|False
+#Test bench generated is inFact ready. Makefile contains variables, switches, and arguments to run inFact.
+#use_coemu_clk_rst_gen
+#True|False
+#Defaults to False. If True, the bench will utilize more complex but more capable clock and reset generation utilities.
+#clock_half_period
+#string
+#Time duration of half period. Example: ‘6ns’, or ‘6’
+#clock_phase_offset
+#string
+#Time duration before first clock edge. Exaple: ‘25ns’ or ‘25’
+#reset_assertion_level
+#True|False
+#Assertion level of reset signal
+#UVM Framework Code Generator YAML Reference 21
+#driven by test bench.
+#reset_duration
+#string
+#Time duration reset is asserted at start of simulation. Example: ‘100ns’, or ‘100’
+#active_passive
+#List of active_passive_schema
+#Specify active/passive mode of operation for any underlying BFMs. Default is “ACTIVE”.
+#interface_params
+#List of interface_param_schema
+#Structure describing how any underlying BFMs should be parameterized
+#imports
+#List of import_schema
+#List indicating all of the packages that should be imported by this bench package
+#additional_tops
+#List of additional_top_schema
+#List extra top-level modules to be instantiated within the test bench
+#5.2.2 Schema definitions
+#The following structures (schemas) can be used to populate information underneath the

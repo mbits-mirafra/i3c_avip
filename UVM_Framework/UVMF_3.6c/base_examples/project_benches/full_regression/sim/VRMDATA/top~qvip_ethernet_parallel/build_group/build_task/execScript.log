@@ -1,0 +1,299 @@
+# make -f /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/sim/Makefile libs build optimize UVMF_HOME=/mnt/hgfs/vmware/UVMF_Q
+# ** Error: make[1]: Entering directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_ethernet_parallel/build_group/build_task'
+# test -e work || vlib work 
+# vlog  -sv /home/student/tools/QVIP/10.4b/include/questa_mvc_svapi.svh
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:26 on Nov 07,2014
+# vlog -sv /home/student/tools/QVIP/10.4b/include/questa_mvc_svapi.svh 
+# -- Compiling package QUESTA_MVC
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:26 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog   +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv  /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/mvc_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:26 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/mvc_pkg.sv 
+# -- Compiling package mvc_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# ** Note: (vlog-2286) Using implicit +incdir+/home/student/tools/Questa/10.4c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling package addr_map_pkg
+# -- Compiling package rw_txn_pkg
+# -- Importing package mvc_pkg
+# -- Compiling package cache_utils_pkg
+# -- Compiling package cache_model_pkg
+# -- Compiling package slave_mem_models_pkg
+# -- Compiling package rw_api_seq_pkg
+# -- Importing package rw_txn_pkg
+# -- Compiling package txn_logger_pkg
+# -- Compiling package rw_delay_db_pkg
+# -- Importing package addr_map_pkg
+# -- Compiling package bmp_image_seq_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:27 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog   +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/uart /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/ethernet/mgc_ethernet_v1_0_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:27 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/uart" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/ethernet/mgc_ethernet_v1_0_pkg.sv 
+# -- Compiling package mgc_ethernet_v1_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# ** Note: (vlog-2286) Using implicit +incdir+/home/student/tools/Questa/10.4c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling interface mgc_ethernet
+# -- Compiling package mgc_ethernet_v1_0_pkg_sv_unit
+# -- Importing package mgc_ethernet_v1_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# -- Compiling interface mgc_ethernet
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:37 on Nov 07,2014, Elapsed time: 0:00:10
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:37 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg" /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv 
+# -- Compiling package fli_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:37 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:37 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# -- Compiling package uvmf_base_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:38 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:38 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:38 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_ethernet_parallel_env_pkg /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_ethernet_parallel_env_pkg/qvip_ethernet_parallel_env_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:38 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_ethernet_parallel_env_pkg" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_ethernet_parallel_env_pkg/qvip_ethernet_parallel_env_pkg.sv 
+# -- Compiling package qvip_ethernet_parallel_env_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_ethernet_v1_0_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:39 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/parameters /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/parameters/qvip_ethernet_parallel_parameters_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:39 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/parameters" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/parameters/qvip_ethernet_parallel_parameters_pkg.sv 
+# -- Compiling package qvip_ethernet_parallel_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:39 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/sequences /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/sequences/qvip_ethernet_parallel_sequences_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:39 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/sequences" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/sequences/qvip_ethernet_parallel_sequences_pkg.sv 
+# -- Compiling package qvip_ethernet_parallel_sequences_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package qvip_ethernet_parallel_parameters_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_ethernet_v1_0_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:41 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/tests /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/tests/qvip_ethernet_parallel_test_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:41 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/tests" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/tests/qvip_ethernet_parallel_test_pkg.sv 
+# -- Compiling package qvip_ethernet_parallel_test_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package qvip_ethernet_parallel_parameters_pkg
+# -- Importing package qvip_ethernet_parallel_env_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_ethernet_v1_0_pkg
+# -- Importing package qvip_ethernet_parallel_sequences_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:03:42 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# echo "Compiling QVIP Ethernet Parallel DUT"
+# Compiling QVIP Ethernet Parallel DUT
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/rtl/verilog/ethernet_dummy_dut.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:42 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/rtl/verilog/ethernet_dummy_dut.sv 
+# -- Compiling module ethernet_dummy_dut
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_ethernet_v1_0_pkg
+# 
+# Top level modules:
+# 	ethernet_dummy_dut
+# End time: 10:03:43 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/testbench/top_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:43 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/testbench/top_filelist_hvl.f 
+# -- Compiling package hvl_top_sv_unit
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package qvip_ethernet_parallel_test_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package qvip_ethernet_parallel_parameters_pkg
+# -- Importing package qvip_ethernet_parallel_env_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_ethernet_v1_0_pkg
+# -- Importing package qvip_ethernet_parallel_sequences_pkg
+# -- Compiling module hvl_top
+# 
+# Top level modules:
+# 	hvl_top
+# End time: 10:03:45 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/testbench/top_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:45 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_ethernet_parallel/tb/testbench/top_filelist_hdl.f 
+# -- Compiling package hdl_top_sv_unit
+# -- Importing package qvip_ethernet_parallel_parameters_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling module hdl_top
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	hdl_top
+# End time: 10:03:46 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vopt  +cover=sbcef+/hdl_top/DUT  hvl_top hdl_top   -o optimized_batch_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:03:46 on Nov 07,2014
+# vopt "+cover=sbcef+/hdl_top/DUT" hvl_top hdl_top -o optimized_batch_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface mgc_ethernet
+# -- Loading module ethernet_dummy_dut
+# Optimizing 22 design-units (inlining 0/2 module instances, 0/0 UDP instances):
+# -- Optimizing interface mgc_ethernet(fast__1)
+# -- Optimizing interface mgc_ethernet(fast__2)
+# -- Optimizing module ethernet_dummy_dut(fast)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package QUESTA_MVC(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package mvc_pkg(fast)
+# -- Optimizing package mgc_ethernet_v1_0_pkg(fast)
+# -- Optimizing package mgc_ethernet_v1_0_pkg_sv_unit(fast)
+# -- Optimizing interface mgc_ethernet(fast)
+# -- Optimizing package qvip_ethernet_parallel_parameters_pkg(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package qvip_ethernet_parallel_sequences_pkg(fast)
+# -- Optimizing package qvip_ethernet_parallel_env_pkg(fast)
+# -- Optimizing package qvip_ethernet_parallel_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_batch_top_tb
+# End time: 10:04:40 on Nov 07,2014, Elapsed time: 0:00:54
+# Errors: 0, Warnings: 0
+# vopt  +acc   hvl_top hdl_top   -o optimized_debug_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:04:40 on Nov 07,2014
+# vopt "+acc" hvl_top hdl_top -o optimized_debug_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface mgc_ethernet
+# -- Loading module ethernet_dummy_dut
+# Optimizing 22 design-units (inlining 0/2 module instances, 0/0 UDP instances):
+# -- Optimizing interface mgc_ethernet(fast__1)
+# -- Optimizing interface mgc_ethernet(fast__2)
+# -- Optimizing module ethernet_dummy_dut(fast)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package QUESTA_MVC(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package mvc_pkg(fast)
+# -- Optimizing package mgc_ethernet_v1_0_pkg(fast)
+# -- Optimizing package mgc_ethernet_v1_0_pkg_sv_unit(fast)
+# -- Optimizing interface mgc_ethernet(fast)
+# -- Optimizing package qvip_ethernet_parallel_parameters_pkg(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package qvip_ethernet_parallel_sequences_pkg(fast)
+# -- Optimizing package qvip_ethernet_parallel_env_pkg(fast)
+# -- Optimizing package qvip_ethernet_parallel_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_debug_top_tb
+# End time: 10:05:47 on Nov 07,2014, Elapsed time: 0:01:07
+# Errors: 0, Warnings: 0
+# make[1]: Leaving directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_ethernet_parallel/build_group/build_task'
+# make[1]: Warning: File `/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_ethernet_parallel_env_pkg/Makefile' has modification time 3.5e+07 s in the future
+# make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+# Executing ONERROR command at macro ./execScript.do line 1
+# quit -f

@@ -1,0 +1,65 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_random_sequence.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface random sequence
+// File            : {{name}}_random_sequence.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This sequences randomizes the {{name}} transaction and sends it 
+// to the UVM driver.
+//
+// ****************************************************************************
+// This sequence constructs and randomizes a {{name}}_transaction.
+// 
+class {{name}}_random_sequence {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}} = {{param.value}}{% if not loop.last %},{% endif %}                                
+{% endfor %}      )
+{% endif %}
+extends {{name}}_sequence_base {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                             .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %};
+
+{%if paramDefs|length > 0%}
+  `uvm_object_param_utils( {{name}}_random_sequence #(
+  {% for param in paramDefs %}                         {{param.name}}{% if not loop.last %},{% endif %}
+
+  {% endfor %}                          ))
+{% else %}
+  `uvm_object_utils({{name}}_random_sequence)
+{% endif %}
+
+//*****************************************************************
+  function new(string name = "");
+    super.new(name);
+  endfunction: new
+
+// ****************************************************************************
+// TASK : body()
+// This task is automatically executed when this sequence is started using the 
+// start(sequencerHandle) task.
+//
+  task body();
+
+    begin
+      // Construct the transaction
+      req={{name}}_transaction{%if paramDefs|length > 0%} #( 
+{% for param in paramDefs %}                .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}               ) {% endif %}::type_id::create("req");
+
+      start_item(req);
+      // Randomize the transaction
+      if(!req.randomize()) `uvm_fatal("RANDOMIZE_FAILURE", "{{name}}_random_sequence::body()-{{name}}_transaction")
+      // Send the transaction to the {{name}}_driver_bfm via the sequencer and {{name}}_driver.
+      finish_item(req);
+      `uvm_info("random_seq response from driver", req.convert2string(),UVM_MEDIUM)
+    end
+
+  endtask: body
+
+endclass: {{name}}_random_sequence
+{% endblock %}

@@ -1,0 +1,55 @@
+#-------------------------------------------------------------------------------
+# MetaData - Settings for this Template 
+#-------------------------------------------------------------------------------
+%metadata_begin
+  # Specify the version of your template
+  ::TemplateApi::setTmplSvtVersionOp "1.0" 
+  
+  # Specify the Type, Category and Description for this template
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Type"        -propertyValue "FILE"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Category"    -propertyValue "vhdl|arch"
+  ::TemplateApi::setTmplPropertiesOp -propertyName "Description" -propertyValue "Create a VHDL Architecture" 
+
+  # Optionally declare the variables used in the template with defaults & descriptions
+  #note no default for ent so the suer has to enter name
+  ::TemplateApi::addTmplVariableOp -name VHDL_ENT         -desc "VHDL Entry Name"
+   ::TemplateApi::addTmplVariableOp -name VHDL_ARCH      -default rtl -desc "VHDL Architecture Name"
+  ::TemplateApi::addTmplVariableOp -name VHDL_LIBRARY     -default work -desc "Library name"
+  ::TemplateApi::addTmplVariableOp -name VHDL_DESCRIPTION  -default "add decscription" -desc "Description"
+  # Optionally initialize variable in included templates with the value of another variable
+  #::TemplateApi::addTmplVariableOp -name UNIT_NAME -link VHDL_ENT
+  
+  # Specify the File naming rule for the file generated from this template
+  ::TemplateApi::setTmplFileNamingRuleOp "%(VHDL_ENT)_%(VHDL_ARCH).vhd"
+  
+  
+%metadata_end
+
+
+#-------------------------------------------------------------------------------
+# Template code 
+#-------------------------------------------------------------------------------
+%text_begin
+%INCLUDE(-templateCategory "Header" -templateName "company_header.svt")
+
+
+--  Libraries Statements 
+%INCLUDE(-templateCategory "Header" -templateName "libraries.svt")
+
+
+
+ --! @brief Impementation of the %(VHDL_ARCH) of %(VHDL_ENT)
+ --! @details detailed description
+architecture %(VHDL_ARCH) of  %(VHDL_ENT) is
+
+  -- declarations
+  -- components
+  
+begin
+
+
+
+end architecture %(VHDL_ARCH);
+%text_end
+  ::TemplateApi::setTmplFileNamingRuleOp "%(VHDL_ENT)_%(VHDL_ARCH).vhd"
+  ::addPathToBuildLibraryOp {%(PROJ_NAME)} [::TemplateApi::getTmplGeneratedFileNameOp] %(VHDL_LIBRARY)

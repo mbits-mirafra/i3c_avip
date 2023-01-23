@@ -1,0 +1,380 @@
+# make -f /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/sim/Makefile libs build optimize UVMF_HOME=/mnt/hgfs/vmware/UVMF_Q
+# ** Error: make[1]: Entering directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_usb3_pipe_example_bench/build_group/build_task'
+# test -e work || vlib work 
+# vlog  -sv /home/student/tools/QVIP/10.4b/include/questa_mvc_svapi.svh
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:01 on Nov 07,2014
+# vlog -sv /home/student/tools/QVIP/10.4b/include/questa_mvc_svapi.svh 
+# -- Compiling package QUESTA_MVC
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:02 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog   +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv  /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/mvc_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:02 on Nov 07,2014
+# vlog "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/mvc_pkg.sv 
+# -- Compiling package mvc_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# ** Note: (vlog-2286) Using implicit +incdir+/home/student/tools/Questa/10.4c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling package addr_map_pkg
+# -- Compiling package rw_txn_pkg
+# -- Importing package mvc_pkg
+# -- Compiling package cache_utils_pkg
+# -- Compiling package cache_model_pkg
+# -- Compiling package slave_mem_models_pkg
+# -- Compiling package rw_api_seq_pkg
+# -- Importing package rw_txn_pkg
+# -- Compiling package txn_logger_pkg
+# -- Compiling package rw_delay_db_pkg
+# -- Importing package addr_map_pkg
+# -- Compiling package bmp_image_seq_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:02 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog   +define+USB_SS_USE_HOST_DB +define+BACKDOOR_ENUMERATION  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv \
+# 	+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/host_sequence \
+# 	/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/mgc_usb_ss_v3_0_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:02 on Nov 07,2014
+# vlog "+define+USB_SS_USE_HOST_DB" "+define+BACKDOOR_ENUMERATION" "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS" "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/host_sequence" /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/mgc_usb_ss_v3_0_pkg.sv 
+# -- Compiling package mgc_usb_ss_v3_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# ** Note: (vlog-2286) Using implicit +incdir+/home/student/tools/Questa/10.4c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling interface mgc_usb_ss
+# -- Compiling package mgc_usb_ss_v3_0_pkg_sv_unit
+# -- Importing package mgc_usb_ss_v3_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# -- Compiling interface mgc_usb_ss
+# -- Compiling module mgc_usb_ss_pipe_host_module
+# -- Compiling module mgc_usb_ss_pipe_monitor_module
+# -- Compiling module mgc_usb_ss_pipe_device_module
+# -- Compiling module mgc_usb_ss_host_module
+# -- Compiling module mgc_usb_ss_monitor_module
+# -- Compiling module mgc_usb_ss_device_module
+# 
+# Top level modules:
+# 	mgc_usb_ss_pipe_host_module
+# 	mgc_usb_ss_pipe_monitor_module
+# 	mgc_usb_ss_pipe_device_module
+# 	mgc_usb_ss_host_module
+# 	mgc_usb_ss_monitor_module
+# 	mgc_usb_ss_device_module
+# End time: 10:06:14 on Nov 07,2014, Elapsed time: 0:00:12
+# Errors: 0, Warnings: 0
+# vlog  +define+USB_SS_USE_HOST_DB +define+BACKDOOR_ENUMERATION  -sv \
+# 	/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/analysis/usb_ss_ltssm_coverage_module.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:14 on Nov 07,2014
+# vlog "+define+USB_SS_USE_HOST_DB" "+define+BACKDOOR_ENUMERATION" -sv /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/analysis/usb_ss_ltssm_coverage_module.sv 
+# -- Compiling package usb_ss_ltssm_coverage_module_sv_unit
+# -- Importing package mgc_usb_ss_v3_0_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# -- Compiling module usb_ss_ltssm_coverage_module
+# 
+# Top level modules:
+# 	usb_ss_ltssm_coverage_module
+# End time: 10:06:15 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog  +define+USB_SS_USE_HOST_DB +define+BACKDOOR_ENUMERATION  -sv \
+# 	/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/modules/usb_ss_phy_host.sv \
+# 	/home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/modules/usb_ss_mac_device.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:15 on Nov 07,2014
+# vlog "+define+USB_SS_USE_HOST_DB" "+define+BACKDOOR_ENUMERATION" -sv /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/modules/usb_ss_phy_host.sv /home/student/tools/QVIP/10.4b/questa_mvc_src/sv/USB3_0_SS/modules/usb_ss_mac_device.sv 
+# -- Compiling module usb_ss_phy_host
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Compiling module usb_ss_mac_device
+# 
+# Top level modules:
+# 	usb_ss_phy_host
+# 	usb_ss_mac_device
+# End time: 10:06:16 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:16 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg" /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv 
+# -- Compiling package fli_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:16 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:16 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# -- Compiling package uvmf_base_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:17 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:17 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:17 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg /mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg/qvip_utils_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:17 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg" /mnt/hgfs/vmware/UVMF_Q/common/utility_packages/qvip_utils_pkg/qvip_utils_pkg.sv 
+# -- Compiling package qvip_utils_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:17 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_usb3_pipe_example_env_pkg /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_usb3_pipe_example_env_pkg/qvip_usb3_pipe_example_env_pkg.sv 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:17 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_usb3_pipe_example_env_pkg" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_usb3_pipe_example_env_pkg/qvip_usb3_pipe_example_env_pkg.sv 
+# -- Compiling package qvip_usb3_pipe_example_env_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_usb_ss_v3_0_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:18 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/parameters /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/parameters/qvip_usb3_pipe_example_bench_parameters_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:18 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/parameters" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/parameters/qvip_usb3_pipe_example_bench_parameters_pkg.sv 
+# -- Compiling package qvip_usb3_pipe_example_bench_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:18 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/sequences /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/sequences/qvip_usb3_pipe_example_bench_sequences_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:18 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/sequences" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/sequences/qvip_usb3_pipe_example_bench_sequences_pkg.sv 
+# -- Compiling package qvip_usb3_pipe_example_bench_sequences_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_usb_ss_v3_0_pkg
+# -- Importing package qvip_usb3_pipe_example_bench_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:20 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/tests /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/tests/qvip_usb3_pipe_example_bench_test_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:20 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/tests" /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/tests/qvip_usb3_pipe_example_bench_test_pkg.sv 
+# -- Compiling package qvip_usb3_pipe_example_bench_test_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package qvip_usb3_pipe_example_bench_parameters_pkg
+# -- Importing package qvip_usb3_pipe_example_env_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_usb_ss_v3_0_pkg
+# -- Importing package qvip_usb3_pipe_example_bench_sequences_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:06:23 on Nov 07,2014, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/rtl/verilog/mac_device_dut.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:23 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/rtl/verilog/mac_device_dut.sv 
+# -- Compiling module mac_device_dut
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mgc_usb_ss_v3_0_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mvc_pkg
+# 
+# Top level modules:
+# 	mac_device_dut
+# End time: 10:06:41 on Nov 07,2014, Elapsed time: 0:00:18
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench/top_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:41 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench/top_filelist_hvl.f 
+# -- Compiling package hvl_top_sv_unit
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package qvip_usb3_pipe_example_bench_test_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package qvip_usb3_pipe_example_bench_parameters_pkg
+# -- Importing package qvip_usb3_pipe_example_env_pkg
+# -- Importing package mvc_pkg
+# -- Importing package QUESTA_MVC
+# -- Importing package mgc_usb_ss_v3_0_pkg
+# -- Importing package qvip_usb3_pipe_example_bench_sequences_pkg
+# -- Compiling module hvl_top
+# 
+# Top level modules:
+# 	hvl_top
+# End time: 10:06:50 on Nov 07,2014, Elapsed time: 0:00:09
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench/top_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:50 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench/top_filelist_hdl.f 
+# -- Compiling package hdl_top_sv_unit
+# -- Importing package qvip_usb3_pipe_example_bench_parameters_pkg
+# -- Compiling module hdl_top
+# 
+# Top level modules:
+# 	hdl_top
+# End time: 10:06:50 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vopt  +cover=sbcef+/hdl_top/DUT  hvl_top hdl_top   -o optimized_batch_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:06:50 on Nov 07,2014
+# vopt "+cover=sbcef+/hdl_top/DUT" hvl_top hdl_top -o optimized_batch_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading module usb_ss_phy_host
+# -- Loading interface mgc_usb_ss
+# -- Loading module mac_device_dut
+# -- Loading module usb_ss_mac_device
+# -- Loading module usb_ss_ltssm_coverage_module
+# Optimizing 27 design-units (inlining 3/6 module instances, 0/0 UDP instances):
+# -- Optimizing interface mgc_usb_ss(fast__1)
+# -- Optimizing interface mgc_usb_ss(fast__2)
+# -- Inlining module usb_ss_ltssm_coverage_module(fast)
+# -- Inlining module usb_ss_phy_host(fast)
+# -- Optimizing module hdl_top(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench/hdl_top.sv(93): (vopt-2685) [TFMPC] - Too few port connections for 'phy_host'.  Expected 37, found 36.
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench/hdl_top.sv(93): (vopt-2718) [TFMPC] - Missing connection for port 'pipe_txencode_decode_bypass'.
+# -- Inlining module usb_ss_ltssm_coverage_module(fast__1)
+# -- Optimizing module usb_ss_mac_device(fast)
+# -- Optimizing module mac_device_dut(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/rtl/verilog/mac_device_dut.sv(95): (vopt-2685) [TFMPC] - Too few port connections for 'mac_device'.  Expected 37, found 36.
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/rtl/verilog/mac_device_dut.sv(95): (vopt-2718) [TFMPC] - Missing connection for port 'pipe_txencode_decode_bypass'.
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package QUESTA_MVC(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package mvc_pkg(fast)
+# -- Optimizing package mgc_usb_ss_v3_0_pkg(fast)
+# -- Optimizing package mgc_usb_ss_v3_0_pkg_sv_unit(fast)
+# -- Optimizing package usb_ss_ltssm_coverage_module_sv_unit(fast)
+# -- Optimizing interface mgc_usb_ss(fast)
+# -- Optimizing package qvip_usb3_pipe_example_bench_parameters_pkg(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package qvip_usb3_pipe_example_bench_sequences_pkg(fast)
+# -- Optimizing package qvip_usb3_pipe_example_env_pkg(fast)
+# -- Optimizing package qvip_usb3_pipe_example_bench_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_batch_top_tb
+# End time: 10:07:34 on Nov 07,2014, Elapsed time: 0:00:44
+# Errors: 0, Warnings: 4
+# vopt  +acc   hvl_top hdl_top   -o optimized_debug_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:07:34 on Nov 07,2014
+# vopt "+acc" hvl_top hdl_top -o optimized_debug_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading module usb_ss_phy_host
+# -- Loading interface mgc_usb_ss
+# -- Loading module mac_device_dut
+# -- Loading module usb_ss_mac_device
+# -- Loading module usb_ss_ltssm_coverage_module
+# Optimizing 27 design-units (inlining 0/6 module instances, 0/0 UDP instances):
+# -- Optimizing interface mgc_usb_ss(fast__1)
+# -- Optimizing interface mgc_usb_ss(fast__2)
+# -- Optimizing module usb_ss_ltssm_coverage_module(fast)
+# -- Optimizing module usb_ss_ltssm_coverage_module(fast__1)
+# -- Optimizing module mac_device_dut(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/rtl/verilog/mac_device_dut.sv(95): (vopt-2685) [TFMPC] - Too few port connections for 'mac_device'.  Expected 37, found 36.
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/rtl/verilog/mac_device_dut.sv(95): (vopt-2718) [TFMPC] - Missing connection for port 'pipe_txencode_decode_bypass'.
+# -- Optimizing module usb_ss_phy_host(fast)
+# -- Optimizing module usb_ss_mac_device(fast)
+# -- Optimizing module hdl_top(fast)
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench/hdl_top.sv(93): (vopt-2685) [TFMPC] - Too few port connections for 'phy_host'.  Expected 37, found 36.
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/qvip_examples/project_benches/qvip_usb3_pipe_example_bench/tb/testbench/hdl_top.sv(93): (vopt-2718) [TFMPC] - Missing connection for port 'pipe_txencode_decode_bypass'.
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package QUESTA_MVC(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package mvc_pkg(fast)
+# -- Optimizing package mgc_usb_ss_v3_0_pkg(fast)
+# -- Optimizing package mgc_usb_ss_v3_0_pkg_sv_unit(fast)
+# -- Optimizing package usb_ss_ltssm_coverage_module_sv_unit(fast)
+# -- Optimizing interface mgc_usb_ss(fast)
+# -- Optimizing package qvip_usb3_pipe_example_bench_parameters_pkg(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package qvip_usb3_pipe_example_bench_sequences_pkg(fast)
+# -- Optimizing package qvip_usb3_pipe_example_env_pkg(fast)
+# -- Optimizing package qvip_usb3_pipe_example_bench_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_debug_top_tb
+# End time: 10:08:15 on Nov 07,2014, Elapsed time: 0:00:41
+# Errors: 0, Warnings: 4
+# make[1]: Leaving directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~qvip_usb3_pipe_example_bench/build_group/build_task'
+# make[1]: Warning: File `/mnt/hgfs/vmware/UVMF_Q/qvip_examples/verification_ip/environment_packages/qvip_usb3_pipe_example_env_pkg/Makefile' has modification time 3.5e+07 s in the future
+# make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+# Executing ONERROR command at macro ./execScript.do line 1
+# quit -f

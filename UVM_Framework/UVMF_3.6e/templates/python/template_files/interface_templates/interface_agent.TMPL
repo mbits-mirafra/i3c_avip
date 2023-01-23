@@ -1,0 +1,41 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_agent.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface UVM agent
+// File            : {{name}}_agent.svh
+//----------------------------------------------------------------------
+//     
+// ****************************************************************************
+// ****************************************************************************
+{% endblock %}
+
+{% block contents %}
+class {{name}}_agent {% for param in paramDefs %}{% if loop.first %}#({% endif%} {{param.type}} {{param.name}} = {{param.value}}{%if not loop.last %},{% endif %}{% if loop.last %}){% endif %}{% endfor %}extends uvmf_parameterized_agent #(
+                    .CONFIG_T({{name}}_configuration {% for param in paramDefs %}{% if loop.first %}#({% endif%}.{{param.name}}({{param.name}}){%if not loop.last %},{% endif %}{% if loop.last %}){% endif %}{% endfor %}),
+                    .DRIVER_T({{name}}_driver {% for param in paramDefs %}{% if loop.first %}#({% endif%}.{{param.name}}({{param.name}}){%if not loop.last %},{% endif %}{% if loop.last %}){% endif %}{% endfor %}),
+                    .MONITOR_T({{name}}_monitor {% for param in paramDefs %}{% if loop.first %}#({% endif%}.{{param.name}}({{param.name}}){%if not loop.last %},{% endif %}{% if loop.last %}){% endif %}{% endfor %}),
+                    .COVERAGE_T({{name}}_transaction_coverage {% for param in paramDefs %}{% if loop.first %}#({% endif%}.{{param.name}}({{param.name}}){%if not loop.last %},{% endif %}{% if loop.last %}){% endif %}{% endfor %}),
+                    .TRANS_T({{name}}_transaction {% for param in paramDefs %}{% if loop.first %}#({% endif%}.{{param.name}}({{param.name}}){%if not loop.last %},{% endif %}{% if loop.last %}){% endif %}{% endfor %})
+                    );
+
+{%if paramDefs|length > 0%}
+  `uvm_component_param_utils ({{name}}_agent {% for param in paramDefs %}{% if loop.first %}#({% endif%}{{param.name}}{%if not loop.last %},{% endif %}{% if loop.last %}){% endif %}{% endfor %} )
+{% else %}
+  `uvm_component_utils( {{name}}_agent )
+{% endif %}
+
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+//
+  function new( string name = "", uvm_component parent = null );
+    super.new( name, parent );
+  endfunction
+
+endclass
+{% endblock %}
+

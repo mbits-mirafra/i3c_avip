@@ -1,0 +1,109 @@
+uvmf:
+  environments:
+    "block_a" :
+      ## Agents are defined in a LIST so that the order is maintained. This is important
+      ## because of how the BFMs are passed in at the bench utilize this same order when
+      ## this environment's initialize() routine is called.
+      agents :
+        - name: "control_plane_in" 
+          type: "mem"
+          initiator_responder: "INITIATOR"
+        - name: "control_plane_out"
+          type: "mem"
+          initiator_responder: "RESPONDER"
+        - name: "secure_data_plane_in"
+          type: "pkt"
+        - name: "secure_data_plane_out"
+          type: "pkt"
+          initiator_responder: "RESPONDER"
+      ## Analysis components are defined externally in a 'util_components' structure.
+      ## They are instantiated here.
+      analysis_components :
+        - name: "block_a_pred"
+          type: "block_a_predictor"
+        - name: "block_a_cov"
+          type: "block_a_coverage"
+      ## Each scoreboard is keyed by the scoreboard instantiation name with
+      ## information on the scoreboard type and what type of transaction it
+      ## will be parsing
+      scoreboards : 
+        - name: "control_plane_sb"
+          sb_type: "uvmf_in_order_race_scoreboard"
+          trans_type: "mem_transaction"
+        - name: "secure_data_plane_sb"
+          sb_type: "uvmf_in_order_race_scoreboard"
+          trans_type: "pkt_transaction"
+      ## Define top-level analysis ports here. Keyed by the name of each
+      ## one, specify the type of transaction passing through as well as
+      ## which internal component will be driving the AP.
+      analysis_ports :
+        - name: "control_plane_in_ap"
+          trans_type: "mem_transaction"
+          connected_to: "control_plane_in.monitored_ap"
+        - name: "control_plane_out_ap"
+          trans_type: "mem_transaction"
+          connected_to: "control_plane_out.monitored_ap"
+      ## Define top-level analysis exports. Keyed by the unique name of each
+      ## one, specify the type of transaction passing through as well as
+      ## which internal component will be driven by this port.
+      analysis_exports :
+        - name: "external_pkt_ep"
+          trans_type: "pkt_transaction"
+          connected_to: "block_a_pred.secure_data_plane_in_ae"
+      ## Define internal TLM connections. Each entry must have a 'driver' and
+      ## a 'receiver' entry used to determine the full connection.
+      tlm_connections :
+        # Connection 0
+        - driver:   "control_plane_in.monitored_ap"
+          receiver: "block_a_pred.control_plane_in_ae"
+        # Connection 1
+        - driver:   "secure_data_plane_in.monitored_ap"
+          receiver: "block_a_pred.secure_data_plane_in_ae"
+        # Connection 2
+        - driver:   "block_a_pred.control_plane_sb_ap"
+          receiver: "control_plane_sb.expected_analysis_export"
+        # Connection 3
+        - driver:   "block_a_pred.secure_data_plane_sb_ap"
+          receiver: "secure_data_plane_sb.expected_analysis_export"
+        # Connection 4
+        - driver:   "control_plane_out.monitored_ap"
+          receiver: "control_plane_sb.actual_analysis_export"
+        # Connection 5
+        - driver:   "secure_data_plane_out.monitored_ap"
+          receiver: "secure_data_plane_sb.actual_analysis_export"
+        # Connection 6
+        - driver:   "control_plane_in.monitored_ap"
+          receiver: "block_a_cov.control_plane_in_ae"
+        # Connection 7
+        - driver:   "secure_data_plane_in.monitored_ap"
+          receiver: "block_a_cov.secure_data_plane_in_ae"
+      ## Environment-level configuration variables. Each entry is keyed with a 
+      ## unique name and is assigned a 'type' and 'isrand' value.
+      config_vars :
+        - name: "block_a_cfgVar1"
+          type : "bit"      
+          isrand : "False"
+        - name: "block_a_cfgVar3"
+          type : "bit [3:0]"
+          isrand : "True" 
+          value: "29"
+        - name: "block_a_cfgVar4"
+          type : "int"      
+          isrand : "True" 
+        - name: "block_a_cfgVar5"
+          type : "int"      
+          isrand : "True" 
+      ## Environment-level configuration constraints. Each entry is keyed with
+      ## a unique name  with the value being an SVA constraint block
+      config_constraints:
+        - name: "element_range_c"
+          value: "{ block_a_cfgVar4>block_a_cfgVar5; }"
+        - name: "non_negative_c" 
+          value: "{ (block_a_cfgVar1==0) -> block_a_cfgVar4==0;}"
+      config_variable_values:
+        - name: "control_plane_in_config.transfer_gap"
+          value: "9"
+        - name: "control_plane_out_config.transfer_gap"
+          value: "7"
+
+

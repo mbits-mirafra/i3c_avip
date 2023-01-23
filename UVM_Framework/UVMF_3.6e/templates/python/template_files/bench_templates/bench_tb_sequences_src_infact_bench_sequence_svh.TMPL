@@ -1,0 +1,29 @@
+{% set fname = "project_benches/{{name}}/tb/sequences/src/infact_bench_sequence.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Simulation Bench 
+// Unit            : Sequence for infact stimulus at the bench level
+// File            : infact_bench_sequence.svh
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This file contains the infact sequence for generating 
+//    all specified scenarios without redundancy.
+//
+{% endblock %}
+
+{% block contents %}
+
+class infact_bench_sequence extends {{name}}_bench_sequence_base;
+
+  `uvm_object_utils( infact_bench_sequence );
+
+  function new(string name = "" );
+    super.new(name);
+  endfunction
+
+endclass
+
+{% endblock %}

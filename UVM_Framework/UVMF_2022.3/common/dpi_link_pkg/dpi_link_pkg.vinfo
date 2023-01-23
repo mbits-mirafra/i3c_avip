@@ -1,0 +1,22 @@
+//---------------------------------------------------------------------------
+// Copyright 2014 Mentor Graphics Corporation 
+//    All Rights Reserved 
+// 
+// THIS WORK CONTAINS TRADE SECRET 
+// AND PROPRIETARY INFORMATION WHICH IS THE 
+// PROPERTY OF MENTOR GRAPHICS 
+// CORPORATION OR ITS LICENSORS AND IS 
+// SUBJECT TO LICENSE TERMS. 
+// 
+//---------------------------------------------------------------------------
+//   WARRANTY:
+//   Use all material in this file at your own risk.  Mentor Graphics, Corp.
+//   makes no claims about any material contained in this file.
+//---------------------------------------------------------------------------
+// $Date$
+// $Revision$
+//---------------------------------------------------------------------------
++incdir+@vinfodir
++incdir+${MCD_TB_TOOLS_DIR}
+dpi_link_pkg.sv
+-suppress 2286

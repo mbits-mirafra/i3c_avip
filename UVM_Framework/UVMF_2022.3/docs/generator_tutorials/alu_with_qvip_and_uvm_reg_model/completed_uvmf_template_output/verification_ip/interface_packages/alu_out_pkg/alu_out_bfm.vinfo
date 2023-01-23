@@ -1,0 +1,6 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+@use alu_out_pkg_hdl.vinfo
++incdir+@vinfodir
+src/alu_out_if.sv
+src/alu_out_driver_bfm.sv
+src/alu_out_monitor_bfm.sv

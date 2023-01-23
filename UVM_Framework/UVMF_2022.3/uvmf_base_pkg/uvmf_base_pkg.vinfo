@@ -1,0 +1,3 @@
++incdir+@vinfodir
+@use uvmf_base_pkg_hdl.vinfo
+uvmf_base_pkg.sv

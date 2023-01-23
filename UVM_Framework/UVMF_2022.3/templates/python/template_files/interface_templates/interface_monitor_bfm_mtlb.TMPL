@@ -1,0 +1,266 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_monitor_bfm_mtlb.sv" %}
+{% set conditional = "mtlbReady" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+// 
+// Generated for MTLB flow
+//
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: This interface performs the {{name}} signal monitoring.
+//      It is accessed by the uvm {{name}} monitor through a virtual
+//      interface handle in the {{name}} configuration.  It monitors the
+//      signals passed in through the port connection named bus of
+//      type {{name}}_if.
+//
+//     Input signals from the {{name}}_if are assigned to an internal input
+//     signal with a _i suffix.  The _i signal should be used for sampling.
+//
+//     The input signal connections are as follows:
+//       bus.signal -> signal_i 
+//
+//      Interface functions and tasks used by UVM components:
+//             monitor(inout TRANS_T txn);
+//                   This task receives the transaction, txn, from the
+//                   UVM monitor and then populates variables in txn
+//                   from values observed on bus activity.  This task
+//                   blocks until an operation on the {{name}} bus is complete.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+import uvmf_base_pkg_hdl::*;
+import {{name}}_pkg_hdl::*;
+{% if veloceReady %}
+`include "{{src_dir}}{{name}}_macros.svh"
+{% else %}
+import {{name}}_pkg::*;
+{% endif %}
+
+
+{% if useDpiLink %}module{% else %}interface{% endif %} {{name}}_monitor_bfm {{macro.paramDeclare(paramDefs)|indent(2)}}
+  ( {{name}}_if  bus );
+{% if veloceReady %}
+  // The pragma below and additional ones in-lined further down are for running this BFM on Veloce
+  // pragma attribute {{name}}_monitor_bfm partition_interface_xif                                  
+{% endif %}
+{% if useDpiLink %}
+  import "DPI-C" context function void C_{{name}}_notify_transaction( input c_bit_array_t bit_vec_in);
+  export "DPI-C" function configure;
+  export "DPI-C" function start_monitoring;
+  export "DPI-C" task     wait_for_reset;
+  export "DPI-C" task     wait_for_num_clocks;
+{% endif %}
+
+{% if veloceReady %}
+  // Structure used to pass transaction data from monitor BFM to monitor class in agent.
+`{{name}}_MONITOR_STRUCT
+  {{name}}_monitor_s {{name}}_monitor_struct;
+
+  // Structure used to pass configuration data from monitor class to monitor BFM.
+ `{{name}}_CONFIGURATION_STRUCT
+ {% else %}
+ {{name}}_transaction {{macro.paramList(paramDefs,"                      ")}} 
+                      monitored_trans;
+ {% endif %}
+
+
+  // Config value to determine if this is an initiator or a responder 
+  uvmf_initiator_responder_t initiator_responder;
+  // Custom configuration variables.  
+  // These are set using the configure function which is called during the UVM connect_phase
+{% for config in configVars %}
+  {{config.type}} {{config.name}};
+{% endfor %}
+
+  tri {{clock}}_i;
+  tri {{reset}}_i;
+{% for sig in sigs %}
+  tri {{sig.vector}} {{sig.name}}_i;
+{% endfor %}
+  assign {{clock}}_i = bus.{{clock}};
+  assign {{reset}}_i = bus.{{reset}};
+{% for sig in sigs %}
+  assign {{sig.name}}_i = bus.{{sig.name}};
+{% endfor %}
+
+  // Proxy handle to UVM monitor
+  {{name}}_pkg::{{name}}_monitor {{macro.paramUse(paramDefs)|indent(4)}} proxy;
+{% if veloceReady %}
+  // pragma tbx oneway proxy.notify_transaction                 
+{% endif %}
+
+  // pragma uvmf custom interface_item_additional begin
+  // pragma uvmf custom interface_item_additional end
+  
+  //******************************************************************                         
+  task wait_for_reset();{% if veloceReady %}// pragma tbx xtf {% endif %} 
+    @(posedge {{clock}}_i) ;                                                                    
+    do_wait_for_reset();                                                                   
+  endtask                                                                                   
+
+  // ****************************************************************************              
+  task do_wait_for_reset();                                                                 
+    wait ( {{reset}}_i == {% if resetAssertionLevel %}0{% else %}1{% endif %} ) ;                                                              
+    @(posedge {{clock}}_i) ;                                                                    
+  endtask    
+
+  //******************************************************************                         
+{%if useDpiLink %}
+  task wait_for_num_clocks(c_bit_array_t bit_vec);   
+    int unsigned count;  
+{% else %} 
+  task wait_for_num_clocks(input int unsigned count); {% if veloceReady %}// pragma tbx xtf {% endif %}
+{% endif %}
+
+    @(posedge {{clock}}_i);  
+    {% if useDpiLink %}{count}=bit_vec;  {% endif %}                                                               
+    repeat (count-1) @(posedge {{clock}}_i);                                                    
+  endtask      
+
+  //******************************************************************                         
+  event go;                                                                                 
+  function void start_monitoring();{% if veloceReady %}// pragma tbx xtf  {% endif %}
+  
+    -> go;
+  endfunction                                                                               
+  
+  // ****************************************************************************              
+  initial begin                                                                             
+    @go;                                                                                   
+    forever begin                                                                        
+      @(posedge {{clock}}_i);  
+{% if veloceReady %}
+      do_monitor( {{name}}_monitor_struct );
+{% else %}
+      monitored_trans = new("monitored_trans");
+      do_monitor( );
+{% endif %}                                                                 
+{% if useDpiLink %}
+      C_{{name}}_notify_transaction({
+{% for txn in transVars %}
+        {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+{% if useDpiLink %}
+      } {% endif %} );     
+{% else %} 
+{% if veloceReady %}
+      proxy.notify_transaction( {{name}}_monitor_struct );
+{% else %}
+      proxy.notify_transaction( monitored_trans ); 
+{% endif %} 
+{% endif %}
+    end                                                                                    
+  end                                                                                       
+
+  //******************************************************************
+  // The configure() function is used to pass agent configuration
+  // variables to the monitor BFM.  It is called by the monitor within
+  // the agent at the beginning of the simulation.  It may be called 
+  // during the simulation if agent configuration variables are updated
+  // and the monitor BFM needs to be aware of the new configuration 
+  // variables.
+  //
+  {% if useDpiLink %}
+   function void configure( c_bit_array_t bit_vec);
+    uvmf_active_passive_t act_pass;
+    uvmf_initiator_responder_t init_resp;
+{% for config in configVars %}
+    {{config.type}} {{config.name}};
+{% endfor %}
+    {act_pass,init_resp{% for config in configVars %},{{config.name}}{% endfor %}} = bit_vec;
+{% else %}
+{% if veloceReady %}
+  function void configure({{name}}_configuration_s {{name}}_configuration_arg); // pragma tbx xtf  
+{% else %}
+  function void configure({{name}}_configuration 
+                         {{macro.paramList(paramDefs,"                         ")}} 
+                         {{name}}_configuration_arg
+                         );  
+{% endif %}
+    initiator_responder = {{name}}_configuration_arg.initiator_responder;
+{% for config in configVars %}
+    {{config.name}} = {{name}}_configuration_arg.{{config.name}};
+{% endfor %}
+{% endif %}
+  // pragma uvmf custom configure begin
+  // pragma uvmf custom configure end
+  endfunction   
+
+
+  // ****************************************************************************  
+{% if veloceReady %}            
+  task do_monitor(output {{name}}_monitor_s {{name}}_monitor_struct);
+    // UVMF_CHANGE_ME : Implement protocol monitoring.  The commented reference code 
+    // below are examples of how to capture signal values and assign them to 
+    // structure members.  All available input signals are listed.  The 'while' 
+    // code example shows how to wait for a synchronous flow control signal.  This
+    // task should return when a complete transfer has been observed.  Once this task is
+    // exited with captured values, it is then called again to wait for and observe 
+    // the next transfer. One clock cycle is consumed between calls to do_monitor.
+    //
+    // Available struct members:
+    // {% for txn in transVars %}
+    //    {{name}}_monitor_struct.{{txn.name}}
+    // {% endfor %}
+    //
+    // Reference code;
+    //    How to wait for signal value
+    //      while (control_signal == 1'b1) @(posedge {{clock}}_i);
+    //    
+    //    How to assign a struct member, named xyz, from a signal.   
+    //    All available input signals listed.
+{% for sig in sigs %}
+    //      {{name}}_monitor_struct.xyz = {{sig.name}}_i;  //    {{sig.vector}} 
+{% endfor %}
+{% else %}
+  task do_monitor();
+    // UVMF_CHANGE_ME : Implement protocol monitoring.  The commented reference code 
+    // below are examples of how to capture signal values and assign them to 
+    // transaction variables.  All available input signals are listed.  The 'while' 
+    // code example shows how to wait for a synchronous flow control signal.  This
+    // task should return when a complete transfer has been observed.  Once this task is
+    // exited with captured values, it is then called again to wait for and observe 
+    // the next transfer. One clock cycle is consumed between calls to do_monitor.
+    //
+    // Available struct members:
+    // {% for txn in transVars %}
+    //    monitored_trans.{{txn.name}}
+    // {% endfor %}
+    //
+    // Reference code;
+    //    How to wait for signal value
+    //      while (control_signal == 1'b1) @(posedge {{clock}}_i);
+    //    
+    //    How to assign a transaction variable, named xyz, from a signal.   
+    //    All available input signals listed.
+{% for sig in sigs %}
+    //      monitored_trans.xyz = {{sig.name}}_i;  //    {{sig.vector}} 
+{% endfor %}
+{% endif %}
+    // pragma uvmf custom do_monitor begin
+{% if veloceReady %}
+{% for txn in transVars %}
+       {{name}}_monitor_struct.{{txn.name}} = {{txn.name}}_i;
+{% endfor %}
+{% else %}
+{% for txn in transVars %}
+       monitored_trans.{{txn.name}} = {{txn.name}}_i;
+{% endfor %}
+{% endif %}
+    // pragma uvmf custom do_monitor end
+  endtask         
+  
+{% if useDpiLink %}
+endmodule
+{% else %} 
+endinterface
+{% endif %}
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

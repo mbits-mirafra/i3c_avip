@@ -1,0 +1,15 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/testbench/hvl_top.compile" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+incdir:
+  - ${uvm_path}/src
+  - .
+needs:
+{% if qvip_pkg_env_variables|length > 0 %}
+  - $UVMF_HOME/common/utility_packages/qvip_utils_pkg/qvip_utils_pkg.compile
+{% endif %}
+  - ../tests/{{name}}_tests_pkg.compile
+src:
+  - hvl_top.sv
+{% endblock %}

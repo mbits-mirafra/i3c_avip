@@ -1,0 +1,293 @@
+
+<html><head>
+  <title>Verification Run Manager Status Report</title>
+  <link rel="StyleSheet" media="screen" href="css/vrmreport.css"/>
+  <script type="text/javascript" src="scripts/showhide.js"></script>
+</head>
+<body id="ucdb2html_detail" onload="showAll()">
+<h1>Verification Run Manager Status Report</h1>
+<table cellspacing="2" cellpadding="3">
+  <tr><td><b>Regression started:</b></td>
+      <td><span class="strip">Fri Nov 07 09:59:28 PST 2014</span></td></tr>
+  <tr><td><b>Regression finished:</b></td>
+      <td><span class="strip">Fri Nov 07 10:08:40 PST 2014</span></td></tr>
+  <tr><td><b>Configuration (RMDB) file:</b></td>
+      <td>/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/default.rmdb</td></tr>
+  <tr><td><b>VRMDATA directory:</b></td>
+      <td>/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA</td></tr>
+  <tr><td><b>Command:</b></td>
+      <td>vrun -html -nolocalrerun -j 4 -GCOLLAPSE=1 -testname</td></tr>
+</table>
+      <hr/><h3>Coverage Summary:</h3>
+      <table cellspacing="2" cellpadding="3">
+        <tr><th class="odd">Total Coverage</th>
+            <th class="even">Testplan Coverage</th>
+            <th class="odd">Merged UCDB</th></tr>
+        <tr><td class="odd_r">-</td>
+            <td class="even_r">-</td>
+          <td class="odd">/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/tracker.ucdb</td>
+        </tr>
+      </table>
+<hr/><table style="border-style: none"><tr>
+<td valign="top" style="border-style: none; width: 25%; padding: 15px"><h3>Pass/fail status summary:</h3>
+<table cellspacing="2" cellpadding="3">
+  <tr><th class="odd">Status</th><th class="even">Count</th></tr>
+       <tr><td class="odd">Passed</td>
+           <td class="bgEven">0</td></tr>
+       <tr><td class="odd">Failed</td>
+           <td class="bgRed">14</td></tr>
+       <tr><td class="odd">Incomplete</td>
+           <td class="bgRed">64</td></tr>
+       <tr><td class="odd_r">&nbsp;&nbsp;TOTAL</td>
+           <td class="bgEven">78</td></tr>
+</table></td>
+<td valign="top" style="border-style: none; width: 25%; padding: 15px"><h3>UCDB status summary:</h3>
+<table cellspacing="2" cellpadding="3">
+  <tr><th class="odd">Status</th><th class="even">Count</th></tr>
+         <tr><td class="odd">Ok</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">Warning</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">Error</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">Fatal</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">Missing</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">Merge Error</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">Unknown Error</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">UCDB Error</td>
+             <td class="bgEven">0</td></tr>
+       <tr><td class="odd_r">&nbsp;&nbsp;TOTAL</td>
+           <td class="bgEven">0</td></tr>
+</table></td>
+<td valign="top" style="border-style: none; width: 25%; padding: 15px"><h3>Non-UCDB status summary:</h3>
+<table cellspacing="2" cellpadding="3">
+  <tr><th class="odd">Status</th><th class="even">Count</th></tr>
+         <tr><td class="odd">Passed</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">Failed</td>
+             <td class="bgRed">14</td></tr>
+         <tr><td class="odd">Timeout</td>
+             <td class="bgEven">0</td></tr>
+       <tr><td class="odd_r">&nbsp;&nbsp;TOTAL</td>
+           <td class="bgEven">14</td></tr>
+</table></td>
+<td valign="top" style="border-style: none; width: 25%; padding: 15px"><h3>Pending status summary:</h3>
+<table cellspacing="2" cellpadding="3">
+  <tr><th class="odd">Status</th><th class="even">Count</th></tr>
+         <tr><td class="odd">Pending</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">Running</td>
+             <td class="bgEven">0</td></tr>
+         <tr><td class="odd">Suspended</td>
+             <td class="bgEven">0</td></tr>
+       <tr><td class="odd_r">&nbsp;&nbsp;TOTAL</td>
+           <td class="bgEven">0</td></tr>
+</table></td>
+</tr><hr/><tr>
+<td valign="top" colspan="4" style="border-style: none; padding: 15px"><h3>Action completion summary:</h3>
+<table cellspacing="2" cellpadding="3">
+  <tr><th class="odd">Status</th>
+        <th class="even">Empty</th>
+        <th class="odd">Failed</th>
+        <th class="even">Skipped</th>
+      </tr>
+        <tr><td class="odd">execScript</td>
+          <td class="bgEven">0</th>
+          <td class="bgRed">14</th>
+          <td class="bgRed">22</th>
+        </tr>
+        <tr><td class="odd">postScript</td>
+          <td class="bgEven">14</th>
+          <td class="bgOdd">0</th>
+          <td class="bgRed">28</th>
+        </tr>
+        <tr><td class="odd">preScript</td>
+          <td class="bgEven">28</th>
+          <td class="bgOdd">0</th>
+          <td class="bgRed">14</th>
+        </tr>
+</table></td></tr></table>
+<hr/><h3>Action status:</h3>
+<!-- use script block so buttons vanish when JavaScript is disabled -->
+<script type="text/javascript">
+<!--
+  document.write(
+    '<table class="buttons" cellspacing="2" cellpadding="2"><tr>' +
+      '<td id="showAll" width="100" onclick="showAll()" class="button_on" ' +
+          'title="Display all Actions.">Show All</td>' +
+      '<td id="showPass" width="100" onclick="showPass()" class="button_off" ' +
+          'title="Display only passing Actions.">Show Passed</td>' +
+      '<td id="showFail" width="100" onclick="showFail()" class="button_off" ' +
+          'title="Display only failing Actions.">Show Failed</td>' +
+    '</tr></table>');
+//-->
+</script>
+<table cellspacing="2" cellpadding="3">
+  <tr>
+         <th class="odd" >Testname</th>
+         <th class="even" >Seed</th>
+         <th class="odd" >Coverage</th>
+         <th class="even" >Date/Time</th>
+         <th class="odd" >Status</th>
+  </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00001.htm">ahb2spi-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:01:25 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00002.htm">ahb2spi-example_derived_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:01:25 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00003.htm">ahb2wb-example_derived_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:00:58 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00004.htm">ahb2wb-ahb_random_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:00:58 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00005.htm">wb2spi-example_derived_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:01:41 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00006.htm">alu-alu_random_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:00:49 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00007.htm">gpio_example-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:01:50 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00008.htm">gpio_example-example_derived_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:01:50 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00009.htm">gpio_example-test_constrained_random-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:01:50 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00010.htm">qvip_ahb_example-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:03:22 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00011.htm">qvip_ahb_example-example_derived_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:03:22 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00012.htm">qvip_axi3_ahb_bench-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:05:57 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00013.htm">qvip_axi3_ahb_bench-example_derived_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:05:57 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00014.htm">qvip_axi3_example-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:04:30 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00015.htm">qvip_axi3_example-example_derived_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:04:30 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00016.htm">qvip_axi4_example-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:04:23 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00017.htm">qvip_ethernet_parallel-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:05:47 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00018.htm">qvip_ethernet_serial-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:07:08 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00019.htm">qvip_pcie_3.0_pipe_example-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:08:10 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00020.htm">qvip_pcie_3.0_serial_example-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:08:35 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00021.htm">qvip_pcie_3.0_serial_example-example_derived_test-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:08:35 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+    <tr class="nostat">
+                 <td class="odd"><a href="pages/a00022.htm">qvip_usb3_pipe_example_bench-test_top-0</a></td>
+               <td class="even_r">--</td>
+               <td class="odd_r">--</td>
+               <td class="even"><span class="strip">Fri Nov 07 10:08:15 PST 2014</span></td>
+               <td class="bgRed">Skipped</td>
+    </tr>
+</table>
+</body></html>
+

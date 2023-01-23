@@ -1,0 +1,57 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/parameters/{{name}}_parameters_pkg.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//
+// DESCRIPTION: This package contains test level parameters
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+
+package {{name}}_parameters_pkg;
+
+  import uvmf_base_pkg_hdl::*;
+
+  // pragma uvmf custom package_imports_additional begin 
+  // pragma uvmf custom package_imports_additional end
+
+{% for param in paramDefs %}
+  parameter {{param.type}} {{param.name}} = {{param.value}};
+{% endfor %}
+
+  // These parameters are used to uniquely identify each interface.  The monitor_bfm and
+  // driver_bfm are placed into and retrieved from the uvm_config_db using these string 
+  // names as the field_name. The parameter is also used to enable transaction viewing 
+  // from the command line for selected interfaces using the UVM command line processing.
+{% if useDpiLink %}
+{% for bfm in bfms %}
+  parameter string {{bfm.ifPkg}}_pkg_{{bfm.name}}_BFM = "hdl_top.{{bfm.name}}"; /* [{{loop.index-1}}] */
+{% endfor %}
+{% else %}
+{% for agent in resource_parameter_names %}
+  parameter string {{agent.unique_id_with_underscores}}{{agent.name}}  = "{{agent.unique_id}}{{agent.value}}"; /* [{{loop.index-1}}] */
+{% endfor %}
+{% endif %}
+{% if useCoEmuClkRstGen %}
+  parameter CLK_PHASE_OFFSET_IN_PS     = 2000; //Cannot be less than 500 according to Veloce
+  parameter INIT_CLOCK_HALF_PERIOD     = 2000;
+  parameter RST_POLARITY               = {% if resetAssertionLevel %}1{% else %}0{% endif %};
+  parameter INITIAL_IDLE_CYCLES        = 0;
+  parameter RESET_ACTIVE_CYCLES        = 10;
+  parameter string CLOCK_CONTROLLER = "clock_controller";
+  parameter string RESET_CONTROLLER = "reset_controller";
+{% endif %}
+
+  // pragma uvmf custom package_item_additional begin
+  // pragma uvmf custom package_item_additional end
+
+endpackage
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

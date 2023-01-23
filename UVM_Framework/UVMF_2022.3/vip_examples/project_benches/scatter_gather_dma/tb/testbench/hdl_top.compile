@@ -1,0 +1,7 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ../parameters/scatter_gather_dma_parameters_pkg.compile
+  - ../../../../verification_ip/interface_packages/ccs_pkg/ccs_shared.compile
+  - ../../../../verification_ip/interface_packages/ccs_pkg/ccs_hdl.compile
+src:
+  - hdl_top.sv

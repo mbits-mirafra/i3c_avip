@@ -1,0 +1,75 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/sequences/{{name}}_sequences_pkg_mtlb.sv" %}
+{% set conditional = "mtlbReady" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+// Generated for MTLB flow
+//
+//----------------------------------------------------------------------
+//
+// DESCRIPTION: This package includes all high level sequence classes used 
+//     in the environment.  These include utility sequences and top
+//     level sequences.
+//
+// CONTAINS:
+//     -<{{name}}_sequence_base>
+//     -<example_derived_test_sequence>
+//
+//----------------------------------------------------------------------
+//
+{% endblock %}
+
+{% block contents %}
+
+package {{name}}_sequences_pkg;
+  import uvm_pkg::*;
+  import uvmf_base_pkg::*;
+{% for ext_import in external_imports %}
+  import {{ext_import}}::*;
+{% endfor %}
+{% for bfm in bfm_pkgs %}
+  import {{bfm}}_pkg::*;
+  import {{bfm}}_pkg_hdl::*;
+{% endfor %}
+  import {{name}}_parameters_pkg::*;
+  import {{env_name}}_env_pkg::*;
+{% if qvip_bfm_pkgs|length > 0 %}
+{% for qvip_configurator_pkgs in qvip_bfm_pkgs %}
+  import {{qvip_configurator_pkgs}}_params_pkg::*;
+{% endfor %}
+{% endif %}
+{% if useCoEmuClkRstGen %}
+  import clock_pkg::*;
+  import reset_pkg::*;
+{% endif %}
+{% if topEnvHasRegisterModel %}
+  import {{regModelPkg}}::*;
+{% endif %}
+  `include "uvm_macros.svh"
+
+  // pragma uvmf custom package_imports_additional begin
+  // pragma uvmf custom package_imports_additional end
+
+{% if inFactEnabled %}
+  `include "{{src_dir}}infact_{{name}}_bench_transactions.svh"
+{% endif %}
+  `include "{{src_dir}}{{name}}_bench_sequence_base.svh"
+  `include "{{src_dir}}register_test_sequence.svh"
+  `include "{{src_dir}}DPI_stimgen_sequence.svh"
+  `include "{{src_dir}}read_from_file_sequence.svh"
+  `include "{{src_dir}}example_derived_test_sequence.svh"
+
+  // pragma uvmf custom package_item_additional begin
+  // UVMF_CHANGE_ME : When adding new sequences to the src directory
+  //    be sure to add the sequence file here so that it will be
+  //    compiled as part of the sequence package.  Be sure to place
+  //    the new sequence after any base sequences of the new sequence.
+  // pragma uvmf custom package_item_additional end
+
+endpackage
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

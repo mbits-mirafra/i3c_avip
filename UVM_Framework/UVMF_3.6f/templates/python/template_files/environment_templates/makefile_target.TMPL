@@ -1,0 +1,26 @@
+{% set fname = "verification_ip/environment_packages/{{name}}_env_pkg/Makefile" %}
+# {{name}} environment packages source and make target
+
+# Include all requisite sub-environment package targets for this bench
+{% for sub_env in subEnvironments %}
+include $(UVMF_VIP_LIBRARY_HOME)/environment_packages/{{sub_env.envPkg}}_env_pkg/Makefile
+{% endfor %}
+
+{{name}}_ENV_PKG =\
+		 $(UVMF_VIP_LIBRARY_HOME)/environment_packages/{{name}}_env_pkg/{{name}}_env_pkg.sv
+
+comp_{{name}}_env_pkg: {% if uvmc_cpp_files|length > 0 %} compile_sc {% endif %} {% for sub_env in subEnvironments %} comp_{{sub_env.envPkg}}_env_pkg {% endfor %}
+
+		$(HVL_COMP_CMD) +incdir+$(UVMF_VIP_LIBRARY_HOME)/environment_packages/{{name}}_env_pkg $({{name}}_ENV_PKG)
+
+{% if uvmc_cpp_files|length > 0 %}
+# UVMConnect support - target is 'compile_uvmc'.
+include $(UVMF_HOME)/common/uvmc/Makefile
+compile_sc: compile_uvmc
+	-@echo "Compiling SystemC TLM models"
+{% for cppFile in uvmc_cpp_files %}
+	sccom $(MACHINE_ARCH) -I$(QUESTA_HOME)/verilog_src/uvmc-$(UVMC_VER)/src/connect/sc -I$(QUESTA_HOME)/includes/systemc -g -Wall -fmessage-length=0 -fPIC -pipe -scv -DQUESTA -DSC_INCLUDE_DYNAMIC_PROCESSES -O0 -DDEBUG_COUTX -DSC_INCLUDE_MTI_AC -DMTI_BIND_SC_MEMBER_FUNCTION -verbose {{uvmc_cpp_flags}} {{cppFile}}
+{% endfor %}
+	sccom $(MACHINE_ARCH) -g -link -I$(QUESTA_HOME)/verilog_src/uvmc-$(UVMC_VER)/src/connect/sc -I$(QUESTA_HOME)/includes/systemc -g -Wall -fmessage-length=0 -fPIC -pipe -work work -scv -DQUESTA -DSC_INCLUDE_DYNAMIC_PROCESSES -O0
+{% endif %}
+

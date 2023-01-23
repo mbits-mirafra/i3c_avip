@@ -1,0 +1,288 @@
+# make -f /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/sim/Makefile libs build optimize UVMF_HOME=/mnt/hgfs/vmware/UVMF_Q
+# ** Error: make[1]: Entering directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~gpio_example/build_group/build_task'
+# test -e work || vlib work 
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:57 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/common/fli_pkg" /mnt/hgfs/vmware/UVMF_Q/common/fli_pkg/fli_pkg.sv 
+# -- Compiling package fli_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:59 on Nov 07,2014, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:59 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hvl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# -- Compiling package uvmf_base_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:59 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:59 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg" -F /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/uvmf_base_pkg_filelist_hdl.f 
+# -- Compiling package uvmf_base_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:00:59 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/gpio_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/gpio_pkg/gpio_filelist_hvl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:00:59 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/gpio_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/gpio_pkg/gpio_filelist_hvl.f 
+# -- Compiling package gpio_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling package gpio_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package gpio_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:01:00 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/gpio_pkg -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/gpio_pkg/gpio_filelist_hdl.f 
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:00 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/gpio_pkg" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/gpio_pkg/gpio_filelist_hdl.f 
+# -- Compiling package gpio_pkg_hdl
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling interface gpio_if
+# -- Compiling package gpio_if_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package gpio_pkg_hdl
+# -- Compiling interface gpio_if
+# -- Compiling interface gpio_monitor_bfm
+# -- Compiling package gpio_monitor_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package gpio_pkg_hdl
+# -- Compiling interface gpio_monitor_bfm
+# -- Importing package gpio_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Compiling interface gpio_driver_bfm
+# -- Compiling package gpio_driver_bfm_sv_unit
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package gpio_pkg_hdl
+# -- Compiling interface gpio_driver_bfm
+# -- Importing package gpio_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:01:01 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/gpio_example_env_pkg /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/gpio_example_env_pkg/gpio_example_env_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:01 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/gpio_example_env_pkg" /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/gpio_example_env_pkg/gpio_example_env_pkg.sv 
+# -- Compiling package gpio_example_env_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package gpio_pkg
+# -- Importing package gpio_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:01:01 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/parameters /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/parameters/gpio_example_parameters_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:01 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/parameters" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/parameters/gpio_example_parameters_pkg.sv 
+# -- Compiling package gpio_example_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:01:02 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/sequences /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/sequences/gpio_example_sequences_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:02 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/sequences" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/sequences/gpio_example_sequences_pkg.sv 
+# -- Compiling package gpio_example_sequences_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package gpio_pkg
+# -- Importing package gpio_pkg_hdl
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:01:02 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/tests /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/tests/gpio_example_test_pkg.sv
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:02 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/tests" /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/tests/gpio_example_test_pkg.sv 
+# -- Compiling package gpio_example_test_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package gpio_pkg
+# -- Importing package gpio_pkg_hdl
+# -- Importing package gpio_example_env_pkg
+# -- Importing package gpio_example_sequences_pkg
+# -- Importing package gpio_example_parameters_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 10:01:02 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/testbench/top_filelist_hvl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:03 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/home/student/tools/QVIP/10.4b/questa_mvc_src/sv" "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/testbench/top_filelist_hvl.f 
+# -- Compiling package hvl_top_sv_unit
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package gpio_example_test_pkg
+# -- Importing package mtiUvm.questa_uvm_pkg
+# -- Importing package uvmf_base_pkg
+# -- Importing package fli_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Importing package gpio_pkg
+# -- Importing package gpio_pkg_hdl
+# -- Importing package gpio_example_env_pkg
+# -- Importing package gpio_example_sequences_pkg
+# -- Importing package gpio_example_parameters_pkg
+# -- Compiling module hvl_top
+# 
+# Top level modules:
+# 	hvl_top
+# End time: 10:01:03 on Nov 07,2014, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps  +incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/testbench -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/testbench/top_filelist_hdl.f
+# QuestaSim vlog 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:03 on Nov 07,2014
+# vlog -sv -suppress 2223 -suppress 2286 -timescale 1ns/10ps "+incdir+/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/testbench" -F /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/testbench/top_filelist_hdl.f 
+# -- Compiling package hdl_top_sv_unit
+# -- Importing package gpio_example_parameters_pkg
+# -- Importing package uvmf_base_pkg_hdl
+# -- Compiling module hdl_top
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# 
+# Top level modules:
+# 	hdl_top
+# End time: 10:01:04 on Nov 07,2014, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vopt  +cover=sbcef+/hdl_top/DUT  hvl_top hdl_top   -o optimized_batch_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:04 on Nov 07,2014
+# vopt "+cover=sbcef+/hdl_top/DUT" hvl_top hdl_top -o optimized_batch_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface gpio_if
+# -- Loading interface gpio_monitor_bfm
+# -- Loading interface gpio_driver_bfm
+# ** Warning: (vopt-2216) Cannot find instance '/hdl_top/DUT' specified in +cover.
+# ** Warning: /mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/gpio_example/tb/testbench/hdl_top.sv(58): (vopt-2675) [TFMPC] - Too few port connections for 'gpio_bus'.  Expected 3, found 0.
+# Optimizing 26 design-units (inlining 0/1 module instances, 0/0 UDP instances):
+# -- Optimizing interface gpio_monitor_bfm(fast__1)
+# -- Inlining interface gpio_if(fast__2)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing interface gpio_driver_bfm(fast__1)
+# -- Optimizing interface gpio_if(fast__2)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package gpio_pkg_hdl(fast)
+# -- Optimizing package gpio_if_sv_unit(fast)
+# -- Optimizing package gpio_monitor_bfm_sv_unit(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package gpio_driver_bfm_sv_unit(fast)
+# -- Optimizing package gpio_pkg(fast)
+# -- Optimizing interface gpio_if(fast)
+# -- Optimizing interface gpio_if(fast__1)
+# -- Optimizing interface gpio_monitor_bfm(fast)
+# -- Optimizing interface gpio_driver_bfm(fast)
+# -- Optimizing package gpio_example_parameters_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package gpio_example_sequences_pkg(fast)
+# -- Optimizing package gpio_example_env_pkg(fast)
+# -- Optimizing package gpio_example_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_batch_top_tb
+# End time: 10:01:31 on Nov 07,2014, Elapsed time: 0:00:27
+# Errors: 0, Warnings: 2
+# vopt  +acc  hvl_top hdl_top   -o optimized_debug_top_tb
+# QuestaSim vopt 10.4c Compiler 2015.07 Jul 19 2015
+# Start time: 10:01:31 on Nov 07,2014
+# vopt "+acc" hvl_top hdl_top -o optimized_debug_top_tb 
+# 
+# Top level modules:
+# 	hvl_top
+# 	hdl_top
+# 
+# Analyzing design...
+# -- Loading module hvl_top
+# -- Loading module hdl_top
+# -- Loading interface gpio_if
+# -- Loading interface gpio_monitor_bfm
+# -- Loading interface gpio_driver_bfm
+# Optimizing 26 design-units (inlining 0/1 module instances, 0/0 UDP instances):
+# -- Optimizing interface gpio_monitor_bfm(fast__1)
+# -- Optimizing module hdl_top(fast)
+# -- Optimizing interface gpio_driver_bfm(fast__1)
+# -- Optimizing interface gpio_if(fast__2)
+# -- Optimizing module hvl_top(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing package uvmf_base_pkg_hdl(fast)
+# -- Optimizing package fli_pkg(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package gpio_pkg_hdl(fast)
+# -- Optimizing package gpio_if_sv_unit(fast)
+# -- Optimizing package gpio_monitor_bfm_sv_unit(fast)
+# -- Optimizing package uvmf_base_pkg(fast)
+# -- Optimizing package gpio_driver_bfm_sv_unit(fast)
+# -- Optimizing package gpio_pkg(fast)
+# -- Optimizing interface gpio_if(fast)
+# -- Optimizing interface gpio_if(fast__1)
+# -- Optimizing interface gpio_monitor_bfm(fast)
+# -- Optimizing interface gpio_driver_bfm(fast)
+# -- Optimizing package gpio_example_parameters_pkg(fast)
+# -- Optimizing package hdl_top_sv_unit(fast)
+# -- Optimizing package gpio_example_sequences_pkg(fast)
+# -- Optimizing package gpio_example_env_pkg(fast)
+# -- Optimizing package gpio_example_test_pkg(fast)
+# -- Optimizing package hvl_top_sv_unit(fast)
+# Optimized design name is optimized_debug_top_tb
+# End time: 10:01:50 on Nov 07,2014, Elapsed time: 0:00:19
+# Errors: 0, Warnings: 0
+# make[1]: Leaving directory `/mnt/hgfs/vmware/UVMF_Q/base_examples/project_benches/full_regression/sim/VRMDATA/top~gpio_example/build_group/build_task'
+# make[1]: Warning: File `/mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/gpio_example_env_pkg/Makefile' has modification time 3.6e+07 s in the future
+# make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+# Executing ONERROR command at macro ./execScript.do line 1
+# quit -f

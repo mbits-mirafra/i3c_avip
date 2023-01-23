@@ -1,0 +1,23 @@
+#!/bin/bash
+
+LD_LIBRARY_PATH=${QUESTA_MVC_HOME}/questa_mvc_core/linux_x86_64_gcc-4.8_ius:${IUS_HOME}/tools/cdsgcc/gcc/4.8/install/lib64:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH
+
+irun -sv -uvm -quiet -access +rwc -64bit -timescale 1ns/1ns \
+    +incdir+${QUESTA_MVC_HOME}/questa_mvc_src/sv \
+    ${QUESTA_MVC_HOME}/include/questa_mvc_svapi.svh \
+    +define+MAP_PROT_ATTR ${QUESTA_MVC_HOME}/questa_mvc_src/sv/mvc_pkg.sv \
+    +incdir+${QUESTA_MVC_HOME}/questa_mvc_src/sv/axi4 ${QUESTA_MVC_HOME}/questa_mvc_src/sv/axi4/mgc_axi4_v1_0_pkg.sv \
+    +incdir+../config_policies \
+    ../config_policies/axi4_2x2_fabric_qvip_params_pkg.sv \
+    axi4_2x2_fabric_qvip_pkg.sv \
+    +incdir+${QUESTA_MVC_HOME}/questa_mvc_src/sv/axi4/modules ${QUESTA_MVC_HOME}/questa_mvc_src/sv/axi4/modules/axi4_master.sv \
+    +incdir+${QUESTA_MVC_HOME}/questa_mvc_src/sv/axi4/modules ${QUESTA_MVC_HOME}/questa_mvc_src/sv/axi4/modules/axi4_slave.sv \
+    default_clk_gen.sv \
+    default_reset_gen.sv \
+    hdl_axi4_2x2_fabric_qvip.sv \
+    hvl_axi4_2x2_fabric_qvip.sv \
+    -sv_root ${QUESTA_MVC_HOME}/questa_mvc_core/linux_x86_64_gcc-4.8_ius \
+    -sv_lib libaxi4_IN_SystemVerilog_IUS_full \
+    +UVM_TESTNAME=axi4_2x2_fabric_qvip_test_base \
+    +SEQ=axi4_2x2_fabric_qvip_vseq_base

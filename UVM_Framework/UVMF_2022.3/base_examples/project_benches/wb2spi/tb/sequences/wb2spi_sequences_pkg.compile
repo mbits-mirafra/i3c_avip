@@ -1,0 +1,8 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../../../verification_ip/interface_packages/wb_pkg/wb_hvl.compile
+  - ../../../../verification_ip/interface_packages/spi_pkg/spi_hvl.compile
+  - ../../../../verification_ip/environment_packages/wb2spi_env_pkg/wb2spi_env_pkg.compile
+  - ../parameters/wb2spi_parameters_pkg.compile
+src:
+  - wb2spi_sequences_pkg.sv

@@ -1,0 +1,8 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../interface_packages/ccs_pkg/ccs_shared.compile
+  - ../../interface_packages/ccs_pkg/ccs_hvl.compile
+
+src:
+  - scatter_gather_dma_env_pkg.sv
+

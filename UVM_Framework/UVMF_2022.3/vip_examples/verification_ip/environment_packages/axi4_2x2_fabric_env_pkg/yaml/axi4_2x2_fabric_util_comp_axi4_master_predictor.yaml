@@ -1,0 +1,15 @@
+uvmf:
+  util_components:
+    axi4_master_predictor:
+      analysis_ports:
+      - name: axi4_ap
+        type: axi4_master_rw_transaction_t
+      existing_library_component: 'True'
+      parameters:
+      - name: axi4_master_rw_transaction_t
+        type: type
+        value: null
+      qvip_analysis_exports:
+      - name: axi4_ae
+        type: axi4_master_rw_transaction_t
+      type: predictor

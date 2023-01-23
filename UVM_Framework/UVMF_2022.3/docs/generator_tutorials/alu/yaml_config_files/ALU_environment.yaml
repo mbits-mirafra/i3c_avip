@@ -1,0 +1,38 @@
+uvmf:
+  environments:
+    ALU:
+    
+      agents:
+      - name: ALU_in_agent
+        type: ALU_in
+        initiator_responder: "INITIATOR"
+      - name: ALU_out_agent
+        type: ALU_out
+        initiator_responder: "RESPONDER"
+    
+      analysis_components:
+      - name: ALU_pred
+        type: ALU_predictor
+      analysis_exports: []
+      analysis_ports: []
+    
+      config_constraints: []
+      config_vars: []
+    
+      parameters: []
+    
+      scoreboards:
+      - name: ALU_sb
+        sb_type: uvmf_in_order_scoreboard
+        trans_type: ALU_out_transaction
+    
+      subenvs: []
+    
+      tlm_connections:
+      - driver: ALU_in_agent.monitored_ap            # connection 00
+        receiver: ALU_pred.ALU_in_agent_ae
+      - driver: ALU_pred.ALU_sb_ap                   # connection 01
+        receiver: ALU_sb.expected_analysis_export
+      - driver: ALU_out_agent.monitored_ap           # connection 02
+        receiver: ALU_sb.actual_analysis_export
+

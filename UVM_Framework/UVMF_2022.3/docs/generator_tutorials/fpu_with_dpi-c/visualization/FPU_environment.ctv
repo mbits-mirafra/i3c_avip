@@ -1,0 +1,193 @@
+
+ module new Visulization_Diagram
+
+ load symbol FPU_environment_Diagram v  HIERGEN  \
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol FPU_predictor v  GEN  \
+	port FPU_sb_ap output.dia.fill\
+	port FPU_in_agent_ae input\
+	boxcolor 1 \
+	fillcolor 3 
+
+ load symbol FPU_out_agent v  HIERGEN  \
+	port monitored_ap output.dia.fill\
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol uvm_sequencer v  HIERGEN  \
+	port rsp_export input.citr\
+	port seq_item_export output.neg\
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol uvm_sequencer_analysis_fifo v  GEN  \
+	port put_ap output.dia.fill\
+	port get_ap output.dia.fill\
+	port analysis_export input\
+	boxcolor 1 \
+	fillcolor 3 
+
+ load symbol uvm_tlm_fifo v  GEN  \
+	port put_ap output.dia.fill\
+	port get_ap output.dia.fill\
+	boxcolor 1 \
+	fillcolor 3 
+
+ load symbol FPU_out_monitor v  HIERGEN  \
+	port monitored_ap output.dia.fill\
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol uvmf_monitor_base v  HIERGEN  \
+	port monitored_ap output.dia.fill\
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol FPU_out_driver v  HIERGEN  \
+	port seq_item_port input\
+	port rsp_port output.dia.fill\
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol uvmf_driver_base v  HIERGEN  \
+	port seq_item_port input\
+	port rsp_port output.dia.fill\
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol FPU_out_transaction_coverage v  GEN  \
+	port analysis_export input\
+	boxcolor 1 \
+	fillcolor 3 
+
+ load symbol FPU_in_agent v  HIERGEN  \
+	port monitored_ap output.dia.fill\
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol FPU_in_monitor v  HIERGEN  \
+	port monitored_ap output.dia.fill\
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol FPU_in_driver v  HIERGEN  \
+	port seq_item_port input\
+	port rsp_port output.dia.fill\
+	boxcolor 1 \
+	fillcolor 1 
+
+ load symbol FPU_in_transaction_coverage v  GEN  \
+	port analysis_export input\
+	boxcolor 1 \
+	fillcolor 3 
+ load inst FPU_environment FPU_environment_Diagram v 	
+ attribute { inst FPU_environment} -attr @fillcolor  #ffffff 
+
+ load inst FPU_pred_FPU_environment FPU_predictor v  -hier FPU_environment
+ attribute { inst FPU_pred_FPU_environment} -attr @cell  FPU_predictor 
+ attribute { inst FPU_pred_FPU_environment} -attr @name  FPU_pred 
+
+ load inst FPU_out_agent_FPU_environment FPU_out_agent v  -hier FPU_environment
+ attribute { inst FPU_out_agent_FPU_environment} -attr @cell  FPU_out_agent 
+ attribute { inst FPU_out_agent_FPU_environment} -attr @name  FPU_out_agent 
+
+ load inst sequencer_FPU_out_agent_FPU_environment uvm_sequencer v  -hier FPU_out_agent_FPU_environment
+ attribute { inst sequencer_FPU_out_agent_FPU_environment} -attr @cell  uvm_sequencer 
+ attribute { inst sequencer_FPU_out_agent_FPU_environment} -attr @name  sequencer 
+
+ load inst sqr_rsp_analysis_fifo_sequencer_FPU_out_agent_FPU_environment uvm_sequencer_analysis_fifo v  -hier sequencer_FPU_out_agent_FPU_environment
+ attribute { inst sqr_rsp_analysis_fifo_sequencer_FPU_out_agent_FPU_environment} -attr @cell  uvm_sequencer_analysis_fifo 
+ attribute { inst sqr_rsp_analysis_fifo_sequencer_FPU_out_agent_FPU_environment} -attr @name  sqr_rsp_analysis_fifo 
+
+ load inst m_req_fifo_sequencer_FPU_out_agent_FPU_environment uvm_tlm_fifo v  -hier sequencer_FPU_out_agent_FPU_environment
+ attribute { inst m_req_fifo_sequencer_FPU_out_agent_FPU_environment} -attr @cell  uvm_tlm_fifo 
+ attribute { inst m_req_fifo_sequencer_FPU_out_agent_FPU_environment} -attr @name  m_req_fifo 
+
+ load inst monitor_FPU_out_agent_FPU_environment FPU_out_monitor v  -hier FPU_out_agent_FPU_environment
+ attribute { inst monitor_FPU_out_agent_FPU_environment} -attr @cell  FPU_out_monitor 
+ attribute { inst monitor_FPU_out_agent_FPU_environment} -attr @name  monitor 
+
+ load inst bfm_proxy_map_monitor_FPU_out_agent_FPU_environment uvmf_monitor_base v  -hier monitor_FPU_out_agent_FPU_environment
+ attribute { inst bfm_proxy_map_monitor_FPU_out_agent_FPU_environment} -attr @cell  uvmf_monitor_base 
+ attribute { inst bfm_proxy_map_monitor_FPU_out_agent_FPU_environment} -attr @name  {[bfm_proxy_map]} 
+
+ load inst driver_FPU_out_agent_FPU_environment FPU_out_driver v  -hier FPU_out_agent_FPU_environment
+ attribute { inst driver_FPU_out_agent_FPU_environment} -attr @cell  FPU_out_driver 
+ attribute { inst driver_FPU_out_agent_FPU_environment} -attr @name  driver 
+
+ load inst bfm_proxy_map_driver_FPU_out_agent_FPU_environment uvmf_driver_base v  -hier driver_FPU_out_agent_FPU_environment
+ attribute { inst bfm_proxy_map_driver_FPU_out_agent_FPU_environment} -attr @cell  uvmf_driver_base 
+ attribute { inst bfm_proxy_map_driver_FPU_out_agent_FPU_environment} -attr @name  {[bfm_proxy_map]} 
+
+ load inst coverage_FPU_out_agent_FPU_environment FPU_out_transaction_coverage v  -hier FPU_out_agent_FPU_environment
+ attribute { inst coverage_FPU_out_agent_FPU_environment} -attr @cell  FPU_out_transaction_coverage 
+ attribute { inst coverage_FPU_out_agent_FPU_environment} -attr @name  coverage 
+
+ load inst FPU_in_agent_FPU_environment FPU_in_agent v  -hier FPU_environment
+ attribute { inst FPU_in_agent_FPU_environment} -attr @cell  FPU_in_agent 
+ attribute { inst FPU_in_agent_FPU_environment} -attr @name  FPU_in_agent 
+
+ load inst sequencer_FPU_in_agent_FPU_environment uvm_sequencer v  -hier FPU_in_agent_FPU_environment
+ attribute { inst sequencer_FPU_in_agent_FPU_environment} -attr @cell  uvm_sequencer 
+ attribute { inst sequencer_FPU_in_agent_FPU_environment} -attr @name  sequencer 
+
+ load inst sqr_rsp_analysis_fifo_sequencer_FPU_in_agent_FPU_environment uvm_sequencer_analysis_fifo v  -hier sequencer_FPU_in_agent_FPU_environment
+ attribute { inst sqr_rsp_analysis_fifo_sequencer_FPU_in_agent_FPU_environment} -attr @cell  uvm_sequencer_analysis_fifo 
+ attribute { inst sqr_rsp_analysis_fifo_sequencer_FPU_in_agent_FPU_environment} -attr @name  sqr_rsp_analysis_fifo 
+
+ load inst m_req_fifo_sequencer_FPU_in_agent_FPU_environment uvm_tlm_fifo v  -hier sequencer_FPU_in_agent_FPU_environment
+ attribute { inst m_req_fifo_sequencer_FPU_in_agent_FPU_environment} -attr @cell  uvm_tlm_fifo 
+ attribute { inst m_req_fifo_sequencer_FPU_in_agent_FPU_environment} -attr @name  m_req_fifo 
+
+ load inst monitor_FPU_in_agent_FPU_environment FPU_in_monitor v  -hier FPU_in_agent_FPU_environment
+ attribute { inst monitor_FPU_in_agent_FPU_environment} -attr @cell  FPU_in_monitor 
+ attribute { inst monitor_FPU_in_agent_FPU_environment} -attr @name  monitor 
+
+ load inst bfm_proxy_map_monitor_FPU_in_agent_FPU_environment uvmf_monitor_base v  -hier monitor_FPU_in_agent_FPU_environment
+ attribute { inst bfm_proxy_map_monitor_FPU_in_agent_FPU_environment} -attr @cell  uvmf_monitor_base 
+ attribute { inst bfm_proxy_map_monitor_FPU_in_agent_FPU_environment} -attr @name  {[bfm_proxy_map]} 
+
+ load inst driver_FPU_in_agent_FPU_environment FPU_in_driver v  -hier FPU_in_agent_FPU_environment
+ attribute { inst driver_FPU_in_agent_FPU_environment} -attr @cell  FPU_in_driver 
+ attribute { inst driver_FPU_in_agent_FPU_environment} -attr @name  driver 
+
+ load inst bfm_proxy_map_driver_FPU_in_agent_FPU_environment uvmf_driver_base v  -hier driver_FPU_in_agent_FPU_environment
+ attribute { inst bfm_proxy_map_driver_FPU_in_agent_FPU_environment} -attr @cell  uvmf_driver_base 
+ attribute { inst bfm_proxy_map_driver_FPU_in_agent_FPU_environment} -attr @name  {[bfm_proxy_map]} 
+
+ load inst coverage_FPU_in_agent_FPU_environment FPU_in_transaction_coverage v  -hier FPU_in_agent_FPU_environment
+ attribute { inst coverage_FPU_in_agent_FPU_environment} -attr @cell  FPU_in_transaction_coverage 
+ attribute { inst coverage_FPU_in_agent_FPU_environment} -attr @name  coverage 
+
+ load net net_1 \
+	-pin FPU_pred_FPU_environment FPU_in_agent_ae\
+	-pin FPU_in_agent_FPU_environment monitored_ap
+ load net net_2 \
+	-hierPin FPU_out_agent_FPU_environment monitored_ap\
+	-pin monitor_FPU_out_agent_FPU_environment monitored_ap\
+	-pin coverage_FPU_out_agent_FPU_environment analysis_export
+ load net net_3 \
+	-pin sequencer_FPU_in_agent_FPU_environment rsp_export\
+	-pin driver_FPU_in_agent_FPU_environment rsp_port
+ load net net_4 \
+	-hierPin sequencer_FPU_in_agent_FPU_environment rsp_export\
+	-pin sqr_rsp_analysis_fifo_sequencer_FPU_in_agent_FPU_environment analysis_export
+ load net net_5 \
+	-hierPin sequencer_FPU_out_agent_FPU_environment rsp_export\
+	-pin sqr_rsp_analysis_fifo_sequencer_FPU_out_agent_FPU_environment analysis_export
+ load net net_6 \
+	-pin driver_FPU_out_agent_FPU_environment seq_item_port\
+	-pin sequencer_FPU_out_agent_FPU_environment seq_item_export
+ load net net_7 \
+	-pin driver_FPU_out_agent_FPU_environment rsp_port\
+	-pin sequencer_FPU_out_agent_FPU_environment rsp_export
+ load net net_8 \
+	-hierPin FPU_in_agent_FPU_environment monitored_ap\
+	-pin monitor_FPU_in_agent_FPU_environment monitored_ap\
+	-pin coverage_FPU_in_agent_FPU_environment analysis_export
+ load net net_9 \
+	-pin driver_FPU_in_agent_FPU_environment seq_item_port\
+	-pin sequencer_FPU_in_agent_FPU_environment seq_item_export
+ show

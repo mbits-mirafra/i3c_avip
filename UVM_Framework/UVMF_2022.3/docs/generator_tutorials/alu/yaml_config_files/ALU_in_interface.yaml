@@ -1,0 +1,63 @@
+uvmf:
+  interfaces:
+    ALU_in:
+      clock: clk
+      reset: rst
+      reset_assertion_level: 'False'
+
+      config_constraints: []
+      config_vars: []
+
+      hdl_typedefs:
+      - name: alu_in_op_t
+        type: enum bit[2:0] {no_op = 3'b000, add_op = 3'b001, and_op = 3'b010, xor_op
+          = 3'b011, mul_op = 3'b100, rst_op = 3'b111}
+      hvl_typedefs: []
+
+      parameters:
+      - name: ALU_IN_OP_WIDTH
+        type: int
+        value: '8'
+
+      ports:
+      - name: alu_rst
+        dir: output
+        width: '1'
+      - name: ready
+        dir: input
+        width: '1'
+      - name: valid
+        dir: output
+        width: '1'
+      - name: op
+        dir: output
+        width: '3'
+      - name: a
+        dir: output
+        width: ALU_IN_OP_WIDTH
+      - name: b
+        dir: output
+        width: ALU_IN_OP_WIDTH
+
+      response_info:
+        data: []
+        operation: 1'b0
+
+      transaction_constraints:
+      - name: valid_op_c
+        value: '{ op inside {no_op, add_op, and_op, xor_op, mul_op}; }'
+
+      transaction_vars:
+      - name: op
+        type: alu_in_op_t
+        iscompare: 'True'
+        isrand: 'True'
+      - name: a
+        type: bit [ALU_IN_OP_WIDTH-1:0]
+        iscompare: 'True'
+        isrand: 'True'
+      - name: b
+        type: bit [ALU_IN_OP_WIDTH-1:0]
+        iscompare: 'True'
+        isrand: 'True'
+        

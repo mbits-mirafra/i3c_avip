@@ -1,0 +1,28 @@
+{% set fname = "project_benches/{{name}}/tb/testbench/hvl_top.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Simulation Bench 
+// Unit            : Top level HVL module
+// File            : hvl_top.sv
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This module loads the test package and starts the UVM phases.
+//
+{% endblock %}
+
+{% block contents %}
+
+import uvm_pkg::*;
+import {{name}}_test_pkg::*;
+
+module hvl_top;
+
+initial run_test();
+
+endmodule
+
+{% endblock %}
+

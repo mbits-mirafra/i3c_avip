@@ -1,0 +1,152 @@
+{% set fname = "project_benches/{{name}}/tb/sequences/src/{{name}}_bench_sequence_base.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} Simulation Bench 
+// Unit            : Bench Sequence Base
+// File            : {{name}}_bench_sequence_base.svh
+//----------------------------------------------------------------------
+//
+// Description: This file contains the top level and utility sequences
+//     used by test_top. It can be extended to create derivative top
+//     level sequences.
+//
+//----------------------------------------------------------------------
+//
+{% endblock %}
+
+{% block contents %}
+
+class {{name}}_bench_sequence_base extends uvmf_sequence_base #(uvm_sequence_item);
+
+  `uvm_object_utils( {{name}}_bench_sequence_base );
+
+  // Instantiate sequences here
+{% for bfm in bfms %}
+typedef {{bfm.ifPkg}}_random_sequence {% if bfm.parameters|length > 0 %}#({% endif %}{% for param in bfm.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if bfm.parameters|length > 0 %}) {% endif %} {{bfm.name}}_random_seq_t;
+{{bfm.name}}_random_seq_t {{bfm.name}}_random_seq;
+
+{% endfor %}
+
+  // Sequencer handles for each active interface in the environment
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+typedef {{bfm.ifPkg}}_transaction {% if bfm.parameters|length > 0 %}#({% endif %}{% for param in bfm.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if bfm.parameters|length > 0 %}) {% endif %} {{bfm.name}}_transaction_t;
+uvm_sequencer #({{bfm.name}}_transaction_t)  {{bfm.name}}_sequencer; 
+{% endif %}
+{% endfor %}
+
+// Sequencer handles for each QVIP interface
+{% for agent in qvip_bfms %}
+mvc_sequencer {{agent.name}}_sqr;
+{% endfor %}
+
+// Configuration handles to access interface BFM's
+{% for bfm in bfms %}
+{{bfm.ifPkg}}_configuration  {% if bfm.parameters|length > 0 %}#({% endif %}{% for param in bfm.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if bfm.parameters|length > 0 %}) {% endif %} {{bfm.name}}_config;
+{% endfor %}
+
+
+
+{% if veloceReady %}
+
+  //variable: clk_ctrl
+  //Clock Proxy Object used to control the Clock
+  // Must be extended clock_ctrl object and not clock_ctrl_base because
+  // bfm is set here.  Usage elsewhere in testbench can just use a
+  // clock_ctrl_base handle.
+  clock_ctrl_base clk_ctrl;
+  
+  //variable: reset_ctrl
+  //Reset Proxy Object used to control Reset
+  // Must be extended reset_ctrl object and not reset_ctrl_base because bfm
+  // is set here.  Usage elsewhere in testbench can just use a reset_ctrl_base
+  // handle
+  reset_ctrl_base reset_ctrl;
+
+{% endif %}
+
+// ****************************************************************************
+  function new( string name = "" );
+     super.new( name );
+
+  // Retrieve the configuration handles from the uvm_config_db
+{% for bfm in bfms %}
+if( !uvm_config_db #( {{bfm.ifPkg}}_configuration {% if bfm.parameters|length > 0 %}#({% endif %}{% for param in bfm.parameters %}.{{param.name}}({{param.value}}){% if not loop.last %},{% endif %}{% endfor %}{% if bfm.parameters|length > 0 %}) {% endif %})::get( null , UVMF_CONFIGURATIONS , {{bfm.ifPkg}}_pkg_{{bfm.name}}_BFM , {{bfm.name}}_config ) ) 
+`uvm_error("Config Error" , "uvm_config_db #( {{bfm.ifPkg}}_configuration )::get cannot find resource {{bfm.ifPkg}}_pkg_{{bfm.name}}_BFM" )
+{% endfor %}
+
+  // Retrieve the sequencer handles from the uvm_config_db
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+if( !uvm_config_db #( uvm_sequencer #({{bfm.name}}_transaction_t) )::get( null , UVMF_SEQUENCERS , {{bfm.ifPkg}}_pkg_{{bfm.name}}_BFM , {{bfm.name}}_sequencer ) ) 
+`uvm_error("Config Error" , "uvm_config_db #( uvm_sequencer #({{bfm.ifPkg}}_transaction) )::get cannot find resource {{bfm.ifPkg}}_pkg_{{bfm.name}}_BFM" ) 
+{% endif %}
+{% endfor %}
+
+  // Retrieve QVIP sequencer handles from the uvm_config_db
+{% for agent in qvip_bfms %}
+{% if  agent.activity == 'ACTIVE' %}
+if( !uvm_config_db #(mvc_sequencer)::get( null,UVMF_SEQUENCERS,"{{agent.name}}", {{agent.name}}_sqr) ) 
+`uvm_error("Config Error" , "uvm_config_db #( mvc_sequencer )::get cannot find resource {{agent.name}}" ) 
+{% endif %}
+{% endfor %}
+
+{% if veloceReady %}
+      if ( !uvm_config_db #( clock_ctrl_base )::get(null,UVMF_CLOCK_APIS, CLOCK_CONTROLLER, clk_ctrl) ) begin
+         `uvm_error("Config Error" , "uvm_config_db #( clock_ctrl )::get cannot find resource CLOCK_CONTROLLER" )
+      end
+
+      if ( !uvm_config_db #(reset_ctrl_base )::get(null, UVMF_RESET_APIS, RESET_CONTROLLER, reset_ctrl) ) begin
+         `uvm_error("Config Error" , "uvm_config_db #( sync_reset_ctrl )::get cannot find resource RESET_CONTROLLER" )
+      end
+{% endif %}
+
+
+  endfunction
+
+
+// ****************************************************************************
+  virtual task body();
+
+  // Construct sequences here
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+   {{bfm.name}}_random_seq     = {{bfm.name}}_random_seq_t::type_id::create("{{bfm.name}}_random_seq");
+{% endif %}
+{% endfor %}
+
+  // Start sequences here
+   fork
+{% for bfm in bfms %}
+{% if  bfm.activity == 'ACTIVE' %}
+       repeat (25) {{bfm.name}}_random_seq.start({{bfm.name}}_sequencer);
+{% endif %}
+{% endfor %}
+   join_none
+
+{% if veloceReady %}
+
+    clk_ctrl.wait_clocks(400);
+
+{% else %}
+
+   // UVMF_CHANGE_ME : Extend the simulation XXX number of clocks after 
+   // the last sequence to allow for the last sequence item to flow 
+   // through the design.
+
+{% for bfm in bfms %}
+{{bfm.name}}_config.wait_for_num_clocks(400);
+{% endfor %}
+
+{% endif %}
+
+
+
+  endtask
+
+endclass
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% set fname = "{{bench_location}}/{{name}}/sim/top.compile" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+needs:
+{% if qvip_pkg_env_variables|length >0 %}
+  - qvip.compile
+{% endif %}
+  - hvl.compile
+  - hdl.compile
+{% endblock %}

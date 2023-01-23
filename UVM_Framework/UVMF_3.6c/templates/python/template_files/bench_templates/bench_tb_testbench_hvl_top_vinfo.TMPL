@@ -1,0 +1,7 @@
+{% set fname = "project_benches/{{name}}/tb/testbench/hvl_top.vinfo" %}
+
+{% block contents %}
++incdir+@vinfodir
+@use ../tests/{{name}}_test_pkg.vinfo
+hvl_top.sv
+{% endblock %}

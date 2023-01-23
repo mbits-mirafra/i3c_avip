@@ -1,0 +1,12 @@
+{% set fname = "{{vip_location}}/{{environment_location}}/{{name}}_env_pkg/{{name}}_environment_mtlb_prep.sh" %}
+{% set conditional = "mtlbReady" %}
+{% set isExecutable = True %}
+#----------------------------------------------------------------------
+#     
+# DESCRIPTION: This script replaces base files with mtlb flow files
+#
+#----------------------------------------------------------------------
+{% for acName in acTypes %}
+cp -f {{src_dir}}{{acName}}_mtlb.svh {{src_dir}}{{acName}}.svh
+{% endfor %}
+cp -f {{name}}_env_pkg_mtlb.sv {{name}}_env_pkg.sv

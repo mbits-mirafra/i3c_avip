@@ -1,0 +1,28 @@
+uvmf:
+  benches:
+    gpio_example:
+      active_passive:
+      - bfm_name: gpio_a
+        value: ACTIVE
+      - bfm_name: gpio_b
+        value: ACTIVE
+      clock_half_period: 6ns
+      clock_phase_offset: 21ns
+      existing_library_component: 'True'
+      interface_params:
+      - bfm_name: gpio_a
+        value:
+        - name: WRITE_PORT_WIDTH
+          value: '32'
+        - name: READ_PORT_WIDTH
+          value: '16'
+      - bfm_name: gpio_b
+        value:
+        - name: WRITE_PORT_WIDTH
+          value: '16'
+        - name: READ_PORT_WIDTH
+          value: '32'
+      reset_assertion_level: 'True'
+      reset_duration: 250ns
+      top_env: gpio_example
+      use_dpi_link: 'False'

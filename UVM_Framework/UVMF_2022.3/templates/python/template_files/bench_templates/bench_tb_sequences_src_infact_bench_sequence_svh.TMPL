@@ -1,0 +1,84 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/sequences/{{src_dir}}infact_{{name}}_bench_sequence_base.svh" %}
+{% set conditional = "infact_enabled" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//                                          
+// DESCRIPTION: This file contains the infact sequence for generating 
+//    all specified scenarios without redundancy.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+class infact_{{name}}_bench_sequence_base extends {{name}}_bench_sequence_base;
+
+  `uvm_object_utils( infact_{{name}}_bench_sequence_base );
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+
+  function new(string name = "infact_{{name}}_bench_sequence" );
+    super.new(name);
+  endfunction
+
+{% for bfm in bfms %}
+{% if bfm.activity == 'ACTIVE' and bfm.inFactReady == 'True' %}
+  infact_{{bfm.name}}_{{bfm.ifPkg}}_transaction_gen {{bfm.name}}_gen;
+{% endif %}{% endfor %}
+  bit seq_cov_active[string];
+
+  virtual task pre_body();
+{% for bfm in bfms %}
+{% if bfm.activity == 'ACTIVE' and bfm.inFactReady == 'True' %}
+    {{bfm.name}}_gen = new({get_full_name(), "_{{bfm.name}}_gen"});
+{% endif %}{% endfor %}
+  endtask
+
+  virtual task body();
+{% for bfm in bfms %}
+{% if bfm.activity == 'ACTIVE' and bfm.inFactReady == 'True' %}
+    seq_cov_active["{{bfm.name}}"] = 1;
+{% endif %}{% endfor %}
+    fork
+{% for bfm in bfms %}
+{% if bfm.activity == 'ACTIVE' and bfm.inFactReady == 'True' %}
+      {{bfm.name}}_gen_traffic();
+{% endif %}{% endfor %}
+    join
+  endtask
+
+{% for bfm in bfms %}
+{% if bfm.activity == 'ACTIVE' and bfm.inFactReady == 'True' %}
+  virtual task {{bfm.name}}_gen_traffic();
+    // First, run to coverage
+    while (1) begin
+      {{bfm.name}}_gen_item();
+      if ({{bfm.name}}_gen.allCoverageGoalsHaveBeenMet()) begin
+        break;
+      end
+    end
+    seq_cov_active.delete("{{bfm.name}}");
+    // Keep generating transactions until other sequences end
+    while (seq_cov_active.size() > 0) begin
+      {{bfm.name}}_gen_item();
+    end
+  endtask
+
+  virtual task {{bfm.name}}_gen_item();
+    {{bfm.name}}_base_seq_t seq = {{bfm.name}}_base_seq_t::type_id::create();
+    {{bfm.name}}_{{bfm.ifPkg}}_transaction txn = {{bfm.name}}_{{bfm.ifPkg}}_transaction::type_id::create();
+    {{bfm.name}}_gen.ifc_fill(txn);
+    seq.req = txn;
+    seq.start({{bfm.name}}_sequencer);
+  endtask
+{% endif %}{% endfor %}
+
+endclass
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

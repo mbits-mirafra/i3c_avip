@@ -1,0 +1,82 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_if.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: This interface contains the {{name}} interface signals.
+//      It is instantiated once per {{name}} bus.  Bus Functional Models, 
+//      BFM's named {{name}}_driver_bfm, are used to drive signals on the bus.
+//      BFM's named {{name}}_monitor_bfm are used to monitor signals on the 
+//      bus. This interface signal bundle is passed in the port list of
+//      the BFM in order to give the BFM access to the signals in this
+//      interface.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+// This template can be used to connect a DUT to these signals
+//
+{% for sig in sigs %}
+// .dut_signal_port({{name}}_bus.{{sig.name}}), // Agent {{sig.dir}} 
+{% endfor %}
+
+import uvmf_base_pkg_hdl::*;
+import {{name}}_pkg_hdl::*;
+
+interface  {{name}}_if {{macro.paramDeclare(paramDefs)|indent(2)}}
+
+  (
+  input tri {{clock}}, 
+  input tri {{reset}}{% if sigs|length > 0 %},{% endif %}
+
+{% for sig in sigs %}
+  inout tri {{sig.vector}} {{sig.name}}{{macro.commalist(loop)}}
+{%- endfor %}
+
+  );
+
+modport monitor_port 
+  (
+  input {{clock}},
+  input {{reset}}{% if sigs|length > 0 %},{% endif %}
+
+{% for sig in sigs %}
+  input {{sig.name}}{{macro.commalist(loop)}}
+{%- endfor %}
+
+  );
+
+modport initiator_port 
+  (
+  input {{clock}},
+  input {{reset}}{% if sigs|length > 0 %},{% endif %}
+
+{% for sig in sigs %}
+  {{sig.dir}} {{sig.name}}{{macro.commalist(loop)}}
+{%- endfor %}
+
+  );
+
+modport responder_port 
+  (
+  input {{clock}},
+  input {{reset}}{% if sigs|length > 0 %},{% endif %}
+  
+{% for sig in sigs %}
+  {% if sig.dir == "input" %}output{% elif sig.dir == "output" %}input{% else %}inout{% endif %} {{sig.name}}{{macro.commalist(loop)}}
+{%- endfor %}
+
+  );
+  
+
+// pragma uvmf custom interface_item_additional begin
+// pragma uvmf custom interface_item_additional end
+
+endinterface
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{name}}_interface_mtlb_prep.sh" %}
+{% set conditional = "mtlbReady" %}
+{% set isExecutable = True %}
+#----------------------------------------------------------------------
+#
+# DESCRIPTION: This script  replaces base files with mtlb flow files
+#
+#----------------------------------------------------------------------
+cp -f {{src_dir}}{{name}}_DPI_stimgen_sequence_mtlb.svh {{src_dir}}{{name}}_DPI_stimgen_sequence.svh
+cp -f {{src_dir}}{{name}}_driver_bfm_mtlb.sv {{src_dir}}{{name}}_driver_bfm.sv
+cp -f {{src_dir}}{{name}}_if_mtlb.sv {{src_dir}}{{name}}_if.sv
+cp -f {{src_dir}}{{name}}_monitor_bfm_mtlb.sv {{src_dir}}{{name}}_monitor_bfm.sv
+cp -f {{src_dir}}{{name}}_read_from_file_sequence_mtlb.svh {{src_dir}}{{name}}_read_from_file_sequence.svh
+cp -f {{src_dir}}{{name}}_transaction_coverage_mtlb.svh {{src_dir}}{{name}}_transaction_coverage.svh
+cp -f {{src_dir}}{{name}}_transaction_mtlb.svh {{src_dir}}{{name}}_transaction.svh
+cp -f {{src_dir}}{{name}}_sequence_base_mtlb.svh {{src_dir}}{{name}}_sequence_base.svh
+cp -f {{name}}_pkg_mtlb.sv {{name}}_pkg.sv 

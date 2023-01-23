@@ -1,0 +1,150 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_macros.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: This file contains macros used with the {{name}} package.
+//   These macros include packed struct definitions.  These structs are
+//   used to pass data between classes, hvl, and BFM's, hdl.  Use of 
+//   structs are more efficient and simpler to modify.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+
+{% block contents %}
+
+// ****************************************************************************
+// When changing the contents of this struct, be sure to update the to_struct
+//      and from_struct methods defined in the macros below that are used in  
+//      the {{name}}_configuration class.
+//
+{% if veloceReady %}
+  `define {{name}}_CONFIGURATION_STRUCT \
+typedef struct packed  { \
+{% for config in configVars %}
+     {{config.type}} {{config.name}};\
+{% endfor %}
+     uvmf_active_passive_t active_passive; \
+     uvmf_initiator_responder_t initiator_responder; \
+     } {{name}}_configuration_s;
+
+  `define {{name}}_CONFIGURATION_TO_STRUCT_FUNCTION \
+  virtual function {{name}}_configuration_s to_struct();\
+    {{name}}_configuration_struct = \
+       {\
+{% for config in configVars %}
+       this.{{config.name}},\
+{% endfor %}
+       this.active_passive,\
+       this.initiator_responder\
+       };\
+    return ( {{name}}_configuration_struct );\
+  endfunction
+
+  `define {{name}}_CONFIGURATION_FROM_STRUCT_FUNCTION \
+  virtual function void from_struct({{name}}_configuration_s {{name}}_configuration_struct);\
+      {\
+{% for config in configVars %}
+      this.{{config.name}},\
+{% endfor %}
+      this.active_passive,\
+      this.initiator_responder  \
+      } = {{name}}_configuration_struct;\
+  endfunction
+
+// ****************************************************************************
+// When changing the contents of this struct, be sure to update the to_monitor_struct
+//      and from_monitor_struct methods of the {{name}}_transaction class.
+//
+  `define {{name}}_MONITOR_STRUCT typedef struct packed  { \
+{% for txn in transVars %}
+  {{txn.type}} {{txn.name}} {{txn.unpackedDim}}; \
+{% endfor %}
+     } {{name}}_monitor_s;
+
+  `define {{name}}_TO_MONITOR_STRUCT_FUNCTION \
+  virtual function {{name}}_monitor_s to_monitor_struct();\
+    {{name}}_monitor_struct = \
+            { \
+{% for txn in transVars %}
+            this.{{txn.name}} {{txn.unpackedDim}}{{macro.commalist(loop,", \\"," \\")}}
+{% endfor %}
+            };\
+    return ( {{name}}_monitor_struct);\
+  endfunction\
+
+  `define {{name}}_FROM_MONITOR_STRUCT_FUNCTION \
+  virtual function void from_monitor_struct({{name}}_monitor_s {{name}}_monitor_struct);\
+            {\
+{% for txn in transVars %}
+            this.{{txn.name}} {{txn.unpackedDim}}{{macro.commalist(loop,", \\"," \\")}}
+{% endfor %}
+            } = {{name}}_monitor_struct;\
+  endfunction
+
+// ****************************************************************************
+// When changing the contents of this struct, be sure to update the to_initiator_struct
+//      and from_initiator_struct methods of the {{name}}_transaction class.
+//      Also update the comments in the driver BFM.
+//
+  `define {{name}}_INITIATOR_STRUCT typedef struct packed  { \
+{% for txn in transVars %}
+  {{txn.type}} {{txn.name}} {{txn.unpackedDim}}; \
+{% endfor %}
+     } {{name}}_initiator_s;
+
+  `define {{name}}_TO_INITIATOR_STRUCT_FUNCTION \
+  virtual function {{name}}_initiator_s to_initiator_struct();\
+    {{name}}_initiator_struct = \
+           {\
+{% for txn in transVars %}
+           this.{{txn.name}} {{txn.unpackedDim}}{{macro.commalist(loop,", \\"," \\")}}
+{% endfor %}
+           };\
+    return ( {{name}}_initiator_struct);\
+  endfunction
+
+  `define {{name}}_FROM_INITIATOR_STRUCT_FUNCTION \
+  virtual function void from_initiator_struct({{name}}_initiator_s {{name}}_initiator_struct);\
+           {\
+{% for txn in transVars %}
+           this.{{txn.name}} {{txn.unpackedDim}}{{macro.commalist(loop,", \\"," \\")}}
+{% endfor %}
+           } = {{name}}_initiator_struct;\
+  endfunction
+
+// ****************************************************************************
+// When changing the contents of this struct, be sure to update the to_responder_struct
+//      and from_responder_struct methods of the {{name}}_transaction class.
+//      Also update the comments in the driver BFM.
+//
+  `define {{name}}_RESPONDER_STRUCT typedef struct packed  { \
+{% for txn in transVars %}
+  {{txn.type}} {{txn.name}} {{txn.unpackedDim}}; \
+{% endfor %}
+     } {{name}}_responder_s;
+
+  `define {{name}}_TO_RESPONDER_STRUCT_FUNCTION \
+  virtual function {{name}}_responder_s to_responder_struct();\
+    {{name}}_responder_struct = \
+           {\
+{% for txn in transVars %}
+           this.{{txn.name}} {{txn.unpackedDim}}{{macro.commalist(loop,", \\"," \\")}}
+{% endfor %}
+           };\
+    return ( {{name}}_responder_struct);\
+  endfunction
+
+  `define {{name}}_FROM_RESPONDER_STRUCT_FUNCTION \
+  virtual function void from_responder_struct({{name}}_responder_s {{name}}_responder_struct);\
+           {\
+{% for txn in transVars %}
+           this.{{txn.name}} {{txn.unpackedDim}}{{macro.commalist(loop,", \\"," \\")}}
+{% endfor %}
+           } = {{name}}_responder_struct;\
+  endfunction
+{% endif %}
+// pragma uvmf custom additional begin
+// pragma uvmf custom additional end
+{% endblock %}

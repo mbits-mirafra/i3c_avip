@@ -1,0 +1,3 @@
+needs:
+  - i3c_m_hvl.compile
+  - i3c_m_hdl.compile

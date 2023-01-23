@@ -1,0 +1,18 @@
+uvmf:
+  util_components:
+    wb2spi_predictor:
+      analysis_exports:
+      - name: wb_ae
+        type: 'wb_transaction #(.WB_DATA_WIDTH(WB_DATA_WIDTH), .WB_ADDR_WIDTH(WB_ADDR_WIDTH))'
+      analysis_ports:
+      - name: wb2spi_sb_ap
+        type: spi_transaction
+      existing_library_component: 'True'
+      parameters:
+      - name: WB_DATA_WIDTH
+        type: int
+        value: '16'
+      - name: WB_ADDR_WIDTH
+        type: int
+        value: '32'
+      type: predictor

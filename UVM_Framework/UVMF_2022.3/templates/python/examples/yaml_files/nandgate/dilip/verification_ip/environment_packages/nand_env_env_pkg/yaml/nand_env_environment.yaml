@@ -1,0 +1,38 @@
+uvmf:
+  environments:
+    nand_env:
+      agents:
+      - initiator_responder: INITIATOR
+        name: nand_in_agent
+        type: nand_in
+      - initiator_responder: RESPONDER
+        name: nand_out_agent
+        type: nand_out
+      analysis_components:
+      - name: nand_pred
+        parameters: []
+        type: nand_predictor
+      - name: nand_sco
+        parameters: []
+        type: nand_scoreboard
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_vars: []
+      existing_library_component: 'True'
+      hvl_pkg_parameters: []
+      non_uvmf_components: []
+      parameters: []
+      qvip_memory_agents: []
+      scoreboards: []
+      subenvs: []
+      tlm_connections:
+      - driver: nand_in_agent.monitored_ap
+        receiver: nand_pred.nand_in_agent_ae
+        validate: 'True'
+      - driver: nand_pred.nand_sco_ap
+        receiver: nand_sco.nand_out_pred_sb_ae
+        validate: 'True'
+      - driver: nand_out_agent.monitored_ap
+        receiver: nand_sco.nand_out_ag_sb_ae
+        validate: 'True'

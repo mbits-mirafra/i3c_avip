@@ -1,0 +1,113 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_read_from_file_sequence_mtlb.svh" %}
+{% set conditional = "mtlbReady" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+// Generated for MTLB flow
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface stimulus generation from file sequence
+// File            : {{name}}_read_from_file_sequence.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This sequences uses input files to generate stimulus values and sends it 
+// to the UVM driver.
+//
+// ****************************************************************************
+// This sequence constructs a {{name}}_transaction and uses file input to create stimulus values.
+// 
+class {{name}}_read_from_file_sequence {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}} = {{param.value}}{% if not loop.last %},{% endif %}                                
+{% endfor %}      )
+{% endif %}
+extends {{name}}_DPI_stimgen_sequence {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                             .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %};
+
+{%if paramDefs|length > 0%}
+  `uvm_object_param_utils( {{name}}_read_from_file_sequence #(
+  {% for param in paramDefs %}                         {{param.name}}{% if not loop.last %},{% endif %}
+
+  {% endfor %}                          ))
+{% else %}
+  `uvm_object_utils({{name}}_read_from_file_sequence)
+{% endif %}
+
+{% for txn in transVars %}
+  integer {{txn.name}}_file;
+{% endfor %}
+
+//*****************************************************************
+  function new(string name = "");
+    super.new(name);
+  endfunction: new
+
+//*****************************************************************
+function void open_files();
+{% for txn in transVars %}
+  {{txn.name}}_file = $fopen("{{txn.name}}", "r");
+{% endfor %}
+endfunction
+
+//*****************************************************************
+function void close_files();
+{% for txn in transVars %}
+  $fclose({{txn.name}}_file);
+{% endfor %}
+endfunction
+
+// ****************************************************************************
+// TASK : body()
+// This task is automatically executed when this sequence is started using the 
+// start(sequencerHandle) task.
+//
+  task body();
+
+    begin
+    int status;
+
+    if ( cycles_to_run == 0) begin
+       forever begin
+{% for txn in transVars %}
+{% if loop.first %}
+          status = $fscanf({{txn.name}}_file, "%d\n", req.{{txn.name}});
+          if ( status != 1 ) begin
+              close_files();
+              open_files();
+               status = $fscanf({{txn.name}}_file, "%d\n", req.{{txn.name}});
+          end
+{% else %}
+          status =  $fscanf({{txn.name}}_file, "%d\n", req.{{txn.name}});
+{% endif %}{% endfor %}
+        end
+    end else begin
+        repeat (cycles_to_run) begin
+{% for txn in transVars %}
+{% if loop.first %}
+          status = $fscanf({{txn.name}}_file, "%d\n", req.{{txn.name}});
+          if ( status != 1 ) begin
+              close_files();
+              open_files();
+               status = $fscanf({{txn.name}}_file, "%d\n", req.{{txn.name}});
+          end
+{% else %}
+           status = $fscanf({{txn.name}}_file, "%d\n", req.{{txn.name}});
+{% endif %}{% endfor %}
+        end
+    end
+
+      start_item(req);
+      finish_item(req);
+    end
+
+  endtask: body
+
+endclass: {{name}}_read_from_file_sequence
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

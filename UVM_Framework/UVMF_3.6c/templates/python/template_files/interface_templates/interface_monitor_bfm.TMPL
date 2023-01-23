@@ -1,0 +1,158 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_monitor_bfm.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface Monitor BFM
+// File            : {{name}}_monitor_bfm.sv
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: This interface performs the {{name}} signal monitoring.
+//      It is accessed by the uvm {{name}} monitor through a virtual
+//      interface handle in the {{name}} configuration.  It monitors the
+//      signals passed in through the port connection named bus of
+//      type {{name}}_if.
+//
+//     Input signals from the {{name}}_if are assigned to an internal input
+//     signal with a _i suffix.  The _i signal should be used for sampling.
+//
+//     The input signal connections are as follows:
+//       bus.signal -> signal_i 
+//
+//      Interface functions and tasks used by UVM components:
+//             monitor(inout TRANS_T txn);
+//                   This task receives the transaction, txn, from the
+//                   UVM monitor and then populates variables in txn
+//                   from values observed on bus activity.  This task
+//                   blocks until an operation on the {{name}} bus is complete.
+//
+// ****************************************************************************
+// ****************************************************************************
+{% endblock %}
+
+{% block contents %}
+import uvmf_base_pkg_hdl::*;
+import {{name}}_pkg_hdl::*;
+{% if not veloceReady %}
+import {{name}}_pkg::*;
+{% endif %}
+
+interface {{name}}_monitor_bfm( {{name}}_if bus );
+{% if veloceReady %}
+// pragma attribute {{name}}_monitor_bfm partition_interface_xif                                  
+{% endif %}
+
+
+   tri        {{clock}}_i;
+   tri        {{reset}}_i;
+{% for sig in sigs %}
+   tri        {{sig.vector}} {{sig.name}}_i;
+{% endfor %}
+
+   assign     {{clock}}_i    =   bus.{{clock}};
+   assign     {{reset}}_i    =   bus.{{reset}};
+{% for sig in sigs %}
+   assign     {{sig.name}}_i = bus.{{sig.name}};
+{% endfor %}
+
+  {{name}}_pkg::{{name}}_monitor proxy; // pragma tbx oneway proxy.notify_transaction                 
+
+//******************************************************************                         
+{% if veloceReady %}
+   task wait_for_reset(); // pragma tbx xtf                                                  
+{% else %}
+   task wait_for_reset();
+{% endif %}
+      @(posedge {{clock}}_i) ;                                                                    
+      do_wait_for_reset();                                                                   
+   endtask                                                                                   
+
+// ****************************************************************************              
+   task do_wait_for_reset();                                                                 
+      wait ( {{reset}}_i == 1 ) ;                                                              
+      @(posedge {{clock}}_i) ;                                                                    
+   endtask    
+   
+//******************************************************************                         
+{% if veloceReady %}
+   task wait_for_num_clocks( input int unsigned count); // pragma tbx xtf                           
+{% else %}
+   task wait_for_num_clocks( input int unsigned count);
+{% endif %}
+      @(posedge {{clock}}_i);                                                                     
+      repeat (count-1) @(posedge {{clock}}_i);                                                    
+   endtask      
+
+//******************************************************************                         
+  event go;                                                                                 
+  function void start_monitoring(); // pragma tbx xtf                                                  
+     -> go;                                                                                 
+  endfunction                                                                               
+  
+  // ****************************************************************************              
+  initial begin                                                                             
+     @go;                                                                                   
+     forever begin                                                                          
+{% for txn in transVars %}
+        {{txn.type}} {{txn.name}};
+{% endfor %}
+        @(posedge {{clock}}_i);                                                                   
+
+        do_monitor(
+{% for txn in transVars %}
+                   {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+                  );
+        proxy.notify_transaction(
+{% for txn in transVars %}
+                   {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+                                );     
+     end                                                                                    
+  end                                                                                       
+
+//******************************************************************
+   function void configure(
+{% if veloceReady %}
+          uvmf_active_passive_t active_passive,
+          uvmf_master_slave_t   master_slave
+{% for config in configVars %}
+          ,{{config.type}} {{config.name}}
+{% endfor %}
+); // pragma tbx xtf
+   // The above pragma is for running this BFM on Veloce
+{% else %}
+          {{name}}_configuration cfg
+); 
+{% endif %}
+
+   endfunction
+
+
+// ****************************************************************************              
+     task do_monitor(
+{% for txn in transVars %}
+                   output {{txn.type}} {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+                    );
+// UVMF_CHANGE_ME : Implement protocol monitoring.
+
+        if ( {{reset}}_i ) begin                                                                
+           do_wait_for_reset();                                                                
+           @(posedge {{clock}}_i);
+        end                                                                                    
+        else begin                                                                             
+           @(posedge {{clock}}_i);
+           @(posedge {{clock}}_i);
+           @(posedge {{clock}}_i);
+           @(posedge {{clock}}_i);
+        end                                                                                    
+     endtask         
+  
+endinterface
+{% endblock %}

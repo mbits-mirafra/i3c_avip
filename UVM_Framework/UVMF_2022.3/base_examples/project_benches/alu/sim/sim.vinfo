@@ -1,0 +1,3 @@
++incdir+@vinfodir
+@use ../tb/testbench/hdl_top.vinfo
+@use ../tb/testbench/hvl_top.vinfo

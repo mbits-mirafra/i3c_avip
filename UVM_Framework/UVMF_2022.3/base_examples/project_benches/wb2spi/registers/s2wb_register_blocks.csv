@@ -1,0 +1,5 @@
+Block Name,Block Description,Block Component Name,Block Instance Name,BlockMap Name,BlockMap is default,BlockMap Instance Name,BlockMap Instance Address,BlockMap Instance Access
+swb_reg_block,Serial Peripheral Control Register,SPCR,m_SPCR,swb_map,TRUE,m_SPCR,0x0,RW
+swb_reg_block,Serial Peripheral Status Register,SPSR,m_SPSR,swb_map,,m_SPSR,0x1,RW
+swb_reg_block,Serial Peripheral Data Register,SPDR,m_SPDR,swb_map,,m_SPDR,0x2,RW
+swb_reg_block,Serial Peripheral Extension Register,SPER,m_SPER,swb_map,,m_SPER,0x3,RW

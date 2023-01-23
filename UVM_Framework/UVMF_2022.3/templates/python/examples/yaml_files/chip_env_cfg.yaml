@@ -1,0 +1,41 @@
+# The chip environment instantiates two sub-environments - one "block_a" and one of type "block_b"
+uvmf:
+  environments:
+    "chip" :
+      ## Parameters for the environment
+      parameters:
+        - name: "CHIP_CP_IN_DATA_WIDTH" 
+          type: "int"
+          value: "20"
+        - name: "CHIP_CP_IN_ADDR_WIDTH" 
+          type: "int"
+          value: "10"
+        - name: "CHIP_CP_OUT_ADDR_WIDTH"
+          type: "int"
+          value: "25"
+        - name: "CHIP_UDP_DATA_WIDTH"   
+          type: "int"
+          value: "40"
+      ## Declare subenvironments. Parameterized sub-environments (such as block_b shown here)
+      ## may require that their parameters be defined here.
+      subenvs :
+        - name: "block_a_env"
+          type: "block_a"
+        - name: "block_b_env"
+          type: "block_b"
+          parameters:
+            - name: "CP_IN_DATA_WIDTH" 
+              value: "CHIP_CP_IN_DATA_WIDTH" 
+            - name: "CP_IN_ADDR_WIDTH" 
+              value: "CHIP_CP_IN_ADDR_WIDTH" 
+            - name: "CP_OUT_ADDR_WIDTH"
+              value: "CHIP_CP_OUT_ADDR_WIDTH"
+            - name: "UDP_DATA_WIDTH"   
+              value: "CHIP_UDP_DATA_WIDTH"   
+      ## One of the sub-envs (block_b) contains a register model that needs to be
+      ## available at the chip level. The following YAML triggers the generation of
+      ## code that will make that happen even though there is no chip-level interaction
+      ## with that register model.
+      register_model:
+        use_adapter: "False"
+        use_explicit_prediction: "False"

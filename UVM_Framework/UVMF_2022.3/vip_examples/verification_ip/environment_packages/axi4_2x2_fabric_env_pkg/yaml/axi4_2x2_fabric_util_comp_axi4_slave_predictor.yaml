@@ -1,0 +1,35 @@
+uvmf:
+  util_components:
+    axi4_slave_predictor:
+      analysis_ports:
+      - name: axi4_m1_ap
+        type: axi4_master_rw_transaction #(.AXI4_ADDRESS_WIDTH(mgc_axi4_m1_params::AXI4_ADDRESS_WIDTH),.AXI4_RDATA_WIDTH(mgc_axi4_m1_params::AXI4_RDATA_WIDTH),.AXI4_WDATA_WIDTH(mgc_axi4_m1_params::AXI4_WDATA_WIDTH),.AXI4_ID_WIDTH(mgc_axi4_m1_params::AXI4_ID_WIDTH),.AXI4_USER_WIDTH(mgc_axi4_m1_params::AXI4_USER_WIDTH),.AXI4_REGION_MAP_SIZE(mgc_axi4_m1_params::AXI4_REGION_MAP_SIZE))
+      - name: axi4_m0_ap
+        type: axi4_master_rw_transaction #(.AXI4_ADDRESS_WIDTH(mgc_axi4_m0_params::AXI4_ADDRESS_WIDTH),.AXI4_RDATA_WIDTH(mgc_axi4_m0_params::AXI4_RDATA_WIDTH),.AXI4_WDATA_WIDTH(mgc_axi4_m0_params::AXI4_WDATA_WIDTH),.AXI4_ID_WIDTH(mgc_axi4_m0_params::AXI4_ID_WIDTH),.AXI4_USER_WIDTH(mgc_axi4_m0_params::AXI4_USER_WIDTH),.AXI4_REGION_MAP_SIZE(mgc_axi4_m0_params::AXI4_REGION_MAP_SIZE))
+      existing_library_component: 'True'
+      parameters:
+      - name: AXI4_ADDRESS_WIDTH
+        type: int
+        value: '32'
+      - name: AXI4_RDATA_WIDTH
+        type: int
+        value: '32'
+      - name: AXI4_WDATA_WIDTH
+        type: int
+        value: '32'
+      - name: AXI4_ID_WIDTH
+        type: int
+        value: '5'
+      - name: AXI4_USER_WIDTH
+        type: int
+        value: '4'
+      - name: AXI4_REGION_MAP_SIZE
+        type: int
+        value: '16'
+      qvip_analysis_exports:
+      - name: axi4_ae
+        type: "axi4_master_rw_transaction \n      #(.AXI4_ADDRESS_WIDTH(AXI4_ADDRESS_WIDTH),\
+          \ \n        .AXI4_RDATA_WIDTH(AXI4_RDATA_WIDTH), \n        .AXI4_WDATA_WIDTH(AXI4_WDATA_WIDTH),\
+          \ \n        .AXI4_ID_WIDTH(AXI4_ID_WIDTH), \n        .AXI4_USER_WIDTH(AXI4_USER_WIDTH),\
+          \ \n        .AXI4_REGION_MAP_SIZE(AXI4_REGION_MAP_SIZE))"
+      type: predictor

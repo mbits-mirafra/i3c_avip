@@ -1,0 +1,7 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../../../verification_ip/environment_packages/axi4_2x2_fabric_env_pkg/axi4_2x2_fabric_env_pkg.compile
+  - ../parameters/axi4_2x2_fabric_parameters_pkg.compile
+  - ../sequences/axi4_2x2_fabric_sequences_pkg.compile
+src:
+  - axi4_2x2_fabric_tests_pkg.sv

@@ -1,0 +1,83 @@
+
+# This file defines all of the 'utility components' for the possible example YAML
+# example configurations. In general, these are predictors of various types, although
+# a type of 'coverage' is also supported. All utility components can contain any number
+# of analysis exports and analysis imports, each with a unique name and defined type.
+# The user will be responsible for filling out the internals of a predictor and 
+# producing write() calls on the analysis ports. For a coverage component the user will
+# need to define meaningful functional coverage content.
+
+# It is possible that the type of an analsyis port or export will be a parameterized
+# class. Be aware that type mismatches between the port type defined here and the connected
+# port could occur; the generator script does not carry out any checking at that level.
+
+uvmf:
+  util_components:
+    "block_a_predictor" :  
+      type: "predictor"
+      analysis_exports :
+        - name: "control_plane_in_ae"
+          type: "mem_transaction"
+        - name: "secure_data_plane_in_ae"
+          type: "pkt_transaction"
+      analysis_ports : 
+        - name: "control_plane_sb_ap"
+          type: "mem_transaction"
+        - name: "secure_data_plane_sb_ap"
+          type: "pkt_transaction"
+    "control_plane_predictor" :
+      type: "predictor"
+      parameters:
+        - name: "ae_mem_transaction_t"
+          type: "type"
+        - name: "ap_mem_transaction_t"
+          type: "type"
+      analysis_exports : 
+        - name: "control_plane_in_ae"
+          type: "ae_mem_transaction_t"
+      analysis_ports : 
+        - name: "control_plane_sb_ap"
+          type: "ap_mem_transaction_t"
+    "unsecure_data_plane_predictor" :
+      type: "predictor"
+      parameters:
+        - name: "control_plane_in_ae_t"
+          type: "type"
+        - name: "unsecure_data_plane_in_ae_t"
+          type: "type"
+        - name: "unsecure_data_plane_sb_ap_t"
+          type: "type"
+      analysis_exports :
+        - name: "control_plane_in_ae"
+          type: "control_plane_in_ae_t"
+        - name: "unsecure_data_plane_in_ae"
+          type: "unsecure_data_plane_in_ae_t"
+      analysis_ports:
+        - name: "unsecure_data_plane_sb_ap"
+          type: "unsecure_data_plane_sb_ap_t"
+    "block_c_predictor" :
+      type: predictor
+      analysis_exports:
+        - name: "mem_in_ae"
+          type: "mem_transaction"
+        - name: "axi4_master_1_ae"
+          type: "mvc_sequence_item_base"
+        - name: "axi4_master_0_ae"
+          type: "mvc_sequence_item_base"
+      analysis_ports:
+        - name: "pkt_sb_ap"
+          type: "pkt_transaction"
+        - name: "mem_sb_ap"
+          type: "mem_transaction"
+        - name: "apb3_config_master_ap"
+          type: "mvc_sequence_item_base"
+        - name: "axi4_slave_ap"
+          type: "mvc_sequence_item_base"
+    "block_a_coverage" :
+      type: coverage
+      analysis_exports:
+        - name: "control_plane_in_ae"
+          type: "mem_transaction"
+        - name: "secure_data_plane_in_ae"
+          type: "pkt_transaction"
+        

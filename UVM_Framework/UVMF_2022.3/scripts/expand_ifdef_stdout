@@ -1,0 +1,257 @@
+#!/usr/bin/perl
+#---------------------------------------------------------------------------
+# Copyright 2014 Mentor Graphics Corporation 
+#    All Rights Reserved 
+# 
+# THIS WORK CONTAINS TRADE SECRET 
+# AND PROPRIETARY INFORMATION WHICH IS THE 
+# PROPERTY OF MENTOR GRAPHICS 
+# CORPORATION OR ITS LICENSORS AND IS 
+# SUBJECT TO LICENSE TERMS. 
+# 
+#---------------------------------------------------------------------------
+#   WARRANTY:
+#   Use all material in this file at your own risk.  Mentor Graphics, Corp.
+#   makes no claims about any material contained in this file.
+#---------------------------------------------------------------------------
+# $Date: 2014-01-15 09:51:49 -0500 (Wed, 15 Jan 2014) $
+# $Revision: 989 $
+#---------------------------------------------------------------------------
+#
+{
+	$defarg = "+define";
+
+	while(@ARGV){
+		$a = shift(@ARGV);
+		if($a=~m/^\+define/){
+			$defarg = $a;
+		}
+		elsif($a=~m/^-/){
+			print STDERR "Error: bad option $a\n";
+			&usage;
+		}
+		elsif($a=~m/^\+/){
+			print STDERR "Error: bad plus option $a\n";
+			&usage;
+		}
+		elsif( $ifilename eq ""){
+			$ifilename=$a;
+			} else{
+				print STDERR "Error: unknown extra arg $a\n";
+				&usage;
+			}
+		}
+
+		if($ifilename eq ""){
+			print STDERR "Error: input file undefined.\n";
+			&usage;
+		}
+
+
+		foreach $x (split(/\+/,$defarg)){
+			$defined{$x}=1;
+		}
+
+		$linenumber=0;
+		if(!open(H_FILE,"<$ifilename")){
+			print STDERR "Error: could not open $ifilename for reading.";
+		}
+
+		$translate=1;
+		$mode="rm";
+		&scan_if;
+		close(H_FILE);
+	}
+
+	sub scan_if {
+		&dprint("Looking for any `ifdef\n");
+		while(1) {
+			$ln=&get_line;
+			if($line =~ m/^\s*`endif/){
+				print STDERR
+				"Error: unexpected `endif on line $linenumber";
+				exit(1);
+			}
+			if($line =~ m/^\s*`else/){
+				print STDERR
+				"Error: unexpected `else on line $linenumber";
+				exit(1);
+			}
+			if(!&parse_if($linenumber,1)){
+				&echo_line;
+			}
+			if(eof(H_FILE)){
+				return;
+			}
+		}
+	}
+
+	sub parse_if {
+		local($startln,$expand)=@_;
+		local($ifdef);
+		if($line=~m/^\s*`ifdef\s*(\S+)/){
+			&dprint("Found new `ifdef $expand\n");
+			if($defined{$1}){
+				$ifdef=1;
+				} else{
+					$ifdef=0;
+				}
+
+				if($expand){
+					&trans_off;
+					&echo_line;
+					if($ifdef){
+						&trans_on;
+					}
+					} else {
+						&echo_line;
+					}
+					&scan_else($startln,$ifdef,$expand);
+					return 1;
+					} elsif($line=~m/\s*`ifndef\s*(\S+)/){
+						&dprint("Found new `ifdef $expand\n");
+						if($defined{$1}){
+							$ifdef=0;
+							} else{
+								$ifdef=1;
+							}
+
+							if($expand){
+								&trans_off;
+								&echo_line;
+								if($ifdef){
+									&trans_on;
+								}
+								} else {
+									&echo_line;
+								}
+								&scan_else($startln,$ifdef,$expand);
+								return 1;
+								} else {
+									return 0;
+								}
+							}
+
+							sub parse_end {
+								local($startln,$ifdef,$expand)=@_;
+								if($line =~ m/^\s*`endif/){
+									&dprint("Found `endif $ifdef $expand\n");
+									if($expand && $ifdef){
+										&trans_off;
+										&echo_line;
+										&trans_on;
+									}
+									elsif($expand && !$ifdef){
+										&echo_line;
+										&trans_on;
+									}
+									else {
+										&echo_line;
+									}
+									return 1;
+								}
+								return 0;
+							}
+
+							sub scan_else {
+								local($startln,$ifdef,$expand) = @_;
+								local($ln);
+								&dprint("Scanning for `else or `endif $ifdef $expand\n");
+								while(1) {
+									$ln=&get_line;
+									if(&parse_end($linenumber,$ifdef,$expand)){
+										return;
+									}
+									if($line=~m/\s*`else/){
+										&dprint("Found `else $ifdef $expand\n");
+										if($expand && $ifdef){
+											&trans_off;
+											&echo_line;
+										}
+										elsif($expand && !$ifdef){
+											&echo_line;
+											&trans_on;
+										}
+										else {
+											&echo_line;
+										}
+										&scan_end($ln,$ifdef,$expand);
+										return;
+									}
+									if(!&parse_if($linenumber,($expand&&$ifdef))){
+										&echo_line;
+									}
+								}
+							}
+
+
+							sub scan_end {
+								local($startln,$ifdef,$expand) = @_;
+								local($ln);
+								&dprint("Scanning for `endif $ifdef $expand\n");
+								while(1) {
+									$ln=&get_line;
+									if(&parse_end($linenumber,!$ifdef,$expand)){
+										return;
+									}
+									if($line=~m/\s*`else/){
+										print STDERR "Error: unexpected `else on line $linenumber\n";
+										exit(1);
+									}
+									if(!&parse_if($linenumber,($expand&&!$ifdef))){
+										&echo_line;
+									}
+								}
+							}
+
+
+							sub get_line {
+								if(eof(H_FILE)){
+									print STDERR "Unexpected end of file in $ifilename";
+									exit(1);
+								}
+								$line = <H_FILE>;
+								$linenumber++;
+    # &dprint($line);
+    return $linenumber;
+}
+
+sub trans_on {
+	if($mode eq "rm"){
+		$translate=1;
+	}
+	else {
+		print  "// synopsys translate_on\n";
+	}
+}
+
+sub trans_off {
+	if($mode eq "rm"){
+		$translate=0;
+	}
+	else {
+		print  "// synopsys translate_off\n";
+	}
+}
+
+sub echo_line {
+	if($mode eq "rm"){
+		if($translate){
+			print  $line;
+		}
+	}
+	else {
+		print  $line;
+	}
+}
+
+sub dprint {
+	return;
+    #print STDOUT @_;
+    #print  @_;
+}
+
+sub usage {
+	print STDERR "Usage: expand_ifdef_stdout +define+<defs> input\n";
+	exit(1);
+}

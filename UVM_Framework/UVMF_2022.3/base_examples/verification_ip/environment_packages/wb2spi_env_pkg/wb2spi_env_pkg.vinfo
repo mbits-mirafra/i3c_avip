@@ -1,0 +1,6 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/wb_pkg/wb_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/spi_pkg/spi_pkg.vinfo
+registers/wb2spi_reg_pkg.sv
++incdir+@vinfodir
+wb2spi_env_pkg.sv

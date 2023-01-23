@@ -1,0 +1,46 @@
+uvmf:
+  environments:
+    ahb2spi:
+      agents: []
+      analysis_components: []
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_vars: []
+      existing_library_component: 'True'
+      hvl_pkg_parameters: []
+      imports:
+      - name: ahb_pkg
+      - name: wb_pkg
+      non_uvmf_components: []
+      parameters:
+      - name: WB_DATA_WIDTH
+        type: int
+        value: '16'
+      - name: WB_ADDR_WIDTH
+        type: int
+        value: '32'
+      qvip_memory_agents: []
+      register_model:
+        maps:
+        - interface: ahb
+          name: bus_map
+        use_adapter: 'False'
+        use_explicit_prediction: 'False'
+      scoreboards: []
+      subenvs:
+      - name: ahb2wb
+        parameters:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+        type: ahb2wb
+      - name: wb2spi
+        parameters:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+        type: wb2spi
+      tlm_connections: []

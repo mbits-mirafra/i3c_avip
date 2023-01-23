@@ -1,0 +1,27 @@
+uvmf:
+ interfaces:
+   nand_in:
+     clock: "clk"
+     reset: "rst"
+     reset_assertion_level: "False"
+     veloce_ready: "False"
+     
+     ports:
+     - name: "a"
+       dir: "output"
+       width: "1"
+
+     - name: "b"
+       dir: "output"
+       width: "1"
+
+     transaction_vars:
+     - name: "a"
+       type: "bit"
+       iscompare: "True"
+       isrand: "True"
+
+     - name: "b"
+       type: "bit"
+       iscompare: "True"
+       isrand: "True"

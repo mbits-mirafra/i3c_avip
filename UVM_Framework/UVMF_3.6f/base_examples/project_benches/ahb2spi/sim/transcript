@@ -1,0 +1,661 @@
+# vsim -c -sv_seed random "+UVM_TESTNAME=test_top" "+UVM_VERBOSITY=UVM_HIGH" -permit_unmatched_virtual_intf "+notimingchecks" -suppress 8887 -uvmcontrol=none -printsimstats -do " set IterationLimit 140000; set NoQuitOnFinish 1; onbreak {resume}; run -all; quit -f;" optimized_batch_top_tb 
+# Start time: 23:01:08 on May 12,2022
+# //  Questa Sim
+# //  Version 10.6c linux Jul 25 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading mtiUvm.uvm_pkg
+# Loading work.wb2spi_reg_pkg(fast)
+# Loading work.ahb2spi_reg_pkg(fast)
+# Loading work.uvmf_base_pkg_hdl(fast)
+# Loading work.ahb2spi_parameters_pkg(fast)
+# Loading work.spi_driver_bfm(fast)
+# Loading work.spi_monitor_bfm(fast)
+# Loading work.spi_pkg_hdl(fast)
+# Loading sv_std.mti_fli
+# Loading work.fli_pkg(fast)
+# Loading mtiUvm.questa_uvm_pkg
+# Loading work.uvmf_base_pkg(fast)
+# Loading work.spi_pkg(fast)
+# Loading work.wb_monitor_bfm(fast)
+# Loading work.wb_pkg_hdl(fast)
+# Loading work.wb_pkg(fast)
+# Loading work.ahb_driver_bfm(fast)
+# Loading work.ahb_monitor_bfm(fast)
+# Loading work.ahb_pkg_hdl(fast)
+# Loading work.ahb_pkg(fast)
+# Loading work.ahb2spi_sequences_pkg(fast)
+# Loading work.wb2spi_env_pkg(fast)
+# Loading work.ahb2wb_env_pkg(fast)
+# Loading work.ahb2spi_env_pkg(fast)
+# Loading work.ahb2spi_test_pkg(fast)
+# Loading work.hvl_top_sv_unit(fast)
+# Loading work.hvl_top(fast)
+# Loading work.spi_if_sv_unit(fast)
+# Loading work.ahb_if_sv_unit(fast)
+# Loading work.hdl_top_sv_unit(fast)
+# Loading work.hdl_top(fast)
+# Loading work.ahb_monitor_bfm_sv_unit(fast)
+# Loading work.ahb_monitor_bfm(fast)
+# Loading work.spi_monitor_bfm_sv_unit(fast)
+# Loading work.spi_monitor_bfm(fast)
+# Loading work.ahb_driver_bfm_sv_unit(fast)
+# Loading work.ahb_driver_bfm(fast)
+# Loading work.spi_driver_bfm_sv_unit(fast)
+# Loading work.spi_driver_bfm(fast)
+# Loading work.wb_if_sv_unit(fast)
+# Loading work.wb_if(fast__1)
+# Loading work.wb_monitor_bfm_sv_unit(fast)
+# Loading work.wb_monitor_bfm(fast)
+# Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
+# Sv_Seed = 753440228
+#  set IterationLimit 140000
+# 140000
+#  set NoQuitOnFinish 1
+# 1
+#  onbreak {resume}
+#  Warning: onbreak command for use within macro
+#  run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# ----------------------------------------------------------------
+# //  UVM Framework 
+# //  Version 3.6f
+# //  (C) 2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# ----------------------------------------------------------------
+# 
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(217) @ 0: reporter [Questa UVM]  questa_uvm::init()
+# UVM_INFO @ 0: reporter [RNTST] Running test test_top...
+# UVM_INFO @ 0: uvm_test_top [TOP_LEVEL_CONFIGURATION] 
+# 
+# 
+# 
+# 
+# 
+# enable_transaction_viewing:0 active_passive:ACTIVE has_coverage:0
+# include_coverage not located
+#   did you mean recording_detail?
+# include_coverage not located
+#   did you mean recording_detail?
+# ----------------------------------------------------------------------
+# report handler state dump
+# 
+# 
+# +-----------------+
+# |   Verbosities   |
+# +-----------------+
+# 
+# max verbosity level =         300
+# *** verbosities by id
+# [ILLEGALNAME] --> UVM_LOW
+# [Questa Debug] --> UVM_LOW
+# [Questa UVM Settings] --> UVM_LOW
+# 
+# *** verbosities by id and severity
+# 
+# +-------------+
+# |   actions   |
+# +-------------+
+# 
+# *** actions by severity
+# UVM_INFO = DISPLAY 
+# UVM_WARNING = DISPLAY 
+# UVM_ERROR = DISPLAY COUNT 
+# UVM_FATAL = DISPLAY EXIT 
+# 
+# *** actions by id
+# 
+# *** actions by id and severity
+# 
+# +-------------+
+# |    files    |
+# +-------------+
+# 
+# default file handle =           0
+# 
+# *** files by severity
+# UVM_INFO =           0
+# UVM_WARNING =           0
+# UVM_ERROR =           0
+# UVM_FATAL =           0
+# 
+# *** files by id
+# 
+# *** files by id and severity
+# report server state
+# 
+# +-------------+
+# |   counts    |
+# +-------------+
+# 
+# max quit count =     0
+# quit count =     0
+# UVM_INFO :    4
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# Questa UVM :    2
+# RNTST :    1
+# TOP_LEVEL_CONFIGURATION :    1
+# ----------------------------------------------------------------------
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] End Of Elaboration
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 215: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 215: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000000 data:0x0000 addr:0x00000000 
+# UVM_INFO @ 215: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 215: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 215: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000000 data:0x0000 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 215: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000000 data:0x0000 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 255: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 255: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0000 addr:0x00000000 
+# UVM_INFO @ 255: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 255: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0000 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 255: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0000 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 275: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 275: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0000 addr:0x00000000 ACTUAL: op:0x00000001 data:0x0000 addr:0x00000000 
+# UVM_INFO @ 275: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0000 addr:0x00000000 
+# UVM_INFO @ 275: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0000 addr:0x00000000 
+# UVM_INFO @ 275: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0000 addr:0x00000000 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 355: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 355: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0000 addr:0x00000000 
+# UVM_INFO @ 355: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 355: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0000 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 355: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0000 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 375: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 375: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0000 addr:0x00000000 ACTUAL: op:0x00000001 data:0x0000 addr:0x00000000 
+# UVM_INFO @ 375: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0000 addr:0x00000000 
+# UVM_INFO @ 375: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0000 addr:0x00000000 
+# UVM_INFO @ 375: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0000 addr:0x00000000 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 475: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 475: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] WB Write Predicted: op:0x00000001 data:0x0050 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 475: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000002 data:0x0050 addr:0x00000000 
+# UVM_INFO @ 475: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:0x00000002 data:0x0050 addr:0x00000000 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 495: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 495: uvm_test_top.environment.ahb2wb_env.ahb2wb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.ahb2wb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0050 addr:0x00000000 byte_select:0x0 ACTUAL: op:0x00000001 data:0x0050 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 495: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Write Actual: op:0x00000001 data:0x0050 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 495: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 495: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000001 data:0x0050 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 495: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000001 data:0x0050 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 555: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 555: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0050 addr:0x00000000 
+# UVM_INFO @ 555: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 555: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0050 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 555: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0050 addr:0x00000000 byte_select:0x0 
+# UVM_INFO @ 575: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 575: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0050 addr:0x00000000 ACTUAL: op:0x00000001 data:0x0050 addr:0x00000000 
+# UVM_INFO @ 575: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0050 addr:0x00000000 
+# UVM_INFO @ 575: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0050 addr:0x00000000 
+# UVM_INFO @ 575: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0050 addr:0x00000000 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 675: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 675: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] WB Write Predicted: op:0x00000001 data:0x009c addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 675: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000002 data:0x009c addr:0x00000002 
+# UVM_INFO @ 675: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:0x00000002 data:0x009c addr:0x00000002 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 695: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 695: uvm_test_top.environment.ahb2wb_env.ahb2wb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.ahb2wb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x009c addr:0x00000002 byte_select:0x0 ACTUAL: op:0x00000001 data:0x009c addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 695: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Write Actual: op:0x00000001 data:0x009c addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 695: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 695: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000001 data:0x009c addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 695: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-mosi: dir:MOSI spi_data:0x9c
+# UVM_INFO @ 695: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-miso: dir:MISO spi_data:0x00
+# UVM_INFO @ 695: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000001 data:0x009c addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 755: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 755: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 755: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 755: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 755: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 775: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 775: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 775: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 775: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 775: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 855: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 855: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 855: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 855: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 855: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 875: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 875: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 875: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 875: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 875: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 955: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 955: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 955: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 955: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 955: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 956: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 956: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 956: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MOSI spi_data:0x9cACTUAL: dir:MOSI spi_data:0x9c
+# UVM_INFO @ 956: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MOSI spi_data:0x9c
+# UVM_INFO @ 956: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 956: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 956: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MISO spi_data:0x00ACTUAL: dir:MISO spi_data:0x00
+# UVM_INFO @ 956: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MISO spi_data:0x00
+# UVM_INFO @ 956: uvm_test_top.environment.wb2spi_env.spi.sequencer@@spi_mem_slave_s [SPI_SLAVE] WRITE:dir:FROM_SPI spi_data:0x9c
+# UVM_INFO @ 975: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 975: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 975: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 975: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 975: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1055: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1055: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 1055: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1055: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1055: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1075: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1075: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0000 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 1075: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 1075: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 1075: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0000 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1155: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1155: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000002 
+# UVM_INFO @ 1155: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1155: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1155: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1175: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1175: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000002 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000002 
+# UVM_INFO @ 1175: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000002 
+# UVM_INFO @ 1175: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000002 
+# UVM_INFO @ 1175: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000002 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1275: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1275: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] WB Write Predicted: op:0x00000001 data:0x00a3 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1275: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000002 data:0x00a3 addr:0x00000002 
+# UVM_INFO @ 1275: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:0x00000002 data:0x00a3 addr:0x00000002 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1295: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1295: uvm_test_top.environment.ahb2wb_env.ahb2wb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.ahb2wb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x00a3 addr:0x00000002 byte_select:0x0 ACTUAL: op:0x00000001 data:0x00a3 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1295: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Write Actual: op:0x00000001 data:0x00a3 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1295: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1295: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000001 data:0x00a3 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1295: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-mosi: dir:MOSI spi_data:0xa3
+# UVM_INFO @ 1295: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-miso: dir:MISO spi_data:0x9c
+# UVM_INFO @ 1295: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000001 data:0x00a3 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1355: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1355: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1355: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1355: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1355: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1375: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1375: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1375: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1375: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1375: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1455: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1455: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1455: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1455: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1455: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1475: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1475: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1475: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1475: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1475: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1555: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1555: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1555: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1555: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1555: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1556: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 1556: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 1556: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MOSI spi_data:0xa3ACTUAL: dir:MOSI spi_data:0xa3
+# UVM_INFO @ 1556: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MOSI spi_data:0xa3
+# UVM_INFO @ 1556: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 1556: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 1556: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MISO spi_data:0x9cACTUAL: dir:MISO spi_data:0x9c
+# UVM_INFO @ 1556: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MISO spi_data:0x9c
+# UVM_INFO @ 1556: uvm_test_top.environment.wb2spi_env.spi.sequencer@@spi_mem_slave_s [SPI_SLAVE] WRITE:dir:FROM_SPI spi_data:0xa3
+# UVM_INFO @ 1575: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1575: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1575: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1575: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1575: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1655: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1655: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 1655: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1655: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1655: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1675: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1675: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0000 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 1675: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 1675: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 1675: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0000 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1755: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1755: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0039 addr:0x00000002 
+# UVM_INFO @ 1755: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1755: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0039 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1755: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0039 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1775: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1775: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0039 addr:0x00000002 ACTUAL: op:0x00000001 data:0x0039 addr:0x00000002 
+# UVM_INFO @ 1775: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0039 addr:0x00000002 
+# UVM_INFO @ 1775: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0039 addr:0x00000002 
+# UVM_INFO @ 1775: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0039 addr:0x00000002 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1875: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1875: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] WB Write Predicted: op:0x00000001 data:0x0010 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1875: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000002 data:0x0010 addr:0x00000002 
+# UVM_INFO @ 1875: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:0x00000002 data:0x0010 addr:0x00000002 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 1895: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1895: uvm_test_top.environment.ahb2wb_env.ahb2wb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.ahb2wb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0010 addr:0x00000002 byte_select:0x0 ACTUAL: op:0x00000001 data:0x0010 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1895: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Write Actual: op:0x00000001 data:0x0010 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1895: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1895: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000001 data:0x0010 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1895: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-mosi: dir:MOSI spi_data:0x10
+# UVM_INFO @ 1895: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-miso: dir:MISO spi_data:0xa3
+# UVM_INFO @ 1895: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000001 data:0x0010 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 1955: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1955: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1955: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 1955: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1955: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 1975: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 1975: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1975: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1975: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 1975: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2055: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2055: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2055: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2055: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2055: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2075: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2075: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2075: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2075: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2075: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2155: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2155: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2155: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2155: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2155: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2156: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 2156: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 2156: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MOSI spi_data:0x10ACTUAL: dir:MOSI spi_data:0x10
+# UVM_INFO @ 2156: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MOSI spi_data:0x10
+# UVM_INFO @ 2156: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 2156: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 2156: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MISO spi_data:0xa3ACTUAL: dir:MISO spi_data:0xa3
+# UVM_INFO @ 2156: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MISO spi_data:0xa3
+# UVM_INFO @ 2156: uvm_test_top.environment.wb2spi_env.spi.sequencer@@spi_mem_slave_s [SPI_SLAVE] READ:dir:FROM_SPI spi_data:0x10
+# UVM_INFO @ 2175: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2175: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2175: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2175: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2175: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2255: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2255: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 2255: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2255: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2255: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2275: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2275: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0000 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 2275: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 2275: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 2275: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0000 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2355: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2355: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0047 addr:0x00000002 
+# UVM_INFO @ 2355: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2355: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0047 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 2355: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0047 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 2375: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2375: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0047 addr:0x00000002 ACTUAL: op:0x00000001 data:0x0047 addr:0x00000002 
+# UVM_INFO @ 2375: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0047 addr:0x00000002 
+# UVM_INFO @ 2375: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0047 addr:0x00000002 
+# UVM_INFO @ 2375: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0047 addr:0x00000002 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2475: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2475: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] WB Write Predicted: op:0x00000001 data:0x0020 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 2475: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000002 data:0x0020 addr:0x00000002 
+# UVM_INFO @ 2475: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:0x00000002 data:0x0020 addr:0x00000002 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2495: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2495: uvm_test_top.environment.ahb2wb_env.ahb2wb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.ahb2wb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0020 addr:0x00000002 byte_select:0x0 ACTUAL: op:0x00000001 data:0x0020 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 2495: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Write Actual: op:0x00000001 data:0x0020 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 2495: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2495: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000001 data:0x0020 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 2495: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-mosi: dir:MOSI spi_data:0x20
+# UVM_INFO @ 2495: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-miso: dir:MISO spi_data:0x9c
+# UVM_INFO @ 2495: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000001 data:0x0020 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 2555: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2555: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2555: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2555: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2555: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2575: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2575: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2575: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2575: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2575: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2655: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2655: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2655: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2655: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2655: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2675: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2675: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2675: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2675: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2675: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2755: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2755: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2755: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2755: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2755: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2756: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 2756: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 2756: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MOSI spi_data:0x20ACTUAL: dir:MOSI spi_data:0x20
+# UVM_INFO @ 2756: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MOSI spi_data:0x20
+# UVM_INFO @ 2756: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 2756: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 2756: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MISO spi_data:0x9cACTUAL: dir:MISO spi_data:0x9c
+# UVM_INFO @ 2756: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MISO spi_data:0x9c
+# UVM_INFO @ 2756: uvm_test_top.environment.wb2spi_env.spi.sequencer@@spi_mem_slave_s [SPI_SLAVE] READ:dir:FROM_SPI spi_data:0x20
+# UVM_INFO @ 2775: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2775: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2775: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2775: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 2775: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2855: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2855: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 2855: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2855: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2855: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 2875: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2875: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0000 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 2875: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 2875: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 2875: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0000 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 2955: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2955: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0039 addr:0x00000002 
+# UVM_INFO @ 2955: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 2955: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0039 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 2955: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0039 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 2975: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 2975: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0039 addr:0x00000002 ACTUAL: op:0x00000001 data:0x0039 addr:0x00000002 
+# UVM_INFO @ 2975: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0039 addr:0x00000002 
+# UVM_INFO @ 2975: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0039 addr:0x00000002 
+# UVM_INFO @ 2975: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0039 addr:0x00000002 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 3075: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 3075: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] WB Write Predicted: op:0x00000001 data:0x00b5 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 3075: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000002 data:0x00b5 addr:0x00000002 
+# UVM_INFO @ 3075: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:0x00000002 data:0x00b5 addr:0x00000002 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 3095: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3095: uvm_test_top.environment.ahb2wb_env.ahb2wb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.ahb2wb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x00b5 addr:0x00000002 byte_select:0x0 ACTUAL: op:0x00000001 data:0x00b5 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 3095: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Write Actual: op:0x00000001 data:0x00b5 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 3095: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3095: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000001 data:0x00b5 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 3095: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-mosi: dir:MOSI spi_data:0xb5
+# UVM_INFO @ 3095: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] SPI-miso: dir:MISO spi_data:0xa3
+# UVM_INFO @ 3095: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000001 data:0x00b5 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 3155: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3155: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3155: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3155: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 3155: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 3175: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 3175: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3175: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3175: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3175: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 3255: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3255: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3255: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3255: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 3255: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 3275: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 3275: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3275: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3275: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3275: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 3355: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3355: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3355: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3355: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 3355: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0001 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 3356: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 3356: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 3356: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MOSI spi_data:0xb5ACTUAL: dir:MOSI spi_data:0xb5
+# UVM_INFO @ 3356: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MOSI spi_data:0xb5
+# UVM_INFO @ 3356: uvm_test_top.environment.wb2spi_env.spi_mem_slave_coverage [Coverage] Received transaction
+# UVM_INFO @ 3356: uvm_test_top.environment.wb2spi_env.spi_mem_slave_viewer [Viewer] Received transaction
+# UVM_INFO @ 3356: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb] MATCH! - EXPECTED: dir:MISO spi_data:0xa3ACTUAL: dir:MISO spi_data:0xa3
+# UVM_INFO @ 3356: uvm_test_top.environment.wb2spi_env.spi.spi_monitor [MONITOR_PROXY] dir:MISO spi_data:0xa3
+# UVM_INFO @ 3356: uvm_test_top.environment.wb2spi_env.spi.sequencer@@spi_mem_slave_s [SPI_SLAVE] WRITE:dir:FROM_SPI spi_data:0xb5
+# UVM_INFO @ 3375: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 3375: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0001 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3375: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3375: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0001 addr:0x00000001 
+# UVM_INFO @ 3375: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0001 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 3455: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3455: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 3455: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3455: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 3455: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0000 addr:0x00000001 byte_select:0x0 
+# UVM_INFO @ 3475: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 3475: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0000 addr:0x00000001 ACTUAL: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 3475: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 3475: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0000 addr:0x00000001 
+# UVM_INFO @ 3475: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0000 addr:0x00000001 
+# ahb_driver_bfm: Inside access()
+# UVM_INFO @ 3555: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [wb2ahb_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3555: uvm_test_top.environment.ahb2wb_env.wb2ahb_pred [PREDICT] AHB Read Predicted: op:0x00000001 data:0x0047 addr:0x00000002 
+# UVM_INFO @ 3555: uvm_test_top.environment.wb2spi_env.wb2spi_pred [wb2spi_predictor] Transaction Recievied through wb_ae
+# UVM_INFO @ 3555: uvm_test_top.environment.wb2spi_env.wb2spi_pred [PREDICT] WB: op:0x00000002 data:0x0047 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 3555: uvm_test_top.environment.wb_mon [MONITOR_PROXY] op:0x00000002 data:0x0047 addr:0x00000002 byte_select:0x0 
+# UVM_INFO @ 3575: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [ahb2wb_predictor] Transaction Recievied through ahb_ae
+# UVM_INFO @ 3575: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] MATCH! - EXPECTED: op:0x00000001 data:0x0047 addr:0x00000002 ACTUAL: op:0x00000001 data:0x0047 addr:0x00000002 
+# UVM_INFO @ 3575: uvm_test_top.environment.ahb2wb_env.ahb2wb_pred [PREDICT] AHB Read Actual: op:0x00000001 data:0x0047 addr:0x00000002 
+# UVM_INFO @ 3575: uvm_test_top.environment.ahb2wb_env.ahb.ahb_monitor [MONITOR_PROXY] op:0x00000001 data:0x0047 addr:0x00000002 
+# UVM_INFO @ 3575: uvm_test_top.environment.ahb2wb_env.ahb.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:0x00000001 data:0x0047 addr:0x00000002 
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 5575: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO @ 5575: uvm_test_top.environment.ahb2wb_env.ahb2wb_sb [SCOREBOARD_SUMMARY.uvm_test_top.environment.ahb2wb_env.ahb2wb_sb] SCOREBOARD_RESULTS:  PREDICTED_TRANSACTIONS=6 MATCHES=6 MISMATCHES=0
+# UVM_INFO @ 5575: uvm_test_top.environment.ahb2wb_env.wb2ahb_sb [SCOREBOARD_SUMMARY.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb] SCOREBOARD_RESULTS:  PREDICTED_TRANSACTIONS=28 MATCHES=28 MISMATCHES=0
+# UVM_INFO @ 5575: uvm_test_top.environment.wb2spi_env.wb2spi_sb [SCOREBOARD_SUMMARY.uvm_test_top.environment.wb2spi_env.wb2spi_sb] SCOREBOARD_RESULTS:  PREDICTED_TRANSACTIONS=10 MATCHES=10 MISMATCHES=0
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :  410
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [Coverage]    10
+# [MONITOR_PROXY]    80
+# [PREDICT]   113
+# [Questa UVM]     3
+# [RNTST]     1
+# [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.ahb2wb_sb]     6
+# [SCOREBOARD_INFO.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb]    28
+# [SCOREBOARD_INFO.uvm_test_top.environment.wb2spi_env.wb2spi_sb]    10
+# [SCOREBOARD_SUMMARY.uvm_test_top.environment.ahb2wb_env.ahb2wb_sb]     1
+# [SCOREBOARD_SUMMARY.uvm_test_top.environment.ahb2wb_env.wb2ahb_sb]     1
+# [SCOREBOARD_SUMMARY.uvm_test_top.environment.wb2spi_env.wb2spi_sb]     1
+# [SPI_SLAVE]     5
+# [TEST_DONE]     1
+# [TOP_LEVEL_CONFIGURATION]     1
+# [Viewer]    10
+# [ahb2wb_predictor]    35
+# [ahb_master_access_sequence]    34
+# [wb2ahb_predictor]    35
+# [wb2spi_predictor]    35
+# ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 5575 ns  Iteration: 60  Instance: /hvl_top
+# 1
+# Break in Task uvm_pkg/uvm_root::run_test at /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh line 430
+# Stopped at /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh line 430
+#  quit -f
+# Memory Statistics                         
+#     mem: size after elab (VSZ)                  81.76 Mb
+#     mem: size during sim (VSZ)                  81.76 Mb
+# Elaboration Time                          
+#    elab: wall time                               2.48 s
+#    elab: cpu time                                1.02 s
+# Simulation Time                           
+#     sim: wall time                               0.18 s
+#     sim: cpu time                                0.06 s
+# Total Time                                
+#   total: wall time                               2.66 s
+#   total: cpu time                                1.08 s
+# 
+# End time: 23:01:11 on May 12,2022, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0

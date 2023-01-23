@@ -1,0 +1,2 @@
+needs:
+  - ./hdl_vlog.compile

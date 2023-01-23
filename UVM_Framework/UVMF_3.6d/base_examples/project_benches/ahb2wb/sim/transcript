@@ -1,0 +1,395 @@
+# //  Questa Sim
+# //  Version 10.4c linux Jul 19 2015
+# //
+# //  Copyright 1991-2015 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //  THIS DOCUMENT CONTAINS TRADE SECRETS AND COMMERCIAL OR FINANCIAL
+# //  INFORMATION THAT ARE PRIVILEGED, CONFIDENTIAL, AND EXEMPT FROM
+# //  DISCLOSURE UNDER THE FREEDOM OF INFORMATION ACT, 5 U.S.C. SECTION 552.
+# //  FURTHERMORE, THIS INFORMATION IS PROHIBITED FROM DISCLOSURE UNDER
+# //  THE TRADE SECRETS ACT, 18 U.S.C. SECTION 1905.
+# //
+# vsim -i -sv_seed random "+UVM_TESTNAME=test_top" "+UVM_VERBOSITY=UVM_HIGH" -t 1ns "+notimingchecks" -suppress 8887 -uvmcontrol=all -msgmode both -classdebug -assertdebug "+uvm_set_config_int=*,enable_transaction_viewing,1" -do " set NoQuitOnFinish 1; onbreak {resume}; run 0; do wave.do; add wave /hdl_top/ahb_bus/assert__ahb_hready_follows_hsel; add wave /hdl_top/ahb_bus/assert__ahb_address_stable_throughout_transfer; add wave /hdl_top/ahb_bus/assert__ahb_wdata_stable_throughout_write; atv log -asserts -enable /hdl_top/ahb_bus/assert__ahb_hready_follows_hsel; atv log -asserts -enable /hdl_top/ahb_bus/assert__ahb_address_stable_throughout_transfer; atv log -asserts -enable /hdl_top/ahb_bus/assert__ahb_wdata_stable_throughout_write; set PrefSource(OpenOnBreak) 0; radix hex showbase; " optimized_debug_top_tb 
+# Start time: 04:02:54 on Nov 09,2014
+# Loading sv_std.std
+# Loading work.ahb2wb_parameters_pkg(fast)
+# Loading work.uvmf_base_pkg_hdl(fast)
+# Loading work.ahb_pkg_hdl(fast)
+# Loading sv_std.mti_fli
+# Loading mtiUvm.uvm_pkg
+# Loading work.fli_pkg(fast)
+# Loading mtiUvm.questa_uvm_pkg
+# Loading work.uvmf_base_pkg(fast)
+# Loading work.ahb_pkg(fast)
+# Loading work.wb_pkg_hdl(fast)
+# Loading work.wb_pkg(fast)
+# Loading work.ahb2wb_env_pkg(fast)
+# Loading work.ahb2wb_sequences_pkg(fast)
+# Loading work.ahb2wb_test_pkg(fast)
+# Loading work.hvl_top_sv_unit(fast)
+# Loading work.hvl_top(fast)
+# Loading work.hdl_top_sv_unit(fast)
+# Loading work.hdl_top(fast)
+# Loading work.ahb_if_sv_unit(fast)
+# Loading work.ahb_if(fast__2)
+# Loading work.ahb_monitor_bfm_sv_unit(fast)
+# Loading work.ahb_monitor_bfm(fast__1)
+# Loading work.ahb_driver_bfm_sv_unit(fast)
+# Loading work.ahb_driver_bfm(fast__1)
+# Loading work.wb_if_sv_unit(fast)
+# Loading work.wb_if(fast__2)
+# Loading work.wb_monitor_bfm_sv_unit(fast)
+# Loading work.wb_monitor_bfm(fast__1)
+# Loading work.wb_driver_bfm_sv_unit(fast)
+# Loading work.wb_driver_bfm(fast__1)
+# Loading work.ahb2wb(fast)
+# Loading work.ahb_monitor_bfm(fast)
+# Loading work.ahb_driver_bfm(fast)
+# Loading work.wb_monitor_bfm(fast)
+# Loading work.wb_driver_bfm(fast)
+# Loading /home/student/tools/Questa/10.4c/questasim/uvm-1.1d/linux/uvm_dpi.so
+# Sv_Seed = 3704270009
+#  set NoQuitOnFinish 1
+# 1
+#  onbreak {resume}
+#  Warning: onbreak command for use within macro
+#  run 0
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# ----------------------------------------------------------------
+# //  UVM Framework 
+# //  Version 3.6c
+# //  (C) 2015 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# ----------------------------------------------------------------
+# 
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.2
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(217) @ 0: reporter [Questa UVM]  questa_uvm::init(all)
+# UVM_INFO @ 0: reporter [RNTST] Running test test_top...
+# UVM_INFO @ 0: reporter [UVM_CMDLINE_PROC] Applying config setting from the command line: +uvm_set_config_int=*,enable_transaction_viewing,1
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_test_base.svh(93) @ 0: uvm_test_top [TOP_LEVEL_CONFIGURATION] 
+# ahb_config:enable_transaction_viewing:0 active_passive:ACTIVE has_coverage:1
+# wb_config:enable_transaction_viewing:0 active_passive:ACTIVE has_coverage:1
+# ----------------------------------------------------------------------
+# report handler state dump
+# 
+# 
+# +-----------------+
+# |   Verbosities   |
+# +-----------------+
+# 
+# max verbosity level =         300
+# *** verbosities by id
+# [ILLEGALNAME] --> UVM_LOW
+# [Questa Debug] --> UVM_LOW
+# [Questa UVM Settings] --> UVM_LOW
+# 
+# *** verbosities by id and severity
+# 
+# +-------------+
+# |   actions   |
+# +-------------+
+# 
+# *** actions by severity
+# UVM_INFO = DISPLAY 
+# UVM_WARNING = DISPLAY 
+# UVM_ERROR = DISPLAY COUNT 
+# UVM_FATAL = DISPLAY EXIT 
+# 
+# *** actions by id
+# 
+# *** actions by id and severity
+# 
+# +-------------+
+# |    files    |
+# +-------------+
+# 
+# default file handle =           0
+# 
+# *** files by severity
+# UVM_INFO =           0
+# UVM_WARNING =           0
+# UVM_ERROR =           0
+# UVM_FATAL =           0
+# 
+# *** files by id
+# 
+# *** files by id and severity
+# report server state
+# 
+# +-------------+
+# |   counts    |
+# +-------------+
+# 
+# max quit count =     0
+# quit count =     0
+# UVM_INFO :    5
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# Questa UVM :    2
+# RNTST :    1
+# TOP_LEVEL_CONFIGURATION :    1
+# UVM_CMDLINE_PROC :    1
+# ----------------------------------------------------------------------
+# 
+#### Factory Configuration (*)
+# 
+#   No instance or type overrides are registered with this factory
+# 
+# All types registered with the factory: 76 total
+# (types without type names will not be printed)
+# 
+#   Type Name
+#   ---------
+#   ahb2reg_adapter
+#   ahb2wb_configuration
+#   ahb2wb_random_sequence
+#   ahb2wb_sequence_base
+#   ahb_configuration
+#   ahb_driver
+#   ahb_master_access_sequence
+#   ahb_monitor
+#   ahb_random_sequence
+#   ahb_random_test
+#   ahb_reset_sequence
+#   ahb_sequence_base
+#   ahb_transaction
+#   ahb_transaction_coverage
+#   example_derived_test
+#   example_derived_test_sequence
+#   questa_uvm_recorder
+#   test_top
+#   wb2reg_adapter
+#   wb_configuration
+#   wb_driver
+#   wb_master_access_sequence
+#   wb_memory_slave_sequence
+#   wb_monitor
+#   wb_reset_sequence
+#   wb_slave_access_sequence
+#   wb_transaction
+#   wb_transaction_coverage
+# (*) Types with no associated type name will be printed as <unknown>
+# 
+####
+# 
+# UVM_INFO @ 0: reporter [CFGNRD]  ::: The following resources have at least one write and no reads :::
+# AHB_BFM [/^CONFIGURATIONS$/] : (class ahb_pkg::ahb_configuration) {ahb_config} 498 1 1106 @uvm_status_container@1 /hdl_top/ahb_drv_bfm /hdl_top/ahb_mon_bfm {} {} {} 1 ACTIVE MASTER 1 {AHB_BFM} 0 {ahb_configuration}
+# -  
+#   --------
+#    reads: 0 @ 0  writes: 1 @ 0
+#  
+# recording_detail [] : (int) 1
+# -  
+#   --------
+#    reads: 0 @ 0  writes: 1 @ 0
+#  
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(272) @ 0: reporter [Questa UVM] End Of Elaboration
+# **************************************************************************
+# * Questa UVM Transaction Recording Turned ON.                            *
+# * recording_detail has been set.                                         *
+# *  To turn off, set 'recording_detail' to off:                           *
+# * uvm_config_db#(int)            ::set(null, "", "recording_detail", 0); *
+# * uvm_config_db#(uvm_bitstream_t)::set(null, "", "recording_detail", 0); *
+# **************************************************************************
+#  do wave.do
+#  add wave /hdl_top/ahb_bus/assert__ahb_hready_follows_hsel
+#  add wave /hdl_top/ahb_bus/assert__ahb_address_stable_throughout_transfer
+#  add wave /hdl_top/ahb_bus/assert__ahb_wdata_stable_throughout_write
+#  atv log -asserts -enable /hdl_top/ahb_bus/assert__ahb_hready_follows_hsel
+# Thread view logging enabled for assert__ahb_hready_follows_hsel
+#  atv log -asserts -enable /hdl_top/ahb_bus/assert__ahb_address_stable_throughout_transfer
+# Thread view logging enabled for assert__ahb_address_stable_throughout_transfer
+#  atv log -asserts -enable /hdl_top/ahb_bus/assert__ahb_wdata_stable_throughout_write
+# Thread view logging enabled for assert__ahb_wdata_stable_throughout_write
+#  set PrefSource(OpenOnBreak) 0
+# 0
+#  radix hex showbase
+# hexadecimal showbase
+#  
+# 
+# stdin: <EOF>
+run -all
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 15: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_READ, addr:0, data:ffff)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 235: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 235: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_RESET addr:0x00000000 data:0x0000
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 235: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 235: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_RESET, addr:0, data:0)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(66) @ 315: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:AHB_WRITE addr:0x00000001 data:0x00ab
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 375: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_WRITE, addr:1, data:ab)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(53) @ 415: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Write Predicted: T(WB_WRITE, addr:1, data:ab)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 415: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 415: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_WRITE addr:0x00000001 data:0x00ab
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(66) @ 415: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:AHB_WRITE addr:0x00000002 data:0x00cd
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(51) @ 435: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Write Actual: T(WB_WRITE, addr:1, data:ab)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 435: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Expected:T(WB_WRITE, addr:1, data:ab)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 435: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Actual:T(WB_WRITE, addr:1, data:ab)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 435: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 435: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 435: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_WRITE, addr:1, data:ab)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 475: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_WRITE, addr:2, data:cd)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(53) @ 515: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Write Predicted: T(WB_WRITE, addr:2, data:cd)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 515: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 515: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_WRITE addr:0x00000002 data:0x00cd
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(66) @ 515: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:AHB_WRITE addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(51) @ 535: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Write Actual: T(WB_WRITE, addr:2, data:cd)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 535: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Expected:T(WB_WRITE, addr:2, data:cd)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 535: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Actual:T(WB_WRITE, addr:2, data:cd)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 535: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 535: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 535: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_WRITE, addr:2, data:cd)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 575: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_WRITE, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(53) @ 615: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Write Predicted: T(WB_WRITE, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 615: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 615: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_WRITE addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(66) @ 615: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:AHB_WRITE addr:0x00000000 data:0x0045
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(51) @ 635: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Write Actual: T(WB_WRITE, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 635: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Expected:T(WB_WRITE, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 635: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Actual:T(WB_WRITE, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 635: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 635: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 635: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_WRITE, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 675: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_WRITE, addr:0, data:45)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(53) @ 715: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Write Predicted: T(WB_WRITE, addr:0, data:45)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 715: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 715: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_WRITE addr:0x00000000 data:0x0045
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(51) @ 735: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Write Actual: T(WB_WRITE, addr:0, data:45)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 735: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Expected:T(WB_WRITE, addr:0, data:45)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 735: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Actual:T(WB_WRITE, addr:0, data:45)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 735: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 735: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 735: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_WRITE, addr:0, data:45)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 775: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_READ, addr:2, data:cd)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(64) @ 795: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Read Predicted: T(WB_READ, addr:2, data:cd)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 795: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 795: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_READ, addr:2, data:cd)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(63) @ 815: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Read Actual: op:AHB_READ addr:0x00000002 data:0x00cd
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 815: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Expected:op:AHB_READ addr:0x00000002 data:0x00cd
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 815: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Actual:op:AHB_READ addr:0x00000002 data:0x00cd
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 815: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 815: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 815: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_READ addr:0x00000002 data:0x00cd
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(56) @ 815: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:AHB_READ addr:0x00000002 data:0x00cd
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 875: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_READ, addr:1, data:ab)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(64) @ 895: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Read Predicted: T(WB_READ, addr:1, data:ab)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 895: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 895: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_READ, addr:1, data:ab)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(63) @ 915: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Read Actual: op:AHB_READ addr:0x00000001 data:0x00ab
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 915: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Expected:op:AHB_READ addr:0x00000001 data:0x00ab
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 915: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Actual:op:AHB_READ addr:0x00000001 data:0x00ab
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 915: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 915: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 915: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_READ addr:0x00000001 data:0x00ab
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(56) @ 915: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:AHB_READ addr:0x00000001 data:0x00ab
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 975: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_READ, addr:0, data:45)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(64) @ 995: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Read Predicted: T(WB_READ, addr:0, data:45)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 995: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 995: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_READ, addr:0, data:45)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(63) @ 1015: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Read Actual: op:AHB_READ addr:0x00000000 data:0x0045
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 1015: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Expected:op:AHB_READ addr:0x00000000 data:0x0045
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 1015: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Actual:op:AHB_READ addr:0x00000000 data:0x0045
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 1015: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 1015: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 1015: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_READ addr:0x00000000 data:0x0045
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(56) @ 1015: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:AHB_READ addr:0x00000000 data:0x0045
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 1075: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_READ, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(64) @ 1095: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Read Predicted: T(WB_READ, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 1095: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 1095: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_READ, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(63) @ 1115: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Read Actual: op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 1115: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Expected:op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 1115: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Actual:op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 1115: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 1115: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 1115: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(56) @ 1115: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(66) @ 1115: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Write:op:AHB_WRITE addr:0x00000000 data:0x0069
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 1175: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_WRITE, addr:0, data:69)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(53) @ 1215: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Write Predicted: T(WB_WRITE, addr:0, data:69)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 1215: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 1215: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_WRITE addr:0x00000000 data:0x0069
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(51) @ 1235: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Write Actual: T(WB_WRITE, addr:0, data:69)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 1235: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Expected:T(WB_WRITE, addr:0, data:69)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 1235: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD] Actual:T(WB_WRITE, addr:0, data:69)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 1235: uvm_test_top.environment.a2b_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 1235: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 1235: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_WRITE, addr:0, data:69)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 1275: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_READ, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(64) @ 1295: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Read Predicted: T(WB_READ, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 1295: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 1295: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_READ, addr:3, data:ef)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(63) @ 1315: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Read Actual: op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 1315: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Expected:op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 1315: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Actual:op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 1315: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 1315: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 1315: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(56) @ 1315: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:AHB_READ addr:0x00000003 data:0x00ef
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_memory_slave_sequence.svh(62) @ 1375: uvm_test_top.environment.b_agent.sequencer@@wb_memory_slave_s [wb_slave_sequence] Slave transaction:T(WB_READ, addr:0, data:69)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/wb2ahb_predictor.svh(64) @ 1395: uvm_test_top.environment.b2a_predictor [PREDICT] AHB Read Predicted: T(WB_READ, addr:0, data:69)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/wb_pkg/src/wb_transaction_coverage.svh(67) @ 1395: uvm_test_top.environment.b_agent.b_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 1395: uvm_test_top.environment.b_agent.b_agent_monitor [MONITOR_PROXY] T(WB_READ, addr:0, data:69)
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/environment_packages/ahb2wb_env_pkg/src/ahb2wb_predictor.svh(63) @ 1415: uvm_test_top.environment.a2b_predictor [PREDICT] AHB Read Actual: op:AHB_READ addr:0x00000000 data:0x0069
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(82) @ 1415: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Expected:op:AHB_READ addr:0x00000000 data:0x0069
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(83) @ 1415: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD] Actual:op:AHB_READ addr:0x00000000 data:0x0069
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_in_order_scoreboard.svh(87) @ 1415: uvm_test_top.environment.b2a_scoreboard [SCOREBOARD RESULTS] MATCH!
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_transaction_coverage.svh(65) @ 1415: uvm_test_top.environment.a_agent.a_agent_coverage [Coverage] Received transaction
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_monitor_base.svh(151) @ 1415: uvm_test_top.environment.a_agent.a_agent_monitor [MONITOR_PROXY] op:AHB_READ addr:0x00000000 data:0x0069
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/base_examples/verification_ip/interface_packages/ahb_pkg/src/ahb_master_access_sequence.svh(56) @ 1415: uvm_test_top.environment.a_agent.sequencer@@ahb_master_access_s [ahb_master_access_sequence] Read:op:AHB_READ addr:0x00000000 data:0x0069
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 1615: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_scoreboard_base.svh(112) @ 1615: uvm_test_top.environment.b2a_scoreboard [PHASE_READY_TO_END] uvm_test_top.environment.b2a_scoreboard
+# UVM_INFO /mnt/hgfs/vmware/UVMF_Q/uvmf_base_pkg/src/uvmf_scoreboard_base.svh(112) @ 1615: uvm_test_top.environment.a2b_scoreboard [PHASE_READY_TO_END] uvm_test_top.environment.a2b_scoreboard
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 1615: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :  137
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [CFGNRD]     1
+# [Coverage]    24
+# [MONITOR_PROXY]    24
+# [PHASE_READY_TO_END]     2
+# [PREDICT]    22
+# [Questa UVM]     3
+# [RNTST]     1
+# [SCOREBOARD]    22
+# [SCOREBOARD RESULTS]    11
+# [TEST_DONE]     2
+# [TOP_LEVEL_CONFIGURATION]     1
+# [UVM_CMDLINE_PROC]     1
+# [ahb_master_access_sequence]    11
+# [wb_slave_sequence]    12
+# ** Note: $finish    : /home/student/tools/Questa/10.4c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 1615 ns  Iteration: 64  Instance: /hvl_top
+# Break in Task uvm_pkg/uvm_root::run_test at /home/student/tools/Questa/10.4c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh line 430
+exit
+# End time: 04:39:49 on Nov 09,2014, Elapsed time: 0:36:55
+# Errors: 0, Warnings: 0

@@ -1,0 +1,5 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+
+src:
+  - axi4_2x2_fabric_parameters_pkg.sv

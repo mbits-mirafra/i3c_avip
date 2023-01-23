@@ -1,0 +1,54 @@
+uvmf:
+  environments:
+    FPU:
+    
+      agents:
+      - name: FPU_in_agent
+        type: FPU_in
+      - name: FPU_out_agent
+        type: FPU_out
+
+      dpi_define:
+        name: "FPUEnvPkg_CFunctions"
+        files:
+          - "myFirstFile.c"
+        comp_args: "-c -DPRINT32 -O2"
+        link_args: "-shared"
+        imports:
+          - name: "fpu_compute"
+            sv_return_type: "void"
+            c_return_type: "void"
+            c_args: "(reqstruct req_data, rspstruct rsp_data)"
+            sv_args:
+              - name: "req_data"
+                type: "reqstruct"
+                dir: "input"
+              - name: "rsp_data"
+                type: "rspstruct"
+                dir: "output"
+        
+      analysis_components:
+      - name: FPU_pred
+        type: FPU_predictor
+      analysis_exports: []
+      analysis_ports: []
+    
+      config_constraints: []
+      config_vars: []
+    
+      parameters: []
+    
+      scoreboards:
+      - name: FPU_sb
+        sb_type: uvmf_in_order_scoreboard
+        trans_type: FPU_in_transaction
+    
+      subenvs: []
+    
+      tlm_connections:
+      - driver: FPU_in_agent.monitored_ap            # connection 00
+        receiver: FPU_pred.FPU_in_agent_ae
+      - driver: FPU_pred.FPU_sb_ap                   # connection 01
+        receiver: FPU_sb.expected_analysis_export
+      - driver: FPU_in_agent.monitored_ap            # connection 02
+        receiver: FPU_sb.actual_analysis_export

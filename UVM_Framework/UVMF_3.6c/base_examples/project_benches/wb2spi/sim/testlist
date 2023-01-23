@@ -1,0 +1,4 @@
+TB_INFO wb2spi {} {}
+TB wb2spi
+TEST example_derived_test 5
+

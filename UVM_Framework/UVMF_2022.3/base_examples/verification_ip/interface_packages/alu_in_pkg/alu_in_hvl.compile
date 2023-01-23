@@ -1,0 +1,5 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - alu_in_common.compile
+src:
+  - alu_in_pkg.sv

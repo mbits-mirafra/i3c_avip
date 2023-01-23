@@ -1,0 +1,66 @@
+{% set fname = "verification_ip/environment_packages/{{name}}_env_pkg/{{name}}_env_pkg.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} environment agent
+// Unit            : Environment HVL package
+// File            : {{name}}_pkg.sv
+//----------------------------------------------------------------------
+//     
+// PACKAGE: This file defines all of the files contained in the
+//    environment package that will run on the host simulator.
+//
+// CONTAINS:
+//     - <{{name}}_configuration.svh>
+//     - <{{name}}_environment.svh>
+//     - <{{name}}_env_sequence_base.svh>
+//     - <{{name}}_infact_env_sequence.svh>
+{% for acName in acTypes %}
+//     - <{{acName}}.svh>
+{% endfor %}
+//
+// ****************************************************************************
+// ****************************************************************************
+{% endblock %}
+
+{% block contents %}
+package {{name}}_env_pkg;
+
+   import uvm_pkg::*;
+   import questa_uvm_pkg::*;
+   `include "uvm_macros.svh"
+
+   import uvmf_base_pkg::*;
+{% for ext_import in external_imports %}
+   import {{ext_import}}::*;
+{% endfor %}
+{% for agent in agent_pkgs %}
+   import {{agent}}_pkg::*;
+{% endfor %}
+
+{% for sub_env in subEnvironments %}
+    import {{sub_env.envPkg}}_env_pkg::*;
+{% endfor %}
+
+{% for sub_env in qvipSubEnvironments %}
+    import mvc_pkg::*;
+    import {{sub_env.envPkg}}_pkg::*;
+{% endfor %}
+
+{% for impdecl in impDecls %}
+   `uvm_analysis_imp_decl(_{{impdecl}})
+{% endfor %}
+
+   `include "src/{{name}}_env_configuration.svh"
+{% for acName in acTypes %}
+   `include "src/{{acName}}.svh"
+{% endfor %}
+   `include "src/{{name}}_environment.svh"
+   `include "src/{{name}}_env_sequence_base.svh"
+   `include "src/{{name}}_infact_env_sequence.svh"
+  
+endpackage
+
+{% endblock %}

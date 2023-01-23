@@ -1,0 +1,12 @@
+uvmf_testlist:
+  testbenches:
+    - name: scatter_gather_dma
+      extra_build_options: "UVMF_VIP_LIBRARY_HOME=../../../../../../../../verification_ip UVMF_PROJECT_DIR=../../../../../../../scatter_gather_dma"
+  tests:
+    - testbench: scatter_gather_dma
+    - name: test_top
+    - name: scatter_gather_dma_cp_test
+    - name: scatter_gather_dma_sg_test
+    # - name: scatter_gather_dma_cov_test
+    # - name: scatter_gather_dma_cov_loop_test
+    # - name: scatter_gather_dma_err_test

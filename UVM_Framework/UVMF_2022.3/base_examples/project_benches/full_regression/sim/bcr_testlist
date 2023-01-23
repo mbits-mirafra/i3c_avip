@@ -1,0 +1,5 @@
+INCLUDE ../../ahb2wb/sim/bcr_testlist
+INCLUDE ../../wb2spi/sim/bcr_testlist
+INCLUDE ../../ahb2spi/sim/bcr_testlist
+INCLUDE ../../alu/sim/bcr_testlist
+INCLUDE ../../gpio_example/sim/bcr_testlist

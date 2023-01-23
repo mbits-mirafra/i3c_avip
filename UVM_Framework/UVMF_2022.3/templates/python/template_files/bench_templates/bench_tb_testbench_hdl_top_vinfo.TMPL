@@ -1,0 +1,12 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/testbench/hdl_top.vinfo" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+@use $UVMF_PROJECT_DIR/rtl/verilog/verilog_dut.vinfo
+@use $UVMF_PROJECT_DIR/tb/parameters/{{name}}_parameters_pkg.vinfo
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+{% for bfm in bfm_pkgs %}
+@use $UVMF_VIP_LIBRARY_HOME/{{interface_location}}/{{bfm}}_pkg/{{bfm}}_bfm.vinfo
+{% endfor %}
+hdl_top.sv
+{% endblock %}

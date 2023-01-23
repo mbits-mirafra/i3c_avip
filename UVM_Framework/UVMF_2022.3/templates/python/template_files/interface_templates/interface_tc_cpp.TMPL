@@ -1,0 +1,46 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{src_dir}}{{name}}_tc.cpp" %}
+{% set conditional = "dpi_link" %}
+{% block description %}
+/*
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: This file contains the function definition for a notify transaction
+//     function that is specific to this interface package.  The 
+//     C_{{name}}_notify_transaction function is called by the monitor BFM.  The 
+//     bit_vec_in argument to this call contains data from the transfer observed
+//     by the monitor BFM.  This function uses the path of the calling monitor BFM
+//     to resolve a package scope.  The {{name}}_pkg_notify_transaction then 
+//     uses the path to resolve a specific {{name}}_monitor_proxy.  The 
+//     {{name}}_monitor_proxy has a handle to the {{name}}_monitor that is part
+//     of the UVM component hierarcy and broadcasts the transaction to connected
+//     subscribers.
+//
+//----------------------------------------------------------------------
+*/
+{% endblock %}
+{% block contents %}
+
+#include "dpiheader.h"
+#include "dpi_link.h"
+// pragma uvmf custom header begin
+// pragma uvmf custom header end
+
+extern "C" {
+
+     extern void {{name}}_pkg_notify_transaction(const char* path, const svBitVecVal* bit_vec_in);
+
+     void
+     C_{{name}}_notify_transaction( const svBitVecVal* bit_vec_in){
+            std::string path = svGetNameFromScope(svGetScope()); // svGetScope returns the scope passed as sideband data to this func
+                                                  // svGetNameFromScope gets the path of the caller
+            svScope {{name}}_pkg_scope=dpi_link::get_svScope(path.c_str());// use path to get a handle to the  scope of associated package from the hash
+            svSetScope({{name}}_pkg_scope); 
+            {{name}}_pkg_notify_transaction(path.c_str(), bit_vec_in);
+          }
+
+}
+
+// pragma uvmf custom additional begin
+// pragma uvmf custom additional end
+
+{% endblock %}

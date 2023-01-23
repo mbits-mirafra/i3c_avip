@@ -1,0 +1,2 @@
+src:
+  - ./verilog/gpio.v

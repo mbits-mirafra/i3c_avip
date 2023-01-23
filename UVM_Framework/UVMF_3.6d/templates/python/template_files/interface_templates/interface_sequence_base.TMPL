@@ -1,0 +1,35 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_sequence_base.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface Sequence Base
+// File            : {{name}}_sequence_base.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This file contains the class used as the base class for all sequences
+// for this interface.
+//
+// ****************************************************************************
+// ****************************************************************************
+class {{name}}_sequence_base extends uvmf_sequence_base #(.REQ({{name}}_transaction),.RSP({{name}}_transaction));
+
+  `uvm_object_utils( {{name}}_sequence_base )
+
+  // variables
+  {{name}}_transaction req;
+  {{name}}_transaction rsp;
+
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+//
+  function new( string name ="");
+    super.new( name );
+  endfunction
+
+endclass
+{% endblock %}

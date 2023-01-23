@@ -1,0 +1,15 @@
+uvmf_testlist:
+  testbenches:
+    - name: "ahb2spi"
+      extra_build_options: "UVMF_VIP_LIBRARY_HOME=../../../../../../../../verification_ip UVMF_PROJECT_DIR=../../../../../../../ahb2spi"
+  tests:
+    - testbench: "ahb2spi"
+    - name: "test_top"
+      repeat: 3
+    - name: "test_top_with_plusarg"
+      uvm_testname: "test_top"
+      extra_args: "+special_plusarg"
+    - name: "regmodel_test"
+    - name: "register_test"
+
+

@@ -1,0 +1,29 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_infact_sequence.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface infact sequence
+// File            : {{name}}_infact_sequence.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This sequences is a place holder for the infact sequence which will 
+// reach full coverage for the {{name}} transaction without redundancy.
+//
+// ****************************************************************************
+// 
+class {{name}}_infact_sequence extends {{name}}_sequence_base;
+
+  // declaration macros
+  `uvm_object_utils({{name}}_infact_sequence)
+
+//*****************************************************************
+  function new(string name = "");
+    super.new(name);
+  endfunction: new
+
+endclass: {{name}}_infact_sequence
+{% endblock %}

@@ -1,0 +1,2 @@
+src:
+  - ./verilog/axi4_interconnect_NxN.sv

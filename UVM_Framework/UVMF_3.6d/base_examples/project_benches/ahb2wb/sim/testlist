@@ -1,0 +1,4 @@
+TB_INFO ahb2wb {} {}
+TB ahb2wb
+TEST example_derived_test 5 
+TEST ahb_random_test 4

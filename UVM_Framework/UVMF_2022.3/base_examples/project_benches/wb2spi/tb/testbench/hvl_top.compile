@@ -1,0 +1,4 @@
+needs:
+  - ../tests/wb2spi_tests_pkg.compile
+src:
+  - hvl_top.sv

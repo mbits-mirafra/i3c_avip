@@ -1,0 +1,14 @@
+incdir:
+  - ${uvm_path}/src
+  - .
+
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../../../verification_ip/interface_packages/wb_pkg/wb_hvl.compile
+  - ../../../../verification_ip/interface_packages/ahb_pkg/ahb_hvl.compile
+  - ../../../../verification_ip/interface_packages/spi_pkg/spi_hvl.compile
+  - ../../../../verification_ip/environment_packages/ahb2wb_env_pkg/ahb2wb_env_pkg.compile
+  - ../../../../verification_ip/environment_packages/wb2spi_env_pkg/wb2spi_env_pkg.compile
+  - ../parameters/ahb2spi_parameters_pkg.compile
+src:
+  - ahb2spi_sequences_pkg.sv

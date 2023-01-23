@@ -1,0 +1,37 @@
+uvmf:
+  environments:
+    scatter_gather_dma:
+      agents:
+      - initiator_responder: RESPONDER
+        name: dma_done_rsc
+        parameters:
+        - name: WIDTH
+          value: '1'
+        type: ccs
+      analysis_components: []
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_variable_values:
+      - name: dma_done_rsc_config.reset_polarity
+        value: '0'
+      - name: dma_done_rsc_config.protocol_kind
+        value: CCS_WAIT
+      config_vars: []
+      existing_library_component: 'True'
+      hvl_pkg_parameters: []
+      imports:
+      - name: mvc_pkg
+      - name: mgc_axi4_v1_0_pkg
+      non_uvmf_components: []
+      parameters:
+      - name: dma_done_rsc_WIDTH
+        type: int
+        value: '1'
+      qvip_memory_agents: []
+      qvip_subenvs:
+      - name: scatter_gather_dma_qvip_subenv
+        type: scatter_gather_dma_qvip
+      scoreboards: []
+      subenvs: []
+      tlm_connections: []

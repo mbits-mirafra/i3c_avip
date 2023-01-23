@@ -1,0 +1,7 @@
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/wb_pkg/wb_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/interface_packages/ahb_pkg/ahb_pkg.vinfo
+@use $UVMF_VIP_LIBRARY_HOME/environment_packages/ahb2wb_env_pkg/ahb2wb_env_pkg.vinfo
+@use $UVMF_PROJECT_DIR/tb/parameters/ahb2wb_parameters_pkg.vinfo
++incdir+@vinfodir
+ahb2wb_sequences_pkg.sv

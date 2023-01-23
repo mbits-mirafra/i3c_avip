@@ -1,0 +1,196 @@
+/*****************************************************************************
+ *
+ * Copyright 2015 Mentor Graphics Corporation 
+ * All Rights Reserved.
+ *
+ * THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION WHICH IS THE 
+ * PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS AND IS SUBJECT 
+ * TO LICENSE TERMS.
+ *
+ *****************************************************************************/
+
+// Module: axi4_master_hdl
+//
+// This module is the HDL-side master module for AXI4. The user can connect
+// an instance of it to an AXI4 bus to drive the bus for the master side.
+// This module goes together with an HVL-side master module 'axi4_master_hvl'.
+// The two modules combined are a consolidation of 
+// (1) the AXI4 QVIP interface and associated EZ-VIP master connectivity module
+// (2) the AXI4 VTL interface and associated XRTL master module 
+// into a unified pair of wrapper modules to provide a single common VIP 
+// use model for simulation and emulation. 
+//
+// Input Parameters:
+// ADDR_WIDTH      - Indicates address bus width.
+// RDATA_WIDTH     - Indicates read data bus width.
+// WDATA_WIDTH     - Indicates write data bus width.
+// ID_WIDTH        - Indicates ID width.
+// USER_WIDTH      - Indicates user signals bus width.
+// REGION_MAP_SIZE - Indicates region map size
+// VIP_IF_UVM_NAME - Indicates interface name for which this module
+//                   will be instantiated.
+// VIP_IF_UVM_CTXT - Indicates interface context for which this module
+//                   will be instantiated.
+
+// (inline source)
+module mgc_axi4_master_hdl #(
+   int ADDR_WIDTH  = 32,
+   int RDATA_WIDTH = 32,
+   int WDATA_WIDTH = 32,
+   int ID_WIDTH    = 4,
+   int USER_WIDTH  = 4,
+   int REGION_MAP_SIZE = 16,
+   string VIP_IF_UVM_NAME,
+   string VIP_IF_UVM_CONTEXT
+)(mgc_axi4_signal_if pin_if); //pragma attribute mgc_axi4_master_hdl partition_module_xrtl
+
+`ifdef XRTL
+
+   //
+   // Instantiate VTL XRTL BFM:
+   //
+   mgc_xrtl_axi4_master #(
+      .AXI4_ADDRESS_WIDTH(ADDR_WIDTH),
+      .AXI4_RDATA_WIDTH(RDATA_WIDTH),
+      .AXI4_WDATA_WIDTH(WDATA_WIDTH),
+      .AXI4_ID_WIDTH(ID_WIDTH),
+      .AXI4_USER_WIDTH(USER_WIDTH)
+   ) vip_mod (
+      .ACLK(pin_if.ACLK),
+      .ARESETn(pin_if.ARESETn),
+      .AWVALID(pin_if.AWVALID),
+      .AWADDR(pin_if.AWADDR),
+      .AWPROT(pin_if.AWPROT),
+      .AWREGION(pin_if.AWREGION),
+      .AWLEN(pin_if.AWLEN),
+      .AWSIZE(pin_if.AWSIZE),
+      .AWBURST(pin_if.AWBURST),
+      .AWLOCK(pin_if.AWLOCK),
+      .AWCACHE(pin_if.AWCACHE),
+      .AWQOS(pin_if.AWQOS),
+      .AWID(pin_if.AWID),
+      .AWUSER(pin_if.AWUSER),
+      .AWREADY(pin_if.AWREADY),
+      .ARVALID(pin_if.ARVALID),
+      .ARADDR(pin_if.ARADDR),
+      .ARPROT(pin_if.ARPROT),
+      .ARREGION(pin_if.ARREGION),
+      .ARLEN(pin_if.ARLEN),
+      .ARSIZE(pin_if.ARSIZE),
+      .ARBURST(pin_if.ARBURST),
+      .ARLOCK(pin_if.ARLOCK),
+      .ARCACHE(pin_if.ARCACHE),
+      .ARQOS(pin_if.ARQOS),
+      .ARID(pin_if.ARID),
+      .ARUSER(pin_if.ARUSER),
+      .ARREADY(pin_if.ARREADY),
+      .RVALID(pin_if.RVALID),
+      .RDATA(pin_if.RDATA),
+      .RRESP(pin_if.RRESP),
+      .RLAST(pin_if.RLAST),
+      .RID(pin_if.RID),
+      .RUSER(pin_if.RUSER),
+      .RREADY(pin_if.RREADY),
+      .WVALID(pin_if.WVALID),
+      .WDATA(pin_if.WDATA),
+      .WSTRB(pin_if.WSTRB),
+      .WLAST(pin_if.WLAST),
+      .WUSER(pin_if.WUSER),
+      .WREADY(pin_if.WREADY),
+      .BVALID(pin_if.BVALID),
+      .BRESP(pin_if.BRESP),
+      .BID(pin_if.BID),
+      .BUSER(pin_if.BUSER),
+      .BREADY(pin_if.BREADY)
+   );
+
+`else
+
+   //
+   // Instantiate the QVIP interface
+   //
+   typedef virtual mgc_axi4 #(
+      .AXI4_ADDRESS_WIDTH(ADDR_WIDTH), 
+      .AXI4_RDATA_WIDTH(RDATA_WIDTH),
+      .AXI4_WDATA_WIDTH(WDATA_WIDTH),
+      .AXI4_ID_WIDTH(ID_WIDTH),
+      .AXI4_USER_WIDTH(USER_WIDTH),
+      .AXI4_REGION_MAP_SIZE(REGION_MAP_SIZE)
+   ) vip_if_t;
+ 
+   mgc_axi4 #(
+      .AXI4_ADDRESS_WIDTH(ADDR_WIDTH), 
+      .AXI4_RDATA_WIDTH(RDATA_WIDTH),
+      .AXI4_WDATA_WIDTH(WDATA_WIDTH),
+      .AXI4_ID_WIDTH(ID_WIDTH),
+      .AXI4_USER_WIDTH(USER_WIDTH),
+      .AXI4_REGION_MAP_SIZE(REGION_MAP_SIZE)
+   ) vip_if (pin_if.ACLK, pin_if.ARESETn);
+
+   //
+   // Put the interface into the UVM configuration structure, 
+   //
+   initial begin
+     uvm_pkg::uvm_config_db #(vip_if_t)::set(null, VIP_IF_UVM_CONTEXT, VIP_IF_UVM_NAME, vip_if);
+
+     vip_if.axi4_set_master_abstraction_level(1'b0,1'b1); // Master end should be TLM    
+   end
+
+  // Signals driven by the external slave via the input ports, 
+  // driven onto the corresponding wires of this interface
+
+  assign vip_if.AWREADY = pin_if.AWREADY;
+  assign vip_if.ARREADY = pin_if.ARREADY;
+  assign vip_if.RVALID  = pin_if.RVALID;
+  assign vip_if.RDATA   = pin_if.RDATA;
+  assign vip_if.RRESP   = pin_if.RRESP;
+  assign vip_if.RLAST   = pin_if.RLAST;
+  assign vip_if.RID     = pin_if.RID;
+  assign vip_if.RUSER   = pin_if.RUSER;
+  assign vip_if.WREADY  = pin_if.WREADY;
+  assign vip_if.BVALID  = pin_if.BVALID;
+  assign vip_if.BRESP   = pin_if.BRESP;
+  assign vip_if.BID     = pin_if.BID;
+  assign vip_if.BUSER   = pin_if.BUSER;
+
+  // Signals, driven by the sequence driving the master end 
+  // of this interface, driven onto the output ports
+  
+  assign pin_if.AWVALID  = vip_if.AWVALID;
+  assign pin_if.AWADDR   = vip_if.AWADDR;
+  assign pin_if.AWPROT   = vip_if.AWPROT;
+  assign pin_if.AWREGION = vip_if.AWREGION;
+  assign pin_if.AWLEN    = vip_if.AWLEN;
+  assign pin_if.AWSIZE   = vip_if.AWSIZE;
+  assign pin_if.AWBURST  = vip_if.AWBURST;
+  assign pin_if.AWLOCK   = vip_if.AWLOCK;
+  assign pin_if.AWCACHE  = vip_if.AWCACHE;
+  assign pin_if.AWQOS    = vip_if.AWQOS;
+  assign pin_if.AWID     = vip_if.AWID;
+  assign pin_if.AWUSER   = vip_if.AWUSER;
+
+  assign pin_if.ARVALID  = vip_if.ARVALID;
+  assign pin_if.ARADDR   = vip_if.ARADDR;
+  assign pin_if.ARPROT   = vip_if.ARPROT;
+  assign pin_if.ARREGION = vip_if.ARREGION;
+  assign pin_if.ARLEN    = vip_if.ARLEN;
+  assign pin_if.ARSIZE   = vip_if.ARSIZE;
+  assign pin_if.ARBURST  = vip_if.ARBURST;
+  assign pin_if.ARLOCK   = vip_if.ARLOCK;
+  assign pin_if.ARCACHE  = vip_if.ARCACHE;
+  assign pin_if.ARQOS    = vip_if.ARQOS;
+  assign pin_if.ARID     = vip_if.ARID;
+  assign pin_if.ARUSER   = vip_if.ARUSER;
+
+  assign pin_if.RREADY   = vip_if.RREADY;
+  assign pin_if.WVALID   = vip_if.WVALID;
+  assign pin_if.WDATA    = vip_if.WDATA;
+  assign pin_if.WSTRB    = vip_if.WSTRB;
+  assign pin_if.WLAST    = vip_if.WLAST;
+  assign pin_if.WUSER    = vip_if.WUSER;
+
+  assign pin_if.BREADY   = vip_if.BREADY;
+
+`endif
+
+endmodule: mgc_axi4_master_hdl

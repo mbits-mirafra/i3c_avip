@@ -1,0 +1,44 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_infact_proj/{{name}}_infact_sequence/{{name}}_infact_sequence.svh" %}
+{% set conditional = "inFact" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+// This sequences is a place holder for the infact sequence which will 
+// reach full coverage for the {{name}} transaction without redundancy.
+//
+//----------------------------------------------------------------------
+{% endblock %}
+{% block contents %}
+class {{name}}_infact_sequence {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}}{% if param.value != None %} = {{param.value}}{% endif %}{% if not loop.last %},{% endif %}                                
+{% endfor %}      ) {% endif %}
+extends {{name}}_sequence_base {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                             .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %};
+
+{%if paramDefs|length > 0%}
+  `uvm_object_param_utils( {{name}}_infact_sequence #(
+  {% for param in paramDefs %}                            {{param.name}}{% if not loop.last %},{% endif %}
+
+  {% endfor %}                          ))
+{% else %}
+  `uvm_object_utils({{name}}_infact_sequence)
+{% endif %}
+
+  // pragma uvmf custom class_item_additional begin
+  // pragma uvmf custom class_item_additional end
+  
+//*****************************************************************
+  function new(string name = "");
+    super.new(name);
+  endfunction: new
+
+endclass: {{name}}_infact_sequence
+
+// pragma uvmf custom external begin
+// pragma uvmf custom external end
+
+{% endblock %}

@@ -1,0 +1,243 @@
+<certe_dump>
+  <instance type=" test_top "> 
+     uvm_test_top 
+  
+     <instance type=" uvm_env "> 
+        environment 
+  
+        <instance type=" uvm_component "> 
+           a2b_predictor 
+  
+           <imp if_type = "uvm_analysis_imp" txn_type = "anonymous"> 
+              analysis_imp 
+           </imp> 
+  
+           <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+              port_0_ap 
+              <connection>  uvm_test_top.environment.a2b_scoreboard.expected_analysis_export  </connection> 
+           </port> 
+  
+           <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+              port_1_ap 
+              <connection>  uvm_test_top.environment.b2a_scoreboard.actual_analysis_export  </connection> 
+           </port> 
+        </instance> 
+  
+  
+        <instance type=" uvm_scoreboard "> 
+           a2b_scoreboard 
+  
+           <imp if_type = "uvm_analysis_imp_actual" txn_type = "anonymous"> 
+              actual_analysis_export 
+           </imp> 
+  
+           <imp if_type = "uvm_analysis_imp_expected" txn_type = "anonymous"> 
+              expected_analysis_export 
+           </imp> 
+  
+           <instance type=" uvm_tlm_analysis_fifo #(T) "> 
+              expected_results_af 
+  
+              <imp if_type = "uvm_analysis_imp" txn_type = "anonymous"> 
+                 analysis_export 
+              </imp> 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 get_ap 
+              </port> 
+  
+              <imp if_type = "uvm_get_peek_imp" txn_type = "anonymous"> 
+                 get_peek_export 
+              </imp> 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 put_ap 
+              </port> 
+  
+              <imp if_type = "uvm_put_imp" txn_type = "anonymous"> 
+                 put_export 
+              </imp> 
+           </instance> 
+  
+        </instance> 
+  
+  
+        <instance type=" uvm_agent "> 
+           a_agent 
+  
+           <instance type=" ahb_transaction_coverage "> 
+              a_agent_coverage 
+  
+              <imp if_type = "uvm_analysis_imp" txn_type = "anonymous"> 
+                 analysis_imp 
+              </imp> 
+           </instance> 
+  
+  
+           <instance type=" ahb_driver "> 
+              a_agent_driver 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 rsp_port 
+                 <connection>  uvm_test_top.environment.a_agent.sequencer.rsp_export  </connection> 
+              </port> 
+  
+              <port if_type = "uvm_seq_item_pull_port" txn_type = "anonymous"> 
+                 seq_item_port 
+                 <connection>  uvm_test_top.environment.a_agent.sequencer.seq_item_export  </connection> 
+              </port> 
+           </instance> 
+  
+  
+           <instance type=" ahb_monitor "> 
+              a_agent_monitor 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 monitored_ap 
+                 <connection>  uvm_test_top.environment.a_agent.a_agent_coverage.analysis_imp  </connection> 
+                 <connection>  uvm_test_top.environment.a_agent.monitored_ap  </connection> 
+              </port> 
+           </instance> 
+  
+  
+           <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+              monitored_ap 
+              <connection>  uvm_test_top.environment.a2b_predictor.analysis_imp  </connection> 
+           </port> 
+  
+           <instance type=" uvm_sequencer "> 
+              sequencer 
+  
+              <export if_type = "uvm_analysis_export" txn_type = "anonymous"> 
+                 rsp_export 
+                 <connection>  uvm_test_top.environment.a_agent.sequencer.sqr_rsp_analysis_fifo.analysis_export  </connection> 
+              </export> 
+  
+              <imp if_type = "uvm_seq_item_pull_imp" txn_type = "anonymous"> 
+                 seq_item_export 
+              </imp> 
+           </instance> 
+  
+        </instance> 
+  
+  
+        <instance type=" uvm_component "> 
+           b2a_predictor 
+  
+           <imp if_type = "uvm_analysis_imp" txn_type = "anonymous"> 
+              analysis_imp 
+           </imp> 
+  
+           <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+              port_0_ap 
+              <connection>  uvm_test_top.environment.a2b_scoreboard.actual_analysis_export  </connection> 
+           </port> 
+  
+           <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+              port_1_ap 
+              <connection>  uvm_test_top.environment.b2a_scoreboard.expected_analysis_export  </connection> 
+           </port> 
+        </instance> 
+  
+  
+        <instance type=" uvm_scoreboard "> 
+           b2a_scoreboard 
+  
+           <imp if_type = "uvm_analysis_imp_actual" txn_type = "anonymous"> 
+              actual_analysis_export 
+           </imp> 
+  
+           <imp if_type = "uvm_analysis_imp_expected" txn_type = "anonymous"> 
+              expected_analysis_export 
+           </imp> 
+  
+           <instance type=" uvm_tlm_analysis_fifo #(T) "> 
+              expected_results_af 
+  
+              <imp if_type = "uvm_analysis_imp" txn_type = "anonymous"> 
+                 analysis_export 
+              </imp> 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 get_ap 
+              </port> 
+  
+              <imp if_type = "uvm_get_peek_imp" txn_type = "anonymous"> 
+                 get_peek_export 
+              </imp> 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 put_ap 
+              </port> 
+  
+              <imp if_type = "uvm_put_imp" txn_type = "anonymous"> 
+                 put_export 
+              </imp> 
+           </instance> 
+  
+        </instance> 
+  
+  
+        <instance type=" uvm_agent "> 
+           b_agent 
+  
+           <instance type=" wb_transaction_coverage "> 
+              b_agent_coverage 
+  
+              <imp if_type = "uvm_analysis_imp" txn_type = "anonymous"> 
+                 analysis_imp 
+              </imp> 
+           </instance> 
+  
+  
+           <instance type=" wb_driver "> 
+              b_agent_driver 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 rsp_port 
+                 <connection>  uvm_test_top.environment.b_agent.sequencer.rsp_export  </connection> 
+              </port> 
+  
+              <port if_type = "uvm_seq_item_pull_port" txn_type = "anonymous"> 
+                 seq_item_port 
+                 <connection>  uvm_test_top.environment.b_agent.sequencer.seq_item_export  </connection> 
+              </port> 
+           </instance> 
+  
+  
+           <instance type=" wb_monitor "> 
+              b_agent_monitor 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 monitored_ap 
+                 <connection>  uvm_test_top.environment.b_agent.b_agent_coverage.analysis_imp  </connection> 
+                 <connection>  uvm_test_top.environment.b_agent.monitored_ap  </connection> 
+              </port> 
+           </instance> 
+  
+  
+           <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+              monitored_ap 
+              <connection>  uvm_test_top.environment.b2a_predictor.analysis_imp  </connection> 
+           </port> 
+  
+           <instance type=" uvm_sequencer "> 
+              sequencer 
+  
+              <export if_type = "uvm_analysis_export" txn_type = "anonymous"> 
+                 rsp_export 
+                 <connection>  uvm_test_top.environment.b_agent.sequencer.sqr_rsp_analysis_fifo.analysis_export  </connection> 
+              </export> 
+  
+              <imp if_type = "uvm_seq_item_pull_imp" txn_type = "anonymous"> 
+                 seq_item_export 
+              </imp> 
+           </instance> 
+  
+        </instance> 
+  
+     </instance> 
+  
+  </instance> 
+  
+  </certe_dump>

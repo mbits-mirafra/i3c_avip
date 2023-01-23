@@ -1,0 +1,56 @@
+UVMF VRM QUICKSTART
+=====================================================================
+
+Introduction
+---------------------------------------------------------------------
+Mentor's Verification Run Manager (VRM) provides a mechanism for a 
+user to define an arbitraty number of regression tasks and execute all
+or any subset of those tasks with a single command.
+
+Basically, VRM can replace most in-house written script
+environments developed for the purposes of running simulations and 
+analyzing the results.  The advantages of using VRM instead of a
+custom script is that VRM was written from the ground up for the 
+purposes of running and analyzing simulations, whereas most homegrown
+scripts are written with Perl, Python, Make, etc..  The latter
+requires a considerable amount of overhead programming in order to
+give the script some awareness and understanding of how to invoke any
+simulation.  With VRM, the tool is already simulation aware.  The
+result is much more compact scripting and the ability to take
+advantage of a myriad of built-in capabilities that are simulation
+specific, such as accessing UCDBs, results analysis, reporting, 
+and compute farm access.
+
+Organization
+---------------------------------------------------------------------
+All information for VRM is usually contained in a single file - a 
+"Run Manager DataBase" file, or RMDB.  For UVMF, a single RMDB file is
+defined that all project benches utilize.  That one file is located at:
+
+./verification_ip/scripts/default.rmdb
+
+Each ./sim directory underneath a project bench contains a symbolic link
+back to this file, plus a list of tests associated with that project bench
+that the RMDB file uses to run a regression.
+
+The RMDB itself is just an XML file, and it defines items called 
+'runnables'.  Each runnable defines a distinct action or it groups 
+other runnables.  For example, most RMDBs will contain a 'compile' 
+runnable and a 'simulate' runnable.
+
+Use
+---------------------------------------------------------------------
+The UVMF RMDB defines two top-level runnables: 'regression' and 'single'
+* regression - Reads the test list for the project and runs all of the
+               listed tests.
+
+               vrun regression
+
+* single - Run a single simulation.
+
+			   vrun single -tail -ask
+			   vrun single -tail -GUVM_TESTNAME=<testname>
+
+			   (The first method will ask the user which test to run)
+
+See ./verification_ip/scripts/default.rmdb comments for more details

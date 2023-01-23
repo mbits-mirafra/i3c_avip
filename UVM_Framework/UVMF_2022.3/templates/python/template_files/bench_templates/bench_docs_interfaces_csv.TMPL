@@ -1,0 +1,16 @@
+{% set fname = "{{bench_location}}/{{name}}/docs/interfaces.csv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+{% endblock %}
+
+{% block contents %}
+
+,
+Interface Description, Interface Type, Interface Transaction, Interface Name,
+{% for bfm in bfms %}
+{{bfm.name}}, {{bfm.ifPkg}}_driver_bfm {{bfm.ifPkg}}_monitor_bfm, {{bfm.ifPkg}}_transaction, {{bfm.ifPkg}}_pkg_{{bfm.name}}_BFM,
+{% endfor %}
+
+{% endblock %}
+

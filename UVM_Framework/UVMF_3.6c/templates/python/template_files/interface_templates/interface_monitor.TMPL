@@ -1,0 +1,90 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_monitor.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface UVM monitor
+// File            : {{name}}_monitor.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: This class receives {{name}} transactions observed by the
+//     {{name}} monitor BFM and broadcasts them through the analysis port
+//     on the agent. It accesses the monitor BFM through the monitor
+//     task. This UVM component captures transactions
+//     for viewing in the waveform viewer if the
+//     enable_transaction_viewing flag is set in the configuration.
+//
+// ****************************************************************************
+// ****************************************************************************
+{% endblock %}
+
+{% block contents %}
+class {{name}}_monitor extends uvmf_monitor_base #(
+                    .CONFIG_T({{name}}_configuration),
+                    .BFM_BIND_T(virtual {{name}}_monitor_bfm),
+                    .TRANS_T({{name}}_transaction)
+                    );
+
+  `uvm_component_utils( {{name}}_monitor )
+
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+//
+  function new( string name = "", uvm_component parent = null );
+    super.new( name, parent );
+  endfunction
+
+// ****************************************************************************
+   virtual function void configure(input CONFIG_T cfg);
+      bfm.configure(
+
+{% if veloceReady %}
+          cfg.active_passive,
+          cfg.master_slave
+{% for config in configVars %}
+          ,cfg.{{config.name}}
+{% endfor %}
+);                    
+   
+{% else %}
+                         cfg
+     );
+{% endif %}
+   endfunction
+
+// ****************************************************************************
+   virtual function void set_bfm_proxy_handle();
+      bfm.proxy = this;
+   endfunction
+
+ // ****************************************************************************              
+  virtual task run_phase(uvm_phase phase);                                                   
+  // Start monitor BFM thread and don't call super.run() in order to                       
+  // override the default monitor proxy 'pull' behavior with the more                      
+  // emulation-friendly BFM 'push' approach using the notify_transaction                   
+  // function below                                                                        
+  bfm.start_monitoring();                                                   
+  endtask                                                                                    
+  
+  // ****************************************************************************              
+  virtual function void notify_transaction(
+{% for txn in transVars %}
+                                            input {{txn.type}} {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}                              );
+    trans = new("trans");                                                                   
+    trans.start_time = time_stamp;                                                          
+    trans.end_time = $time;                                                                 
+    time_stamp = trans.end_time;                                                            
+{% for txn in transVars %}
+    trans.{{txn.name}} = {{txn.name}};
+{% endfor %}
+    analyze(trans);                                                                         
+  endfunction  
+
+endclass
+{% endblock %}
+

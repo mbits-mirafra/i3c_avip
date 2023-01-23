@@ -1,0 +1,18 @@
+## To instantiate this subenv in a higher level, use this structure:
+##  qvip_subenvs :
+##    - { name: "<instance_name_of_subenv>", type: "scatter_gather_dma_qvip" }
+uvmf:
+  qvip_library:
+    version: '2020.4'
+    date: '10/16/2020:13:17'
+  qvip_environments:
+     "scatter_gather_dma_qvip":
+        agents:
+          - name: 'mgc_axi4_m0'
+            imports:
+              - "mvc_pkg"
+              - "mgc_axi4_v1_0_pkg"
+          - name: 'mgc_axi4_s0'
+            imports:
+              - "mvc_pkg"
+              - "mgc_axi4_v1_0_pkg"

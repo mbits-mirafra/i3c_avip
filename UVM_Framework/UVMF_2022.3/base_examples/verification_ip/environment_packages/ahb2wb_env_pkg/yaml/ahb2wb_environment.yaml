@@ -1,0 +1,65 @@
+uvmf:
+  environments:
+    ahb2wb:
+      agents:
+      - initiator_responder: RESPONDER
+        name: wb
+        parameters:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+        type: wb
+      - initiator_responder: INITIATOR
+        name: ahb
+        type: ahb
+      analysis_components:
+      - name: ahb2wb_pred
+        parameters:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+        type: ahb2wb_predictor
+      - name: wb2ahb_pred
+        parameters:
+        - name: WB_DATA_WIDTH
+          value: WB_DATA_WIDTH
+        - name: WB_ADDR_WIDTH
+          value: WB_ADDR_WIDTH
+        type: wb2ahb_predictor
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_vars: []
+      hvl_pkg_parameters: []
+      non_uvmf_components: []
+      parameters:
+      - name: WB_DATA_WIDTH
+        type: int
+        value: '16'
+      - name: WB_ADDR_WIDTH
+        type: int
+        value: '32'
+      qvip_memory_agents: []
+      scoreboards:
+      - name: ahb2wb_sb
+        sb_type: uvmf_in_order_scoreboard
+        trans_type: 'wb_transaction #(.WB_DATA_WIDTH(WB_DATA_WIDTH), .WB_ADDR_WIDTH(WB_ADDR_WIDTH))'
+      - name: wb2ahb_sb
+        sb_type: uvmf_in_order_scoreboard
+        trans_type: ahb_transaction
+      subenvs: []
+      tlm_connections:
+      - driver: ahb.monitored_ap
+        receiver: ahb2wb_pred.ahb_ae
+      - driver: ahb2wb_pred.wb_ap
+        receiver: ahb2wb_sb.expected_analysis_export
+      - driver: ahb2wb_pred.ahb_ap
+        receiver: wb2ahb_sb.actual_analysis_export
+      - driver: wb.monitored_ap
+        receiver: wb2ahb_pred.wb_ae
+      - driver: wb2ahb_pred.wb_ap
+        receiver: ahb2wb_sb.actual_analysis_export
+      - driver: wb2ahb_pred.ahb_ap
+        receiver: wb2ahb_sb.expected_analysis_export

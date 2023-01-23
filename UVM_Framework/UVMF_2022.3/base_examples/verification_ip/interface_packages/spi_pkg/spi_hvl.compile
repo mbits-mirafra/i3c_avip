@@ -1,0 +1,6 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - spi_common.compile
+
+src:
+  - spi_pkg.sv

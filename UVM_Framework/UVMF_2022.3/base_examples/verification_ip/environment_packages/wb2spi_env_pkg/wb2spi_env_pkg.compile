@@ -1,0 +1,11 @@
+incdir:
+  - ${uvm_path}/src
+  - .
+
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../interface_packages/wb_pkg/wb_hvl.compile
+  - ../../interface_packages/spi_pkg/spi_hvl.compile
+src: 
+  - ./registers/wb2spi_reg_pkg.sv
+  - wb2spi_env_pkg.sv

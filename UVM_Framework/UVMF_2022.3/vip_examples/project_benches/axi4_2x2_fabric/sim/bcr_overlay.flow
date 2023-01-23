@@ -1,0 +1,7 @@
+options:
+  env_vars:
+    AXI4_2X2_FABRIC_QVIP_DIR_NAME: { value: ../../../verification_ip/environment_packages/axi4_2x2_fabric_qvip_dir/uvmf, resolve_path: True, override: True }
+flows:
+  base:
+    variables:
+      using_qvip: True

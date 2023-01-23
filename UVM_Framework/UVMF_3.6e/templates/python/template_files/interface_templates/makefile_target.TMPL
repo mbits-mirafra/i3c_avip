@@ -1,0 +1,21 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/Makefile" %}
+# {{name}} interface packages source
+{{name}}_PKG         = \
+	$(DASH_F_OPTION) $(UVMF_VIP_LIBRARY_HOME)/interface_packages/{{name}}_pkg/{{name}}_filelist_hvl.f 
+
+{{name}}_PKG_HDL         = \
+	$(DASH_F_OPTION) $(UVMF_VIP_LIBRARY_HOME)/interface_packages/{{name}}_pkg/{{name}}_filelist_hdl.f 
+
+COMP_{{name}}_PKG_TGT_0 = q_comp_{{name}}_pkg
+COMP_{{name}}_PKG_TGT_1 = v_comp_{{name}}_pkg
+COMP_{{name}}_PKG_TGT = $(COMP_{{name}}_PKG_TGT_$(USE_VELOCE))
+
+comp_{{name}}_pkg: $(COMP_{{name}}_PKG_TGT)
+	$(HDL_COMP_CMD) +incdir+$(UVMF_VIP_LIBRARY_HOME)/interface_packages/{{name}}_pkg $({{name}}_PKG_HDL)
+
+q_comp_{{name}}_pkg:
+	$(HVL_COMP_CMD) +incdir+$(UVMF_VIP_LIBRARY_HOME)/interface_packages/{{name}}_pkg $({{name}}_PKG)
+
+v_comp_{{name}}_pkg: q_comp_{{name}}_pkg
+	$(VELANALYZE_HVL_CMD) +incdir+$(UVMF_VIP_LIBRARY_HOME)/interface_packages/{{name}}_pkg $({{name}}_PKG)
+

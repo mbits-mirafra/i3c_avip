@@ -1,0 +1,12 @@
+
+{% set fname = "{{bench_location}}/{{name}}/rtl/dut.compile" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+# pragma uvmf custom dut_compile_info begin
+src:
+  - ./vhdl/vhdl_dut.vhd
+  - ./verilog/verilog_dut.v
+# pragma uvmf custom dut_compile_info end
+{% endblock %}
+

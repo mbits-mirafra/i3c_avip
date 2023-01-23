@@ -1,0 +1,4 @@
+needs:
+  - ccs_shared.compile
+  - ccs_hvl.compile
+  - ccs_hdl.compile

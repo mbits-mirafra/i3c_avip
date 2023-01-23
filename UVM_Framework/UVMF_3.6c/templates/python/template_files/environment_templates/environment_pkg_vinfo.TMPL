@@ -1,0 +1,9 @@
+{% set fname = "verification_ip/environment_packages/{{name}}_env_pkg/{{name}}_env_pkg.vinfo" %}
+{% block contents %}
++incdir+@vinfodir
+@use ../../uvmf_base_pkg/uvmf_base_pkg.vinfo
+{% for agent in agent_pkgs %}
+@use ../../interface_packages/{{agent}}_pkg/{{agent}}_pkg.vinfo
+{% endfor %}
+{{name}}_env_pkg.sv
+{% endblock %}

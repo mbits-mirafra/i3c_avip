@@ -1,0 +1,3 @@
+
+$UVMF_VIP_LIBRARY_HOME/interface_packages/gpio_pkg/gpio_pkg_hdl.sv
+$UVMF_VIP_LIBRARY_HOME/interface_packages/gpio_pkg/gpio_pkg.sv

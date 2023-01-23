@@ -1,0 +1,113 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_driver.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface UVM Driver
+// File            : {{name}}_driver.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: This class passes transactions between the sequencer
+//        and the BFM driver interface.  It accesses the driver BFM 
+//        through the bfm handle. This driver
+//        passes transactions to the driver BFM through the access
+//        task.  
+//
+// ****************************************************************************
+// ****************************************************************************
+{% endblock %}
+
+{% block contents %}
+class {{name}}_driver {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}} = {{param.value}}{% if not loop.last %},{% endif %}                                
+{% endfor %}      ) {% endif %}
+extends uvmf_driver_base #(
+                   .CONFIG_T({{name}}_configuration {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                             .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %}),
+                   .BFM_BIND_T(virtual {{name}}_driver_bfm{%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                             .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %}),
+                   .REQ({{name}}_transaction {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                             .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %}),
+                   .RSP({{name}}_transaction {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}                             .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                             ) {% endif %}));
+
+{%if paramDefs|length > 0%}
+  `uvm_component_param_utils( {{name}}_driver #(
+  {% for param in paramDefs %}                            {{param.name}}{% if not loop.last %},{% endif %}
+
+  {% endfor %}                          ))
+{% else %}
+  `uvm_component_utils( {{name}}_driver )
+{% endif %}
+
+// ****************************************************************************
+// FUNCTION : new()
+// This function is the standard SystemVerilog constructor.
+//
+  function new( string name = "", uvm_component parent=null );
+    super.new( name, parent );
+  endfunction
+
+// ****************************************************************************
+   virtual function void configure(input CONFIG_T cfg);
+      bfm.configure(
+
+{% if veloceReady %}
+          cfg.active_passive,
+          cfg.initiator_responder
+{% for config in configVars %}
+          ,cfg.{{config.name}}
+{% endfor %}
+);                    
+   
+{% else %}
+                         cfg
+     );
+{% endif %}
+   endfunction
+
+// ****************************************************************************
+   virtual function void set_bfm_proxy_handle();
+      bfm.proxy = this;
+   endfunction
+
+// ****************************************************************************              
+  virtual task access( inout REQ txn );
+      if (configuration.initiator_responder==RESPONDER) begin
+        if ({{responseOperation}}) begin
+          bfm.do_response_ready(
+            {% for trans in responseList %} txn.{{trans.name}}{% if not loop.last %},
+            {% endif %}
+            {% endfor %}
+          );
+        end
+        bfm.response(
+{% if veloceReady %}
+{% for trans in transVars %}      txn.{{trans.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+{% else %}
+       txn 
+{% endif %}        
+          );
+      end else begin    
+        bfm.access(
+{% if veloceReady %}
+{% for trans in transVars %}      txn.{{trans.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+{% else %}
+         txn 
+{% endif %}
+            );
+    end
+  endtask
+
+endclass
+{% endblock %}

@@ -1,0 +1,20 @@
+# Use a copy of this file to provide a flow setup overlay to the uvmf_bcr.py script.
+# Point to the file in the following ways (precedence order is highest to lowest)
+#  - Use the --flow_file_overlays switch (can point to multiple files using colon-separated strings)
+#  - Use the $UVMF_BCR_FLOW_FILE_OVERLAY environment variable (can point to multiple files using colon-separated strings)
+#  - Place this file in your uvmf_bcr.py invocation directory and name it 'bcr_overlay.flow'
+
+# Set environment variables specific to any BCR invocation that uses this overlay file
+options:
+  env_vars:
+    MY_ENV_VAR_1: value_of_env_var_1
+    MY_ENV_VAR_2: value_of_env_var_2
+
+# Default test is example_derived_test with a seed of 1234 (for all flows that extend from 'base', which is pretty much everything)
+flows:
+  base:
+    variables:
+      test: example_derived_test
+      seed: 1234
+
+

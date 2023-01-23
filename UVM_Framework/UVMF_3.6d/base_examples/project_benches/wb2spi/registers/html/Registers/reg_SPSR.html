@@ -1,0 +1,145 @@
+<html>
+<head>
+  <title>Register Definition SPSR</title>
+  <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+  <h1>Register Definition: SPSR</h1>
+  
+  <h2>Description :</h2>
+  	<p>Serial Peripheral Status Register</p>
+  
+  <h2>Offset : </h2><p>0x01</p>
+  <h2>Size : </h2><p>8</p>
+  <h2>Access : </h2><p>read-write</p>
+  		<h2>Constraints :</h2>
+  		<p><pre></pre></p>
+  
+  	<h2>Bit Map:</h2>
+  	  	
+  	<table border="1" cellpadding="5px">
+  	
+	  	<tr>
+	  		<th>7</th>
+	  		<th>6</th>
+	  		<th>5</th>
+	  		<th>4</th>
+	  		<th>3</th>
+	  		<th>2</th>
+	  		<th>1</th>
+	  		<th>0</th>
+	  	</tr>
+	  	<tr>
+	  			<td colspan="1">read-write</td>
+	  			<td colspan="1">read-write</td>
+	  			<td colspan="2">read-only</td>
+	  			<td colspan="1">read-only</td>
+	  			<td colspan="1">read-only</td>
+	  			<td colspan="1">read-only</td>
+	  			<td colspan="1">read-only</td>
+	  	</tr>
+	
+	  	<tr>
+	  			<td>0</td>
+	  			<td>0</td>
+	  			<td>0</td>
+	  			<td>0</td>
+	  			<td>0</td>
+	  			<td>1</td>
+	  			<td>0</td>
+	  			<td>1</td>
+	  	</tr>
+
+	  	<tr>
+	  			<td colspan="1"><a href="#fld_SPIF">SPIF</a></td>
+	  			<td colspan="1"><a href="#fld_WCOL">WCOL</a></td>
+	  			<td colspan="2"><a href="#fld_RESERVED">RESERVED</a></td>
+	  			<td colspan="1"><a href="#fld_WFFULL">WFFULL</a></td>
+	  			<td colspan="1"><a href="#fld_WFEMPTY">WFEMPTY</a></td>
+	  			<td colspan="1"><a href="#fld_RFFULL">RFFULL</a></td>
+	  			<td colspan="1"><a href="#fld_RFEMPTY">RFEMPTY</a></td>
+	  	</tr>
+  	
+  	
+  	</table>
+  	
+  	<h2>Field List</h2>
+  	<table border="1" cellpadding="5px">
+  		<tr>
+  			<th>Field</th>
+  			<th>Offset</th>
+  			<th>Width</th>
+  			<th>Access</th>
+  			<th>Reset</th>
+  			<th>Constraints</th>
+  			<th>Description</th>
+  		</tr>
+  			<tr class="row0"><a name="fld_SPIF"/>
+  				<td>SPIF</td>
+  				<td>7</td>
+  				<td>1</td>
+  				<td>read-write</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Serial Peripheral Interrupt Flag</td>
+  			</tr>
+  			<tr class="row1"><a name="fld_WCOL"/>
+  				<td>WCOL</td>
+  				<td>6</td>
+  				<td>1</td>
+  				<td>read-write</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Wrtie Collision</td>
+  			</tr>
+  			<tr class="row0"><a name="fld_RESERVED"/>
+  				<td>RESERVED</td>
+  				<td>4</td>
+  				<td>2</td>
+  				<td>read-only</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Reserved</td>
+  			</tr>
+  			<tr class="row1"><a name="fld_WFFULL"/>
+  				<td>WFFULL</td>
+  				<td>3</td>
+  				<td>1</td>
+  				<td>read-only</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Write FIFO Full</td>
+  			</tr>
+  			<tr class="row0"><a name="fld_WFEMPTY"/>
+  				<td>WFEMPTY</td>
+  				<td>2</td>
+  				<td>1</td>
+  				<td>read-only</td>
+  				<td>1</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Write FIFO Empty</td>
+  			</tr>
+  			<tr class="row1"><a name="fld_RFFULL"/>
+  				<td>RFFULL</td>
+  				<td>1</td>
+  				<td>1</td>
+  				<td>read-only</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Read FIFO Full</td>
+  			</tr>
+  			<tr class="row0"><a name="fld_RFEMPTY"/>
+  				<td>RFEMPTY</td>
+  				<td>0</td>
+  				<td>1</td>
+  				<td>read-only</td>
+  				<td>1</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Read FIFO Empty</td>
+  			</tr>
+  		
+  	</table>
+  
+  
+</body>
+</html>  

@@ -1,0 +1,7 @@
+{% set fname = "{{bench_location}}/{{name}}/tb/parameters/{{name}}_parameters_pkg.vinfo" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+{{name}}_parameters_pkg.sv
+{% endblock %}

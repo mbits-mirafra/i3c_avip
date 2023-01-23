@@ -1,0 +1,145 @@
+<html>
+<head>
+  <title>Register Definition SPCR</title>
+  <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+  <h1>Register Definition: SPCR</h1>
+  
+  <h2>Description :</h2>
+  	<p>Serial Peripheral Control Register</p>
+  
+  <h2>Offset : </h2><p>0x00</p>
+  <h2>Size : </h2><p>8</p>
+  <h2>Access : </h2><p>read-write</p>
+  		<h2>Constraints :</h2>
+  		<p><pre></pre></p>
+  
+  	<h2>Bit Map:</h2>
+  	  	
+  	<table border="1" cellpadding="5px">
+  	
+	  	<tr>
+	  		<th>7</th>
+	  		<th>6</th>
+	  		<th>5</th>
+	  		<th>4</th>
+	  		<th>3</th>
+	  		<th>2</th>
+	  		<th>1</th>
+	  		<th>0</th>
+	  	</tr>
+	  	<tr>
+	  			<td colspan="1">read-write</td>
+	  			<td colspan="1">read-write</td>
+	  			<td colspan="1">read-write</td>
+	  			<td colspan="1">read-write</td>
+	  			<td colspan="1">read-write</td>
+	  			<td colspan="1">read-write</td>
+	  			<td colspan="2">read-write</td>
+	  	</tr>
+	
+	  	<tr>
+	  			<td>0</td>
+	  			<td>0</td>
+	  			<td>0</td>
+	  			<td>1</td>
+	  			<td>0</td>
+	  			<td>0</td>
+	  			<td>0</td>
+	  			<td>0</td>
+	  	</tr>
+
+	  	<tr>
+	  			<td colspan="1"><a href="#fld_SPIE">SPIE</a></td>
+	  			<td colspan="1"><a href="#fld_SPE">SPE</a></td>
+	  			<td colspan="1"><a href="#fld_RESERVED">RESERVED</a></td>
+	  			<td colspan="1"><a href="#fld_MSTR">MSTR</a></td>
+	  			<td colspan="1"><a href="#fld_CPOL">CPOL</a></td>
+	  			<td colspan="1"><a href="#fld_CPHA">CPHA</a></td>
+	  			<td colspan="2"><a href="#fld_SPR">SPR</a></td>
+	  	</tr>
+  	
+  	
+  	</table>
+  	
+  	<h2>Field List</h2>
+  	<table border="1" cellpadding="5px">
+  		<tr>
+  			<th>Field</th>
+  			<th>Offset</th>
+  			<th>Width</th>
+  			<th>Access</th>
+  			<th>Reset</th>
+  			<th>Constraints</th>
+  			<th>Description</th>
+  		</tr>
+  			<tr class="row0"><a name="fld_SPIE"/>
+  				<td>SPIE</td>
+  				<td>7</td>
+  				<td>1</td>
+  				<td>read-write</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Serial Peripheral Interrupt Enable</td>
+  			</tr>
+  			<tr class="row1"><a name="fld_SPE"/>
+  				<td>SPE</td>
+  				<td>6</td>
+  				<td>1</td>
+  				<td>read-write</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Serial Peripheral Enable</td>
+  			</tr>
+  			<tr class="row0"><a name="fld_RESERVED"/>
+  				<td>RESERVED</td>
+  				<td>5</td>
+  				<td>1</td>
+  				<td>read-write</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Reserved</td>
+  			</tr>
+  			<tr class="row1"><a name="fld_MSTR"/>
+  				<td>MSTR</td>
+  				<td>4</td>
+  				<td>1</td>
+  				<td>read-write</td>
+  				<td>1</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Master Mode Select</td>
+  			</tr>
+  			<tr class="row0"><a name="fld_CPOL"/>
+  				<td>CPOL</td>
+  				<td>3</td>
+  				<td>1</td>
+  				<td>read-write</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Clock Polarity</td>
+  			</tr>
+  			<tr class="row1"><a name="fld_CPHA"/>
+  				<td>CPHA</td>
+  				<td>2</td>
+  				<td>1</td>
+  				<td>read-write</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">Clock Phase</td>
+  			</tr>
+  			<tr class="row0"><a name="fld_SPR"/>
+  				<td>SPR</td>
+  				<td>0</td>
+  				<td>2</td>
+  				<td>read-write</td>
+  				<td>0</td>
+  				<td class="left"><pre></pre></td>
+  				<td class="left">SPI Clock Rate Select</td>
+  			</tr>
+  		
+  	</table>
+  
+  
+</body>
+</html>  

@@ -1,0 +1,8 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../../../verification_ip/interface_packages/nand_in_pkg/nand_in.compile
+  - ../../../../verification_ip/interface_packages/nand_out_pkg/nand_out.compile
+  - ../../../../verification_ip/environment_packages/nand_env_env_pkg/nand_env_env_pkg.compile
+  - ../parameters/nand_ben_parameters_pkg.compile
+src:
+  - nand_ben_sequences_pkg.sv

@@ -1,0 +1,5 @@
+TB_INFO gpio_example {UVMF_VIP_LIBRARY_HOME=../../../../../../../verification_ip UVMF_PROJECT_DIR=../../../../../../../project_benches/gpio_example} {}
+TB gpio_example
+TEST test_top 3 0
+TEST example_derived_test 5 0
+TEST test_constrained_random 5 0

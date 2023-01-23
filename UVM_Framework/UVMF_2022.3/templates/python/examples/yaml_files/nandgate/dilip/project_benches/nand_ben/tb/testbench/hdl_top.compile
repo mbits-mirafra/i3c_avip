@@ -1,0 +1,10 @@
+incdir:
+  - ${uvm_path}/src
+  - .
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ../parameters/nand_ben_parameters_pkg.compile
+  - ../../../../verification_ip/interface_packages/nand_in_pkg/nand_in_hdl.compile
+  - ../../../../verification_ip/interface_packages/nand_out_pkg/nand_out_hdl.compile
+src:
+  - hdl_top.sv

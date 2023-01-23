@@ -1,0 +1,2099 @@
+<?xml version='1.0'?>
+<project name="fpu_dpi" version="1.0">
+   <libraries>
+      <library name="dut_lib">
+         <type>user</type>
+         <path>$(MY_PROJ_TOP)/build/dut_build</path>
+         <includes></includes>
+         <defines></defines>
+         <linked_libs></linked_libs>
+      </library>
+      <library name="work">
+         <type>user</type>
+         <path>$(PROJ_DIR)/libraries/work</path>
+         <includes></includes>
+         <defines></defines>
+         <linked_libs></linked_libs>
+      </library>
+   </libraries>
+   <build_defines>
+      <build_field hidden="{}" is_browsable="false" name="Field" uid="MODEL_TECH" value_type="string">
+         <label>MODEL_TECH</label>
+         <text></text>
+         <category></category>
+         <default_val></default_val>
+         <cmd_switch></cmd_switch>
+         <cmd_false_switch></cmd_false_switch>
+         <tip></tip>
+         <assoc_macro expansion_type="static" user_defined="false">
+            <name></name>
+            <value></value>
+            <assign_operator>=</assign_operator>
+            <category></category>
+         </assoc_macro>
+         <values></values>
+      </build_field>
+   </build_defines>
+   <build_configs>
+      <build_config name="Config" uid="QuestaSim" version="4.2">
+         <label>QuestaSim</label>
+         <text>QuestaSim</text>
+         <build_field hidden="{}" is_browsable="false" name="Integrator" uid="QuestaSim.Downstream_Build_Provider" value_type="string">
+            <label>Downstream Build Provider</label>
+            <text>QuestaSim</text>
+            <category></category>
+            <default_val></default_val>
+            <cmd_switch></cmd_switch>
+            <cmd_false_switch></cmd_false_switch>
+            <tip></tip>
+            <assoc_macro expansion_type="static" user_defined="false">
+               <name></name>
+               <value></value>
+               <assign_operator>=</assign_operator>
+               <category></category>
+            </assoc_macro>
+            <values></values>
+         </build_field>
+         <build_field hidden="{}" is_browsable="true" name="Tool Chain Location" uid="QuestaSim.Tool_Chain_Location" value_type="string">
+            <label>Tool Chain Location</label>
+            <text>$(QUESTA_ROOT)</text>
+            <category></category>
+            <default_val></default_val>
+            <cmd_switch></cmd_switch>
+            <cmd_false_switch></cmd_false_switch>
+            <tip></tip>
+            <assoc_macro expansion_type="static" user_defined="false">
+               <name>QUESTA_BIN_DIR</name>
+               <value>$(QUESTA_ROOT)</value>
+               <assign_operator>:=</assign_operator>
+               <category>$(QUESTA_BIN_DIR)</category>
+            </assoc_macro>
+            <values></values>
+         </build_field>
+         <build_tool_chain>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="clean_tool" uid="QuestaSim.Questa_vdel">
+               <label>Questa vdel</label>
+               <text>Questa vdel</text>
+               <action_trigger_rsc>WorkLib</action_trigger_rsc>
+               <announcement>Deleting library %(WorkLib) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_vdel.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>@if [ -d %(WorkLibPath) ]; then &apos;$(VDEL)&apos; -all -lib %(WorkLibPath); fi;</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vdel.Command.VDEL" value_type="string">
+                        <label>VDEL</label>
+                        <text>$(QUESTA_BIN_DIR)/vdel</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VDEL</name>
+                           <value>$(QUESTA_BIN_DIR)/vdel</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VDEL</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_vdel.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs></applicable_langs>
+                  <input_arg_rules></input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_vdel.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>delete_libs|Delete Libraries</aggregated_name>
+                  <unit_target_name></unit_target_name>
+               </output_target_type>
+               <dependency_tools></dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="prepare_tool" uid="QuestaSim.Questa_vlib">
+               <label>Questa vlib</label>
+               <text>Questa vlib</text>
+               <action_trigger_rsc>WorkLib</action_trigger_rsc>
+               <announcement>Preparing library mapping location %(WorkLibPath) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_vlib.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>@if [[ ! -d %(WorkLibPath) ]]; then $(VLIB) %(WorkLibPath); fi</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vlib.Command.VLIB" value_type="string">
+                        <label>VLIB</label>
+                        <text>$(QUESTA_BIN_DIR)/vlib</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VLIB</name>
+                           <value>$(QUESTA_BIN_DIR)/vlib</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VLIB</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_vlib.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs></applicable_langs>
+                  <input_arg_rules>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlib.Input_Type.WorkLibPath" value_type="string">
+                        <label>WorkLibPath</label>
+                        <text>WorkLibPath</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_vlib.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>prepare_libs|Prepare Libraries</aggregated_name>
+                  <unit_target_name></unit_target_name>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Questa_Create_Ini</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="prepare_tool" uid="QuestaSim.Questa_vmap">
+               <label>Questa vmap</label>
+               <text>Questa vmap</text>
+               <action_trigger_rsc>WorkLib|ExternWorkLib</action_trigger_rsc>
+               <announcement>Creating library %(WorkLib) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_vmap.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VMAP) %(WorkLib) %(WorkLibPath)</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vmap.Command.VMAP" value_type="string">
+                        <label>VMAP</label>
+                        <text>$(QUESTA_BIN_DIR)/vmap</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VMAP</name>
+                           <value>$(QUESTA_BIN_DIR)/vmap</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VMAP</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_vmap.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs></applicable_langs>
+                  <input_arg_rules>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vmap.Input_Type.WorkLibPath" value_type="string">
+                        <label>WorkLibPath</label>
+                        <text>WorkLibPath</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_vmap.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>create_libs|Create Libraries</aggregated_name>
+                  <unit_target_name></unit_target_name>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Questa_vlib</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="analysis_tool" uid="QuestaSim.Questa_vopt">
+               <label>Questa vopt</label>
+               <text>Questa vopt</text>
+               <action_trigger_rsc>TopCmpUnit</action_trigger_rsc>
+               <announcement>Optimizing design %(CmpUnitLib).%(CmpUnit) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_vopt.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VOPT) -o %(CmpUnit)_opt %(CmpUnit) %(WorkLib) $(QUESTA_VOPT_OPTIONS) %(CmpUnitLinkLibs) %(WorkLibLinkLibs) %(IPExtraArgs)</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vopt.Command.QUESTA_VOPT_OPTIONS" value_type="string">
+                        <label>QUESTA_VOPT_OPTIONS</label>
+                        <text>-nologo -nowarn 13 +acc</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_VOPT_OPTIONS</name>
+                           <value>-nologo -nowarn 13 +acc</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_VOPT_OPTIONS</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vopt.Command.VOPT" value_type="string">
+                        <label>VOPT</label>
+                        <text>$(QUESTA_BIN_DIR)/vopt</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VOPT</name>
+                           <value>$(QUESTA_BIN_DIR)/vopt</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VOPT</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_vopt.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vopt.Input_Type.CmpUnitLinkLibs" value_type="string_list">
+                        <label>CmpUnitLinkLibs</label>
+                        <text>CmpUnitLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vopt.Input_Type.IPExtraArgs" value_type="string">
+                        <label>IPExtraArgs</label>
+                        <text>IPExtraArgs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vopt.Input_Type.WorkLib" value_type="string">
+                        <label>WorkLib</label>
+                        <text>WorkLib</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-work </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vopt.Input_Type.WorkLibLinkLibs" value_type="string_list">
+                        <label>WorkLibLinkLibs</label>
+                        <text>WorkLibLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_vopt.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>optimize_design|Optimize</aggregated_name>
+                  <unit_target_name>Optimize</unit_target_name>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vopt.Output_Type.%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt" value_type="string">
+                     <label>%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt</label>
+                     <text>%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt</name>
+                        <value>%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vopt.Output_Type.%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt" value_type="string">
+                     <label>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt</label>
+                     <text>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt</name>
+                        <value>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Questa_vcom</dependency_tool>
+                  <dependency_tool>QuestaSim.Questa_vlog</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="analysis_tool" uid="QuestaSim.Questa_vsim_after_vopt">
+               <label>Questa 3-step vsim</label>
+               <text>Questa 3-step vsim</text>
+               <action_trigger_rsc>TopCmpUnit</action_trigger_rsc>
+               <announcement>Simulating optimized unit %(CmpUnitLib).%(TopCmpUnit)_opt ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_vsim_after_vopt.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VSIM) %(CmpUnitLib).%(TopCmpUnit)_opt $(SVASSIST_DEBUG) $(QUESTA_VSIM_OPT_OPTIONS) $(SVASSISTANT_SIM_OPTIONS) $(TIME_RES) </cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vsim_after_vopt.Command.QUESTA_VSIM_OPT_OPTIONS" value_type="string">
+                        <label>QUESTA_VSIM_OPT_OPTIONS</label>
+                        <text>-l transcript_opt.txt -i</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_VSIM_OPT_OPTIONS</name>
+                           <value>-l transcript_opt.txt -i</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_VSIM_OPT_OPTIONS</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_vsim_after_vopt.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules></input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_vsim_after_vopt.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>sim_opt|Optimize and Simulate</aggregated_name>
+                  <unit_target_name>Optimize and Simulate</unit_target_name>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vsim_after_vopt.Output_Type.sim_opt_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>sim_opt_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</label>
+                     <text>sim_opt_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>sim_opt_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</name>
+                        <value>sim_opt_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vsim_after_vopt.Output_Type.sim_opt_%%(CmpUnitLib)_%(InFileNameNoExt)" value_type="string">
+                     <label>sim_opt_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</label>
+                     <text>sim_opt_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>sim_opt_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</name>
+                        <value>sim_opt_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Questa_vopt</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="clean_tool" uid="QuestaSim.Questa_Clean">
+               <label>Questa Clean</label>
+               <text>Questa Clean</text>
+               <action_trigger_rsc>ProjDir</action_trigger_rsc>
+               <announcement>Cleaning project. Attempting to delete files from the make directory: *.wlf *.fcdb *.ucdb *.old transcript* wlft* *.vstf *.log *.xml *.bin *.db ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_Clean.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>@if [ -f  transcript* ]; then $(RM) transcript*; fi;\
+ if [ -f  wlft* ]; then $(RM) wlft*; fi;\
+ if [ -f  *.log ]; then $(RM) *.log; fi;\
+ if [ -f  *.xml ]; then $(RM) *.xml; fi;\
+ if [ -f *.wlf ]; then $(RM) *.wlf; fi;\
+ if [ -f *.fcdb ]; then $(RM) *.fcdb; fi;\
+ if [ -f *.ucdb ]; then $(RM) *.ucdb; fi;\
+ if [ -f *.old ]; then $(RM) *.old; fi;\
+ if [ -f  *.vstf ]; then $(RM) *.vstf; fi;\
+ if [ -f *.bin ]; then $(RM) *.bin; fi;\
+ if [ -f  *.db ]; then $(RM) *.db; fi;
+</cmd_template>
+                  <cmd_fields></cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_Clean.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs></applicable_langs>
+                  <input_arg_rules></input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_Clean.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>clean_all|Clean All</aggregated_name>
+                  <unit_target_name></unit_target_name>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Questa_vdel</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="true" name="{}" operation_type="resource_transform_tool" uid="QuestaSim.Questa_Force_Recompile">
+               <label>Questa Force Recompile</label>
+               <text>Questa Force Recompile</text>
+               <action_trigger_rsc>ProjDir</action_trigger_rsc>
+               <announcement>Recompiling all units ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_Force_Recompile.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>@echo &quot;Force Recompile completed.&quot;</cmd_template>
+                  <cmd_fields></cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_Force_Recompile.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs></applicable_langs>
+                  <input_arg_rules></input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_Force_Recompile.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>force_recompile_all|Force Recompile All</aggregated_name>
+                  <unit_target_name></unit_target_name>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Questa_vdel</dependency_tool>
+                  <dependency_tool>QuestaSim.Questa_vmap</dependency_tool>
+                  <dependency_tool>QuestaSim.Questa_vcom</dependency_tool>
+                  <dependency_tool>QuestaSim.Questa_vlog</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="resource_transform_tool" uid="QuestaSim.Questa_vlog">
+               <label>Questa vlog</label>
+               <text>Questa vlog</text>
+               <action_trigger_rsc>CmpUnit</action_trigger_rsc>
+               <announcement>Compiling unit %(CmpUnitLib).%(CmpUnit) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_vlog.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VLOG) %(WorkLib) $(QUESTA_VLOG_OPTIONS) %(WorkLibIncDirs) %(InFileIncDirs) %(CmpUnitLinkLibs) %(WorkLibLinkLibs) %(InFileDefines) %(WorkLibDefines) %(ProjDefines) %(InFile)</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Command.QUESTA_VLOG_OPTIONS" value_type="string">
+                        <label>QUESTA_VLOG_OPTIONS</label>
+                        <text>-incr -suppress 2167,2263 -nologo</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_VLOG_OPTIONS</name>
+                           <value>-incr -suppress 2167,2263 -nologo</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_VLOG_OPTIONS</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vlog.Command.VLOG" value_type="string">
+                        <label>VLOG</label>
+                        <text>$(QUESTA_BIN_DIR)/vlog</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VLOG</name>
+                           <value>$(QUESTA_BIN_DIR)/vlog</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VLOG</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_vlog.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch>-sv</lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Input_Type.CmpUnitLinkLibs" value_type="string_list">
+                        <label>CmpUnitLinkLibs</label>
+                        <text>CmpUnitLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Input_Type.InFile" value_type="string">
+                        <label>InFile</label>
+                        <text>InFile</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>%(InFileLangSwitch) </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Input_Type.InFileDefines" value_type="string_list">
+                        <label>InFileDefines</label>
+                        <text>InFileDefines</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+define+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Input_Type.InFileIncDirs" value_type="string_list">
+                        <label>InFileIncDirs</label>
+                        <text>InFileIncDirs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+incdir+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Input_Type.ProjDefines" value_type="string_list">
+                        <label>ProjDefines</label>
+                        <text>ProjDefines</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+define+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Input_Type.WorkLib" value_type="string">
+                        <label>WorkLib</label>
+                        <text>WorkLib</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-work </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Input_Type.WorkLibDefines" value_type="string_list">
+                        <label>WorkLibDefines</label>
+                        <text>WorkLibDefines</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+define+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Input_Type.WorkLibIncDirs" value_type="string_list">
+                        <label>WorkLibIncDirs</label>
+                        <text>WorkLibIncDirs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+incdir+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vlog.Input_Type.WorkLibLinkLibs" value_type="string_list">
+                        <label>WorkLibLinkLibs</label>
+                        <text>WorkLibLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_vlog.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>compile_all|Compile All</aggregated_name>
+                  <unit_target_name>Compile</unit_target_name>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vlog.Output_Type.LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)</label>
+                     <text>%(CmpUnitLib)_@(CmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)</name>
+                        <value>%(CmpUnitLib)_@(CmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vlog.Output_Type.LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)" value_type="string">
+                     <label>LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</label>
+                     <text>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</name>
+                        <value>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools></dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="resource_transform_tool" uid="QuestaSim.Questa_vcom">
+               <label>Questa vcom</label>
+               <text>Questa vcom</text>
+               <action_trigger_rsc>CmpUnit</action_trigger_rsc>
+               <announcement>Compiling unit %(CmpUnitLib).%(InFileNameNoExt) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_vcom.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VCOM) %(WorkLib) $(QUESTA_VCOM_OPTIONS) %(InFile)</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vcom.Command.QUESTA_VCOM_OPTIONS" value_type="string">
+                        <label>QUESTA_VCOM_OPTIONS</label>
+                        <text>-reportprogress 300</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_VCOM_OPTIONS</name>
+                           <value>-reportprogress 300</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_VCOM_OPTIONS</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vcom.Command.VCOM" value_type="string">
+                        <label>VCOM</label>
+                        <text>$(QUESTA_BIN_DIR)/vcom</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VCOM</name>
+                           <value>$(QUESTA_BIN_DIR)/vcom</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VCOM</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_vcom.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vcom.Input_Type.InFile" value_type="string">
+                        <label>InFile</label>
+                        <text>InFile</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vcom.Input_Type.WorkLib" value_type="string">
+                        <label>WorkLib</label>
+                        <text>WorkLib</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-work </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_vcom.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>compile_all|Compile All</aggregated_name>
+                  <unit_target_name>Compile</unit_target_name>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vcom.Output_Type.LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)" value_type="string">
+                     <label>LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</label>
+                     <text>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</name>
+                        <value>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vcom.Output_Type.LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)</label>
+                     <text>%(CmpUnitLib)_@(CmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)</name>
+                        <value>%(CmpUnitLib)_@(CmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools></dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="analysis_tool" uid="QuestaSim.Questa_vsim">
+               <label>Questa vsim</label>
+               <text>Questa vsim</text>
+               <action_trigger_rsc>TopCmpUnit</action_trigger_rsc>
+               <announcement>Simulating unit %(CmpUnitLib).%(TopCmpUnit) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_vsim.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VSIM) %(CmpUnitLinkLibs) %(WorkLibLinkLibs) $(QUESTA_VSIM_OPTIONS) $(SVASSIST_DEBUG) %(CmpUnitLib).%(TopCmpUnit) $(SVASSISTANT_SIM_OPTIONS) $(TIME_RES)  %(IPExtraArgs)</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vsim.Command.QUESTA_VSIM_OPTIONS" value_type="string">
+                        <label>QUESTA_VSIM_OPTIONS</label>
+                        <text>-l transcript.txt -i -voptargs=+acc -sv_seed random +UVM_VERBOSITY=UVM_HIGH -permit_unmatched_virtual_intf +notimingchecks -suppress 8887 -uvmcontrol=all -msgmode both -classdebug -assertdebug +uvm_set_config_int=*,enable_transaction_viewing,1 work.hvl_top</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_VSIM_OPTIONS</name>
+                           <value>-l transcript.txt -i -voptargs=+acc -sv_seed random +UVM_VERBOSITY=UVM_HIGH -permit_unmatched_virtual_intf +notimingchecks -suppress 8887 -uvmcontrol=all -msgmode both -classdebug -assertdebug +uvm_set_config_int=*,enable_transaction_viewing,1 work.hvl_top</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_VSIM_OPTIONS</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vsim.Command.SVASSIST_DEBUG" value_type="string">
+                        <label>SVASSIST_DEBUG</label>
+                        <text>-do &apos;set NoQuitOnFinish 1; onbreak {resume}; run 0; do wave.do; set PrefSource(OpenOnBreak) 0; radix hex showbase;&apos;</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>SVASSIST_DEBUG</name>
+                           <value>-do &apos;set NoQuitOnFinish 1; onbreak {resume}; run 0; do wave.do; set PrefSource(OpenOnBreak) 0; radix hex showbase;&apos;</value>
+                           <assign_operator>=</assign_operator>
+                           <category>SVASSIST_DEBUG</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vsim.Command.TIME_RES" value_type="string">
+                        <label>TIME_RES</label>
+                        <text>-t ns</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>TIME_RES</name>
+                           <value>-t ns</value>
+                           <assign_operator>=</assign_operator>
+                           <category>TIME_RES</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vsim.Command.VSIM" value_type="string">
+                        <label>VSIM</label>
+                        <text>$(QUESTA_BIN_DIR)/vsim</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VSIM</name>
+                           <value>$(QUESTA_BIN_DIR)/vsim</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VSIM</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_vsim.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules>
+                     <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Questa_vsim.Input_Type.CmpUnitLinkLibs" value_type="string_list">
+                        <label>CmpUnitLinkLibs</label>
+                        <text>CmpUnitLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vsim.Input_Type.IPExtraArgs" value_type="string">
+                        <label>IPExtraArgs</label>
+                        <text>IPExtraArgs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_vsim.Input_Type.WorkLibLinkLibs" value_type="string_list">
+                        <label>WorkLibLinkLibs</label>
+                        <text>WorkLibLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_vsim.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>sim|Simulate</aggregated_name>
+                  <unit_target_name>Simulate</unit_target_name>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vsim.Output_Type.sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</label>
+                     <text>sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</name>
+                        <value>sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="false" name="Output Path Rule" uid="QuestaSim.Questa_vsim.Output_Type.sim_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)" value_type="string">
+                     <label>sim_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</label>
+                     <text>sim_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>sim_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</name>
+                        <value>sim_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Questa_vcom</dependency_tool>
+                  <dependency_tool>QuestaSim.Questa_vlog</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="ip_compilation_cmd" uid="QuestaSim.Questa_Compiling_IPs">
+               <label>Questa Compiling Vivado IPs</label>
+               <text>Questa Compiling Vivado IPs</text>
+               <action_trigger_rsc>CmpUnit</action_trigger_rsc>
+               <announcement>Compiling unit %(CmpUnitLib).%(CmpUnit) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_Compiling_IPs.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>	@if [ -f %(CmpUnitLib)_%(CmpUnit).do ]; then $(RM) -f %(CmpUnitLib)_%(CmpUnit).do; fi
+	@if [ ! -d &quot;%(BuildFilesLocation)/questa_lib&quot; ]; then mkdir &quot;%(BuildFilesLocation)/questa_lib&quot;; fi
+	@echo &quot;cd %(DoCompileDir)&quot; &gt;&gt; %(CmpUnitLib)_%(CmpUnit).do
+	@echo &quot;onbreak {quit -f}&quot; &gt;&gt; %(CmpUnitLib)_%(CmpUnit).do
+	@echo &quot;onerror {quit -f}&quot; &gt;&gt; %(CmpUnitLib)_%(CmpUnit).do
+	@echo &quot;set simulation_root %(BuildFilesLocation)&quot; &gt;&gt; %(CmpUnitLib)_%(CmpUnit).do
+	@cat %(DoCompileFilePath) | sed &apos;s/^\s*vlib /vlib \$$$simulation_root\//g;s/^\s*\(vmap .*\) /\1 \$$$simulation_root\//g&apos; &gt;&gt; %(CmpUnitLib)_%(CmpUnit).do
+	@echo &quot;quit -f&quot; &gt;&gt; %(CmpUnitLib)_%(CmpUnit).do
+	$(VSIM) -modelsimini %(BuildFilesLocation)/modelsim.ini -do %(CmpUnitLib)_%(CmpUnit).do</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Command.VSIM" value_type="string">
+                        <label>VSIM</label>
+                        <text>$(QUESTA_BIN_DIR)/vsim</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VSIM</name>
+                           <value>$(QUESTA_BIN_DIR)/vsim</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VSIM</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_Compiling_IPs.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch>-sv</lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Input_Type.CmpUnitLinkLibs" value_type="string_list">
+                        <label>CmpUnitLinkLibs</label>
+                        <text>CmpUnitLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Input_Type.InFile" value_type="string">
+                        <label>InFile</label>
+                        <text>InFile</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>%(InFileLangSwitch) </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Input_Type.InFileDefines" value_type="string_list">
+                        <label>InFileDefines</label>
+                        <text>InFileDefines</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+define+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Input_Type.InFileIncDirs" value_type="string_list">
+                        <label>InFileIncDirs</label>
+                        <text>InFileIncDirs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+incdir+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Input_Type.ProjDefines" value_type="string_list">
+                        <label>ProjDefines</label>
+                        <text>ProjDefines</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+define+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Input_Type.WorkLib" value_type="string">
+                        <label>WorkLib</label>
+                        <text>WorkLib</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-work </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Input_Type.WorkLibDefines" value_type="string_list">
+                        <label>WorkLibDefines</label>
+                        <text>WorkLibDefines</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+define+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Input_Type.WorkLibIncDirs" value_type="string_list">
+                        <label>WorkLibIncDirs</label>
+                        <text>WorkLibIncDirs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>+incdir+</cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_IPs.Input_Type.WorkLibLinkLibs" value_type="string_list">
+                        <label>WorkLibLinkLibs</label>
+                        <text>WorkLibLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_Compiling_IPs.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>compile_all|Compile All</aggregated_name>
+                  <unit_target_name>Compile</unit_target_name>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Questa_Compiling_IPs.Output_Type.LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)</label>
+                     <text>%(CmpUnitLib)_@(CmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)</name>
+                        <value>%(CmpUnitLib)_@(CmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Questa_Compiling_IPs.Output_Type.LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)" value_type="string">
+                     <label>LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</label>
+                     <text>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</name>
+                        <value>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools></dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="prepare_tool" uid="QuestaSim.Questa_Create_Ini">
+               <label>Questa Create Ini</label>
+               <text>Questa Create Ini</text>
+               <action_trigger_rsc>ProjDir</action_trigger_rsc>
+               <announcement>Creating modelsim.ini ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_Create_Ini.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>@if [ -f $(QUESTA_INI_FILE) ]; then $(RM) -f $(QUESTA_INI_FILE); fi
+	$(VMAP) -c</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Create_Ini.Command.QUESTA_INI_FILE" value_type="string">
+                        <label>QUESTA_INI_FILE</label>
+                        <text>modelsim.ini</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_INI_FILE</name>
+                           <value>modelsim.ini</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_INI_FILE</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Create_Ini.Command.RM" value_type="string">
+                        <label>RM</label>
+                        <text>rm</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>RM</name>
+                           <value>rm</value>
+                           <assign_operator>=</assign_operator>
+                           <category>RM</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Create_Ini.Command.VMAP" value_type="string">
+                        <label>VMAP</label>
+                        <text>$(QUESTA_BIN_DIR)/vmap</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VMAP</name>
+                           <value>$(QUESTA_BIN_DIR)/vmap</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VMAP</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_Create_Ini.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs></applicable_langs>
+                  <input_arg_rules></input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_Create_Ini.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>create_ini|Create modelsim.ini</aggregated_name>
+                  <unit_target_name></unit_target_name>
+               </output_target_type>
+               <dependency_tools></dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="analysis_tool" uid="QuestaSim.Visualizer_vopt">
+               <label>Visualizer vopt</label>
+               <text>Visualizer vopt</text>
+               <action_trigger_rsc>TopCmpUnit</action_trigger_rsc>
+               <announcement>Optimizing design %(CmpUnitLib).%(CmpUnit) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Visualizer_vopt.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VOPT) -o %(CmpUnit)_opt -designfile %(CmpUnit).bin %(CmpUnit) %(WorkLib) $(QUESTA_VOPT_DEBUG_OPTIONS) %(CmpUnitLinkLibs) %(WorkLibLinkLibs)</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Visualizer_vopt.Command.QUESTA_VOPT_DEBUG_OPTIONS" value_type="string">
+                        <label>QUESTA_VOPT_DEBUG_OPTIONS</label>
+                        <text>-nologo -nowarn 13 -debug</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_VOPT_DEBUG_OPTIONS</name>
+                           <value>-nologo -nowarn 13 -debug</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_VOPT_DEBUG_OPTIONS</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Visualizer_vopt.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Visualizer_vopt.Input_Type.CmpUnitLinkLibs" value_type="string_list">
+                        <label>CmpUnitLinkLibs</label>
+                        <text>CmpUnitLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Visualizer_vopt.Input_Type.WorkLib" value_type="string">
+                        <label>WorkLib</label>
+                        <text>WorkLib</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-work </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Visualizer_vopt.Input_Type.WorkLibLinkLibs" value_type="string_list">
+                        <label>WorkLibLinkLibs</label>
+                        <text>WorkLibLinkLibs</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch>-L </cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Visualizer_vopt.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>vopt_debug|Optimize for Visualizer</aggregated_name>
+                  <unit_target_name>Optimize for Visualizer</unit_target_name>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Visualizer_vopt.Output_Type.%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt_debug" value_type="string">
+                     <label>%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt_debug</label>
+                     <text>%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt_debug</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt_debug</name>
+                        <value>%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_opt_debug</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Visualizer_vopt.Output_Type.%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt_debug" value_type="string">
+                     <label>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt_debug</label>
+                     <text>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt_debug</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt_debug</name>
+                        <value>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)_opt_debug</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Questa_vcom</dependency_tool>
+                  <dependency_tool>QuestaSim.Questa_vlog</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="analysis_tool" uid="QuestaSim.Visualizer_live-sim">
+               <label>Visualizer live-sim</label>
+               <text>Visualizer live-sim</text>
+               <action_trigger_rsc>TopCmpUnit</action_trigger_rsc>
+               <announcement>Simulating optimized unit %(CmpUnitLib).%(TopCmpUnit)_opt (live-sim) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Visualizer_live-sim.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VSIM) -qwavedb=+wavefile=%(TopCmpUnit).db=$(QUESTA_VSIM_VIS_OPTIONS) %(CmpUnitLib).%(TopCmpUnit)_opt $(SVASSIST_DEBUG) -visualizer=%(TopCmpUnit).bin $(SVASSISTANT_SIM_OPTIONS)$(QUESTA_VIS_LOG_OPTIONS) $(TIME_RES)</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Visualizer_live-sim.Command.QUESTA_VIS_LOG_OPTIONS" value_type="string">
+                        <label>QUESTA_VIS_LOG_OPTIONS</label>
+                        <text>-l transcript_vis.txt</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_VIS_LOG_OPTIONS</name>
+                           <value>-l transcript_vis.txt</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_VIS_LOG_OPTIONS</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Visualizer_live-sim.Command.QUESTA_VSIM_VIS_OPTIONS" value_type="string">
+                        <label>QUESTA_VSIM_VIS_OPTIONS</label>
+                        <text>+signal+memory=all+class</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_VSIM_VIS_OPTIONS</name>
+                           <value>+signal+memory=all+class</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_VSIM_VIS_OPTIONS</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Visualizer_live-sim.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules></input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Visualizer_live-sim.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>live_sim|Visualizer Live-sim</aggregated_name>
+                  <unit_target_name>Visualizer Live-sim</unit_target_name>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Visualizer_live-sim.Output_Type.live_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>live_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</label>
+                     <text>live_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>live_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</name>
+                        <value>live_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Visualizer_live-sim.Output_Type.live_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>live_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</label>
+                     <text>live_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>live_sim_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</name>
+                        <value>live_sim_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Visualizer_vopt</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="analysis_tool" uid="QuestaSim.Visualizer_post-sim">
+               <label>Visualizer post-sim</label>
+               <text>Visualizer post-sim</text>
+               <action_trigger_rsc>TopCmpUnit</action_trigger_rsc>
+               <announcement>Simulating optimized unit %(CmpUnitLib).%(TopCmpUnit)_opt (post-sim) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Visualizer_post-sim.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VSIM) -qwavedb=+wavefile=%(TopCmpUnit).db$(QUESTA_VSIM_VIS_OPTIONS) %(CmpUnitLib).%(TopCmpUnit)_opt $(QUESTA_POST_VSIM_OPTIONS) $(SVASSISTANT_SIM_OPTIONS) $(QUESTA_VIS_LOG_OPTIONS) $(TIME_RES)</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Visualizer_post-sim.Command.QUESTA_POST_VSIM_OPTIONS" value_type="string">
+                        <label>QUESTA_POST_VSIM_OPTIONS</label>
+                        <text>-batch -uvmcontrol=certe -do &apos;run -all ; quit -f&apos;</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>QUESTA_POST_VSIM_OPTIONS</name>
+                           <value>-batch -uvmcontrol=certe -do &apos;run -all ; quit -f&apos;</value>
+                           <assign_operator>=</assign_operator>
+                           <category>QUESTA_POST_VSIM_OPTIONS</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Visualizer_post-sim.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules></input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Visualizer_post-sim.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>post_sim|Visualizer Post-sim</aggregated_name>
+                  <unit_target_name>Visualizer Post-sim</unit_target_name>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Visualizer_post-sim.Output_Type.post_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>post_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</label>
+                     <text>post_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>post_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</name>
+                        <value>post_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Visualizer_post-sim.Output_Type.post_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>post_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</label>
+                     <text>post_sim_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>post_sim_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</name>
+                        <value>post_sim_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools>
+                  <dependency_tool>QuestaSim.Visualizer_vopt</dependency_tool>
+               </dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="analysis_tool" uid="QuestaSim.Visualizer">
+               <label>Visualizer</label>
+               <text>Visualizer</text>
+               <action_trigger_rsc>TopCmpUnit</action_trigger_rsc>
+               <announcement>Debugging simulation of unit %(CmpUnitLib).%(TopCmpUnit)_opt ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Visualizer.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VISUALIZER) -designfile %(TopCmpUnit).bin -wavefile %(TopCmpUnit).db</cmd_template>
+                  <cmd_fields>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Visualizer.Command.VISUALIZER" value_type="string">
+                        <label>VISUALIZER</label>
+                        <text>$(VISUALIZER_BIN_DIR)/visualizer</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name>VISUALIZER</name>
+                           <value>$(VISUALIZER_BIN_DIR)/visualizer</value>
+                           <assign_operator>=</assign_operator>
+                           <category>VISUALIZER</category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Visualizer.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules></input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Visualizer.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>visualizer|Launch Visualizer</aggregated_name>
+                  <unit_target_name>Launch Visualizer</unit_target_name>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Visualizer.Output_Type.visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</label>
+                     <text>visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</name>
+                        <value>visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Visualizer.Output_Type.visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</label>
+                     <text>visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</name>
+                        <value>visualizer_%(CmpUnitLib)_%(TopCmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools></dependency_tools>
+            </build_tool>
+            <build_tool custom="{}" hidden="{}" name="{}" operation_type="ip_compilation_cmd" uid="QuestaSim.Questa_Compiling_Libero_IPs">
+               <label>Questa Compiling Libero IPs</label>
+               <text>Questa Compiling Libero IPs</text>
+               <action_trigger_rsc>CmpUnit</action_trigger_rsc>
+               <announcement>Compiling unit %(CmpUnitLib).%(CmpUnit) ...</announcement>
+               <tool_cmd name="Command" uid="QuestaSim.Questa_Compiling_Libero_IPs.Command">
+                  <label></label>
+                  <text></text>
+                  <cmd_template>$(VSIM) -do %(DoCompileFilePath)</cmd_template>
+                  <cmd_fields></cmd_fields>
+               </tool_cmd>
+               <input_rsc_type name="Input_Type" uid="QuestaSim.Questa_Compiling_Libero_IPs.Input_Type">
+                  <label></label>
+                  <text></text>
+                  <applicable_langs>
+                     <dialect>
+                        <language>VHDL_ANY</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_95</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>VERILOG_2001</language>
+                        <lang_switch></lang_switch>
+                     </dialect>
+                     <dialect>
+                        <language>SYSTEM_VERILOG_2003</language>
+                        <lang_switch>-sv</lang_switch>
+                     </dialect>
+                  </applicable_langs>
+                  <input_arg_rules>
+                     <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Questa_Compiling_Libero_IPs.Input_Type.DoCompileFilePath" value_type="string">
+                        <label>DoCompileFilePath</label>
+                        <text>DoCompileFilePath</text>
+                        <category></category>
+                        <default_val></default_val>
+                        <cmd_switch></cmd_switch>
+                        <cmd_false_switch></cmd_false_switch>
+                        <tip></tip>
+                        <assoc_macro expansion_type="static" user_defined="false">
+                           <name></name>
+                           <value></value>
+                           <assign_operator>=</assign_operator>
+                           <category></category>
+                        </assoc_macro>
+                        <values></values>
+                     </build_field>
+                  </input_arg_rules>
+               </input_rsc_type>
+               <output_target_type name="Output_Type" uid="QuestaSim.Questa_Compiling_Libero_IPs.Output_Type">
+                  <label></label>
+                  <text></text>
+                  <aggregated_name>compile_all|Compile All</aggregated_name>
+                  <unit_target_name>Compile</unit_target_name>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Questa_Compiling_Libero_IPs.Output_Type.LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)" value_type="string">
+                     <label>LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)</label>
+                     <text>%(CmpUnitLib)_@(CmpUnit)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>LIB_%(CmpUnitLib)_%(CmpUnit)_%(InFileExtension)_ip</name>
+                        <value>%(CmpUnitLib)_@(CmpUnit)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="true" name="Output Path Rule" uid="QuestaSim.Questa_Compiling_Libero_IPs.Output_Type.LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)" value_type="string">
+                     <label>LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</label>
+                     <text>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>LIB_%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</name>
+                        <value>%(CmpUnitLib)_%(InFileNameNoExt)_%(InFileExtension)</value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </output_target_type>
+               <dependency_tools></dependency_tools>
+            </build_tool>
+         </build_tool_chain>
+         <build_variables>
+            <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.ECHO" value_type="string">
+               <label>ECHO</label>
+               <text>echo</text>
+               <category></category>
+               <default_val></default_val>
+               <cmd_switch></cmd_switch>
+               <cmd_false_switch></cmd_false_switch>
+               <tip></tip>
+               <assoc_macro expansion_type="static" user_defined="false">
+                  <name>ECHO</name>
+                  <value>echo</value>
+                  <assign_operator>=</assign_operator>
+                  <category>ECHO</category>
+               </assoc_macro>
+               <values></values>
+            </build_field>
+            <build_field hidden="true" is_browsable="true" name="Field" uid="QuestaSim.VISUALIZER_BIN_DIR" value_type="string">
+               <label>VISUALIZER_BIN_DIR</label>
+               <text>$(VISUALIZER_BIN_DIR)</text>
+               <category></category>
+               <default_val></default_val>
+               <cmd_switch></cmd_switch>
+               <cmd_false_switch></cmd_false_switch>
+               <tip></tip>
+               <assoc_macro expansion_type="static" user_defined="false">
+                  <name>VISUALIZER_BIN_DIR</name>
+                  <value>$(VISUALIZER_BIN_DIR)</value>
+                  <assign_operator>:=</assign_operator>
+                  <category></category>
+               </assoc_macro>
+               <values></values>
+            </build_field>
+         </build_variables>
+         <build_tool custom="{}" hidden="{}" name="Default Clean Command" operation_type="clean_tool" uid="QuestaSim.Default_clean_Command">
+            <label>Default clean Command</label>
+            <text>Default clean Command</text>
+            <action_trigger_rsc></action_trigger_rsc>
+            <announcement></announcement>
+            <tool_cmd name="Command" uid="QuestaSim.Default_clean_Command.Command">
+               <label></label>
+               <text></text>
+               <cmd_template>$(VDEL) %(WorkLib) %(CmpUnit)</cmd_template>
+               <cmd_fields>
+                  <build_field hidden="{}" is_browsable="true" name="Field" uid="QuestaSim.Default_clean_Command.Command.VDEL" value_type="string">
+                     <label>VDEL</label>
+                     <text>$(QUESTA_BIN_DIR)/vdel</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name>VDEL</name>
+                        <value>$(QUESTA_BIN_DIR)/vdel</value>
+                        <assign_operator>=</assign_operator>
+                        <category>VDEL</category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </cmd_fields>
+            </tool_cmd>
+            <input_rsc_type name="Input_Type" uid="QuestaSim.Default_clean_Command.Input_Type">
+               <label></label>
+               <text></text>
+               <applicable_langs></applicable_langs>
+               <input_arg_rules>
+                  <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Default_clean_Command.Input_Type.CmpUnit" value_type="string">
+                     <label>CmpUnit</label>
+                     <text>CmpUnit</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch></cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name></name>
+                        <value></value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+                  <build_field hidden="{}" is_browsable="false" name="Field" uid="QuestaSim.Default_clean_Command.Input_Type.WorkLib" value_type="string">
+                     <label>WorkLib</label>
+                     <text>WorkLib</text>
+                     <category></category>
+                     <default_val></default_val>
+                     <cmd_switch>-lib </cmd_switch>
+                     <cmd_false_switch></cmd_false_switch>
+                     <tip></tip>
+                     <assoc_macro expansion_type="static" user_defined="false">
+                        <name></name>
+                        <value></value>
+                        <assign_operator>=</assign_operator>
+                        <category></category>
+                     </assoc_macro>
+                     <values></values>
+                  </build_field>
+               </input_arg_rules>
+            </input_rsc_type>
+            <output_target_type name="Output_Type" uid="QuestaSim.Default_clean_Command.Output_Type">
+               <label></label>
+               <text></text>
+               <aggregated_name>clean|clean</aggregated_name>
+               <unit_target_name>Clean</unit_target_name>
+            </output_target_type>
+            <dependency_tools></dependency_tools>
+         </build_tool>
+      </build_config>
+   </build_configs>
+</project>

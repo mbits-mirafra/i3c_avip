@@ -1,0 +1,28 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/dpi/{{fileName}}" %}
+{% set conditional = "c_file" %}
+{% block description %}
+/*
+----------------------------------------------------------------------
+  Placeholder for complete C file.  This placeholder allows
+  compilation of generated environment without modification.
+----------------------------------------------------------------------
+*/
+{% endblock %}
+{% block contents %}
+#include <stdio.h>
+// pragma uvmf custom header begin
+// pragma uvmf custom header end
+
+{% for DPIImport in DPIImports %}
+{{DPIImport.cType}} {{DPIImport.name}} {{DPIImport.cArgs}}
+{
+// pragma uvmf custom {{DPIImport.name}} begin
+        printf("Inside {{DPIImport.name}}\n");
+// pragma uvmf custom {{DPIImport.name}} end
+}
+{% endfor %} 
+
+// pragma uvmf custom additional begin
+// pragma uvmf custom additional end
+
+{% endblock %}

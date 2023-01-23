@@ -1,0 +1,7 @@
+needs:
+  - ahb_common.compile
+  
+src:
+  - src/ahb_if.sv
+  - src/ahb_driver_bfm.sv
+  - src/ahb_monitor_bfm.sv

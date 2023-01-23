@@ -1,0 +1,7 @@
+{% set fname = "{{vip_location}}/{{interface_location}}/{{name}}_pkg/{{name}}_pkg_hdl.vinfo" %}
+{% block description %}
+{% endblock %}
+{% block contents %}
+@use $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.vinfo
+{{name}}_pkg_hdl.sv
+{% endblock %}

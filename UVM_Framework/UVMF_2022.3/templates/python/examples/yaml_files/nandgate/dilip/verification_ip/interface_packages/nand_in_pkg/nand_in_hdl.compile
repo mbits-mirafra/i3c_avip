@@ -1,0 +1,9 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ./nand_in_common.compile
+incdir:
+  - .
+src:
+  - src/nand_in_if.sv
+  - src/nand_in_monitor_bfm.sv
+  - src/nand_in_driver_bfm.sv

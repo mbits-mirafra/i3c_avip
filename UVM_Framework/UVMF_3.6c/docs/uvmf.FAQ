@@ -1,0 +1,86 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+ UVM Framework Frequenctly Asked Questions
+
+     What platforms does the UVMF run on?
+     How do I run one of the UVMF examples in Linux?
+     How do I run one of the UVMF examples in Windows?
+     How are the makefiles structured?
+     Where are the top level components?
+     What do the various directories contain?
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+What platforms does the UVMF run on?
+    *   There UVMF will run on Linux or Windows. 
+    *   The QVIP examples only run on Linux since QVIP only runs on Linux
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+How do I run one of the UVMF examples in Linux?
+
+    *   Makefiles are provided under the sim directory of each example bench for running on Linux
+    *   Example benches are under the project_benches directory
+    *   Under each example bench is the sim directory where simulations are run.  
+    *   When in the sim directory do the following to run a sim:
+            setenv ROOT_DIR `pwd`
+            Run one of the two following commands:
+                 make cli    “This make target runs the sim in command line mode”
+                 make debug  “This make target runs the sim in GUI mode.  You can view signals and transactions in this mode”
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+How do I run one of the UVMF examples in Windows?
+    *   There are no do files provided for running in Windows
+    *   For running on windows a do file can be generated using the makefile and a windows make utility
+    *   To generate a do file using a windows make utility perform the following steps:
+               Enter the sim directory of the example
+               run the following command to make a command line mode do file: make -n cli >> make.cli.do
+               run the following command to make a GUI mode do file: make -n debug >> make.debug.do
+               To run in command line mode execute make.cli.do
+               To run in GUI mode execute make.debug.do
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+How are the makefiles structured?
+    *   There are two types of makefiles within the UVM Framework
+        1)  verification_ip/scripts/makefile
+                 This makefile contains a make target for compiling each package within verificaiton_ip
+                 The name of the make target used to compile a package for simulation is the package name preceeded by comp_
+                      For example: to compile the spi_pkg the make target is comp_spi_pkg
+                 The interface packages have a make target for compiling and synthesizing for Veloce.
+                 The name of the make target used to compile an interface package is the package name preceeded by vel_comp_
+                      For example: to compile the spi_pkg for Veloce the make target is vel_comp_spi_pkg
+                 The makefile under verification_ip/scripts is included in the makefile for each example bench 
+        2) project_benches/projectName/sim/makefile
+                 This makefile contains make targets for each package and module within the bench.  This includes targets for compiling the following:
+                      Top level parameters package in tb/parameters
+                      Top level sequences package in tb/sequences
+                      Top level test package in tb/tests
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Where are the top level components?
+    *   Under each example in project_benches is the tb directory where bench level code resides
+            The two top level modules, hdl_top and hvl_top reside under tb/testbench directory
+            The top level uvm code, test_top,  resides in tb/tests/src
+            The top level sequences reside in tb/sequences/src
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+What do the various directories contain?
+    ./docs: Natural docs of the UVMF base package: uvmf_base_pkg
+    ./project_benches: UVMF example benches.  Each bench can be simulated with either 'make debug' or 'make cli' from the sim directory
+    ./project_benches/projectBenchName: The following directories are under each of the example benches:
+          docs: Bench level documentation
+          rtl: RTL of example design used for this bench
+          sim: Where simulations are run from
+          tb: Bench level packages and modules
+               parameters: Top, bench, level parameters package
+               sequences: Top level virtual sequence package
+               testbench: Top level modules
+               tests: Top level UVM tests
+    ./verification_ip: All packages and modules that are reusable
+          environment_packages: environment packages which contain envionment, env configuration, env predictors, env coverage, env sequences, etc.
+          fli_pkg: Foreign Language Interface package
+          interface_packages: interface packages that contain all files for each interface agent and BFM
+          modules: Utility modules
+          scripts: makefile with make targets for compiling all packages under verification_ip
+          utility_packages: utility packages including utility classes for QVIP
+          uvmf_base_pkg: Base package for the UVM Framework
+

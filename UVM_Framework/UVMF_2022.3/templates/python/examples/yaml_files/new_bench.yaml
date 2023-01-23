@@ -1,0 +1,41 @@
+# The purpose of this file is meant to provide a
+# starting point for the creation of a new YAML bench
+# description. Uncomment what you require to define a
+# given bench YAML file.
+
+uvmf:
+  benches:
+    "bench_name" :
+      top_env: "environment_name"
+      clock_half_period : "6ns"
+      clock_phase_offset : "21ns"
+      reset_assertion_level : "True"
+      reset_duration : "250ns"
+#      veloce_ready: "True"
+#      use_coemu_clk_rst_gen: "True"
+      ## Set this flag to disable generation of this bench
+#      existing_library_component : "True"
+#      imports:
+#        - name: "name_of_package_to_be_imported"
+#      parameters:
+#      - name: "TEST_PARAMETER"
+#        type: "int"
+#        value: "20"
+#      top_env_params:
+#        - name: "ENV_PARAMETER" 
+#          value: "TEST_PARAMETER"  
+#      active_passive_default: "ACTIVE or PASSIVE" 
+       ## For active_passive and interface_params, the bfm_name field must 
+       ## include the full UVM environment hierarchy down to the agent.
+       ## Underscores, _'s, must be used instead of dots, .'s, for delimiting
+       ## environment hierarchy.
+#      active_passive:   
+#        - bfm_name: "agent_name"
+#          value: "PASSIVE"
+#      interface_params:
+#        - bfm_name: "agent_name"
+#          value:
+#            - name: "IF_PARAMETER"
+#              value: "TEST_PARAMETER"
+#            - name: "IF_PARAMETER2"
+#              value: "TEST_PARAMETER2"

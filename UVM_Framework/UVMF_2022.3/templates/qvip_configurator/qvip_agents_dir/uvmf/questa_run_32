@@ -1,0 +1,13 @@
+export QVIP_AGENTS_DIR_NAME=$(pwd)
+
+echo "Setting up work directory"
+vlib work
+
+vlog -f qvip_agents_test_filelist.f +incdir+${QUESTA_MVC_HOME}/questa_mvc_src/sv \
+    hdl_qvip_agents.sv \
+    hvl_qvip_agents.sv 
+echo "Optimisation step"
+vopt -o top_opt hdl_qvip_agents hvl_qvip_agents
+
+echo "Running test"
+vsim -c -mvchome ${QUESTA_MVC_HOME} top_opt +nowarnTSCALE -t 1fs -do "run -all; quit" +UVM_TESTNAME=qvip_agents_test_base +SEQ=qvip_agents_vseq_base

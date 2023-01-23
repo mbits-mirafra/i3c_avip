@@ -1,0 +1,295 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_driver_bfm.sv" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} interface agent
+// Unit            : Interface Driver BFM
+// File            : {{name}}_driver_bfm.sv
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: 
+//    This interface performs the {{name}} signal driving.  It is
+//     accessed by the uvm {{name}} driver through a virtual interface
+//     handle in the {{name}} configuration.  It drives the singals passed
+//     in through the port connection named bus of type {{name}}_if.
+//
+//     Input signals from the {{name}}_if are assigned to an internal input
+//     signal with a _i suffix.  The _i signal should be used for sampling.
+//
+//     The input signal connections are as follows:
+//       bus.signal -> signal_i 
+//
+//     This bfm drives signals with a _o suffix.  These signals
+//     are driven onto signals within {{name}}_if based on INITIATOR/RESPONDER and/or
+//     ARBITRATION/GRANT status.  
+//
+//     The output signal connections are as follows:
+//        signal_o -> bus.signal
+//
+//                                                                                           
+//      Interface functions and tasks used by UVM components:                                
+//             configure(uvmf_initiator_responder_t mst_slv);                                       
+//                   This function gets configuration attributes from the                    
+//                   UVM driver to set any required BFM configuration                        
+//                   variables such as 'initiator_responder'.                                       
+//                                                                                           
+//             access(
+{% if transVars|length > 0 %}{% for txn in transVars %}//       {{txn.type}} {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %} );{% endif %}
+//                   );
+//                   This task receives transaction attributes from the                      
+//                   UVM driver and then executes the corresponding                          
+//                   bus operation on the bus. 
+//
+//
+// ****************************************************************************
+// ****************************************************************************
+{% endblock %}
+
+{% block contents %}
+import uvmf_base_pkg_hdl::*;
+import {{name}}_pkg_hdl::*;
+{% if not veloceReady %}
+import {{name}}_pkg::*;
+{% endif %}
+
+interface {{name}}_driver_bfm {%if paramDefs|length > 0%}      #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}} = {{param.value}}{% if not loop.last %},{% endif %}                                
+{% endfor %}      )
+{% endif %}
+({{name}}_if  bus);
+{% if veloceReady %}
+// pragma attribute {{name}}_driver_bfm partition_interface_xif
+// The above pragma and additional ones in-lined below are for running this BFM on Veloce
+{% endif %}
+
+  // Config value to determine if this is an initiator or a responder 
+  uvmf_initiator_responder_t initiator_responder;
+
+  tri        {{clock}}_i;
+  tri        {{reset}}_i;
+
+// Signal list (all signals are capable of being inputs and outputs for the sake
+// of supporting both INITIATOR and RESPONDER mode operation. Expectation is that 
+// directionality in the config file was from the point-of-view of the INITIATOR
+
+// INITIATOR mode input signals
+{% for sig in inputPorts %}
+  tri       {{sig.vector}}  {{sig.name}}_i;
+  bit       {{sig.vector}}  {{sig.name}}_o;
+{% endfor %}
+
+// INITIATOR mode output signals
+{% for sig in outputPorts %}
+  tri       {{sig.vector}}  {{sig.name}}_i;
+  bit       {{sig.vector}}  {{sig.name}}_o;
+{% endfor %}
+
+// Bi-directional signals
+{% for sig in inoutPorts %}
+  tri       {{sig.vector}}  {{sig.name}}_i;
+  bit       {{sig.vector}}  {{sig.name}}_o;
+{% endfor %}  
+
+  assign     {{clock}}_i    =   bus.{{clock}};
+  assign     {{reset}}_i    =   bus.{{reset}};
+
+  // These are signals marked as 'input' by the config file, but the signals will be
+  // driven by this BFM if put into RESPONDER mode (flipping all signal directions around)
+{% for sig in inputPorts %}
+  assign     {{sig.name}}_i = bus.{{sig.name}};
+  assign     bus.{{sig.name}} = (initiator_responder == RESPONDER) ? {{sig.name}}_o : 'bz;
+{% endfor %}
+
+{% for sig in inoutPorts %}
+  assign     {{sig.name}}_i = bus.{{sig.name}};
+{% endfor %}
+
+  // These are signals marked as 'output' by the config file, but the outputs will
+  // not be driven by this BFM unless placed in INITIATOR mode.
+{% for sig in outputPorts %}
+  assign bus.{{sig.name}} = (initiator_responder == INITIATOR) ? {{sig.name}}_o : 'bz;
+  assign {{sig.name}}_i = bus.{{sig.name}};
+{% endfor %}
+{% for sig in inoutPorts %}
+  assign bus.{{sig.name}} = {{sig.name}}_o;
+{% endfor %}
+
+   // Proxy handle to UVM driver
+   {{name}}_pkg::{{name}}_driver {%if paramDefs|length > 0%} #(
+{% for param in paramDefs %}              .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}                                
+{% endfor %}                    ) {% endif %} proxy;
+{% if veloceReady %}
+  // pragma tbx oneway proxy.my_function_name_in_uvm_driver                 
+{% endif %}
+
+//******************************************************************                         
+   function void configure(
+{% if veloceReady %}
+          uvmf_active_passive_t active_passive,
+          uvmf_initiator_responder_t   init_resp
+{% for config in configVars %}
+          ,{{config.type}} {{config.name}}
+{% endfor %}
+); // pragma tbx xtf                   
+{% else %}
+                         {{name}}_configuration cfg            
+                         );
+{% endif %}
+{% if veloceReady %}
+      initiator_responder = init_resp;
+{% else %}
+      initiator_responder = cfg.initiator_responder;
+{% endif %}   
+   endfunction                                                                               
+
+
+// ****************************************************************************
+  task do_transfer({% for txn in transVars %}
+                input {{txn.type}} {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+               );                                                  
+  // UVMF_CHANGE_ME : Implement protocol signaling.
+  // Transfers are protocol specific and therefore not generated by the templates.
+  // Use the following as examples of transferring data between a sequence and the bus
+  // In the wb_pkg - wb_master_access_sequence.svh, wb_driver_bfm.sv
+  // Reference code;
+  //    while (control_signal == 1'b1) @(posedge {{clock}}_i);
+  //    INITIATOR mode input signals
+{% for sig in inputPorts %}
+  //    {{sig.name}}_i;        //   {{sig.vector}} 
+  //    {{sig.name}}_o <= xyz; //   {{sig.vector}}  
+{% endfor %}
+  //    INITIATOR mode output signals
+{% for sig in outputPorts %}
+  //    {{sig.name}}_i;        //   {{sig.vector}}  
+  //    {{sig.name}}_o <= xyz; //   {{sig.vector}}  
+{% endfor %}
+  //    Bi-directional signals
+{% for sig in inoutPorts %}
+  //    {{sig.name}}_i;        //   {{sig.vector}}  
+  //    {{sig.name}}_o <= xyz; //   {{sig.vector}}  
+{% endfor %} 
+
+  @(posedge {{clock}}_i);
+  @(posedge {{clock}}_i);
+  @(posedge {{clock}}_i);
+  @(posedge {{clock}}_i);
+  @(posedge {{clock}}_i);
+  $display("{{name}}_driver_bfm: Inside do_transfer()");
+{% for txn in txns %}
+  $display("{{txn.name}}:0x%x",{{txn.name}});
+{% endfor %}
+endtask        
+
+  // UVMF_CHANGE_ME : Implement response protocol signaling.
+  // Templates also do not generate protocol specific response signaling. Use the 
+  // following as examples for transferring data between a sequence and the bus
+  // In wb_pkg - wb_memory_slave_sequence.svh, wb_driver_bfm.sv
+
+  task do_response({% for txn in transVars %}
+                 output {{txn.type}} {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+       );
+    @(posedge {{clock}}_i);
+    @(posedge {{clock}}_i);
+    @(posedge {{clock}}_i);
+    @(posedge {{clock}}_i);
+    @(posedge {{clock}}_i);
+  endtask
+
+  // The resp_ready bit is intended to act as a simple event scheduler and does
+  // not have anything to do with the protocol. It is intended to be set by
+  // a proxy call to do_response_ready() and ultimately cleared somewhere within the always
+  // block below.  In this simple situation, resp_ready will be cleared on the
+  // clock cycle immediately following it being set.  In a more complex protocol,
+  // the resp_ready signal could be an input to an explicit FSM to properly
+  // time the responses to transactions.  
+  bit resp_ready;
+  always @(posedge {{clock}}_i) begin
+    if (resp_ready) begin
+      resp_ready <= 1'b0;
+    end
+  end
+
+  function void do_response_ready({% for txn in responseList %}
+      input {{txn.type}} {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+    );  // pragma tbx xtf
+    // UVMF_CHANGE_ME : Implement response - drive BFM outputs based on the arguments
+    // passed into this function.  IMPORTANT - Must not consume time (it must remain
+    // a function)
+    resp_ready <= 1'b1;
+  endfunction
+
+// ****************************************************************************              
+// UVMF_CHANGE_ME : Note that all transaction variables are passed into the access
+//   task as inputs.  Some of these may need to be changed to outputs based on
+//   protocol needs.
+//
+  task access(
+{% if veloceReady %}
+{% for txn in transVars %}    input   {{txn.type}} {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %} );
+  // pragma tbx xtf                    
+{% else %}
+           {{name}}_transaction txn
+           );
+{% endif %}
+  @(posedge {{clock}}_i);                                                                     
+  $display("{{name}}_driver_bfm: Inside access()");
+{% if veloceReady %}
+  do_transfer(
+{% for trans in transVars %}    {{trans.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+          );                                                  
+{% else %}
+  do_transfer(
+{% for trans in transVars %}    txn.{{trans.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+          );                                                  
+{% endif %}
+  endtask      
+
+// ****************************************************************************              
+// UVMF_CHANGE_ME : Note that all transaction variables are passed into the response
+//   task as outputs.  Some of these may need to be changed to inputs based on
+//   protocol needs.
+  task response(
+{% if veloceReady %}
+{% for txn in transVars %} output {{txn.type}} {{txn.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %} );
+  // pragma tbx xtf
+{% else %}
+      {{name}}_transaction txn
+      );
+{% endif %}
+     @(posedge {{clock}}_i);
+     $display("{{name}}_driver_bfm: Inside response()");
+{% if veloceReady %}
+    do_response(
+{% for trans in transVars %}      {{trans.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+        );
+{% else %}
+  do_response(
+{% for trans in transVars %}  txn.{{trans.name}}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+        );
+{% endif %}
+  endtask             
+  
+endinterface
+{% endblock %}

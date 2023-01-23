@@ -1,0 +1,57 @@
+{% set fname = "verification_ip/interface_packages/{{name}}_pkg/src/{{name}}_responder_sequence.svh" %}
+{% extends "base_template.TMPL" %}
+
+{% block description %}
+//
+//----------------------------------------------------------------------
+// Project         : {{name}} responder sequence
+// Unit            : Interface UVM Responder
+// File            : {{name}}_responder_sequence.svh
+//----------------------------------------------------------------------
+//     
+// DESCRIPTION: This class can be used to provide stimulus when an interface
+//              has been configured to run in a responder mode. It
+//              will never finish by default, always going back to the driver
+//              and driver BFM for the next transaction with which to respond.
+//
+// ****************************************************************************
+// ****************************************************************************
+{% endblock %}
+
+{% block contents %}
+class {{name}}_responder_sequence {%if paramDefs|length > 0 %} #(
+{% for param in paramDefs %}      {{param.type}} {{param.name}} = {{param.value}}{% if not loop.last %},{% endif %}
+{% endfor %}     )
+{% endif %}
+extends {{name}}_sequence_base {%if paramDefs|length > 0 %} #(
+{% for param in paramDefs %}          .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}
+{% endfor %}       ) {% endif %};
+
+{%if paramDefs|length > 0 %}
+  `uvm_object_param_utils( {{name}}_responder_sequence #({% for param in paramDefs %}    {{param.name}}{% if not loop.last %},{% endif %}
+  {% endfor %}        ))
+{% else %}
+  `uvm_object_utils({{name}}_responder_sequence)
+{% endif %}
+
+  function new(string name = "{{name}}_responder_sequence");
+    super.new(name);
+  endfunction
+
+  task body();
+    req={{name}}_transaction{%if paramDefs|length > 0 %} #( {% for param in paramDefs %}     .{{param.name}}({{param.name}}){% if not loop.last %},{% endif %}
+    {% endfor %}        ) {% endif %}::type_id::create("req");
+    forever begin
+      start_item(req);
+      finish_item(req);
+      // UVMF_CHANGE_ME : Do something here with the resulting req item.  The
+      // finish_item() call above will block until the req transaction is ready
+      // to be handled by the responder sequence.
+      // If this was an item that required a response, the expectation is
+      // that the response should be populated within this transaction now.
+      `uvm_info("RESPSEQ",$sformatf("Processed txn: %s",req.convert2string()),UVM_HIGH)
+    end
+  endtask
+
+endclass
+{% endblock %}

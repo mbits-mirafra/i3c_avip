@@ -1,0 +1,7 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ./i3c_m_common.compile
+incdir:
+  - .
+src:
+  - i3c_m_pkg.sv

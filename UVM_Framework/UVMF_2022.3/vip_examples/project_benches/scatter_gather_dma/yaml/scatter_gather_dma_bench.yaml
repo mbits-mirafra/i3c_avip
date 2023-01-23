@@ -1,0 +1,21 @@
+uvmf:
+  benches:
+    scatter_gather_dma:
+      active_passive:
+      - bfm_name: dma_done_rsc
+        value: ACTIVE
+      clock_half_period: 5ns
+      clock_phase_offset: 0ns
+      existing_library_component: 'True'
+      imports:
+      - name: mvc_pkg
+      - name: mgc_axi4_v1_0_pkg
+      interface_params:
+      - bfm_name: dma_done_rsc
+        value:
+        - name: WIDTH
+          value: '1'
+      reset_assertion_level: 'False'
+      reset_duration: 30ns
+      top_env: scatter_gather_dma
+      use_dpi_link: 'False'

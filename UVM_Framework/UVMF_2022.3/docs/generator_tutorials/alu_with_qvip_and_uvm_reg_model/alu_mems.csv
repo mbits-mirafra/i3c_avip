@@ -1,0 +1,2 @@
+Memory Name,Memory Description,Memory Address,Memory Width,Memory Range,Memory Access,Memory Constraints
+scratch_mem,Memory,0x14,32,4076,RW,

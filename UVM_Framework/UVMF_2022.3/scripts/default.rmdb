@@ -1,0 +1,391 @@
+<?xml version="1.0"?>
+<rmdb version="1.0" loadtcl="default" toprunnables="top" options="-l vrun.log" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <runnable name="top" type="group" sequential="yes">
+    <parameters>
+      <!-- Override COLLAPSE to 1 in order to run each test once (i.e. ignore repeats) -->
+      <parameter name="USE_BCR" type="tcl">[getIniVar use_bcr]</parameter>
+      <parameter name="COLLAPSE">0</parameter>
+      <parameter name="PLATFORM" type="tcl">$tcl_platform(platform)</parameter>
+      <parameter name="TESTLIST_NAME" type="tcl">[getIniVar testlist_name]</parameter>
+      <parameter name="TOP_TESTLIST_FILE" type="tcl">[getIniVar top_testlist_file]</parameter>
+      <parameter name="DEBUG">0</parameter>
+      <parameter name="TESTPLAN_FILE" type="tcl">[getIniVar tplanfile]</parameter>
+      <parameter name="TESTPLAN_OPTIONS" type="tcl">[getIniVar tplanoptions]</parameter>
+      <parameter name="TESTPLAN_MERGE_OPTIONS" type="tcl">[getIniVar tplan_merge_options]</parameter>
+      <parameter name="INIT" type="tcl">[initTcl (%ROOTDIR%) (%MASTER_SEED%) (%DEBUG%)]</parameter>
+      <parameter name="SIM_DIR">(%VRUNDIR%)</parameter>
+      <parameter name="TESTCASES" type="tcl">[ReadTestlistFile (%TOP_TESTLIST_FILE%) (%SIM_DIR%) (%COLLAPSE%) (%DEBUG%) (%INIT%)]</parameter>
+      <parameter name="BUILDS" type="tcl">[GetBuilds (%TESTCASES%)]</parameter>
+      <parameter name="ROOTDIR" type="tcl">[list $env(UVMF_HOME)]</parameter>
+      <parameter name="CODE_COVERAGE_ENABLE" type="tcl">[getIniVar code_coverage_enable]</parameter>
+      <parameter name="CODE_COVERAGE_TYPES" type="tcl">[getIniVar code_coverage_types]</parameter>
+      <parameter name="CODE_COVERAGE_TARGET" type="tcl">[getIniVar code_coverage_target]</parameter>
+      <parameter name="EXTRA_MERGE_OPTIONS" type="tcl">[getIniVar extra_merge_options]</parameter>
+      <parameter name="CODE_COVERAGE_MAP" type="tcl">[getIniVar code_coverage_map]</parameter>
+      <parameter name="MERGE_MULTIUSER_STR" type="tcl">[if {(%MULTIUSER%)==1} { return "-multiuserenv" } else { return "" }]</parameter>
+      <parameter name="mergefile">(%DATADIR%)/tracker.ucdb</parameter>
+      <parameter name="mergeoptions">-testassociated (%MERGE_MULTIUSER_STR%) (%EXTRA_MERGE_OPTIONS%)</parameter>
+      <parameter name="HTML_REPORT_ARGS" type="tcl">[getIniVar html_report_args]</parameter>
+      <parameter name="USE_INFACT" type="tcl">[getIniVar use_infact]</parameter>
+      <parameter name="INFACT_ENABLED"/>
+      <parameter name="INFACTSDM_INI" type="tcl">[getInfactSdmIni (%DATADIR%)]</parameter>
+      <parameter name="USE_VIS" type="tcl">[getIniVar use_vis]</parameter>
+      <parameter name="USE_VINFO" type="tcl">[getIniVar use_vinfo]</parameter>
+      <parameter name="DUMP_WAVES" type="tcl">[getIniVar dump_waves]</parameter>
+      <parameter name="DUMP_WAVES_ON_RERUN" type="tcl">[getIniVar dump_waves_on_rerun]</parameter>
+      <parameter name="VIS_DUMP_OPTIONS" type="tcl">[getIniVar vis_dump_options]</parameter>
+      <parameter name="EXTRA_RUN_OPTIONS" type="tcl">(%EXTRA_VSIM_OPTIONS%)</parameter>
+      <parameter name="EXTRA_VSIM_OPTIONS" type="tcl">[getIniVar extra_run_options]</parameter>
+      <parameter name="MASTER_SEED">random</parameter>
+      <parameter name="COMPUTED_MASTER_SEED" type="tcl">[returnMasterSeed]</parameter>
+      <parameter name="NO_RERUN" type="tcl">[getIniVar no_rerun]</parameter>
+      <parameter name="RERUN_LIMIT" type="tcl">[getIniVar rerun_limit]</parameter>
+      <parameter name="VRM_BUILD" export="yes">1</parameter>
+      <parameter name="exclusionfile" type="tcl">[getIniVar exclusionfile]</parameter>
+      <parameter name="PRE_RUN_DOFILE" type="tcl">[getIniVar pre_run_dofile]</parameter>
+      <parameter name="PRE_VSIM_DOFILE" type="tcl">[getIniVar pre_vsim_dofile]</parameter>
+      <parameter name="RUN_EXEC" type="tcl">[getIniVar run_exec]</parameter>
+      <parameter name="USE_TEST_DOFILE" type="tcl">[getIniVar use_test_dofile]</parameter>
+      <parameter name="USE_JOB_MGMT_RUN" type="tcl">[getIniVar use_job_mgmt_run]</parameter>
+      <parameter name="USE_JOB_MGMT_BUILD" type="tcl">[getIniVar use_job_mgmt_build]</parameter>
+      <parameter name="USE_JOB_MGMT_COVERCHECK" type="tcl">[getIniVar use_job_mgmt_covercheck]</parameter>
+      <parameter name="USE_JOB_MGMT_EXCLUSION" type="tcl">[getIniVar use_job_mgmt_exclusion]</parameter>
+      <parameter name="USE_JOB_MGMT_REPORT" type="tcl">[getIniVar use_job_mgmt_report]</parameter>
+      <parameter name="GRIDTYPE" type="tcl">[getIniVar gridtype]</parameter>
+      <parameter name="GRIDCOMMAND_RUN" type="tcl">[getIniVar gridcommand_run]</parameter>
+      <parameter name="GRIDCOMMAND_BUILD" type="tcl">[getIniVar gridcommand_build]</parameter>
+      <parameter name="GRIDCOMMAND_COVERCHECK" type="tcl">[getIniVar gridcommand_covercheck]</parameter>
+      <parameter name="GRIDCOMMAND_EXCLUSION" type="tcl">[getIniVar gridcommand_exclusion]</parameter>
+      <parameter name="GRIDCOMMAND_REPORT" type="tcl">[getIniVar gridcommand_report]</parameter>
+      <parameter name="USE_COVERCHECK" type="tcl">[getIniVar use_covercheck]</parameter>
+      <parameter name="TOP_DU_NAME" type="tcl">[getIniVar top_du_name]</parameter>
+      <parameter name="COVERCHECK_BUILD" type="tcl">[getIniVar covercheck_build]</parameter>
+      <parameter name="COVERCHECK_ANALYZE_TIMEOUT" type="tcl">[getIniVar covercheck_analyze_timeout]</parameter>
+      <parameter name="COVERCHECK_INIT_FILE" type="tcl">[getIniVar covercheck_init_file]</parameter>
+      <parameter name="COVERCHECK_UCDB_FILE" type="tcl">[getIniVar covercheck_ucdb_file]</parameter>
+      <parameter name="EXTRA_COVERCHECK_OPTIONS" type="tcl">[getIniVar extra_covercheck_options]</parameter>
+      <parameter name="TIMEOUT" type="tcl">[getIniVar timeout]</parameter>
+      <parameter name="QUEUE_TIMEOUT" type="tcl">[getIniVar queue_timeout]</parameter>
+      <parameter name="BUILD_TIMEOUT" type="tcl">[getTimeoutVal (%TIMEOUT%) [getIniVar build_timeout]]</parameter>
+      <parameter name="RUN_TIMEOUT" type="tcl">[getTimeoutVal (%TIMEOUT%) [getIniVar run_timeout]]</parameter>
+      <parameter name="EXCLUSION_TIMEOUT" type="tcl">[getTimeoutVal (%TIMEOUT%) [getIniVar exclusion_timeout]]</parameter>
+      <parameter name="COVERCHECK_TIMEOUT" type="tcl">[getTimeoutVal (%TIMEOUT%) [getIniVar covercheck_timeout]]</parameter>
+      <parameter name="REPORT_TIMEOUT" type="tcl">[getTimeoutVal (%TIMEOUT%) [getIniVar report_timeout]]</parameter>
+      <parameter name="BUILD_QUEUE_TIMEOUT" type="tcl">[getTimeoutVal (%QUEUE_TIMEOUT%) [getIniVar build_queue_timeout]]</parameter>
+      <parameter name="RUN_QUEUE_TIMEOUT" type="tcl">[getTimeoutVal (%QUEUE_TIMEOUT%) [getIniVar run_queue_timeout]]</parameter>
+      <parameter name="EXCLUSION_QUEUE_TIMEOUT" type="tcl">[getTimeoutVal (%QUEUE_TIMEOUT%) [getIniVar exclusion_queue_timeout]]</parameter>
+      <parameter name="COVERCHECK_QUEUE_TIMEOUT" type="tcl">[getTimeoutVal (%QUEUE_TIMEOUT%) [getIniVar covercheck_queue_timeout]]</parameter>
+      <parameter name="REPORT_QUEUE_TIMEOUT" type="tcl">[getTimeoutVal (%QUEUE_TIMEOUT%) [getIniVar report_queue_timeout]]</parameter>
+      <parameter name="EMAIL_RECIPIENTS" type="tcl">[getIniVar email_recipients]</parameter>
+      <parameter name="EMAIL_SERVERS" type="tcl">[getIniVar email_servers]</parameter>
+      <parameter name="EMAIL_SECTIONS" type="tcl">[getIniVar email_sections]</parameter>
+      <parameter name="EMAIL_SUBJECT" type="tcl">[getIniVar email_subject]</parameter>  
+      <parameter name="EMAIL_ORIGINATOR" type="tcl">[getIniVar email_originator]</parameter>
+      <parameter name="EMAIL_MESSAGE" type="tcl">[getIniVar email_message]</parameter>
+      <parameter name="USESTDERR" type="tcl">[getIniVar usestderr]</parameter>
+      <parameter name="trendfile" type="tcl">[getIniVar trendfile]</parameter>
+      <parameter name="trendoptions" type="tcl">[getIniVar trendoptions]</parameter>
+      <parameter name="triagefile" type="tcl">[getIniVar triagefile]</parameter>
+      <parameter name="triageoptions" type="tcl">[getIniVar triageoptions]</parameter>
+      <parameter name="BCR_EXEC_CMD_WINDOWS" type="tcl">[getIniVar bcr_exec_cmd_windows]</parameter>
+      <parameter name="BCR_EXEC_CMD_LINUX" type="tcl">[getIniVar bcr_exec_cmd_linux]</parameter>
+      <parameter name="BCR_EXEC_CMD" type="tcl">[ switch $tcl_platform(platform) { unix { return "(%BCR_EXEC_CMD_LINUX%)" } windows { return "(%BCR_EXEC_CMD_WINDOWS%)" } default { return "!ERROR!ERROR!ERROR!" } } ]</parameter>
+      <parameter name="BCR_FLOW" type="tcl">[getIniVar bcr_flow]</parameter>
+      <parameter name="BCR_OVERLAY" type="tcl">[getIniVar bcr_overlay]</parameter>
+      <parameter name="BCR_OVERLAY_STR" type="tcl">[ if {![string match "" "(%BCR_OVERLAY%)"]} {return {--flow_file_overlay (%BCR_OVERLAY%)} } else {return {}} ]</parameter>
+      <parameter name="MULTIUSER" type="tcl">[getIniVar multiuser]</parameter>
+      <parameter name="STATUS">0</parameter>
+    </parameters>
+    <members>
+      <member>start_infact_sdm_task</member>
+      <member>each_top</member>
+      <member>exclusions</member>
+      <member>covercheck</member>
+      <member>testplan</member>
+      <member>report</member>
+      <member>stop_infact_sdm_task</member>
+    </members>
+    <preScript>
+      <command>runmgr::rm_message "NOTE: Regression master seed set to: (%COMPUTED_MASTER_SEED%)"</command>
+    </preScript>
+
+  </runnable>  
+
+  <!-- This is actually a group of runnables forked off in parallel, depending on how many
+       different testbenches were specified in the test list files.  Each testbench is assumed to require its
+       own build operation, and only after that build has completed will subsequent tests be started.   -->
+  <runnable name="each_top" type="group" sequential="no">
+    <members>
+      <member>build_group</member>
+    </members>
+  </runnable>
+
+  <!-- This group sequentially invokes the build operation for a particular testbench followed by starting
+       all of the simulations for that testbench -->
+  <runnable name="build_group" type="group" sequential="yes" foreach="(%BUILDS%)" index="build">
+    <parameters>
+      <parameter name="blockpath" type="tcl">[GetMapInfo (%build%) "blockpath"]</parameter>
+      <parameter name="blockleaf" type="tcl">[GetMapInfo (%build%) "blockleaf"]</parameter>
+      <parameter name="syspath" type="tcl">[GetMapInfo (%build%) "syspath"]</parameter>
+      <parameter name="sysleaf" type="tcl">[GetMapInfo (%build%) "sysleaf"]</parameter>
+    </parameters>
+    <members>
+      <member>build_task</member>
+      <member>run_fork</member>
+    </members>
+  </runnable>
+  
+  <runnable name="start_infact_sdm_task" type="task" if="&quot;(%INFACT_ENABLED%)&quot;==&quot;1&quot;">
+  	<execScript launch="exec">
+  		<command>
+			if test (%USE_INFACT%) -eq 1; then
+				nohup infactsdm start -clean -nobackground -info (%DATADIR%)/infactsdm_info.ini &amp;
+            fi
+  		</command>
+  	</execScript>
+  </runnable>
+  
+  <runnable name="stop_infact_sdm_task" type="task" if="&quot;(%INFACT_ENABLED%)&quot;==&quot;1&quot;">
+  	<execScript launch="exec">
+  		<command>
+			if test (%USE_INFACT%) -eq 1; then
+  				infactsdm status -summary -info (%DATADIR%)/infactsdm_info.ini -out (%DATADIR%)/infactsdm_status.out;
+	  			infactsdm stop -info (%DATADIR%)/infactsdm_info.ini; 
+			fi
+  		</command>
+  	</execScript>
+  </runnable>  
+
+  <!-- The actual build operation. -->
+  <runnable name="build_task" type="task">
+    <method if="(%USE_JOB_MGMT_BUILD%)" gridtype="(%GRIDTYPE%)" mintimeout="(%BUILD_QUEUE_TIMEOUT%)">
+      <command>(%GRIDCOMMAND_BUILD%)</command>
+    </method>
+    <parameters>
+      <parameter name="EXTRABUILDCMD" type="tcl">[GetBuildCmd (%build%)]</parameter>
+      <parameter name="VRUN_EXTRA_BUILD_CMD"></parameter>
+      <parameter name="BUILDDIR" type="tcl">[GetBuildDir (%build%)]</parameter>
+      <parameter name="CODE_COVERAGE_STR" type="tcl">[GetCodeCovBuildString (%USE_BCR%) (%CODE_COVERAGE_ENABLE%) (%CODE_COVERAGE_TYPES%) (%CODE_COVERAGE_TARGET%)]</parameter>
+      <parameter name="BCR_DEBUG" type="tcl">[ if { (%DEBUG%)==1} { return "--debug"} else {return ""}]</parameter>
+      <parameter name="FLOW_CONTROL">build_only:True</parameter>
+      <parameter name="BCR_MULTIUSER_STR" type="tcl">[if {(%MULTIUSER%)==0} { return "multiuser:False" } else { return "" } ]</parameter>
+      <parameter name="MAKE_MULTIUSER_STR" type="tcl">[if {(%MULTIUSER%)==0} { return "MULTIUSER=0" } else {return ""} ]</parameter>
+    </parameters>
+    <execScript launch="vsim" mintimeout="(%BUILD_TIMEOUT%)" usestderr="(%USESTDERR%)">
+      <command>if {(%USE_BCR%)} {</command>
+      <command>  exec (%BCR_EXEC_CMD%) (%BCR_FLOW%) --sim_dir (%BUILDDIR%) (%BCR_MULTIUSER_STR%) (%BCR_DEBUG%) (%CODE_COVERAGE_STR%) (%FLOW_CONTROL%) (%VRUN_EXTRA_BUILD_CMD%) (%EXTRABUILDCMD%) (%BCR_OVERLAY_STR%)</command>
+      <command>} else {</command>
+      <command>  switch (%PLATFORM%) {</command>
+      <command>    unix {</command>
+      <command>      exec -ignorestderr make -f (%BUILDDIR%)/Makefile libs build optimize UVMF_HOME=(%ROOTDIR%) USE_VINFO=(%USE_VINFO%) USE_VIS=(%USE_VIS%) (%CODE_COVERAGE_STR%) (%MAKE_MULTIUSER_STR%) (%EXTRABUILDCMD%) (%VRUN_EXTRA_BUILD_CMD%)</command>
+      <command>    }</command>
+      <command>    windows {</command>
+      <command>      do (%BUILDDIR%)/compile.do;</command>
+      <command>    }</command>
+      <command>    default {</command>
+      <command>      echo "Unknown OS platform detected in build_task runnable"</command>
+      <command>      quit -code 103</command>
+      <command>    }</command>
+      <command>  }</command>
+      <command>}</command>
+    </execScript>
+  </runnable>
+
+  <!-- Level of grouping required to fork off all of the simulations in parallel -->
+  <runnable name="run_fork" type="group" sequential="no">
+    <method if="(%USE_JOB_MGMT_RUN%)" gridtype="(%GRIDTYPE%)" mintimeout="(%RUN_QUEUE_TIMEOUT%)">
+      <command>(%GRIDCOMMAND_RUN%)</command>
+    </method>
+    <members>
+      <member>run</member>
+    </members>
+  </runnable>
+
+  <runnable name="run" type="task" foreach="(%TESTCASES_FOR_BUILD%)" index="testname">
+    <parameters>
+      <parameter name="TESTCASES_FOR_BUILD" type="tcl">[GetTestcases (%build%) (%COLLAPSE%)]</parameter>
+      <parameter name="EXTRA_RUN_ARGS_FOR_TESTCASE" type="tcl">[GetExtraArgs (%testname%)]</parameter>
+      <parameter name="BUILDDIR" type="tcl">[GetBuildDir (%build%)]</parameter>
+      <parameter name="UVM_TESTNAME" type="tcl">[GetUVMTestname (%testname%)]</parameter>
+      <parameter name="ucdbfile">(%testname%).ucdb</parameter>
+      <parameter name="seed" type="tcl">[lindex [split (%testname%) "-"] 3]</parameter>
+      <parameter name="DEBUGMODE">(%NO_RERUN%)</parameter>
+      <parameter name="EXTRA_RUN_ARGS_FOR_BUILD" type="tcl">[GetRunCmd (%build%)]</parameter>
+      <parameter name="MVCHOME" type="tcl">[if {[FindMVCHome "(%VRUNDIR%)/Makefile"]} { return "-mvchome $::env(QUESTA_MVC_HOME)" } else { return "" }]</parameter>
+      <parameter name="UVM_VERBOSITY" type="tcl">[ if { (%DEBUGMODE%) } { return "UVM_MEDIUM" } else { return "UVM_LOW" }]</parameter>
+      <parameter name="TOP">optimized_batch_top_tb</parameter>
+      <parameter name="CODE_COVERAGE_STR" type="tcl">[GetCodeCovRunString (%USE_BCR%) (%CODE_COVERAGE_ENABLE%)]</parameter>
+      <parameter name="VIS_ARGS" type="tcl">[GetVisArgs (%USE_BCR%) (%USE_VIS%) (%DUMP_WAVES%) (%DEBUGMODE%) (%NO_RERUN%) (%DUMP_WAVES_ON_RERUN%) (%VIS_DUMP_OPTIONS%)]</parameter>
+      <parameter name="MVCSWITCH" type="tcl">[ if { "(%RUN_EXEC%)" eq "exec" } { return "(%MVCHOME%)" } else { return "" }]</parameter>
+      <parameter name="iter" type="tcl">[lindex [split (%testname%) "-"] 2]</parameter>
+      <parameter name="UVM_DEBUG_CONTROL">none</parameter>
+      <parameter name="FLOW_CONTROL">sim_only:True</parameter>
+      <parameter name="PRE_RUN_DO" type="tcl">[ if {![string match "" (%PRE_RUN_DOFILE%)] &amp;&amp; [file exists (%VRUNDIR%)/(%PRE_RUN_DOFILE%)]} {return "do (%VRUNDIR%)/(%PRE_RUN_DOFILE%);"} else {return {}}]</parameter>
+      <parameter name="TEST_DO" type="tcl">[ if {(%USE_TEST_DOFILE%) &amp;&amp; [file exists (%VRUNDIR%)/(%UVM_TESTNAME%).do]} {return "do (%VRUNDIR%)/(%UVM_TESTNAME%).do"} else {return {}}]</parameter>
+      <parameter name="EXTRA_DO_ARG" type="tcl">[ if {![string match "" "(%PRE_RUN_DO%)"] || ![string match "" "(%TEST_DO%)"]} {return {extra_do:"(%PRE_RUN_DO%) (%TEST_DO%)"}} else {return ""}]</parameter>
+      <parameter name="GEN_SYMLINKS" type="tcl">[GenSymlinks (%VRUNDIR%) (%TASKDIR%) (%build%) (%DEBUG%)]</parameter>
+    </parameters>
+    <localfile name="test.do" expand="yes">
+      <command># Do file for use in Make-base run flow (NOT USED WITH BCR FLOW)</command>
+      <command>set NoQuitOnFinish 1</command>
+      <command>set IterationLimit 140000</command>
+      <command>onerror { echo "Exiting due to Tcl error"; quit -f -code 103; }</command>
+      <command>onbreak {resume};</command>
+      <command>coverage attribute -name TESTNAME -value (%build%)_(%UVM_TESTNAME%)_(%iter%)_(%seed%)</command>
+      <command>coverage save -onexit (%ucdbfile%)</command>
+      <command>if {![string match "" (%PRE_RUN_DOFILE%)] &amp;&amp; [file exists (%VRUNDIR%)/(%PRE_RUN_DOFILE%)] } { do (%VRUNDIR%)/(%PRE_RUN_DOFILE%)}</command>
+      <command>if {(%USE_TEST_DOFILE%) &amp;&amp; [file exists (%VRUNDIR%)/(%UVM_TESTNAME%).do] } { do (%VRUNDIR%)/(%UVM_TESTNAME%).do}</command>
+      <command># Generated symbolic links...</command>
+      <command>(%GEN_SYMLINKS%)</command>
+      <command>run -all; quit -sim</command>
+    </localfile>
+    <execScript launch="vsim (%MVCHOME%)" mintimeout="(%RUN_TIMEOUT%)" usestderr="(%USESTDERR%)">
+      <!--Conditionally add a symlink to design.bin if generated.-->
+      <command>if {!({(%VIS_ARGS%)} == "")} {file link -symbolic "design.bin" "../../build_task/design.bin"}</command>
+      <!--Add PRE_VSIM_DOFILE to run arbitrary Tcl commands prior to vsim launch-->
+      <command>if {![string match "" (%PRE_VSIM_DOFILE%)] &amp;&amp; [file exists (%VRUNDIR%)/(%PRE_VSIM_DOFILE%)] } { do (%VRUNDIR%)/(%PRE_VSIM_DOFILE%)}</command>
+      <command>if { (%USE_BCR%) } {</command>
+      <command>exec (%BCR_EXEC_CMD%) (%BCR_FLOW%) --skip_filelist_build --sim_dir (%BUILDDIR%) (%FLOW_CONTROL%)
+            outdir:../../build_task/qrun.out (%EXTRA_RUN_ARGS_FOR_BUILD%) (%EXTRA_RUN_ARGS_FOR_TESTCASE%) (%EXTRA_RUN_OPTIONS%) (%BCR_OVERLAY_STR%)
+            (%CODE_COVERAGE_STR%) verbosity:(%UVM_VERBOSITY%) test:(%UVM_TESTNAME%) testname_attr:(%build%)_(%UVM_TESTNAME%)_(%iter%)_(%seed%)
+            seed:(%seed%) vrm_in_use:True ucdb_filename:(%ucdbfile%) 
+            (%EXTRA_DO_ARG%) {quit_command:quit -sim}
+      </command>
+      <command>} else {</command>
+      <command>(%RUN_EXEC%) vsim -batch -lib (%TASKDIR%)/../../build_task/work (%TOP%)
+            -do "test.do" -suppress 8887 -permit_unmatched_virtual_intf                                                        
+            +UVM_TESTNAME=(%UVM_TESTNAME%) +vrm_in_use (%MVCSWITCH%) (%CODE_COVERAGE_STR%)  
+            +UVM_VERBOSITY=(%UVM_VERBOSITY%) -solvefaildebug +UVM_NO_RELNOTES (%VIS_ARGS%) (%INFACTSDM_INI%)
+            -sv_seed (%seed%) -uvmcontrol=(%UVM_DEBUG_CONTROL%) +notimingchecks (%EXTRA_RUN_ARGS_FOR_BUILD%) (%EXTRA_RUN_OPTIONS%) (%EXTRA_RUN_ARGS_FOR_TESTCASE%)
+      </command>
+      <command>}</command>
+      <!-- Following command modifies the design hierarchy in the UCDB to match a mapping defined in the test list with TB_MAP -->
+      <command>
+         if { (%CODE_COVERAGE_MAP%) &amp;&amp; {(%blockpath%)} != {} } { 
+           vsim -c -viewcov (%ucdbfile%) -l covmap.log -do "coverage edit -rename -path (%blockpath%)/(%blockleaf%) (%sysleaf%); \
+                                                            coverage edit -movedesign (%blockpath%)/(%sysleaf%) (%syspath%); \
+                                                            coverage save (%ucdbfile%)"
+         }
+      </command> 
+    </execScript>
+  </runnable>
+
+  <!-- 
+       One-from-top-level runnables with an 'if' clause that involves a parameter that can be controlled as an ini-var must
+       be wrapped in a group, such as the one below. This is because those parameters would otherwise be evaluated by VRM before 
+       the initialization routine that sets everything up with defaults gets called.
+  -->
+
+  <runnable name="exclusions" type="group">
+    <members>
+      <member>exclusions_if</member>
+    </members>
+  </runnable>
+
+  <runnable name="exclusions_if" type="task" unless="&quot;(%exclusionfile%)&quot;==&quot;&quot;">
+    <method if="(%USE_JOB_MGMT_EXCLUSION%)" gridtype="(%GRIDTYPE%)" mintimeout="(%EXCLUSION_QUEUE_TIMEOUT%)">
+      <command>(%GRIDCOMMAND_EXCLUSION%)</command>
+    </method>
+    <parameters>
+      <parameter name="exclusionfile_with_path" type="tcl">[PathRelativeToVrun (%exclusionfile%)]</parameter>
+    </parameters>
+    <localfile name="apply_exclusions.do" expand="yes">
+      <command>onerror { quit -code 88 }</command>
+      <command>do (%exclusionfile_with_path%)</command>
+      <command>coverage save (%mergefile%)</command>
+      <command>quit -f</command>
+    </localfile>
+    <execScript launch="vsim" mintimeout="(%EXCLUSION_TIMEOUT%)" usestderr="(%USESTDERR%)">
+      <command>
+        exec vsim -c -viewcov (%mergefile%) -do apply_exclusions.do
+      </command>
+    </execScript>
+  </runnable>
+
+  <runnable name="covercheck" type="group">
+    <members>
+      <member>covercheck_if</member>
+    </members>
+  </runnable>
+
+  <runnable name="covercheck_if" type="task" if="(%USE_COVERCHECK%)">
+    <method if="(%USE_JOB_MGMT_COVERCHECK%)" gridtype="(%GRIDTYPE%)" mintimeout="(%COVERCHECK_QUEUE_TIMEOUT%)">
+      <command>(%GRIDCOMMAND_COVERCHECK%)</command>
+    </method>
+    <parameters>
+      <parameter name="CC_BUILD_DIR">(%DATADIR%)/top/each_top/build_group~(%COVERCHECK_BUILD%)/build_task</parameter>
+      <parameter name="INIT_FILE_STR" type="tcl">[if { "(%COVERCHECK_INIT_FILE%)" != ""} { return init_file:(%COVERCHECK_INIT_FILE%) } else { return "" }]</parameter>
+    </parameters>
+    <localfile name="apply_covercheck_exclusions.do" expand="yes">
+      <command>onerror { quit -code 88 }</command>
+      <command>do ./covercheck_results/covercheck_exclude.do</command>
+      <command>coverage save (%COVERCHECK_UCDB_FILE%)</command>
+      <command>quit -f</command>
+    </localfile>
+    <execScript launch="vsim" mintimeout="(%COVERCHECK_TIMEOUT%)" usestderr="(%USESTDERR%)">
+      <command>if { (%USE_BCR%) } {</command>
+      <command>exec (%BCR_EXEC_CMD%) covercheck --step analyze
+                 lib:(%CC_BUILD_DIR%)/qrun.out/work
+                 top:(%TOP_DU_NAME%)
+                 ucdb_filename:(%mergefile%)
+                 timeout:(%COVERCHECK_ANALYZE_TIMEOUT%)
+                 (%INIT_FILE_STR%)
+                 (%EXTRA_COVERCHECK_OPTIONS%)
+      </command>
+      <command>} else {</command>
+      <command>exec -ignorestderr make -f (%VRUNDIR%)/Makefile covercheck
+                  UVMF_VIP_LIBRARY_HOME=../../../../../../../verification_ip 
+                  UVMF_PROJECT_DIR=../../../../.. 
+                  COVERCHECK_BUILD_DIR=(%CC_BUILD_DIR%) 
+                  COVERCHECK_TOP=(%TOP_DU_NAME%) 
+                  COVERCHECK_UCDB=(%mergefile%) 
+                  (%EXTRA_COVERCHECK_OPTIONS%)
+      </command>
+      <command>}</command>
+      <command>vsim -c -viewcov (%mergefile%) -do apply_covercheck_exclusions.do</command>
+    </execScript>
+  </runnable>
+
+  <runnable name="testplan" type="group">
+    <members>
+      <member>testplan_if</member>
+    </members>
+  </runnable>
+
+  <runnable name="testplan_if" type="task" unless="&quot;(%TESTPLAN_FILE%)&quot;==&quot;&quot;">
+    <execScript launch="vsim">
+      <command>if {[file extension (%TESTPLAN_FILE%)]==".ucdb"} {</command>
+      <command>  vcover merge (%TESTPLAN_MERGE_OPTIONS%) (%MERGE_MULTIUSER_STR%) (%mergefile%) (%TESTPLAN_FILE%) (%mergefile%)</command>
+      <command>} else {</command>
+      <command>  xml2ucdb (%TESTPLAN_OPTIONS%) (%TESTPLAN_FILE%) testplan.ucdb</command>
+      <command>  vcover merge (%TESTPLAN_MERGE_OPTIONS%) (%MERGE_MULTIUSER_STR%) (%mergefile%) testplan.ucdb (%mergefile%)</command>
+      <command>}</command>
+    </execScript>
+  </runnable>
+
+  <runnable name="report" type="task">
+    <method if="(%USE_JOB_MGMT_REPORT%)" gridtype="(%GRIDTYPE%)" mintimeout="(%REPORT_QUEUE_TIMEOUT%)">
+      <command>(%GRIDCOMMAND_REPORT%)</command>
+    </method>
+    <execScript mintimeout="(%REPORT_TIMEOUT%)" usestderr="(%USESTDERR%)">
+      <command>file delete -force (%VRUNDIR%)/covhtmlreport</command>
+      <command>vcover report -html (%mergefile%) (%HTML_REPORT_ARGS%)</command>
+    </execScript>
+  </runnable>
+
+  <usertcl name="default">
+    source $env(UVMF_HOME)/scripts/default_rmdb.tcl
+    if {[info exists env(UVMF_VRM_INI)]} {
+      if {[file exists $env(UVMF_VRM_INI)]} { 
+        source $env(UVMF_VRM_INI) 
+      } else {
+        puts [format "ERROR: INI file pointed to by \$UVMF_VRM_INI var (\"%s\") not found" $env(UVMF_VRM_INI)]
+        exit
+      }
+    } elseif {[file exists uvmf_vrm_ini.tcl]} {
+        source uvmf_vrm_ini.tcl
+	} 
+  </usertcl>
+
+</rmdb>
