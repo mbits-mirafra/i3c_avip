@@ -1,0 +1,20 @@
+uvmf:
+  environments:
+    env:
+      agents:
+      - initiator_responder: INITIATOR
+        name: m_agent
+        type: i3c_m
+      analysis_components: []
+      analysis_exports: []
+      analysis_ports: []
+      config_constraints: []
+      config_vars: []
+      existing_library_component: 'True'
+      hvl_pkg_parameters: []
+      non_uvmf_components: []
+      parameters: []
+      qvip_memory_agents: []
+      scoreboards: []
+      subenvs: []
+      tlm_connections: []

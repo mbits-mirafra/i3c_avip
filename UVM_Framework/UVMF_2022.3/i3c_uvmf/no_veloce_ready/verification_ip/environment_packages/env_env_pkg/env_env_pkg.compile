@@ -1,0 +1,7 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg.compile
+  - ../../../verification_ip/interface_packages/i3c_m_pkg/i3c_m_hvl.compile
+
+src:
+  - env_env_pkg.sv
+

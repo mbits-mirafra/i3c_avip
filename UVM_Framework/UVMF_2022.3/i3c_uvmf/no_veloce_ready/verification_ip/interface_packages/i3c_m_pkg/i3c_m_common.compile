@@ -1,0 +1,8 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+incdir:
+  - .
+  - ${uvm_path}/src
+src:
+  - i3c_m_pkg_hdl.sv
+  - i3c_global_pkg.sv

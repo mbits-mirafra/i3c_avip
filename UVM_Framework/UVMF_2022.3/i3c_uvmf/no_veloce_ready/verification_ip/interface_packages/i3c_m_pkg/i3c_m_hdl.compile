@@ -1,0 +1,9 @@
+needs:
+  - $UVMF_HOME/uvmf_base_pkg/uvmf_base_pkg_hdl.compile
+  - ./i3c_m_common.compile
+incdir:
+  - .
+src:
+  - src/i3c_m_if.sv
+  - src/i3c_m_monitor_bfm.sv
+  - src/i3c_m_driver_bfm.sv
