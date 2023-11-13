@@ -30,6 +30,7 @@ package i3c_test_pkg;
  `include "i3c_8b_write_test.sv"
  `include "i3c_8b_read_test.sv"
  `include "i3c_8b_write_followed_by_read_test.sv"
+ `include "i3c_direct_ccc_setdasa_test.sv"
 endpackage : i3c_test_pkg
 
 `endif
