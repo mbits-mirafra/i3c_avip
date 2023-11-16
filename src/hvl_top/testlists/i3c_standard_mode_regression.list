@@ -4,4 +4,4 @@
 i3c_8b_write_test
 i3c_8b_read_test
 #i3c_8b_write_followed_by_read_test 
-#i3c_direct_ccc_setdasa_test
+i3c_direct_ccc_setdasa_test
