@@ -3,5 +3,9 @@
 
 i3c_8b_write_test
 i3c_8b_read_test
+<<<<<<< HEAD
 #i3c_8b_write_followed_by_read_test 
+=======
+i3c_8b_write_followed_by_read_test 
+>>>>>>> c4f85435c5a3c85352db7a6c0304ac51c41d10ac
 i3c_direct_ccc_setdasa_test

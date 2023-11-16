@@ -98,10 +98,6 @@ override uvm_verbosity = UVM_FULL
 endif
 
 
-ifndef i3c_type
-override i3c_type= STANDARD_I3C
-endif
-
 # Setting the default test folder to test name 
 ifndef test_folder
 override test_folder = $(test)
@@ -151,13 +147,13 @@ simulate:
 clean_simulate:
 	rm -rf *_test*
 
-#clean_compile:
-#	rm -rf work/ *_compile.log transcript waveform.wlf
-#	rm -rf merged_coverage.ucdb merged_cov_html_report
+clean_compile:
+	rm -rf work/ *_compile.log transcript waveform.wlf
+	rm -rf merged_coverage.ucdb merged_cov_html_report
 
-#clean:
-#	make clean_compile
-#	make clean_simulate
+clean:
+	make clean_compile
+	make clean_simulate
 
 ##
 ## For Regression and coverage merge
