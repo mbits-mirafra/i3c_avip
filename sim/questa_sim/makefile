@@ -155,7 +155,6 @@ clean:
 	make clean_compile
 	make clean_simulate
 
-##
 ## For Regression and coverage merge
 ##
 regression:
