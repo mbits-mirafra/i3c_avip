@@ -8,7 +8,7 @@
 class i3c_direct_ccc_setdasa_test extends i3c_base_test;
   `uvm_component_utils(i3c_direct_ccc_setdasa_test)
 
-  i3c_direct_ccc_setdasa_virtual_seq i3c_direct_ccc_setdasa_virtual_seq_h;
+  i3c_virtual_8b_direct_ccc_setdasa_seq i3c_virtual_8b_direct_ccc_setdasa_seq_h;
 
 
   //-------------------------------------------------------
@@ -64,12 +64,12 @@ endfunction : build_phase
 task i3c_direct_ccc_setdasa_test::run_phase(uvm_phase phase);
 
 
-  i3c_direct_ccc_setdasa_virtual_seq_h = i3c_direct_ccc_setdasa_virtual_seq::type_id::create("i3c_direct_ccc_setdasa_virtual_seq_h");
+  i3c_virtual_8b_direct_ccc_setdasa_seq_h = i3c_virtual_8b_direct_ccc_setdasa_seq::type_id::create("i3c_virtual_8b_direct_ccc_setdasa_seq_h");
 
 
   phase.raise_objection(this);
 
-  i3c_direct_ccc_setdasa_virtual_seq_h.start(i3c_env_h.i3c_virtual_seqr_h); 
+  i3c_virtual_8b_direct_ccc_setdasa_seq_h.start(i3c_env_h.i3c_virtual_seqr_h); 
   #20;
 
   phase.drop_objection(this);
