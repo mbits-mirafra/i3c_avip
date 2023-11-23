@@ -22,7 +22,7 @@ module i3c_master_8b_read_seq_unit_test;
   //===================================
   function void build();
     svunit_ut = new(name);
-
+    
     my_i3c_master_8b_read_seq = new(/* New arguments if needed */);
   endfunction
 
@@ -63,7 +63,34 @@ module i3c_master_8b_read_seq_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
 
+  //===================================
+  // writing test for slave_address
+  //===================================
+  `SVTEST(slave_address_size_value)
+    my_i3c_master_8b_read_seq.body();
+    //`FAIL_UNLESS(my_i3c_master_8b_read_seq.req.slave_address == 7'b110_1000)
+    //`FAIL_UNLESS($size(my_i3c_master_8b_read_seq.req.slave_address) == 7)
+    $display("size = %0d",my_i3c_master_8b_read_seq.req.size);
 
+    //my_i3c_master_8b_read_seq.req.slave_address = 7'b111_0011;
+    //`FAIL_UNLESS(my_i3c_master_8b_read_seq.req.slave_address == 7'b111_0011)
+  `SVTEST_END
+  
+  //================================================
+  // writing test for transaction type write or read
+  //================================================
+//  `SVTEST(transaction_type)
+//    `FAIL_UNLESS(my_i3c_master_8b_read_seq.req.read_write == READ)
+//    `FAIL_IF(my_i3c_master_8b_read_seq.req.read_write == WRITE)
+//  `SVTEST_END
+//  
+//  //===================================================
+//  // writing test for size (How many bits need to read)
+//  //===================================================
+//  `SVTEST(size_of_data)
+//    //if size is 1 then it will read 8bit data
+//    `FAIL_UNLESS(my_i3c_master_8b_read_seq.req.size == 1)
+//  `SVTEST_END
 
   `SVUNIT_TESTS_END
 
