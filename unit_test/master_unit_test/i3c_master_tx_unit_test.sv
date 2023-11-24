@@ -1,4 +1,5 @@
 `include "svunit_defines.svh"
+`include "uvm_macros.svh"
 
 module i3c_master_tx_unit_test;
   import uvm_pkg::*;
@@ -14,7 +15,7 @@ module i3c_master_tx_unit_test;
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
-  i3c_master_tx my_i3c_master_tx;
+  i3c_master_tx uut;
 
   //===================================
   // Build
@@ -22,7 +23,7 @@ module i3c_master_tx_unit_test;
   function void build();
     svunit_ut = new(name);
 
-    my_i3c_master_tx = new(/* New arguments if needed */);
+    uut = new(/* New arguments if needed */);
   endfunction
 
   //===================================
@@ -60,38 +61,66 @@ module i3c_master_tx_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
   
-  `SVTEST(Given_OperationInlineConstraint_When_Write_Expect_ValueZero)
-    void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.operation == WRITE;});
-    `FAIL_UNLESS(my_i3c_master_tx.operation == 0)
+  `SVTEST(Given_operationInlineConstraint_When_Write_Expect_ValueZero)
+    void'(uut.randomize() with {uut.operation == WRITE;});
+    `FAIL_UNLESS(uut.operation == 0)
   `SVTEST_END
 
   `SVTEST(Given_OperationInlineConstraint_When_Read_Expect_ValueOne)
-    void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.operation == READ;});
-    `FAIL_UNLESS(my_i3c_master_tx.operation == 1)
+    void'(uut.randomize() with {uut.operation == READ;});
+    `FAIL_UNLESS(uut.operation == 1)
   `SVTEST_END
 
-  `SVTEST(Given_slaveAddress_When_slaveAddressWidth7_Expect_Sizeof7)
-    `FAIL_UNLESS($size(my_i3c_master_tx.slaveAddress) == 7)
+  `SVTEST(Given_OperationEnum_When_READ_Value_StringREAD)
+    uut.operation = READ;
+    `FAIL_UNLESS_STR_EQUAL(uut.operation.name(),"READ")
+  `SVTEST_END
+
+  `SVTEST(Given_OperationEnum_When_WRITE_Value_StringWRITE)
+    uut.operation = WRITE;
+    `FAIL_UNLESS_STR_EQUAL(uut.operation.name(),"WRITE")
   `SVTEST_END
   
-  `SVTEST(Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElements8)
-    for(int i=1;i<=3;i++) begin
-      void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.writeData.size() == i;});
-      for(int j=0;j<i;j++) begin
-        `FAIL_UNLESS($size(my_i3c_master_tx.writeData[j]) == 8)
-      end
-    end
+  `SVTEST(Given_SlaveAddress_When_SlaveAddressWidth7_Expect_Sizeof7)
+    int sizeOfSlaveAddress = $size(uut.slaveAddress);
+    `uvm_info("",$sformatf("sizeOfSlaveAddress = %0d",sizeOfSlaveAddress), UVM_HIGH)
+    `FAIL_UNLESS(sizeOfSlaveAddress == 7)
+  `SVTEST_END
+  
+  `SVTEST(Given_SlaveAddressInlineConstraint_When_SlaveAddresRandomized_Expect_Value10)
+    void'(uut.randomize() with {uut.slaveAddress == 7'd10;});
+    `FAIL_UNLESS(uut.slaveAddress == 7'd10)
   `SVTEST_END
 
+  `SVTEST(Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElement8)
+      uut.writeData = new[2];
+
+      `FAIL_UNLESS($size(uut.writeData[0]) == 8)
+      `FAIL_UNLESS($size(uut.writeData[1]) == 8)
+  `SVTEST_END
+
+  `SVTEST(Given_writeDataArray_When_Randomized_Expect_ValueNonZero)
+    void'(uut.randomize() with {
+                uut.writeData.size() == 2;
+                uut.writeData[0] == 10;
+                uut.writeData[1] == 12;
+              });
+
+    `FAIL_IF(uut.writeData[0] == 0)
+    `FAIL_IF(uut.writeData[1] == 0)
+  `SVTEST_END
+  
+
+  `SVTEST(M)
+  `SVTEST_END
+  
   `SVTEST(Given_readDataArray_When_readDataWidth8_Expect_SizeofEachElements8)
-    for(int i=1;i<=3;i++) begin
-      my_i3c_master_tx.readData.size() = i;
-      for(int j=0;j<i;j++) begin
-        `FAIL_UNLESS($size(my_i3c_master_tx.readData[j]) == 8)
-      end
-    end
+      uut.readData = new[2];
+
+      `FAIL_UNLESS($size(uut.readData[0]) == 8)
+      `FAIL_UNLESS($size(uut.readData[1]) == 8)
   `SVTEST_END
-  
+
   `SVUNIT_TESTS_END
 
 endmodule

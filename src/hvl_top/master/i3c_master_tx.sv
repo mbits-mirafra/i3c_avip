@@ -9,10 +9,13 @@
 class i3c_master_tx extends uvm_sequence_item;
   `uvm_object_utils(i3c_master_tx)
 
-  rand read_write_e read_write;
-  rand bit [SLAVE_ADDRESS_WIDTH-1:0] slave_address;
+  rand operationType_e operation;
+  rand bit [SLAVE_ADDRESS_WIDTH-1:0] slaveAddress;
+  rand bit [DATA_WIDTH-1:0] writeData[];
+
+  rand bit readData[];
+
   rand bit[31:0] size;
-  rand bit [DATA_WIDTH-1:0] wr_data[];
   rand bit [DATA_WIDTH-1:0] rd_data[];
   rand bit [REGISTER_ADDRESS_WIDTH-1:0]register_address;
 
@@ -24,7 +27,7 @@ class i3c_master_tx extends uvm_sequence_item;
   // Receiving data fields
   bit slave_add_ack = 1;
   bit reg_add_ack = 1;
-  bit wr_data_ack[$];
+  bit writeData_ack[$];
 
   i3c_master_agent_config i3c_master_agent_cfg_h;
   //-------------------------------------------------------
@@ -35,7 +38,7 @@ class i3c_master_tx extends uvm_sequence_item;
 
   //constraint register_addr_c{register_address%4 == 0;} 
   //constraint s_addr_index_c{index inside {[0:NO_OF_SLAVES-1]};}
-  //constraint s_addr_c{slave_address == i3c_master_agent_cfg_h.slave_address_array[index];solve index before slave_address;}
+  //constraint s_addr_c{slaveAddress == i3c_master_agent_cfg_h.slave_address_array[index];solve index before slave_address;}
   //constraint s_sb_c{solve index before slave_address;}
  
   //constraint r_addr_size_c{raddr inside {[0:7]};}
@@ -43,10 +46,10 @@ class i3c_master_tx extends uvm_sequence_item;
   //constraint r_sb_c{solve raddr before register_address;}
   
   // Write Data
-  //constraint write_data_c {soft wr_data.size() %4 == 0;
-  //                              wr_data.size() != 0; 
-  //                         soft wr_data.size() == 4;
-  //                              wr_data.size() <= MAXIMUM_BYTES; }
+  //constraint write_data_c {soft writeData.size() %4 == 0;
+  //                              writeData.size() != 0; 
+  //                         soft writeData.size() == 4;
+  //                              writeData.size() <= MAXIMUM_BYTES; }
   
   
   //constraint slave_addr_0{slave_address==i3c_master_agent_cfg_h.slave_address_array[0];}
@@ -110,9 +113,9 @@ function void i3c_master_tx::do_copy (uvm_object rhs);
   end
   super.do_copy(rhs);
 
-  slave_address= rhs_.slave_address;
+  slaveAddress= rhs_.slaveAddress;
   register_address= rhs_.register_address;
-  wr_data = rhs_.wr_data;
+  writeData = rhs_.writeData;
   size = rhs_.size;
 
 endfunction : do_copy
@@ -130,10 +133,10 @@ function bit  i3c_master_tx::do_compare (uvm_object rhs,uvm_comparer comparer);
   end
 
   return super.do_compare(rhs,comparer) &&
-  slave_address == rhs_.slave_address &&
+  slaveAddress == rhs_.slaveAddress &&
   register_address == rhs_.register_address &&
   size == rhs_.size &&
-  wr_data == rhs_.wr_data;
+  writeData == rhs_.writeData;
 endfunction : do_compare 
 //--------------------------------------------------------------------------------------------
 // Function: do_print method
@@ -142,19 +145,19 @@ endfunction : do_compare
 function void i3c_master_tx::do_print(uvm_printer printer);
   super.do_print(printer);
 
-  printer.print_field($sformatf("slave_address"),this.slave_address,$bits(slave_address),UVM_HEX);
+  printer.print_field($sformatf("slaveAddress"),this.slaveAddress,$bits(slaveAddress),UVM_HEX);
   //printer.print_field($sformatf("register_address"),this.register_address,8,UVM_HEX);
-  printer.print_string($sformatf("read_write"),read_write.name());
+  printer.print_string($sformatf("operation"),operation.name());
   printer.print_field($sformatf("Size"),this.size,1,UVM_HEX);
   
   for(int i = 0;i < size;i++) begin
-    printer.print_field($sformatf("wr_data[%0d]",i),this.wr_data[i],8,UVM_HEX);
+    printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],8,UVM_HEX);
   end
 
   //printer.print_field($sformatf("slave_add_ack"),this.slave_add_ack,1,UVM_BIN);
   //printer.print_field($sformatf("reg_add_ack"),this.reg_add_ack,1,UVM_BIN);
-  //foreach(wr_data_ack[i]) begin
-  //  printer.print_field($sformatf("wr_data_ack[%0d]",i),this.wr_data_ack[i],1,UVM_HEX);
+  //foreach(writeData_ack[i]) begin
+  //  printer.print_field($sformatf("writeData_ack[%0d]",i),this.writeData_ack[i],1,UVM_HEX);
   //end
 
 endfunction : do_print
@@ -164,7 +167,7 @@ endfunction : do_print
 // Used for setting slave address value based on the configurations value
 //--------------------------------------------------------------------------------------------
 function void i3c_master_tx::post_randomize();
-  slave_address = i3c_master_agent_cfg_h.slave_address_array[index];
-  `uvm_info("DEBUG_MSHA", $sformatf("index = %0d and slave_address = %0x", index, slave_address), UVM_NONE)
+// MSHA:   slaveAddress = i3c_master_agent_cfg_h.slaveAddress_array[index];
+// MSHA:   `uvm_info("DEBUG_MSHA", $sformatf("index = %0d and slaveAddress = %0x", index, slaveAddress), UVM_NONE)
 endfunction: post_randomize
 `endif

@@ -60,7 +60,7 @@ package i3c_globals_pkg;
   } shift_direction_e;
   
   
-  // Enum: read_write_e
+  // Enum: operationType_e
   // 
   // Specifies the read or write request
   // READ - READ request 
@@ -69,7 +69,7 @@ package i3c_globals_pkg;
   typedef enum bit {
     WRITE = 1'b0,
     READ = 1'b1
-  } read_write_e;
+  } operationType_e;
   
   // struct: i3c_bits_transfer_s
   // 
