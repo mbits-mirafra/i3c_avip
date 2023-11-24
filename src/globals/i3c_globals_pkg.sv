@@ -6,11 +6,11 @@
 //--------------------------------------------------------------------------------------------
 package i3c_globals_pkg;
 
-  // NO_OF_SLAVES to be connected to the i3c_interface
+  // NO_OF_TARGETS to be connected to the i3c_interface
   parameter int NO_OF_MASTERS = 1;
 
   // NO_OF_MASTERS to be connected to the i3c_interface
-  parameter int NO_OF_SLAVES = 1;
+  parameter int NO_OF_TARGETS = 1;
   
   // The parameter NO_OF_REG is to assign number of registers in a slave
   parameter int NO_OF_REG = 1;
@@ -19,10 +19,10 @@ package i3c_globals_pkg;
   parameter int DATA_WIDTH = 8;
   
   // The parameter for the register address width
-  // parameter int SLAVE_ADDRESS_WIDTH  = 10;
+  // parameter int TARGET_ADDRESS_WIDTH  = 10;
   
   // The parameter for the slave address width
-  parameter int SLAVE_ADDRESS_WIDTH  = 7;
+  parameter int TARGET_ADDRESS_WIDTH  = 7;
   
   // The parameter for the register address width
   parameter int REGISTER_ADDRESS_WIDTH  = 8;
@@ -34,10 +34,10 @@ package i3c_globals_pkg;
   parameter int MAXIMUM_BYTES = MAXIMUM_BITS/DATA_WIDTH ;
   
   // The parameter for Slave addresses
-  parameter SLAVE0_ADDRESS = 7'b110_1000;  // 7'h68
-  parameter SLAVE1_ADDRESS = 7'b110_1100;  // 7'h6C 
-  parameter SLAVE2_ADDRESS = 7'b111_1100;  // 7'h7C
-  parameter SLAVE3_ADDRESS = 7'b100_1100;  // 7'h4C
+  parameter TARGET0_ADDRESS = 7'b110_1000;  // 7'h68
+  parameter TARGET1_ADDRESS = 7'b110_1100;  // 7'h6C 
+  parameter TARGET2_ADDRESS = 7'b111_1100;  // 7'h7C
+  parameter TARGET3_ADDRESS = 7'b100_1100;  // 7'h4C
   
   // The parameter for enabling tristate buffer
   parameter bit TRISTATE_BUF_ON  = 1;
@@ -82,7 +82,7 @@ package i3c_globals_pkg;
   // wr_data_ack :specifies the acknowledgement after receiving data
   //
   typedef struct {
-    bit [SLAVE_ADDRESS_WIDTH-1:0]slave_address;
+    bit [TARGET_ADDRESS_WIDTH-1:0]slave_address;
     bit read_write;
     bit [DATA_WIDTH-1:0] wr_data[];
     bit [DATA_WIDTH-1:0] rd_data[];
@@ -105,7 +105,7 @@ package i3c_globals_pkg;
     bit msb_first;
     bit read_write;
     int baudrate_divisor;
-    bit[SLAVE_ADDRESS_WIDTH-1:0] slave_address;
+    bit[TARGET_ADDRESS_WIDTH-1:0] slave_address;
     bit [7:0]slave_memory[longint];
   } i3c_transfer_cfg_s;
   
@@ -115,7 +115,7 @@ package i3c_globals_pkg;
     FREE,
     START, 
     ADDRESS,
-    SLAVE_ADDR_ACK,
+    TARGET_ADDR_ACK,
     WRITE_DATA,
     READ_DATA,
     SAMPLE_WRITE_DATA,

@@ -1,11 +1,11 @@
-`ifndef I3C_MASTER_PKG_INCLUDED_
-`define I3C_MASTER_PKG_INCLUDED_
+`ifndef I3C_CONTROLLER_PKG_INCLUDED_
+`define I3C_CONTROLLER_PKG_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-// Package: master_pkg
-//  Includes all the files related to SPI master
+// Package: controller_pkg
+//  Includes all the files related to SPI controller
 //--------------------------------------------------------------------------------------------
-package i3c_master_unit_test_pkg;
+package i3c_controller_unit_test_pkg;
 
   //-------------------------------------------------------
   // Import uvm package
@@ -16,16 +16,16 @@ package i3c_master_unit_test_pkg;
   //-------------------------------------------------------
   // Include all other files
   //-------------------------------------------------------
-  `include "i3c_master_agent_config.sv"
-  `include "i3c_master_tx.sv"
+  // MSHA: `include "i3c_controller_agent_config.sv"
+  `include "i3c_controller_tx.sv"
 
-  // MSHA: `include "i3c_master_sequencer.sv"
-  // MSHA: `include "i3c_master_base_seq.sv"
-  // MSHA: `include "i3c_master_8b_write_seq.sv"
-  // MSHA: `include "i3c_master_8b_read_seq.sv"
+  // MSHA: `include "i3c_controller_sequencer.sv"
+  // MSHA: `include "i3c_controller_base_seq.sv"
+  // MSHA: `include "i3c_controller_8b_write_seq.sv"
+  // MSHA: `include "i3c_controller_8b_read_seq.sv"
 
 
-endpackage : i3c_master_unit_test_pkg
+endpackage : i3c_controller_unit_test_pkg
 
 
 `endif 

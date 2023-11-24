@@ -1,21 +1,21 @@
 `include "svunit_defines.svh"
 `include "uvm_macros.svh"
 
-module i3c_master_tx_unit_test;
+module i3c_controller_tx_unit_test;
   import uvm_pkg::*;
   import svunit_pkg::svunit_testcase;
-  import i3c_master_unit_test_pkg::*;
+  import i3c_controller_unit_test_pkg::*;
   import i3c_globals_pkg::*;
 
 
-  string name = "i3c_master_tx_ut";
+  string name = "i3c_controller_tx_ut";
   svunit_testcase svunit_ut;
 
   //===================================
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
-  i3c_master_tx uut;
+  i3c_controller_tx uut;
 
   //===================================
   // Build
@@ -81,15 +81,15 @@ module i3c_master_tx_unit_test;
     `FAIL_UNLESS_STR_EQUAL(uut.operation.name(),"WRITE")
   `SVTEST_END
   
-  `SVTEST(Given_SlaveAddress_When_SlaveAddressWidth7_Expect_Sizeof7)
-    int sizeOfSlaveAddress = $size(uut.slaveAddress);
-    `uvm_info("",$sformatf("sizeOfSlaveAddress = %0d",sizeOfSlaveAddress), UVM_HIGH)
-    `FAIL_UNLESS(sizeOfSlaveAddress == 7)
+  `SVTEST(Given_targetAddress_When_targetAddressWidth7_Expect_Sizeof7)
+    int sizeOftargetAddress = $size(uut.targetAddress);
+    `uvm_info("",$sformatf("sizeOftargetAddress = %0d",sizeOftargetAddress), UVM_HIGH)
+    `FAIL_UNLESS(sizeOftargetAddress == 7)
   `SVTEST_END
   
-  `SVTEST(Given_SlaveAddressInlineConstraint_When_SlaveAddresRandomized_Expect_Value10)
-    void'(uut.randomize() with {uut.slaveAddress == 7'd10;});
-    `FAIL_UNLESS(uut.slaveAddress == 7'd10)
+  `SVTEST(Given_targetAddressInlineConstraint_When_targetAddresRandomized_Expect_Value10)
+    void'(uut.randomize() with {uut.targetAddress == 7'd10;});
+    `FAIL_UNLESS(uut.targetAddress == 7'd10)
   `SVTEST_END
 
   `SVTEST(Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElement8)
