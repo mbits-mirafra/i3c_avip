@@ -13,7 +13,8 @@ class i3c_master_tx extends uvm_sequence_item;
   rand bit [SLAVE_ADDRESS_WIDTH-1:0] slaveAddress;
   rand bit [DATA_WIDTH-1:0] writeData[];
 
-  rand bit readData[];
+  bit [DATA_WIDTH-1:0] readData[];
+  //rand bit [DATA_WIDTH-1:0] readData[];
 
   rand bit[31:0] size;
   rand bit [DATA_WIDTH-1:0] rd_data[];

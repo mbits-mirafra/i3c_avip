@@ -121,6 +121,17 @@ module i3c_master_tx_unit_test;
       `FAIL_UNLESS($size(uut.readData[1]) == 8)
   `SVTEST_END
 
+  `SVTEST(Given_readDataArray_When_Randomized_Expect_ValueofZero)
+    void'(uut.randomize() with {
+                uut.readData.size() == 2;
+                uut.readData[0] == 10;
+                uut.readData[1] == 10;
+              });
+
+      `FAIL_UNLESS(uut.readData[0] == 0)
+      `FAIL_UNLESS(uut.readData[1] == 0)
+  `SVTEST_END
+
   `SVUNIT_TESTS_END
 
 endmodule
