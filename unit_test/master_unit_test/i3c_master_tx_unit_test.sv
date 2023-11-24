@@ -110,10 +110,6 @@ module i3c_master_tx_unit_test;
     `FAIL_IF(uut.writeData[1] == 0)
   `SVTEST_END
   
-
-  `SVTEST(M)
-  `SVTEST_END
-  
   `SVTEST(Given_readDataArray_When_readDataWidth8_Expect_SizeofEachElements8)
       uut.readData = new[2];
 
@@ -128,8 +124,44 @@ module i3c_master_tx_unit_test;
                 uut.readData[1] == 10;
               });
 
-      `FAIL_UNLESS(uut.readData[0] == 0)
-      `FAIL_UNLESS(uut.readData[1] == 0)
+    `FAIL_UNLESS(uut.readData[0] == 0)
+    `FAIL_UNLESS(uut.readData[1] == 0)
+  `SVTEST_END
+
+  `SVTEST(Given_readDataStatusEnum_When_ACK_Value_StringACK)
+    uut.readDataStatus = new[1];
+    uut.readDataStatus[0] = ACK;
+
+    `FAIL_UNLESS_STR_EQUAL(uut.readDataStatus[0].name(),"ACK")
+  `SVTEST_END
+  
+  `SVTEST(Given_readDataStatusEnum_When_NACK_Value_StringACK)
+    uut.readDataStatus = new[1];
+    uut.readDataStatus[0] = NACK;
+
+    `FAIL_UNLESS_STR_EQUAL(uut.readDataStatus[0].name(),"NACK")
+  `SVTEST_END
+  
+  `SVTEST(Given_readDataStatusInlineConstraint_When_NACK_Expect_ValueofOne)
+    void'(uut.randomize() with {
+                uut.readDataStatus.size() == 2;
+                uut.readDataStatus[0] == NACK;
+                uut.readDataStatus[1] == NACK;
+              });
+
+    `FAIL_UNLESS(uut.readDataStatus[0] == 1)
+    `FAIL_UNLESS(uut.readDataStatus[1] == 1)
+  `SVTEST_END
+
+  `SVTEST(Given_readDataStatusInlineConstraint_When_ACK_Expect_ValueofZero)
+    void'(uut.randomize() with {
+                uut.readDataStatus.size() == 2;
+                uut.readDataStatus[0] == ACK;
+                uut.readDataStatus[1] == ACK;
+              });
+
+    `FAIL_UNLESS(uut.readDataStatus[0] == 0)
+    `FAIL_UNLESS(uut.readDataStatus[1] == 0)
   `SVTEST_END
 
   `SVUNIT_TESTS_END

@@ -142,8 +142,8 @@ package i3c_globals_pkg;
   // POS_ACK - positive acknowledgement 
   // NEG_ACK - negative acknowledgement
   typedef enum bit {
-    POS_ACK = 1'b0,
-    NEG_ACK = 1'b1
+    ACK = 1'b0,
+    NACK = 1'b1
   } acknowledge_e;
 
 endpackage : i3c_globals_pkg 
