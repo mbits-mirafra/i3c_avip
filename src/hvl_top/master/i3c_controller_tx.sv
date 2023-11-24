@@ -9,6 +9,30 @@
 class i3c_controller_tx extends uvm_sequence_item;
   `uvm_object_utils(i3c_controller_tx)
 
+  // Reserved 8 address for first group 0000_XXX 
+  typedef enum bit[6:0] {
+    GRP0_RSVD0 = 7'b0000_000,
+    GRP0_RSVD1 = 7'b0000_001,
+    GRP0_RSVD2 = 7'b0000_010,
+    GRP0_RSVD3 = 7'b0000_011,
+    GRP0_RSVD4 = 7'b0000_100,
+    GRP0_RSVD5 = 7'b0000_101,
+    GRP0_RSVD6 = 7'b0000_110,
+    GRP0_RSVD7 = 7'b0000_111
+  } group0_e;
+
+  // Reserved 8 address for second group 1111_XXX 
+  typedef enum bit[6:0] {
+    GRP1_RSVD0 = 7'b1111_000,
+    GRP1_RSVD1 = 7'b1111_001,
+    GRP1_RSVD2 = 7'b1111_010,
+    GRP1_RSVD3 = 7'b1111_011,
+    GRP1_RSVD4 = 7'b1111_100,
+    GRP1_RSVD5 = 7'b1111_101,
+    GRP1_RSVD6 = 7'b1111_110,
+    GRP1_RSVD7 = 7'b1111_111
+  } group1_e;
+
   rand operationType_e operation;
   rand bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress;
   rand bit [DATA_WIDTH-1:0] writeData[];
@@ -34,6 +58,18 @@ class i3c_controller_tx extends uvm_sequence_item;
   // Constraints for I3C
   //-------------------------------------------------------
   
+  // Basic support for not including two groups of 8 address
+  // 0000 XXX (8 addresses) and 1111 XXX (8 addresses) 
+  //
+  constraint reservedTargetAddressGroup0_c {
+    !(targetAddress inside {[GRP0_RSVD0 : GRP0_RSVD7]}) ; 
+  }
+
+  constraint reservedTargetAddressGroup1_c {
+    !(targetAddress inside {[GRP1_RSVD0 : GRP1_RSVD7]}) ; 
+  }
+
+
   //The register_address_arrayis of the mode of 4 because data width is 32bit 
 
   //constraint register_addr_c{register_address%4 == 0;} 

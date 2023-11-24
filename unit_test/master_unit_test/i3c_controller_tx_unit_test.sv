@@ -17,6 +17,9 @@ module i3c_controller_tx_unit_test;
   //===================================
   i3c_controller_tx uut;
 
+  // Custom variable for unit testing
+  bit randSuccess;
+
   //===================================
   // Build
   //===================================
@@ -162,6 +165,26 @@ module i3c_controller_tx_unit_test;
 
     `FAIL_UNLESS(uut.readDataStatus[0] == 0)
     `FAIL_UNLESS(uut.readDataStatus[1] == 0)
+  `SVTEST_END
+
+  // Conflicting contraints is an error but it doesn't stop the simualtion
+  // Any failure of randomization engine will return FALSE (logic 0)
+  // Hence we can use the success of randomization effectively for checking constraints
+
+  // Group0 - 0000 XXX (8 addresses)
+  `SVTEST(Given_targetAddressInLineContraint_When_reservedGroup0_Expect_RandomizationFailure)
+    randSuccess = (uut.randomize() with {
+                        uut.targetAddress inside {[7'b0000_000 : 7'b0000_111]};
+                      });
+    `FAIL_IF(randSuccess)
+  `SVTEST_END
+
+  // Group1 - 1111 XXX (8 addresses)
+  `SVTEST(Given_targetAddressInLineContraint_When_reservedGroup1_Expect_RandomizationFailure)
+    randSuccess = (uut.randomize() with {
+                        uut.targetAddress inside {[7'b1111_000 : 7'b1111_111]};
+                      });
+    `FAIL_IF(randSuccess)
   `SVTEST_END
 
   `SVUNIT_TESTS_END
