@@ -1,5 +1,4 @@
 `include "svunit_defines.svh"
-// MSHA: `include "i3c_master_tx.sv"
 
 module i3c_master_tx_unit_test;
   import uvm_pkg::*;
@@ -11,13 +10,11 @@ module i3c_master_tx_unit_test;
   string name = "i3c_master_tx_ut";
   svunit_testcase svunit_ut;
 
-
   //===================================
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
   i3c_master_tx my_i3c_master_tx;
-
 
   //===================================
   // Build
@@ -28,7 +25,6 @@ module i3c_master_tx_unit_test;
     my_i3c_master_tx = new(/* New arguments if needed */);
   endfunction
 
-
   //===================================
   // Setup for running the Unit Tests
   //===================================
@@ -37,7 +33,6 @@ module i3c_master_tx_unit_test;
     /* Place Setup Code Here */
 
   endtask
-
 
   //===================================
   // Here we deconstruct anything we 
@@ -65,52 +60,38 @@ module i3c_master_tx_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
   
-  //===================================
-  // writing test for write transaction
-  //===================================
-  `SVTEST(set_write_tx)
-    //void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.read_write == 0;});
-    void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.read_write == WRITE;});
-    $display("[i3c_master_write_tx] read_write is = %0d",my_i3c_master_tx.read_write);
-    `FAIL_UNLESS(my_i3c_master_tx.read_write == 0)
-    //`FAIL_UNLESS(my_i3c_master_tx.read_write == WRITE)
+  `SVTEST(Given_OperationInlineConstraint_When_Write_Expect_ValueZero)
+    void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.operation == WRITE;});
+    `FAIL_UNLESS(my_i3c_master_tx.operation == 0)
   `SVTEST_END
 
-  //===================================
-  // writing test for read transaction
-  //===================================
-  `SVTEST(set_read_tx)
-    //void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.read_write == 1;});
-    void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.read_write == READ;});
-    $display("[i3c_master_read_tx] read_write is = %0d",my_i3c_master_tx.read_write);
-    `FAIL_UNLESS(my_i3c_master_tx.read_write == 1)
-    //`FAIL_UNLESS(my_i3c_master_tx.read_write == READ)
+  `SVTEST(Given_OperationInlineConstraint_When_Read_Expect_ValueOne)
+    void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.operation == READ;});
+    `FAIL_UNLESS(my_i3c_master_tx.operation == 1)
   `SVTEST_END
 
-  //===================================
-  // writing test for slave_address
-  //===================================
-  `SVTEST(size_of_slave_address)
-    void'(my_i3c_master_tx.randomize());
-    $display("[i3c_master_tx_slave_address] size of slave_address = %0d",$size(my_i3c_master_tx.slave_address));
-    `FAIL_UNLESS($size(my_i3c_master_tx.slave_address) == 7)
+  `SVTEST(Given_slaveAddress_When_slaveAddressWidth7_Expect_Sizeof7)
+    `FAIL_UNLESS($size(my_i3c_master_tx.slaveAddress) == 7)
   `SVTEST_END
   
-  //===================================
-  // writing test for wr_data
-  //===================================
-  `SVTEST(size_of_wr_data)
+  `SVTEST(Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElements8)
     for(int i=1;i<=3;i++) begin
-      void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.size == i;
-                                               my_i3c_master_tx.wr_data.size() == my_i3c_master_tx.size;});
-      $display("[i3c_master_tx_size] size = %0d",my_i3c_master_tx.size);
-      $display("[i3c_master_tx_wr_data] size of wr_data array = %0d",my_i3c_master_tx.wr_data.size());
-      for(int j=0;j<my_i3c_master_tx.size;j++) begin
-        $display("[i3c_master_tx_wr_data] size of wr_data[%0d] = %0d",j,$size(my_i3c_master_tx.wr_data[j]));
-        `FAIL_UNLESS($size(my_i3c_master_tx.wr_data[j]) == 8)
+      void'(my_i3c_master_tx.randomize() with {my_i3c_master_tx.writeData.size() == i;});
+      for(int j=0;j<i;j++) begin
+        `FAIL_UNLESS($size(my_i3c_master_tx.writeData[j]) == 8)
       end
     end
   `SVTEST_END
+
+  `SVTEST(Given_readDataArray_When_readDataWidth8_Expect_SizeofEachElements8)
+    for(int i=1;i<=3;i++) begin
+      my_i3c_master_tx.readData.size() = i;
+      for(int j=0;j<i;j++) begin
+        `FAIL_UNLESS($size(my_i3c_master_tx.readData[j]) == 8)
+      end
+    end
+  `SVTEST_END
+  
   `SVUNIT_TESTS_END
 
 endmodule
