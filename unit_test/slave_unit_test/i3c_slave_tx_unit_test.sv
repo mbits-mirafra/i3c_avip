@@ -1,10 +1,9 @@
 `include "svunit_defines.svh"
-//`include "i3c_slave_tx.sv"
 
 module i3c_slave_tx_unit_test;
   import uvm_pkg::*;
   import svunit_pkg::svunit_testcase;
-  import i3c_master_unit_test_pkg::*;
+  import i3c_slave_unit_test_pkg::*;
 
   string name = "i3c_slave_tx_ut";
   svunit_testcase svunit_ut;

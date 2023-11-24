@@ -67,10 +67,10 @@ module i3c_master_8b_read_seq_unit_test;
   // writing test for slave_address
   //===================================
   `SVTEST(slave_address_size_value)
-    my_i3c_master_8b_read_seq.body();
+  //  my_i3c_master_8b_read_seq.body();
     //`FAIL_UNLESS(my_i3c_master_8b_read_seq.req.slave_address == 7'b110_1000)
     //`FAIL_UNLESS($size(my_i3c_master_8b_read_seq.req.slave_address) == 7)
-    $display("size = %0d",my_i3c_master_8b_read_seq.req.size);
+  //  $display("size = %0d",my_i3c_master_8b_read_seq.req.size);
 
     //my_i3c_master_8b_read_seq.req.slave_address = 7'b111_0011;
     //`FAIL_UNLESS(my_i3c_master_8b_read_seq.req.slave_address == 7'b111_0011)

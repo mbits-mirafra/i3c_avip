@@ -1,2 +1,5 @@
-../src/globals/i3c_globals_pkg.sv
++incdir+../../src/hvl_top/master/
++incdir+../../src/hvl_top/test/sequences/master_sequences/
+
+../../src/globals/i3c_globals_pkg.sv
 i3c_master_unit_test_pkg.sv
