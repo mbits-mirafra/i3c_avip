@@ -20,7 +20,7 @@ package i3c_slave_pkg;
   // Include all other files
   //-------------------------------------------------------
   `include "i3c_slave_agent_config.sv"
-  `include "i3c_slave_tx.sv"
+  `include "i3c_target_tx.sv"
   `include "i3c_slave_seq_item_converter.sv"
   `include "i3c_slave_cfg_converter.sv"
   `include "i3c_slave_sequencer.sv"

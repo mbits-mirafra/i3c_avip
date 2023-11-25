@@ -21,7 +21,7 @@ class i3c_slave_agent_config extends uvm_object;
 
   // Variable:slave_address
   // Used for storing the address 
-  bit [SLAVE_ADDRESS_WIDTH-1 :0] slave_address;
+  bit [TARGET_ADDRESS_WIDTH-1 :0] slave_address;
   
   // Variable: has_coverage
   // Used for enabling the slave agent coverage
