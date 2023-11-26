@@ -1,11 +1,10 @@
-`ifndef I3C_SLAVE_PKG_INCLUDED_
-`define I3C_SLAVE_PKG_INCLUDED_
+`ifndef I3C_TARGET_UNIT_TEST_PKG_INCLUDED_
+`define I3C_TARGET_UNIT_TEST_PKG_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-// Package: slave_pkg
-//  Includes all the files related to SPI slave
+// Package: i3c_target_unit_test
 //--------------------------------------------------------------------------------------------
-package i3c_slave_unit_test_pkg;
+package i3c_target_unit_test_pkg;
 
   //-------------------------------------------------------
   // Import uvm package
@@ -20,7 +19,7 @@ package i3c_slave_unit_test_pkg;
   `include "i3c_target_tx.sv"
 
 
-endpackage : i3c_slave_unit_test_pkg
+endpackage : i3c_target_unit_test_pkg
 
 
 `endif 

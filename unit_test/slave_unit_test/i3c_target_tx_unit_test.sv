@@ -4,10 +4,10 @@
 module i3c_target_tx_unit_test;
   import uvm_pkg::*;
   import svunit_pkg::svunit_testcase;
-  import i3c_slave_unit_test_pkg::*;
+  import i3c_target_unit_test_pkg::*;
   import i3c_globals_pkg::*;
 
-  string name = "i3c_slave_tx_ut";
+  string name = "i3c_target_tx_ut";
   svunit_testcase svunit_ut;
 
 
@@ -97,6 +97,7 @@ module i3c_target_tx_unit_test;
      `FAIL_UNLESS(target_tx_uut.targetAddress == 7'd10)
      `SVTEST_END
 
+
      `SVTEST(Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElement8)
      target_tx_uut.writeData = new[2];
 
@@ -173,5 +174,5 @@ module i3c_target_tx_unit_test;
   `SVTEST_END
 
   
-  `SVUNIT_TESTS_END
+    `SVUNIT_TESTS_END
   endmodule
