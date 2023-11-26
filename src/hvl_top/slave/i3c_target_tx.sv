@@ -1,9 +1,8 @@
-`ifndef I3C_SLAVE_TX_INCLUDED_
-`define I3C_SLAVE_TX_INCLUDED_
+`ifndef I3C_TARGET_TX_INCLUDED_
+`define I3C_TARGET_TX_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: i3c_target_tx
-// <Description_here>
 //--------------------------------------------------------------------------------------------
 class i3c_target_tx extends uvm_sequence_item;
   `uvm_object_utils(i3c_target_tx)
@@ -11,10 +10,13 @@ class i3c_target_tx extends uvm_sequence_item;
   rand operationType_e operation;
   rand bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress;
 
- // rand read_write_e read_write;
+       bit [DATA_WIDTH-1:0] writeData[];
+  rand bit [DATA_WIDTH-1:0] readData[];
+  rand acknowledge_e writeDataStatus[];
+  
+  // rand read_write_e read_write;
+
   rand bit[31:0] size;
-  rand bit [DATA_WIDTH-1:0] wr_data[];
-  rand bit [DATA_WIDTH-1:0] rd_data[];
 
   bit ack;
   
