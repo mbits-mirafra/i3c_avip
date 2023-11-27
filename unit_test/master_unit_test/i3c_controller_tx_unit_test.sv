@@ -235,6 +235,31 @@ module i3c_controller_tx_unit_test;
     `FAIL_IF(uut.writeDataStatus[1] == 1)
   `SVTEST_END
 
+
+  `SVTEST(Given_writeDataSizeInlineConstraint_When_GreterThanMAXIMUM_BYTES_Expect_RandomizationFailure)
+    randSuccess = (uut.randomize() with {
+                        uut.writeData.size()>128;
+                        });
+    `FAIL_IF(randSuccess)
+  `SVTEST_END
+
+  `SVTEST(Given_CrossConstraint_When_OperationWRITExWriteDataSizeZero_Expect_RandomizationFailure)
+    randSuccess = (uut.randomize() with {
+                        uut.operation == WRITE;
+                        uut.writeData.size()==0;
+                        });
+    `FAIL_IF(randSuccess)
+  `SVTEST_END
+
+
+  `SVTEST(Given_CrossConstraint_When_OperationiREADxTargetAddressLinit_Expect_RandomizationFailure)
+    randSuccess = (uut.randomize() with {
+                        uut.operation == READ;
+                        uut.targetAddress == 7'b0000_111;
+                        });
+    `FAIL_IF(randSuccess)
+  `SVTEST_END
+
   `SVUNIT_TESTS_END
 
 endmodule
