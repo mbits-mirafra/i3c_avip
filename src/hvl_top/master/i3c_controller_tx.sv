@@ -40,11 +40,12 @@ class i3c_controller_tx extends uvm_sequence_item;
 
        bit [DATA_WIDTH-1:0] readData[];
 
+       acknowledge_e targetAddressStatus;
+       acknowledge_e writeDataStatus[];
+
   rand bit[31:0] size;
   rand bit [REGISTER_ADDRESS_WIDTH-1:0]register_address;
 
-  bit ack;
-  
   rand bit [NO_OF_TARGETS-1:0] index; 
   rand bit [7:0] raddr; 
   

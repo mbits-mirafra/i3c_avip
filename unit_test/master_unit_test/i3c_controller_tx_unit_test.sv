@@ -138,7 +138,7 @@ module i3c_controller_tx_unit_test;
     `FAIL_UNLESS_STR_EQUAL(uut.readDataStatus[0].name(),"ACK")
   `SVTEST_END
   
-  `SVTEST(Given_readDataStatusEnum_When_NACK_Value_StringACK)
+  `SVTEST(Given_readDataStatusEnum_When_NACK_Value_StringNACK)
     uut.readDataStatus = new[1];
     uut.readDataStatus[0] = NACK;
 
@@ -185,6 +185,54 @@ module i3c_controller_tx_unit_test;
                         uut.targetAddress inside {[7'b1111_000 : 7'b1111_111]};
                       });
     `FAIL_IF(randSuccess)
+  `SVTEST_END
+
+
+  `SVTEST(Given_targetAddressStatusEnum_When_NACK_Value_StringNACK)
+    uut.targetAddressStatus = NACK;
+
+    `FAIL_UNLESS_STR_EQUAL(uut.targetAddressStatus.name(),"NACK")
+  `SVTEST_END
+
+  `SVTEST(Given_targetAddressStatusEnum_When_ACK_Value_StringACK)
+    uut.targetAddressStatus = ACK;
+
+    `FAIL_UNLESS_STR_EQUAL(uut.targetAddressStatus.name(),"ACK")
+  `SVTEST_END
+  
+  
+  `SVTEST(Given_targetAddressStatusInlineConstraint_When_NACK_Expect_ValueofOne)
+    void'(uut.randomize() with {
+                uut.targetAddressStatus == NACK;
+              });
+
+    `FAIL_IF(uut.targetAddressStatus == 1)
+  `SVTEST_END
+
+  `SVTEST(Given_writeDataStatusEnum_When_NACK_Value_StringNACK)
+    uut.writeDataStatus = new[1];
+    uut.writeDataStatus[0] = NACK;
+
+    `FAIL_UNLESS_STR_EQUAL(uut.writeDataStatus[0].name(),"NACK")
+  `SVTEST_END
+
+  `SVTEST(Given_writeDataStatusEnum_When_ACK_Value_StringACK)
+    uut.writeDataStatus = new[1];
+    uut.writeDataStatus[0] = ACK;
+
+    `FAIL_UNLESS_STR_EQUAL(uut.writeDataStatus[0].name(),"ACK")
+  `SVTEST_END
+  
+  
+  `SVTEST(Given_writeDataStatusInlineConstraint_When_NACK_Expect_ValueofOne)
+    void'(uut.randomize() with {
+                uut.writeDataStatus.size() == 2;
+                uut.writeDataStatus[0] == NACK;
+                uut.writeDataStatus[1] == NACK;
+              });
+
+    `FAIL_IF(uut.writeDataStatus[0] == 1)
+    `FAIL_IF(uut.writeDataStatus[1] == 1)
   `SVTEST_END
 
   `SVUNIT_TESTS_END
