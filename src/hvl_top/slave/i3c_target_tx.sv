@@ -7,19 +7,19 @@
 class i3c_target_tx extends uvm_sequence_item;
   `uvm_object_utils(i3c_target_tx)
 
-       operationType_e operation;
   rand bit [DATA_WIDTH-1:0] readData[];
+  rand acknowledge_e targetAddressStatus;  
   rand acknowledge_e writeDataStatus[];
-       bit [DATA_WIDTH-1:0] writeData[];
-       bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress;
-  rand bit[31:0] size;
-
   
+       operationType_e operation;
+       bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress;
+       bit [DATA_WIDTH-1:0] writeData[];
+       acknowledge_e readDataStatus[];
+
+  rand bit[31:0] size;  
   // rand read_write_e read_write;
 
-
-  bit ack;
-  
+ 
   rand bit [NO_OF_TARGETS-1:0] index; 
   rand bit [7:0] raddr; 
 
