@@ -19,7 +19,12 @@ class i3c_target_tx extends uvm_sequence_item;
   rand bit[31:0] size;  
   // rand read_write_e read_write;
 
- 
+  constraint readDataSizeMin_c1{ readData.size() >= 1;}
+
+  constraint readDataSizeMax_c2{soft readData.size() == MAXIMUM_BYTES;}
+
+  constraint targetAddressStatus_c { targetAddressStatus dist { ACK:=4, NACK:=6};}
+
   rand bit [NO_OF_TARGETS-1:0] index; 
   rand bit [7:0] raddr; 
 
@@ -49,7 +54,6 @@ endclass : i3c_target_tx
 //  parent - parent under which this component is created
 //--------------------------------------------------------------------------------------------
 function i3c_target_tx::new(string name = "i3c_target_tx");
-
   super.new(name);
 endfunction : new
 

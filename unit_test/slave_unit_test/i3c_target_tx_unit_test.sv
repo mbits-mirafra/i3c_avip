@@ -17,6 +17,8 @@ module i3c_target_tx_unit_test;
   //===================================
   i3c_target_tx target_tx_uut;
 
+  //custom variable for unit testing
+  bit randSuccess;
 
   //===================================
   // Build
@@ -215,6 +217,36 @@ module i3c_target_tx_unit_test;
   `FAIL_IF(target_tx_uut.readDataStatus[0] == 1)
   `FAIL_IF(target_tx_uut.readDataStatus[1] == 1)
   `SVTEST_END
+
+
+  `SVTEST(Given_readDataSizeInlineConstraint_When_NotGreaterthanOrOne_Expect_RandmozationFailure)
+  randSuccess = (target_tx_uut.randomize() with { 
+                               target_tx_uut.readData.size() == 0;});
+
+  `FAIL_IF(randSuccess)
+  `SVTEST_END
+
+  `SVTEST(Given_readDataSizeInlineConstraint_When_NotMAXIMUM_BYTES_Expect_RandmozationPass)
+
+  randSuccess = (target_tx_uut.randomize() with { 
+                               target_tx_uut.readData.size() == 64;});
+
+  `FAIL_UNLESS(randSuccess)
+  `SVTEST_END
+
+  
+  `SVTEST(Given_targetAddressStatusRandomize_NotNACKmorethanACK_Expect_RandmozationFailure)
+  int count;
+  repeat(10) begin
+    void'(target_tx_uut.randomize());
+    if(target_tx_uut.targetAddressStatus==1) begin
+      count++;
+    end 
+  end
+  `FAIL_IF(count < 6)
+  `SVTEST_END
+
+
 
 
 
