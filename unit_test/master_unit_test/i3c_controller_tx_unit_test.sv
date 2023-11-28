@@ -236,7 +236,7 @@ module i3c_controller_tx_unit_test;
   `SVTEST_END
 
 
-  `SVTEST(Given_writeDataSizeInlineConstraint_When_GreterThanMAXIMUM_BYTES_Expect_RandomizationFailure)
+  `SVTEST(Given_writeDataSizeInlineConstraint_When_GreaterThanMAXIMUM_BYTES_Expect_RandomizationFailure)
     randSuccess = (uut.randomize() with {
                         uut.writeData.size()>128;
                         });
