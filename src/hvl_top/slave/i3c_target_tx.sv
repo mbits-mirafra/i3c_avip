@@ -19,12 +19,28 @@ class i3c_target_tx extends uvm_sequence_item;
   rand bit[31:0] size;  
   // rand read_write_e read_write;
 
-  constraint readDataSizeMin_c1{ readData.size() >= 1;}
+  constraint readDataSizeMax_c{
+          soft readData.size() == MAXIMUM_BYTES;}
 
-  constraint readDataSizeMax_c2{soft readData.size() == MAXIMUM_BYTES;}
+  constraint targetAddressStatus_c { 
+                targetAddressStatus dist { 
+                      ACK:=40, NACK:=60};}
 
-  constraint targetAddressStatus_c { targetAddressStatus dist { ACK:=4, NACK:=6};}
+  constraint writeDataStatusSize_c{ 
+                soft writeDataStatus.size() ==MAXIMUM_BYTES;}
 
+  constraint operationWRITExwriteDataStatusSize_c{
+                      if(operation==WRITE)
+                        writeDataStatus.size() >0;
+                      else
+                        writeDataStatus.size() ==0;}
+  
+ constraint operationREADxreadDataSize_c{
+                      if(operation==READ)
+                        readData.size() >0;
+                      else
+                        readData.size() ==0;}
+  
   rand bit [NO_OF_TARGETS-1:0] index; 
   rand bit [7:0] raddr; 
 
