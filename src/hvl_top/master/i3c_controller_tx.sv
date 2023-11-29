@@ -71,21 +71,27 @@ class i3c_controller_tx extends uvm_sequence_item;
   }
 
 
+
   constraint writeDataSize_c {
     writeData.size() <= MAXIMUM_BYTES;
   }
-
+  
+  constraint readDataStatusSize_c {
+    soft readDataStatus.size() == MAXIMUM_BYTES;
+  }
 
   constraint operationWRITExwriteDataSize_c {
-    (operation == WRITE) -> !(writeData.size()==0);
-  }
+                    if(operation == WRITE) 
+                      (writeData.size() > 0);
+                    else 
+                      writeData.size() == 0;}
 
+  constraint operationREADxreadDataStatusSize_c {
+                    if(operation == READ) 
+                      (readDataStatus.size() > 0);
+                    else 
+                      readDataStatus.size() == 0;}
 
-  constraint operationREADxtargetAddressLimit_c {
-    (operation == READ) -> (
-                    !(targetAddress inside {[GRP0_RSVD0 : GRP0_RSVD7]}) 
-                 && !(targetAddress inside {[GRP1_RSVD0 : GRP1_RSVD7]})) ; 
-  }
 
   //The register_address_arrayis of the mode of 4 because data width is 32bit 
 
