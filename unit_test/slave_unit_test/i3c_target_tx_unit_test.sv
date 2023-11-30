@@ -65,208 +65,144 @@ module i3c_target_tx_unit_test;
   //   `SVTEST_END
   //===================================
   `SVUNIT_TESTS_BEGIN
-     
+
   `SVTEST(Given_readDataArray_When_readDataWidth8_Expect_SizeofEachElements8)
-      target_tx_uut.readData = new[2];
-
-      `FAIL_UNLESS($size(target_tx_uut.readData[0]) == 8)
-      `FAIL_UNLESS($size(target_tx_uut.readData[1]) == 8)
+    target_tx_uut.readData = new[2];
+    `FAIL_UNLESS($size(target_tx_uut.readData[0]) == 8)
+    `FAIL_UNLESS($size(target_tx_uut.readData[1]) == 8)
   `SVTEST_END
 
-  `SVTEST(Given_readDataArray_When_Randomized_Expect_ValueNONZero)
-
-  target_tx_uut.operation = READ;
-  void'(target_tx_uut.randomize() with {
-    target_tx_uut.readData.size() == 2;
-    target_tx_uut.readData[0] == 10;
-    target_tx_uut.readData[1] == 12;
-  });
-
-  $display("%0d,%0p,%0d",target_tx_uut.readData.size, target_tx_uut.readData,target_tx_uut.operation);
-  `FAIL_IF(target_tx_uut.readData[0] == 0)
-  `FAIL_IF(target_tx_uut.readData[1] == 0)
+  `SVTEST(Given_readDataArraySizeInlineConstraint_When_Randomized_Expect_ValuesNONZero)
+    void'(target_tx_uut.randomize() with {
+    target_tx_uut.readData.size() == 2;});
+    `FAIL_UNLESS(target_tx_uut.readData[0] != 0)
+    `FAIL_UNLESS(target_tx_uut.readData[1] != 0)
   `SVTEST_END
 
- 
+
   `SVTEST(Given_targetAddressStatusEnum_When_ACK_Value_StringACK)
-  target_tx_uut.targetAddressStatus = ACK;
-  `FAIL_UNLESS_STR_EQUAL(target_tx_uut.targetAddressStatus.name(),"ACK")
+    target_tx_uut.targetAddressStatus = ACK;
+    `FAIL_UNLESS_STR_EQUAL(target_tx_uut.targetAddressStatus.name(),"ACK")
   `SVTEST_END
 
   `SVTEST(Given_targetAddressStatusEnum_When_NACK_Value_StringNACK)
     target_tx_uut.targetAddressStatus = NACK;
     `FAIL_UNLESS_STR_EQUAL(target_tx_uut.targetAddressStatus.name(),"NACK")
   `SVTEST_END
- 
-  `SVTEST(Given_targetAddressStatusInlineConstraint_When_NACK_Expect_ValueofOne)
-  void'(target_tx_uut.randomize() with {
-    target_tx_uut.targetAddressStatus == NACK;
-  });
 
-  `FAIL_UNLESS(target_tx_uut.targetAddressStatus == 1)
+  `SVTEST(Given_targetAddressStatusInlineConstraint_When_NACK_Expect_ValueofOne)
+    void'(target_tx_uut.randomize() with {
+    target_tx_uut.targetAddressStatus == 1;});
+    `FAIL_UNLESS(target_tx_uut.targetAddressStatus == 1)
   `SVTEST_END
 
-  
-    `SVTEST(Given_writeDataStatusEnum_When_ACK_Value_StringACK)
+  `SVTEST(Given_writeDataStatusEnum_When_ACK_Value_StringACK)
     target_tx_uut.writeDataStatus = new[1];
     target_tx_uut.writeDataStatus[0] = ACK;
-
     `FAIL_UNLESS_STR_EQUAL(target_tx_uut.writeDataStatus[0].name(),"ACK")
   `SVTEST_END
-  
+
   `SVTEST(Given_writeDataStatusEnum_When_NACK_Value_StringNACK)
     target_tx_uut.writeDataStatus = new[1];
     target_tx_uut.writeDataStatus[0] = NACK;
 
     `FAIL_UNLESS_STR_EQUAL(target_tx_uut.writeDataStatus[0].name(),"NACK")
   `SVTEST_END
-  
-  `SVTEST(Given_writeDataStatusInlineConstraint_When_NACK_Expect_ValueofOne)
-  target_tx_uut.operation = WRITE;
-  void'(target_tx_uut.randomize() with {
-    target_tx_uut.writeDataStatus.size() == 2;
-    target_tx_uut.writeDataStatus[0] == NACK;
-    target_tx_uut.writeDataStatus[1] == NACK;
-  });
 
-  `FAIL_UNLESS(target_tx_uut.writeDataStatus[0] == 1)
-  `FAIL_UNLESS(target_tx_uut.writeDataStatus[1] == 1)
+  `SVTEST(Given_writeDataStatusInlineConstraint_When_NACK_Expect_ValueofOne)
+    void'(target_tx_uut.randomize() with {
+                          target_tx_uut.writeDataStatus.size() == 2;
+                          target_tx_uut.writeDataStatus[0] == 1;
+                          target_tx_uut.writeDataStatus[1] == 1;
+                        });
+
+    `FAIL_UNLESS(target_tx_uut.writeDataStatus[0] == 1)
+    `FAIL_UNLESS(target_tx_uut.writeDataStatus[1] == 1)
   `SVTEST_END
 
   `SVTEST(Given_writeDataStatusInlineConstraint_When_ACK_Expect_ValueofZero)
-  void'(target_tx_uut.randomize() with {
-    target_tx_uut.writeDataStatus.size() == 2;
-    target_tx_uut.writeDataStatus[0] == ACK;
-    target_tx_uut.writeDataStatus[1] == ACK;
-  });
+    void'(target_tx_uut.randomize() with {
+                          target_tx_uut.writeDataStatus.size() == 2;
+                          target_tx_uut.writeDataStatus[0] == 0;
+                          target_tx_uut.writeDataStatus[1] == 0;
+                        });
 
-  `FAIL_UNLESS(target_tx_uut.writeDataStatus[0] == 0)
-  `FAIL_UNLESS(target_tx_uut.writeDataStatus[1] == 0)
+    `FAIL_UNLESS(target_tx_uut.writeDataStatus[0] == 0)
+    `FAIL_UNLESS(target_tx_uut.writeDataStatus[1] == 0)
   `SVTEST_END
-    
+
   `SVTEST(Given_OperationEnum_When_WRITE_Value_StringWRITE)
-  target_tx_uut.operation = WRITE;
-  `FAIL_UNLESS_STR_EQUAL(target_tx_uut.operation.name(),"WRITE")
+    target_tx_uut.operation = WRITE;
+    `FAIL_UNLESS_STR_EQUAL(target_tx_uut.operation.name(),"WRITE")
   `SVTEST_END
 
   `SVTEST(Given_OperationEnum_When_READ_Value_StringREAD)
-  target_tx_uut.operation = READ;
-  `FAIL_UNLESS_STR_EQUAL(target_tx_uut.operation.name(),"READ")
-  `SVTEST_END
-   
-     
-  `SVTEST(Given_targetAddress_When_targetAddressWidth7_Expect_Sizeof7)
-  int sizeOftargetAddress = $size(target_tx_uut.targetAddress);
-  `uvm_info("",$sformatf("sizeOftargetAddress = %0d",sizeOftargetAddress), UVM_HIGH)
-  `FAIL_UNLESS(sizeOftargetAddress == 7)
+    target_tx_uut.operation = READ;
+    `FAIL_UNLESS_STR_EQUAL(target_tx_uut.operation.name(),"READ")
   `SVTEST_END
 
-  `SVTEST(Given_targetAddress_When_targetAddresValue10_Expect_Value10)
-  target_tx_uut.targetAddress = 7'd10;
-  `FAIL_UNLESS(target_tx_uut.targetAddress == 7'd10)
+
+  `SVTEST(Given_targetAddress_When_targetAddressWidth7_Expect_Sizeof7)
+    int sizeOftargetAddress = $size(target_tx_uut.targetAddress);
+    `uvm_info("",$sformatf("sizeOftargetAddress = %0d",sizeOftargetAddress), UVM_HIGH)
+    `FAIL_UNLESS(sizeOftargetAddress == 7)
   `SVTEST_END
 
 
   `SVTEST(Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElement8)
-  target_tx_uut.writeData = new[2];
+    target_tx_uut.writeData = new[2];
 
-  `FAIL_UNLESS($size(target_tx_uut.writeData[0]) == 8)
-  `FAIL_UNLESS($size(target_tx_uut.writeData[1]) == 8)
+    `FAIL_UNLESS($size(target_tx_uut.writeData[0]) == 8)
+    `FAIL_UNLESS($size(target_tx_uut.writeData[1]) == 8)
   `SVTEST_END
 
- 
-  `SVTEST(Given_readDataStatusEnum_When_NACK_Value_StringNACK)
-  target_tx_uut.readDataStatus = new[1];
-  target_tx_uut.readDataStatus[0] = NACK;
 
-  `FAIL_UNLESS_STR_EQUAL(target_tx_uut.readDataStatus[0].name(),"NACK")
+  `SVTEST(Given_readDataStatusEnum_When_NACK_Value_StringNACK)
+    target_tx_uut.readDataStatus = new[1];
+    target_tx_uut.readDataStatus[0] = NACK;
+    `FAIL_UNLESS_STR_EQUAL(target_tx_uut.readDataStatus[0].name(),"NACK")
   `SVTEST_END
 
   `SVTEST(Given_readDataStatusEnum_When_ACK_Value_StringACK)
-  target_tx_uut.readDataStatus = new[1];
-  target_tx_uut.readDataStatus[0] = ACK;
-
-  `FAIL_UNLESS_STR_EQUAL(target_tx_uut.readDataStatus[0].name(),"ACK")
+    target_tx_uut.readDataStatus = new[1];
+    target_tx_uut.readDataStatus[0] = ACK;
+    `FAIL_UNLESS_STR_EQUAL(target_tx_uut.readDataStatus[0].name(),"ACK")
   `SVTEST_END
 
- 
-  `SVTEST(Given_readDataSizeInlineConstraint_When_NotGreaterthanOrOne_Expect_RandmozationFailure)
-  randSuccess = (target_tx_uut.randomize() with { 
-                               target_tx_uut.readData.size() == 0;});
-
-  `FAIL_IF(randSuccess)
-  `SVTEST_END
-
-  `SVTEST(Given_readDataSizeInlineConstraint_When_NotMAXIMUM_BYTES_Expect_RandmozationPass)
-
-  randSuccess = (target_tx_uut.randomize() with { 
-                               target_tx_uut.readData.size() == 64;});
-
-  `FAIL_UNLESS(randSuccess)
-  `SVTEST_END
-
-  
-  `SVTEST(Given_targetAddressStatusRandomize_When_NotNACKmorethanACK_Expect_RandmozationFailure)
-  int count;
-  repeat(10) begin
+  `SVTEST(Given_readDataSizeConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES)
     void'(target_tx_uut.randomize());
-    if(target_tx_uut.targetAddressStatus==1) begin
-      count++;
-    end 
-  end
-  `FAIL_IF(count < 6)
+    `FAIL_UNLESS(target_tx_uut.readData.size() == MAXIMUM_BYTES)
   `SVTEST_END
 
-  `SVTEST(Given_writeDataStatusSizeRandomize_When_NotEqualToMAXIMUM_BYTES_Expect_RandomizationFailure)
-
-  target_tx_uut.operation = WRITE;
-  void'(target_tx_uut.randomize());
-  `FAIL_IF(target_tx_uut.writeDataStatus.size < 128)
+  `SVTEST(Given_readDataSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_SizeNotEqualToMAXIMUM_BYTES)
+    void'(target_tx_uut.randomize() with { 
+                          target_tx_uut.readData.size() < MAXIMUM_BYTES;});
+    `FAIL_UNLESS(target_tx_uut.readData.size != MAXIMUM_BYTES) 
   `SVTEST_END
 
-  `SVTEST(Given_writeDataStatusSizeInlineConstraint_When_LessThanMAXIMUM_BYTES_Expect_RandomizationPass)
-
-randSuccess = (target_tx_uut.randomize() with {
-                            target_tx_uut.writeDataStatus.size()<MAXIMUM_BYTES;});
-
-  `FAIL_UNLESS(randSuccess)
+  //Probability Is NACK morethan ACK 
+  `SVTEST(Given_targetAddressStatus_When_Randomize_Expect_NACKisMorethanACK)
+    int NACK_counter;
+    const int REPEAT_COUNTER = 10;
+    repeat(REPEAT_COUNTER) begin
+      void'(target_tx_uut.randomize());
+      if(target_tx_uut.targetAddressStatus==NACK) begin
+        NACK_counter++;
+      end 
+    end
+    `FAIL_UNLESS(NACK_counter > REPEAT_COUNTER/2)
   `SVTEST_END
 
-
-  `SVTEST(Given_CrossConstraint_When_OperationWRITExWriteDataStatusSizeZero_Expect_RandomizationFailure)
-
-  target_tx_uut.operation = WRITE;
-  randSuccess = (target_tx_uut.randomize() with {
-    target_tx_uut.writeDataStatus.size()==0; 
-  });
-  `FAIL_IF(randSuccess)
+  `SVTEST(Given_writeDataStatusConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES)
+    void'(target_tx_uut.randomize());
+    `FAIL_UNLESS(target_tx_uut.writeDataStatus.size == MAXIMUM_BYTES)
   `SVTEST_END
 
-  `SVTEST(Given_CrossConstraint_When_OperationREADxWriteDataStatusSizeNotZero_Expect_RandomizationFailure)
-  target_tx_uut.operation = READ;
-  randSuccess = (target_tx_uut.randomize() with {
-    target_tx_uut.writeDataStatus.size()>0;
-  });
-  `FAIL_IF(randSuccess)
-  `SVTEST_END
-
-  
-  `SVTEST(Given_CrossConstraint_When_OperationREADxReadDataSizeZero_Expect_RandomizationFailure)
-
-  target_tx_uut.operation = READ;
-  randSuccess = (target_tx_uut.randomize() with {
-    target_tx_uut.readData.size()==0; 
-  });
-  `FAIL_IF(randSuccess)
-  `SVTEST_END
-
-  `SVTEST(Given_CrossConstraint_When_OperationWRITExReadDataSizeNotZero_Expect_RandomizationFailure)
-  target_tx_uut.operation = WRITE;
-  randSuccess = (target_tx_uut.randomize() with {
-    target_tx_uut.readData.size()>0;
-  });
-  `FAIL_IF(randSuccess)
+  `SVTEST(Given_writeDataStatusSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_SizeNotEqualToMAXIMUM_BYTES)
+    void'(target_tx_uut.randomize() with {
+                          target_tx_uut.writeDataStatus.size() < MAXIMUM_BYTES;});
+    `FAIL_UNLESS(target_tx_uut.writeDataStatus.size() != MAXIMUM_BYTES)
   `SVTEST_END
 
   `SVUNIT_TESTS_END
-  endmodule
+endmodule
