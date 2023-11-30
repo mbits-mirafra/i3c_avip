@@ -1,0 +1,102 @@
+# vsim -c -lib work -do "run -all; quit" -l run.log testrunner 
+# Start time: 18:21:52 on Nov 30,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim
+# //  Version 10.6c linux Jul 25 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.i3c_globals_pkg(fast)
+# Loading mtiUvm.uvm_pkg
+# Loading work.i3c_target_unit_test_pkg(fast)
+# Loading work.junit_xml(fast)
+# Loading work.svunit_pkg(fast)
+# Loading work.testrunner(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
+# run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(217) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# INFO:  [0][__ts]: Registering Unit Test Case i3c_target_tx_ut
+# INFO:  [0][testrunner]: Registering Test Suite __ts
+# INFO:  [0][__ts]: RUNNING
+# INFO:  [0][i3c_target_tx_ut]: RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataArray_When_readDataWidth8_Expect_SizeofEachElements8::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataArray_When_readDataWidth8_Expect_SizeofEachElements8::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataArraySizeInlineConstraint_When_Randomized_Expect_ValuesNONZero::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataArraySizeInlineConstraint_When_Randomized_Expect_ValuesNONZero::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddressStatusEnum_When_ACK_Value_StringACK::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddressStatusEnum_When_ACK_Value_StringACK::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddressStatusEnum_When_NACK_Value_StringNACK::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddressStatusEnum_When_NACK_Value_StringNACK::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddressStatusInlineConstraint_When_NACK_Expect_ValueofOne::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddressStatusInlineConstraint_When_NACK_Expect_ValueofOne::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusEnum_When_ACK_Value_StringACK::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusEnum_When_ACK_Value_StringACK::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusEnum_When_NACK_Value_StringNACK::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusEnum_When_NACK_Value_StringNACK::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusInlineConstraint_When_NACK_Expect_ValueofOne::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusInlineConstraint_When_NACK_Expect_ValueofOne::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusInlineConstraint_When_ACK_Expect_ValueofZero::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusInlineConstraint_When_ACK_Expect_ValueofZero::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_OperationEnum_When_WRITE_Value_StringWRITE::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_OperationEnum_When_WRITE_Value_StringWRITE::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_OperationEnum_When_READ_Value_StringREAD::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_OperationEnum_When_READ_Value_StringREAD::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddress_When_targetAddressWidth7_Expect_Sizeof7::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddress_When_targetAddressWidth7_Expect_Sizeof7::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElement8::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElement8::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataStatusEnum_When_NACK_Value_StringNACK::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataStatusEnum_When_NACK_Value_StringNACK::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataStatusEnum_When_ACK_Value_StringACK::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataStatusEnum_When_ACK_Value_StringACK::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataSizeConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataSizeConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_SizeNotEqualToMAXIMUM_BYTES::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_readDataSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_SizeNotEqualToMAXIMUM_BYTES::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddressStatus_When_Randomize_Expect_NACKisMorethanACK::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_targetAddressStatus_When_Randomize_Expect_NACKisMorethanACK::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES::PASSED
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_SizeNotEqualToMAXIMUM_BYTES::RUNNING
+# INFO:  [0][i3c_target_tx_ut]: Given_writeDataStatusSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_SizeNotEqualToMAXIMUM_BYTES::PASSED
+# INFO:  [0][i3c_target_tx_ut]: PASSED (20 of 20 tests passing)
+# 
+# INFO:  [0][__ts]: PASSED (1 of 1 testcases passing)
+# 
+# INFO:  [0][testrunner]: PASSED (1 of 1 suites passing) [SVUnit Unreleased]
+# ** Note: $finish    : .testrunner.sv(40)
+#    Time: 0 ns  Iteration: 20  Instance: /testrunner
+# End time: 18:21:56 on Nov 30,2023, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 0
