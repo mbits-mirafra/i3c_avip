@@ -213,12 +213,12 @@ module i3c_controller_tx_unit_test;
     `FAIL_IF(randSuccess)
   `SVTEST_END
 
-  `SVTEST(Given_readDataStatusConstraint_When_SizeRandomized_Expect_ValueMAXIMUM_BYTES)
+  `SVTEST(Given_readDataStatusConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES)
     void'(uut.randomize());
     `FAIL_UNLESS(uut.readDataStatus.size() == MAXIMUM_BYTES)
   `SVTEST_END
 
-  `SVTEST(Given_readDataStatusSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_ValueNotEqualToMAXIMUM_BYTES)
+  `SVTEST(Given_readDataStatusSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_SizeNotEqualToMAXIMUM_BYTES)
     void'(uut.randomize() with {
                     uut.readDataStatus.size < MAXIMUM_BYTES;});
     `FAIL_UNLESS(uut.readDataStatus.size() != MAXIMUM_BYTES)
