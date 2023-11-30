@@ -138,8 +138,8 @@ module i3c_controller_tx_unit_test;
   `SVTEST(Given_readDataStatusInlineConstraint_When_NACK_Expect_ValueofOne)
     void'(uut.randomize() with {
                 uut.readDataStatus.size() == 2;
-                uut.readDataStatus[0] == NACK;
-                uut.readDataStatus[1] == NACK;
+                uut.readDataStatus[0] == 1;
+                uut.readDataStatus[1] == 1;
               });
 
     `FAIL_UNLESS(uut.readDataStatus[0] == 1)
@@ -149,8 +149,8 @@ module i3c_controller_tx_unit_test;
   `SVTEST(Given_readDataStatusInlineConstraint_When_ACK_Expect_ValueofZero)
     void'(uut.randomize() with {
                 uut.readDataStatus.size() == 2;
-                uut.readDataStatus[0] == ACK;
-                uut.readDataStatus[1] == ACK;
+                uut.readDataStatus[0] == 0;
+                uut.readDataStatus[1] == 0;
               });
 
     `FAIL_UNLESS(uut.readDataStatus[0] == 0)
@@ -213,15 +213,15 @@ module i3c_controller_tx_unit_test;
     `FAIL_IF(randSuccess)
   `SVTEST_END
 
-  `SVTEST(Given_readDataStatusSizeRandomize_When_NotEqualToMAXIMUM_BYTES_Expect_RandomizationFailure)
+  `SVTEST(Given_readDataStatusConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES)
     void'(uut.randomize());
-    `FAIL_IF(uut.readDataStatus.size < 128)
+    `FAIL_UNLESS(uut.readDataStatus.size() == MAXIMUM_BYTES)
   `SVTEST_END
 
-  `SVTEST(Given_readDataStatusSizeInlineConstraint_When_LessThanMAXIMUM_BYTES_Expect_RandomizationPass)
-    randSuccess = (uut.randomize() with {
-                        uut.readDataStatus.size()<MAXIMUM_BYTES;});
-    `FAIL_UNLESS(randSuccess)
+  `SVTEST(Given_readDataStatusSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_SizeNotEqualToMAXIMUM_BYTES)
+    void'(uut.randomize() with {
+                    uut.readDataStatus.size < MAXIMUM_BYTES;});
+    `FAIL_UNLESS(uut.readDataStatus.size() != MAXIMUM_BYTES)
   `SVTEST_END
 
   `SVTEST(Given_CrossConstraint_When_OperationWRITExWriteDataSizeZero_Expect_RandomizationFailure)
@@ -235,7 +235,7 @@ module i3c_controller_tx_unit_test;
   `SVTEST(Given_CrossConstraint_When_OperationREADxWriteDataSizeNotZero_Expect_RandomizationFailure)
     randSuccess = (uut.randomize() with {
                         uut.operation == READ;
-                        uut.writeData.size()>0;
+                        uut.writeData.size() != 0;
                         });
     `FAIL_IF(randSuccess)
   `SVTEST_END
@@ -251,7 +251,7 @@ module i3c_controller_tx_unit_test;
   `SVTEST(Given_CrossConstraint_When_OperationWRITExReadDataStatusSizeNotZero_Expect_RandomizationFailure)
     randSuccess = (uut.randomize() with {
                         uut.operation == WRITE;
-                        uut.readDataStatus.size()>0;
+                        uut.readDataStatus.size() != 0;
                         });
     `FAIL_IF(randSuccess)
   `SVTEST_END

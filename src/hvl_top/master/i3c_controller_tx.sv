@@ -39,22 +39,9 @@ class i3c_controller_tx extends uvm_sequence_item;
   rand acknowledge_e readDataStatus[];
 
        bit [DATA_WIDTH-1:0] readData[];
-
        acknowledge_e targetAddressStatus;
        acknowledge_e writeDataStatus[];
 
-  rand bit[31:0] size;
-  rand bit [REGISTER_ADDRESS_WIDTH-1:0]register_address;
-
-  rand bit [NO_OF_TARGETS-1:0] index; 
-  rand bit [7:0] raddr; 
-  
-  // Receiving data fields
-  bit target_add_ack = 1;
-  bit reg_add_ack = 1;
-  bit writeData_ack[$];
-
-  // MSHA: i3c_controller_agent_config i3c_controller_agent_cfg_h;
   //-------------------------------------------------------
   // Constraints for I3C
   //-------------------------------------------------------
@@ -69,7 +56,6 @@ class i3c_controller_tx extends uvm_sequence_item;
   constraint reservedTargetAddressGroup1_c {
     !(targetAddress inside {[GRP1_RSVD0 : GRP1_RSVD7]}) ; 
   }
-
 
 
   constraint writeDataSize_c {
@@ -93,53 +79,6 @@ class i3c_controller_tx extends uvm_sequence_item;
                       readDataStatus.size() == 0;}
 
 
-  //The register_address_arrayis of the mode of 4 because data width is 32bit 
-
-  //constraint register_addr_c{register_address%4 == 0;} 
-  //constraint s_addr_index_c{index inside {[0:NO_OF_targetS-1]};}
-  //constraint s_addr_c{targetAddress == i3c_controller_agent_cfg_h.target_address_array[index];solve index before target_address;}
-  //constraint s_sb_c{solve index before target_address;}
- 
-  //constraint r_addr_size_c{raddr inside {[0:7]};}
-  //constraint r_addr_c{register_address == i3c_controller_agent_cfg_h.target_register_address_array[raddr];}
-  //constraint r_sb_c{solve raddr before register_address;}
-  
-  // Write Data
-  //constraint write_data_c {soft writeData.size() %4 == 0;
-  //                              writeData.size() != 0; 
-  //                         soft writeData.size() == 4;
-  //                              writeData.size() <= MAXIMUM_BYTES; }
-  
-  
-  //constraint target_addr_0{target_address==i3c_controller_agent_cfg_h.target_address_array[0];}
-  //constraint target_addr_1{target_address==i3c_controller_agent_cfg_h.target_address_array[1];}
-  //constraint target_addr_2{target_address==i3c_controller_agent_cfg_h.target_address_array[2];}
-  //constraint target_addr_3{target_address==i3c_controller_agent_cfg_h.target_address_array[3];}
-
- //                    reg_address.size() < MAXIMUM_BITS/CHAR_LENGTH;}
- // 
- // constraint data{reg_address.size() > 0 ;
- //                    reg_address.size() < MAXIMUM_BITS/CHAR_LENGTH;}
- // 
- // constraint target_address_width_e {target_addr_mode == 1'b0;}
- // 
- // constraint target_addr{
- //                       if(target_addr_mode == 1'b0) 
- //                         {target_address == 7'b101_0100;}
- //                       if(target_addr_mode == 1'b1) 
- //                         {target_address == 10'b10_1010_0101;}
- // }
-
-//   constraint target_addr{i3c_controller_agent_cfg_h.target_address_width.size() > 0 ;
-//                     i3c_controller_agent_cfg_h.target_address_width.size() < MAXIMUM_BITS/CHAR_LENGTH;}
- // constraint target_addr_0{
- //   if(i3c_controller_agent_cfg_h.target_address_array[0]==7'b0000000)
- //     target_address==i3c_controller_agent_cfg_h.target_address_array[0];
- //   }
-
-  //-------------------------------------------------------
-  // Externally defined Tasks and Functions
-  //-------------------------------------------------------
   extern function new(string name = "i3c_controller_tx");
   extern function void post_randomize();
   extern function void do_copy(uvm_object rhs);
@@ -173,9 +112,9 @@ function void i3c_controller_tx::do_copy (uvm_object rhs);
   super.do_copy(rhs);
 
   targetAddress= rhs_.targetAddress;
-  register_address= rhs_.register_address;
+ // GopalS: register_address= rhs_.register_address;
   writeData = rhs_.writeData;
-  size = rhs_.size;
+ // GopalS: size = rhs_.size;
 
 endfunction : do_copy
 
@@ -193,8 +132,8 @@ function bit  i3c_controller_tx::do_compare (uvm_object rhs,uvm_comparer compare
 
   return super.do_compare(rhs,comparer) &&
   targetAddress == rhs_.targetAddress &&
-  register_address == rhs_.register_address &&
-  size == rhs_.size &&
+  // GopalS: register_address == rhs_.register_address &&
+  // GopalS: size == rhs_.size &&
   writeData == rhs_.writeData;
 endfunction : do_compare 
 //--------------------------------------------------------------------------------------------
@@ -207,11 +146,11 @@ function void i3c_controller_tx::do_print(uvm_printer printer);
   printer.print_field($sformatf("targetAddress"),this.targetAddress,$bits(targetAddress),UVM_HEX);
   //printer.print_field($sformatf("register_address"),this.register_address,8,UVM_HEX);
   printer.print_string($sformatf("operation"),operation.name());
-  printer.print_field($sformatf("Size"),this.size,1,UVM_HEX);
+  // GopalS: printer.print_field($sformatf("Size"),this.size,1,UVM_HEX);
   
-  for(int i = 0;i < size;i++) begin
-    printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],8,UVM_HEX);
-  end
+  // GopalS: for(int i = 0;i < size;i++) begin
+  // GopalS:   printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],8,UVM_HEX);
+  // GopalS: end
 
   //printer.print_field($sformatf("target_add_ack"),this.target_add_ack,1,UVM_BIN);
   //printer.print_field($sformatf("reg_add_ack"),this.reg_add_ack,1,UVM_BIN);
