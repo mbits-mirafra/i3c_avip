@@ -1,0 +1,16 @@
+var g_data = {
+c1063:[4,'SLAVE_ADDRESS_WID_CP',[],,'1062',1,1,'slave_covergroup','1057','/i3c_slave_pkg/i3c_slave_coverage',[[],[0,'1','0',1,'SLAVE_ADDRESS_WIDTH_7'],[0,'1','0',1,'SLAVE_ADDRESS_WIDTH_10']],[]],
+c1064:[4,'OPERATION_READ_WRITE_CP',[],,'1062',1,1,'slave_covergroup','1057','/i3c_slave_pkg/i3c_slave_coverage',[[],[0,'1','0',1,'READ'],[0,'1','0',1,'WRITE']],[]],
+c1065:[4,'SHIFT_DIRECTION_CP',[],,'1062',1,1,'slave_covergroup','1057','/i3c_slave_pkg/i3c_slave_coverage',[[],[0,'1','0',1,'LSB_FIRST'],[0,'1','0',1,'MSB_FIRST']],[]],
+c1067:[4,'SLAVE_ADDRESS_WID_CP',[],'Width of the the slave address','1066',2,1,'\\/i3c_slave_pkg::i3c_slave_coverage::slave_covergroup ','1057','/i3c_slave_pkg/i3c_slave_coverage',[[],[0,'1','0',1,'SLAVE_ADDRESS_WIDTH_7'],[0,'1','0',1,'SLAVE_ADDRESS_WIDTH_10']],[]],
+c1068:[4,'OPERATION_READ_WRITE_CP',[],'operation is read or write','1066',2,1,'\\/i3c_slave_pkg::i3c_slave_coverage::slave_covergroup ','1057','/i3c_slave_pkg/i3c_slave_coverage',[[],[0,'1','0',1,'READ'],[0,'1','0',1,'WRITE']],[]],
+c1069:[4,'SHIFT_DIRECTION_CP',[],'shift_direction of i3c MSB or LSB','1066',2,1,'\\/i3c_slave_pkg::i3c_slave_coverage::slave_covergroup ','1057','/i3c_slave_pkg/i3c_slave_coverage',[[],[0,'1','0',1,'LSB_FIRST'],[0,'1','0',1,'MSB_FIRST']],[]],
+c1535:[4,'SLAVE_ADDRESS_WID_CP',[],,'1534',1,1,'slave_covergroup','1529','work.i3c_slave_pkg::i3c_slave_coverage',[[],[0,'1','0',1,'SLAVE_ADDRESS_WIDTH_7'],[0,'1','0',1,'SLAVE_ADDRESS_WIDTH_10']],[]],
+c1536:[4,'OPERATION_READ_WRITE_CP',[],,'1534',1,1,'slave_covergroup','1529','work.i3c_slave_pkg::i3c_slave_coverage',[[],[0,'1','0',1,'READ'],[0,'1','0',1,'WRITE']],[]],
+c1537:[4,'SHIFT_DIRECTION_CP',[],,'1534',1,1,'slave_covergroup','1529','work.i3c_slave_pkg::i3c_slave_coverage',[[],[0,'1','0',1,'LSB_FIRST'],[0,'1','0',1,'MSB_FIRST']],[]],
+c1539:[4,'SLAVE_ADDRESS_WID_CP',[],'Width of the the slave address','1538',2,1,'\\/i3c_slave_pkg::i3c_slave_coverage::slave_covergroup ','1529','work.i3c_slave_pkg::i3c_slave_coverage',[[],[0,'1','0',1,'SLAVE_ADDRESS_WIDTH_7'],[0,'1','0',1,'SLAVE_ADDRESS_WIDTH_10']],[]],
+c1540:[4,'OPERATION_READ_WRITE_CP',[],'operation is read or write','1538',2,1,'\\/i3c_slave_pkg::i3c_slave_coverage::slave_covergroup ','1529','work.i3c_slave_pkg::i3c_slave_coverage',[[],[0,'1','0',1,'READ'],[0,'1','0',1,'WRITE']],[]],
+c1541:[4,'SHIFT_DIRECTION_CP',[],'shift_direction of i3c MSB or LSB','1538',2,1,'\\/i3c_slave_pkg::i3c_slave_coverage::slave_covergroup ','1529','work.i3c_slave_pkg::i3c_slave_coverage',[[],[0,'1','0',1,'LSB_FIRST'],[0,'1','0',1,'MSB_FIRST']],[]],
+dummyEnd:0
+};
+processCovergroupsData(g_data);

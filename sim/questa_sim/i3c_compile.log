@@ -1,0 +1,53 @@
+QuestaSim vlog 10.6c Compiler 2017.07 Jul 25 2017
+Start time: 17:01:14 on Nov 22,2023
+vlog -sv "+acc" "+cover" "+fcover" -l i3c_compile.log -f ../i3c_compile.f 
+-- Compiling package i3c_globals_pkg
+-- Compiling package i3c_master_pkg
+** Note: (vlog-2286) ../../src/hvl_top/master/i3c_master_pkg.sv(13): Using implicit +incdir+/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_globals_pkg
+-- Compiling package i3c_slave_pkg
+-- Compiling package i3c_master_seq_pkg
+-- Importing package i3c_master_pkg
+-- Compiling package i3c_slave_seq_pkg
+-- Importing package i3c_slave_pkg
+-- Compiling package i3c_env_pkg
+-- Compiling package i3c_virtual_seq_pkg
+-- Importing package i3c_master_seq_pkg
+-- Importing package i3c_slave_seq_pkg
+-- Importing package i3c_env_pkg
+-- Compiling package i3c_test_pkg
+-- Importing package i3c_virtual_seq_pkg
+-- Compiling interface i3c_if
+-- Compiling package i3c_master_driver_bfm_sv_unit
+-- Importing package i3c_globals_pkg
+-- Compiling interface i3c_master_driver_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_master_pkg
+-- Compiling package i3c_master_monitor_bfm_sv_unit
+-- Importing package i3c_globals_pkg
+-- Compiling interface i3c_master_monitor_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_master_pkg
+-- Compiling module i3c_master_agent_bfm
+-- Compiling package i3c_slave_driver_bfm_sv_unit
+-- Importing package i3c_globals_pkg
+-- Compiling interface i3c_slave_driver_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_slave_pkg
+-- Compiling interface i3c_slave_monitor_bfm
+-- Compiling module i3c_slave_agent_bfm
+-- Compiling module hdl_top
+-- Compiling module hvl_top
+-- Importing package i3c_test_pkg
+-- Importing package i3c_master_pkg
+-- Importing package i3c_env_pkg
+-- Importing package i3c_master_seq_pkg
+-- Importing package i3c_slave_seq_pkg
+-- Importing package i3c_virtual_seq_pkg
+
+Top level modules:
+	hdl_top
+	hvl_top
+End time: 17:01:17 on Nov 22,2023, Elapsed time: 0:00:03
+Errors: 0, Warnings: 0

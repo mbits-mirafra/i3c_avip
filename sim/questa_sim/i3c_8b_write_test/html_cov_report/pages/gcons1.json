@@ -1,0 +1,5 @@
+var g_db_data = [
+{dummy:0},
+{name:'slave_covergroup',f:1,type:6,id:1062,tb:'6',h:'0',m:'6',hp:'0.00%',cov:['0.00%','R'],g:'100.00%',gp:['0.00%','R'],opts:[[],['merge_instance','auto(true)']],hdlPath:'/i3c_slave_pkg/i3c_slave_coverage',parent:'1057'},
+{name:'slave_covergroup',f:1,type:6,id:1534,tb:'6',h:'0',m:'6',hp:'0.00%',cov:['0.00%','R'],g:'100.00%',gp:['0.00%','R'],opts:[[],['merge_instance','true']],hdlPath:'work.i3c_slave_pkg::i3c_slave_coverage',parent:'1529'}];
+processConsCovergroupsData(g_db_data);
