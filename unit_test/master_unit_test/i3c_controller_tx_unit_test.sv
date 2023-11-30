@@ -96,28 +96,28 @@ module i3c_controller_tx_unit_test;
   `SVTEST_END
 
   `SVTEST(Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElement8)
-      uut.writeData = new[2];
+    uut.writeData = new[2];
 
-      `FAIL_UNLESS($size(uut.writeData[0]) == 8)
-      `FAIL_UNLESS($size(uut.writeData[1]) == 8)
+    `FAIL_UNLESS($size(uut.writeData[0]) == 8)
+    `FAIL_UNLESS($size(uut.writeData[1]) == 8)
   `SVTEST_END
 
-  `SVTEST(Given_writeDataArray_When_Randomized_Expect_ValueNonZero)
+  `SVTEST(Given_writeDataArrayInlineConstraint_When_Randomized_Expect_ValueNonZero)
     void'(uut.randomize() with {
                 uut.writeData.size() == 2;
                 uut.writeData[0] == 10;
                 uut.writeData[1] == 12;
               });
 
-    `FAIL_IF(uut.writeData[0] == 0)
-    `FAIL_IF(uut.writeData[1] == 0)
+    `FAIL_UNLESS(uut.writeData[0] != 0)
+    `FAIL_UNLESS(uut.writeData[1] != 0)
   `SVTEST_END
   
   `SVTEST(Given_readDataArray_When_readDataWidth8_Expect_SizeofEachElements8)
-      uut.readData = new[2];
+    uut.readData = new[2];
 
-      `FAIL_UNLESS($size(uut.readData[0]) == 8)
-      `FAIL_UNLESS($size(uut.readData[1]) == 8)
+    `FAIL_UNLESS($size(uut.readData[0]) == 8)
+    `FAIL_UNLESS($size(uut.readData[1]) == 8)
   `SVTEST_END
 
 
