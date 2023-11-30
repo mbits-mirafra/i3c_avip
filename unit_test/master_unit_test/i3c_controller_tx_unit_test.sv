@@ -256,6 +256,14 @@ module i3c_controller_tx_unit_test;
     `FAIL_IF(randSuccess)
   `SVTEST_END
 
+  /*
+  `SVTEST(Given_When_Expect)
+    void'(uut.randomize() with {
+               // uut.operation == 0;});
+                //uut.writeData.size == 5;});
+    uut.print();
+  `SVTEST_END
+  */
   `SVUNIT_TESTS_END
 
 endmodule

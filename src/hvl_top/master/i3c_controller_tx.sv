@@ -82,7 +82,8 @@ class i3c_controller_tx extends uvm_sequence_item;
   extern function new(string name = "i3c_controller_tx");
   extern function void post_randomize();
   extern function void do_copy(uvm_object rhs);
-  extern function bit do_compare(uvm_object rhs, uvm_comparer comparer); 
+  extern function bit do_compare(uvm_object rhs, 
+                            uvm_comparer comparer); 
   extern function void do_print(uvm_printer printer);
 
 endclass : i3c_controller_tx
@@ -104,17 +105,20 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 
 function void i3c_controller_tx::do_copy (uvm_object rhs);
-  i3c_controller_tx rhs_;
+  i3c_controller_tx controller_rhs;
   
-  if(!$cast(rhs_,rhs)) begin
+  if(!$cast(controller_rhs,rhs)) begin
     `uvm_fatal("do_copy","cast of the rhs object failed")
   end
   super.do_copy(rhs);
 
-  targetAddress= rhs_.targetAddress;
- // GopalS: register_address= rhs_.register_address;
-  writeData = rhs_.writeData;
- // GopalS: size = rhs_.size;
+  targetAddress = controller_rhs.targetAddress;
+  targetAddressStatus = controller_rhs.targetAddressStatus;
+  operation = controller_rhs.operation;
+  writeData = controller_rhs.writeData;
+  writeDataStatus = controller_rhs.writeDataStatus;
+  readData = controller_rhs.readData;
+  readDataStatus = controller_rhs.readDataStatus;
 
 endfunction : do_copy
 
@@ -123,18 +127,21 @@ endfunction : do_copy
 // do_compare method
 //--------------------------------------------------------------------------------------------
 function bit  i3c_controller_tx::do_compare (uvm_object rhs,uvm_comparer comparer);
-  i3c_controller_tx rhs_;
+  i3c_controller_tx controller_rhs;
 
-  if(!$cast(rhs_,rhs)) begin
+  if(!$cast(controller_rhs,rhs)) begin
   `uvm_fatal("FATAL_I3C_controller_TX_DO_COMPARE_FAILED","cast of the rhs object failed")
   return 0;
   end
 
   return super.do_compare(rhs,comparer) &&
-  targetAddress == rhs_.targetAddress &&
-  // GopalS: register_address == rhs_.register_address &&
-  // GopalS: size == rhs_.size &&
-  writeData == rhs_.writeData;
+  targetAddress == controller_rhs.targetAddress &&
+  targetAddressStatus == controller_rhs.targetAddressStatus &&
+  operation == controller_rhs.operation &&
+  writeData == controller_rhs.writeData &&
+  writeDataStatus == controller_rhs.writeDataStatus &&
+  readData == controller_rhs.readData &&
+  readDataStatus == controller_rhs.readDataStatus;
 endfunction : do_compare 
 //--------------------------------------------------------------------------------------------
 // Function: do_print method
@@ -144,10 +151,29 @@ function void i3c_controller_tx::do_print(uvm_printer printer);
   super.do_print(printer);
 
   printer.print_field($sformatf("targetAddress"),this.targetAddress,$bits(targetAddress),UVM_HEX);
-  //printer.print_field($sformatf("register_address"),this.register_address,8,UVM_HEX);
+  printer.print_string($sformatf("targetAddressStatus"),targetAddressStatus.name());
   printer.print_string($sformatf("operation"),operation.name());
-  // GopalS: printer.print_field($sformatf("Size"),this.size,1,UVM_HEX);
+
+  foreach(writeData[i]) begin
+    printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],$bits(writeData[i]),UVM_HEX);
+  end
+
+  foreach(writeDataStatus[i]) begin
+    printer.print_string($sformatf("writeDataStatus[%0d]",i),writeDataStatus[i].name());
+  end
   
+  foreach(readData[i]) begin
+  printer.print_field($sformatf("readData[%0d]",i),this.readData[i],$bits(readData[i]),UVM_HEX);
+  end
+  
+  foreach(readDataStatus[i]) begin
+  printer.print_string($sformatf("readDataStatus[%0d]",i),readDataStatus[i].name());
+  end
+ 
+
+
+
+
   // GopalS: for(int i = 0;i < size;i++) begin
   // GopalS:   printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],8,UVM_HEX);
   // GopalS: end
