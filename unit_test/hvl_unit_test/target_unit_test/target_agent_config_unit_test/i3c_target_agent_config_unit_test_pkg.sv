@@ -16,7 +16,7 @@ package i3c_target_agent_config_unit_test_pkg;
   //-------------------------------------------------------
   // Include all other files
   //-------------------------------------------------------
-  `include "i3c_slave_agent_config.sv"
+  `include "i3c_target_agent_config.sv"
 
 
 endpackage : i3c_target_agent_config_unit_test_pkg

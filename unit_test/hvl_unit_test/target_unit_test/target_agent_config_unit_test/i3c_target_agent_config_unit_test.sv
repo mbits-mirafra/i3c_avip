@@ -14,7 +14,7 @@ module i3c_target_agent_config_unit_test;
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
-  i3c_slave_agent_config my_i3c_target_agent_config;
+  i3c_target_agent_config uut;
 
   //===================================
   // Build
@@ -22,7 +22,7 @@ module i3c_target_agent_config_unit_test;
   function void build();
     svunit_ut = new(name);
 
-    my_i3c_target_agent_config = new(/* New arguments if needed */);
+   uut  = new(/* New arguments if needed */);
   endfunction
 
 
@@ -62,6 +62,43 @@ module i3c_target_agent_config_unit_test;
   //   `SVTEST_END
   //===================================
   `SVUNIT_TESTS_BEGIN
+   
+   `SVTEST(Given_isActiveEnum_When_UVM_ACTIVE_Expect_ValueString_UVM_ACTIVE)
+  `FAIL_UNLESS_STR_EQUAL(uut.isActive.name(),"UVM_ACTIVE")
+  `SVTEST_END
+  
+  
+  `SVTEST(Given_hasCoverage_When_IsOne_Expect_ValueOne)
+  `FAIL_UNLESS(uut.hasCoverage == 1)
+  `SVTEST_END
+
+
+  `SVTEST(Given_DataTransferdirection_When_MSBFirst_Expect_ValueString_MSB_FIRST)
+  uut.DataTransferdirection = 	MSB_FIRST;
+  `FAIL_UNLESS_STR_EQUAL(uut.DataTransferdirection.name(),"MSB_FIRST")
+`SVTEST_END
+   `SVTEST(Given_DataTransferdirection_When_LSBFirst_Expect_ValueString_LSB_FIRST)
+  uut.DataTransferdirection = LSB_FIRST;
+  `FAIL_UNLESS_STR_EQUAL(uut.DataTransferdirection.name(),"LSB_FIRST")
+`SVTEST_END
+  
+  `SVTEST(Given_targetAddress_When_targetAddressIsPresent_Expect_ComparisionPass)
+  bit comparisionSuccess;
+  foreach(uut.targetAddress[i]) begin
+    if(uut.targetAddress[i] == 7'h11)
+      comparisionSuccess = 1;
+  end
+  `FAIL_UNLESS(comparisionSuccess)
+ `SVTEST_END
+ 
+   
+  `SVTEST(Given_defaultReadData_When_defaultValue_Expect_ValueFF)
+  `FAIL_UNLESS(uut.defaultReadData == 'hFF)
+ `SVTEST_END
+
+ `SVTEST(Given_targetMemory_When_targetMemory_Expect_)
+  //`FAIL_IF()
+ `SVTEST_END
 
 
 
