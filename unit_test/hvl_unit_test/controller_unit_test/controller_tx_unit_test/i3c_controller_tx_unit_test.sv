@@ -264,6 +264,38 @@ module i3c_controller_tx_unit_test;
     uut.print();
   `SVTEST_END
   */
+  /*
+  `SVTEST(Given_When_Expect)
+    i3c_controller_tx obj1,obj2;
+
+    begin
+      obj1 = new();
+      obj2 = new();
+      void'(obj1.randomize() with {
+                  obj1.writeData.size == 2;
+                  obj1.operation == 0;});
+
+      obj1.print();
+      obj2.print();
+
+      if(obj1.compare(obj2))
+        `uvm_info("Before do_copy","obj1 matching with obj2",UVM_LOW)
+      else
+        `uvm_info("Before do_copy","obj1 Not matching with obj2",UVM_LOW)
+
+      obj2.copy(obj1);
+
+      obj1.print();
+      obj2.print();
+
+      if(obj1.compare(obj2))
+        `uvm_info("After do_copy","obj1 matching with obj2",UVM_LOW)
+      else
+        `uvm_info("After do_copy","obj1 Not matching with obj2",UVM_LOW)
+
+    end
+  `SVTEST_END
+*/
   `SVUNIT_TESTS_END
 
 endmodule

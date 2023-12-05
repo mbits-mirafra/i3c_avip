@@ -47,17 +47,11 @@ package i3c_globals_pkg;
   
   parameter BUS_IDLE_TIME = 1;  // 200ns as per spec table 86
   parameter BUS_FREE_TIME = 1;  // 0.5us as per spec page no 365 Table 85
-  // Enum: shift_direction_e
-  // 
-  // Specifies the shift direction
-  //
-  // LSB_FIRST - LSB is shifted out first
-  // MSB_FIRST - MSB is shifted out first
-  //
+  
   typedef enum bit {
     MSB_FIRST = 1'b1,
     LSB_FIRST = 1'b0
-  } shift_direction_e;
+  } dataTransferDirection_e;
   
   
   // Enum: operationType_e
