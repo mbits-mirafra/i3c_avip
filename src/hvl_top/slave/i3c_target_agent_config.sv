@@ -10,7 +10,7 @@ class i3c_target_agent_config extends uvm_object;
   uvm_active_passive_enum isActive = UVM_ACTIVE;
   bit hasCoverage = 1;
   dataTransferDirection_e DataTransferdirection;
-  bit [TARGET_ADDRESS_WIDTH-1 :0] targetAddress;  
+  bit [TARGET_ADDRESS_WIDTH-1 :0] targetAddress[];  
   bit [DATA_WIDTH-1:0]defaultReadData = 'hFF;
   bit [DATA_WIDTH-1:0]targetFIFOMemory[$];
  

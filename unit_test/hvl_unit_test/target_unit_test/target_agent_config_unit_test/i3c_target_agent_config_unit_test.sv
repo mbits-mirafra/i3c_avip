@@ -80,6 +80,11 @@ module i3c_target_agent_config_unit_test;
   uut.DataTransferdirection = LSB_FIRST;
   `FAIL_UNLESS_STR_EQUAL(uut.DataTransferdirection.name(),"LSB_FIRST")
   `SVTEST_END
+
+  `SVTEST(Given_targetAddress_When_FixingSizeOfArray_Expect_ArraysizeOfFive)
+  uut.targetAddress = new[5];
+  `FAIL_UNLESS(uut.targetAddress.size() == 5)
+   `SVTEST_END
   
   `SVTEST(Given_defaultReadData_When_defaultValueAndSize_Expect_ValueFFandSize8)
   `FAIL_UNLESS($size(uut.defaultReadData) == 8) 
@@ -102,6 +107,6 @@ module i3c_target_agent_config_unit_test;
    `FAIL_UNLESS(sizeComparisionSuccess)
    `SVTEST_END
 
-`SVUNIT_TESTS_END
+  `SVUNIT_TESTS_END
 
 endmodule
