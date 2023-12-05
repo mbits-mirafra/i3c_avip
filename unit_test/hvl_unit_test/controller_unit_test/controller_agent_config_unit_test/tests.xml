@@ -1,0 +1,16 @@
+<testsuites>
+  <testsuite name="__ts">
+    <testcase classname="i3c_controller_agent_config_ut" name="Given_isActiveEnum_When_UVM_ACTIVE_Expect_ValueString_UVM_ACTIVE">
+    </testcase>
+    <testcase classname="i3c_controller_agent_config_ut" name="Given_hasCoverage_When_IsOne_Expect_ValueOne">
+    </testcase>
+    <testcase classname="i3c_controller_agent_config_ut" name="Given_DataTransferdirectionInlineConstraint_When_MSBFirst_Expect_ValueString_MSB_FIRST">
+    </testcase>
+    <testcase classname="i3c_controller_agent_config_ut" name="Given_DataTransferdirectionInlineConstraint_When_LSBFirst_Expect_ValueString_LSB_FIRST">
+    </testcase>
+    <testcase classname="i3c_controller_agent_config_ut" name="Given_targetAddress_When_FixingSizeOfArray_Expect_ArraysizeOfFiveAndSizeOfElementSeven">
+    </testcase>
+    <testcase classname="i3c_controller_agent_config_ut" name="Given_ArgumentToSetClockRateDividervalueMethod_When_calledGetClockRateDividerValueMethod_Expect_ReturnValue12">
+    </testcase>
+  </testsuite>
+</testsuites>
