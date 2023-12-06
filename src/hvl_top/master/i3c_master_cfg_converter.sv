@@ -14,7 +14,7 @@ class i3c_master_cfg_converter extends uvm_object;
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
   extern function new(string name = "i3c_master_cfg_converter");
-  extern static function void from_class(input i3c_master_agent_config input_conv_h,
+  extern static function void from_class(input i3c_controller_agent_config input_conv_h,
                                           output i3c_transfer_cfg_s output_conv);
 
   extern function void do_print(uvm_printer printer);
@@ -35,7 +35,7 @@ endfunction : new
 // function: from_class
 // converting seq_item transactions into struct data items
 //--------------------------------------------------------------------------------------------
-function void i3c_master_cfg_converter::from_class(input i3c_master_agent_config input_conv_h,
+function void i3c_master_cfg_converter::from_class(input i3c_controller_agent_config input_conv_h,
                                                     output i3c_transfer_cfg_s output_conv);
 
 
@@ -44,8 +44,8 @@ function void i3c_master_cfg_converter::from_class(input i3c_master_agent_config
   //slave address is configurable so for it we do casting 
  // slave_address_width=slave_address_width_e'(input_conv_h.slave_address_width);
   
- output_conv.msb_first = shift_direction_e'(input_conv_h.shift_dir);
- output_conv.baudrate_divisor = input_conv_h.get_baudrate_divisor();
+ output_conv.msb_first = dataTransferDirection_e'(input_conv_h.shift_dir);
+ output_conv.baudrate_divisor = input_conv_h.get_clockrate_divider_value();
 
  `uvm_info("conv_bd",$sformatf("bd = \n %p",output_conv.baudrate_divisor),UVM_LOW)
 

@@ -19,8 +19,8 @@ package i3c_master_pkg;
   //-------------------------------------------------------
   // Include all other files
   //-------------------------------------------------------
-  `include "i3c_master_agent_config.sv"
-  `include "i3c_master_tx.sv"
+  `include "i3c_controller_agent_config.sv"
+  `include "i3c_controller_tx.sv"
   `include "i3c_master_seq_item_converter.sv"
   `include "i3c_master_cfg_converter.sv"
   `include "i3c_master_sequencer.sv"

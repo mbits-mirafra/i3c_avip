@@ -14,12 +14,12 @@ class i3c_master_seq_item_converter extends uvm_object;
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
   extern function new(string name = "i3c_master_seq_item_converter");
-  extern static function void from_class(input i3c_master_tx input_conv_h,
+  extern static function void from_class(input i3c_controller_tx input_conv_h,
                                          output i3c_transfer_bits_s output_conv);
 
   extern static function void to_class(input i3c_transfer_bits_s input_conv_h,     
-                                       output i3c_master_tx output_conv);
-  //extern function void from_class_msb_first(input i3c_master_tx input_conv_h, 
+                                       output i3c_controller_tx output_conv);
+  //extern function void from_class_msb_first(input i3c_controller_tx input_conv_h, 
   //                                           output i3c_transfer_bits_s output_conv);
   extern function void do_print(uvm_printer printer);
 
@@ -39,13 +39,13 @@ endfunction : new
 // function: from_class
 // converting seq_item transactions into struct data items
 //--------------------------------------------------------------------------------------------
-function void i3c_master_seq_item_converter::from_class(input i3c_master_tx input_conv_h,
+function void i3c_master_seq_item_converter::from_class(input i3c_controller_tx input_conv_h,
                                                         output i3c_transfer_bits_s output_conv);
   
   //converting of the slave address                                                      
   output_conv.slave_address = input_conv_h.slave_address;
 
-  output_conv.read_write = read_write_e'(input_conv_h.read_write);
+  output_conv.read_write = operationType_e'(input_conv_h.read_write);
   output_conv.size = input_conv_h.size;
   output_conv.wr_data = new[output_conv.size];    
   for(int i=0; i<input_conv_h.wr_data.size();i++) begin
@@ -93,7 +93,7 @@ endfunction: from_class
 // converting struct data items into seq_item transactions
 //--------------------------------------------------------------------------------------------
 function void i3c_master_seq_item_converter::to_class(input i3c_transfer_bits_s input_conv_h,
-                                                      output i3c_master_tx output_conv);
+                                                      output i3c_controller_tx output_conv);
   output_conv = new();
 
   // Defining the size of arrays
