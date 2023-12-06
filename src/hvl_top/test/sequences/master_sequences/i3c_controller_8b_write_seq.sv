@@ -43,11 +43,10 @@ task i3c_controller_8b_write_seq::body();
 
   start_item(req);
 
-  //if(!req.randomize() with {read_write == WRITE;}) begin
-
-  //  `uvm_fatal(get_type_name(), "Randomization failed")
-
-  //end
+    if(!req.randomize() with {operation == WRITE;
+                              writeData.size()==1;}) begin
+      `uvm_fatal(get_type_name(), "Randomization failed")
+    end
   /*req.targetAddress = 7'b110_1000;
   req.operation = WRITE;
   req.size = 1;
