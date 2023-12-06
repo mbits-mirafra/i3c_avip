@@ -3,16 +3,17 @@
 `include "uvm_macros.svh"
 
 `include "uvm_sequence_mock.svh"
- import svmock_pkg::*;
+ import svmock_pkg::*; 
 
-module i3c_controller_8b_write_seq_unit_test;
+module i3c_controller_8b_read_seq_unit_test;
   import svunit_pkg::svunit_testcase;
 
   import uvm_pkg::*;
   import i3c_globals_pkg::*;
-  import i3c_controller_8b_write_seq_unit_test_pkg::*;
+  import i3c_controller_8b_read_seq_unit_test_pkg::*;
 
-  string name = "i3c_controller_8b_write_seq_ut";
+
+  string name = "i3c_controller_8b_read_seq_ut";
   svunit_testcase svunit_ut;
 
 
@@ -20,8 +21,8 @@ module i3c_controller_8b_write_seq_unit_test;
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
-  `SVMOCK_UVM_SEQUENCE(i3c_controller_8b_write_seq)
-  i3c_controller_8b_write_seq_mock #(i3c_controller_tx) uut;
+  `SVMOCK_UVM_SEQUENCE(i3c_controller_8b_read_seq)
+  i3c_controller_8b_read_seq_mock #(i3c_controller_tx) uut;
   i3c_controller_tx req;
 
 
@@ -41,7 +42,6 @@ module i3c_controller_8b_write_seq_unit_test;
   task setup();
     svunit_ut.setup();
     /* Place Setup Code Here */
-
     `ON_CALL(uut, start).will_by_default("_start");
   endtask
 
@@ -53,8 +53,7 @@ module i3c_controller_8b_write_seq_unit_test;
   task teardown();
     svunit_ut.teardown();
     /* Place Teardown Code Here */
-
-    `FAIL_UNLESS(uut.verify())
+    `FAIL_UNLESS(uut.verify())  
   endtask
 
 
@@ -80,15 +79,15 @@ module i3c_controller_8b_write_seq_unit_test;
     uut.start(null);
   `SVTEST_END
 
+
   `SVTEST(Taking_getResponseFromSequence_When_getResponseValueSameAsGivenValue_Expect_comparisonPass)
     uut.start(null);
       uut.get_response(req);
 
-      `FAIL_UNLESS(req.writeData.size() == 1)
-      `FAIL_UNLESS(req.operation == WRITE)
-      
+//   `FAIL_UNLESS(req.writeData.size() == 1)
+     `FAIL_UNLESS(req.operation == READ)
+      `FAIL_UNLESS(req.readDataStatus.size > 0)
   `SVTEST_END
-
 
   `SVUNIT_TESTS_END
 
