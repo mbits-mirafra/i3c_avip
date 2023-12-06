@@ -3,7 +3,7 @@
 `include "uvm_macros.svh"
 
 `include "uvm_sequence_mock.svh"
-
+import svmock_pkg::*;
 module i3c_controller_8b_write_seq_unit_test;
   import svunit_pkg::svunit_testcase;
 
@@ -19,8 +19,8 @@ module i3c_controller_8b_write_seq_unit_test;
   // This is the UUT that we're 
   // running the Unit Tests on
   //===================================
- // GopalS:  `SVMOCK_UVM_SEQUENCE(i3c_controller_8b_write_seq)
- // GopalS:  i3c_controller_8b_write_seq_mock #(i3c_controller_tx) uut;
+  `SVMOCK_UVM_SEQUENCE(i3c_controller_8b_write_seq)
+  i3c_controller_8b_write_seq_mock #(i3c_controller_tx) uut;
  // GopalS:  i3c_controller_tx req;
 
 
@@ -30,7 +30,7 @@ module i3c_controller_8b_write_seq_unit_test;
   function void build();
     svunit_ut = new(name);
 
-   // GopalS:  uut = new(/* New arguments if needed */);
+    uut = new(/* New arguments if needed */);
   endfunction
 
 
