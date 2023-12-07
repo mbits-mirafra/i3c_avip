@@ -1,0 +1,56 @@
+<testsuites>
+  <testsuite name="__ts">
+    <testcase classname="i3c_controller_tx_ut" name="Given_operationInlineConstraint_When_Write_Expect_ValueZero">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_OperationInlineConstraint_When_Read_Expect_ValueOne">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_OperationEnum_When_READ_Value_StringREAD">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_OperationEnum_When_WRITE_Value_StringWRITE">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_targetAddress_When_targetAddressWidth7_Expect_Sizeof7">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_targetAddressInlineConstraint_When_targetAddresRandomized_Expect_Value10">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_writeDataArray_When_writeDataWidth8_Expect_SizeofEachElement8">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_writeDataArrayInlineConstraint_When_Randomized_Expect_ValueNonZero">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_readDataArray_When_readDataWidth8_Expect_SizeofEachElements8">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_readDataStatusEnum_When_ACK_Value_StringACK">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_readDataStatusEnum_When_NACK_Value_StringNACK">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_readDataStatusInlineConstraint_When_NACK_Expect_ValueofOne">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_readDataStatusInlineConstraint_When_ACK_Expect_ValueofZero">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_targetAddressInLineContraint_When_reservedGroup0_Expect_RandomizationFailure">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_targetAddressInLineContraint_When_reservedGroup1_Expect_RandomizationFailure">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_targetAddressStatusEnum_When_NACK_Value_StringNACK">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_targetAddressStatusEnum_When_ACK_Value_StringACK">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_writeDataStatusEnum_When_NACK_Value_StringNACK">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_writeDataStatusEnum_When_ACK_Value_StringACK">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_writeDataSizeInlineConstraint_When_GreaterThanMAXIMUM_BYTES_Expect_RandomizationFailure">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_readDataStatusConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_readDataStatusSizeInlineConstraint_When_OverrideWithSoftConstraint_Expect_SizeNotEqualToMAXIMUM_BYTES">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_CrossConstraint_When_OperationWRITExWriteDataSizeZero_Expect_RandomizationFailure">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_CrossConstraint_When_OperationREADxWriteDataSizeNotZero_Expect_RandomizationFailure">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_CrossConstraint_When_OperationREADxReadDataStatusSizeZero_Expect_RandomizationFailure">
+    </testcase>
+    <testcase classname="i3c_controller_tx_ut" name="Given_CrossConstraint_When_OperationWRITExReadDataStatusSizeNotZero_Expect_RandomizationFailure">
+    </testcase>
+  </testsuite>
+</testsuites>

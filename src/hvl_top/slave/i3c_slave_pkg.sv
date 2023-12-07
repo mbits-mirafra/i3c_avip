@@ -19,11 +19,11 @@ package i3c_slave_pkg;
   //-------------------------------------------------------
   // Include all other files
   //-------------------------------------------------------
-  `include "i3c_slave_agent_config.sv"
+  `include "i3c_target_agent_config.sv"
   `include "i3c_target_tx.sv"
   `include "i3c_slave_seq_item_converter.sv"
   `include "i3c_slave_cfg_converter.sv"
-  `include "i3c_slave_sequencer.sv"
+  `include "i3c_target_sequencer.sv"
   `include "i3c_slave_driver_proxy.sv"
   `include "i3c_slave_monitor_proxy.sv"
   `include "i3c_slave_coverage.sv"
@@ -32,3 +32,5 @@ package i3c_slave_pkg;
 endpackage : i3c_slave_pkg
 
 `endif
+
+
