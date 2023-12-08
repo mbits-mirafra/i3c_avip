@@ -31,36 +31,30 @@ endfunction : new
 //-------------------------------------------------------
 
 task i3c_controller_8b_write_seq::body();
-  int m_i_i; // local variable for iteration
 
   super.body();
 
-  req = i3c_controller_tx::type_id::create("req"); 
 // GopalS:   req.i3c_controller_agent_cfg_h = p_sequencer.i3c_controller_agent_cfg_h;
 
 // GopalS:   `uvm_info("DEBUG", $sformatf("address = %0x",
 // GopalS:   p_sequencer.i3c_controller_agent_cfg_h.slave_address_array[0]), UVM_NONE)
 
+//  req = i3c_controller_tx::type_id::create("req"); 
+
   start_item(req);
 
-    if(!req.randomize() with {operation == WRITE;
-                              writeData.size()==1;}) begin
-      `uvm_fatal(get_type_name(), "Randomization failed")
-    end
-  /*req.targetAddress = 7'b110_1000;
-  req.operation = WRITE;
-  req.size = 1;
-  req.writeData = new[req.size];
-  for(m_i_i = 0;m_i_i < req.size;m_i_i++) begin
-    req.wr_data[m_i_i] = $random;
-  end*/
-  req.print();
+    //req = i3c_controller_tx::type_id::create("req"); 
+    //if(!req.randomize() with {operation == WRITE;
+      //                        writeData.size()==1;}) begin
+     // `uvm_error(get_type_name(), "Randomization failed")
+   // end
+  
+    // GopalS: req.print();
   finish_item(req);
 
 
 endtask:body
   
-
 `endif
 
 
