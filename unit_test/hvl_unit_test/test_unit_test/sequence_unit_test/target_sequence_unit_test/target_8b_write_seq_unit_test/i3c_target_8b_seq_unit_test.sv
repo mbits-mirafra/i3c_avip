@@ -1,16 +1,23 @@
 `include "svmock_defines.svh"
 `include "svunit_defines.svh"
-`include "uvm_macros.svh"
-
 `include "uvm_sequence_mock.svh"
+`include "svmock_pkg.sv"
  import svmock_pkg::*;
+
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+
+`include "i3c_globals_pkg.sv"
+import i3c_globals_pkg::*;
+
+`include "i3c_target_tx.sv"
+`include "i3c_target_agent_config.sv"
+`include "i3c_target_sequencer.sv"
+`include "i3c_target_base_seq.sv"
+`include "i3c_target_8b_seq.sv"
 
 module i3c_target_8b_seq_unit_test;
   import svunit_pkg::svunit_testcase;
-
-  import uvm_pkg::*;
-  import i3c_globals_pkg::*;
-  import i3c_target_8b_seq_unit_test_pkg::*;
 
   string name = "i3c_target_8b_seq_ut";
   svunit_testcase svunit_ut;
