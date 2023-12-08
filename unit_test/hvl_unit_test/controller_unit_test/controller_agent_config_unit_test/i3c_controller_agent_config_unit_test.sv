@@ -1,15 +1,18 @@
 `include "svunit_defines.svh"
+
 `include "uvm_macros.svh"
+import uvm_pkg::*;
+
+`include "i3c_globals_pkg.sv"
+import i3c_globals_pkg::*;
+
+`include "i3c_controller_agent_config.sv"
 
 module i3c_controller_agent_config_unit_test;
-  import uvm_pkg::*;
   import svunit_pkg::svunit_testcase;
-  import i3c_controller_agent_config_unit_test_pkg::*;
-  import i3c_globals_pkg::*;
 
   string name = "i3c_controller_agent_config_ut";
   svunit_testcase svunit_ut;
-
 
   //===================================
   // This is the UUT that we're 
