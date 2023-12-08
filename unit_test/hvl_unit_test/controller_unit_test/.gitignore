@@ -1,0 +1,8 @@
+compile.log
+run.log
+tests.xml
+work
+.__controller_agent_config_unit_test_testsuite.sv
+.__controller_tx_unit_test_testsuite.sv
+.svunit.f
+.testrunner.sv

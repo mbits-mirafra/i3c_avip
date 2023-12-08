@@ -1,21 +1,27 @@
 `include "svmock_defines.svh"
 `include "svunit_defines.svh"
-`include "uvm_macros.svh"
-
 `include "uvm_sequence_mock.svh"
+`include "svmock_pkg.sv"
  import svmock_pkg::*; 
+
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+
+`include "i3c_globals_pkg.sv"
+import i3c_globals_pkg::*;
+
+`include "i3c_controller_tx.sv"
+`include "i3c_controller_agent_config.sv"
+`include "i3c_controller_sequencer.sv"
+`include "i3c_controller_base_seq.sv"
+`include "i3c_controller_8b_read_seq.sv"
+
 
 module i3c_controller_8b_read_seq_unit_test;
   import svunit_pkg::svunit_testcase;
 
-  import uvm_pkg::*;
-  import i3c_globals_pkg::*;
-  import i3c_controller_8b_read_seq_unit_test_pkg::*;
-
-
   string name = "i3c_controller_8b_read_seq_ut";
   svunit_testcase svunit_ut;
-
 
   //===================================
   // This is the UUT that we're 
@@ -72,7 +78,7 @@ module i3c_controller_8b_read_seq_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
 
-  `SVTEST(Given_StartItemAndFinishItem_When_exactly3timeRepeat_Expect_actualStartItemAndFinishItem_Repeat3time)
+  `SVTEST(Given_StartItemAndFinishItem_When_atLeastOnetimeRepeat_Expect_actualStartItemAndFinishItem_RepeatMinimumOnetime)
     `EXPECT_CALL(uut, start_item).at_least(1);
     `EXPECT_CALL(uut, finish_item).at_least(1);
 
