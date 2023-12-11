@@ -6,3 +6,4 @@ work
 .__target_agent_config_unit_test_testsuite.sv  
 .testrunner.sv
 ._target_tx_unit_test_testsuite.sv
+.__target_sequences_unit_test_target_8b_write_seq_unit_test_testsuite.sv

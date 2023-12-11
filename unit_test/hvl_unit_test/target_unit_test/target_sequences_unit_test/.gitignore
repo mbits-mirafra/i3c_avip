@@ -1,0 +1,7 @@
+compile.log
+run.log
+tests.xml
+work
+.__target_8b_write_seq_unit_test_testsuite.sv
+.svunit.f
+.testrunner.sv
