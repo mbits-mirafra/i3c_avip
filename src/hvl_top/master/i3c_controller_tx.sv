@@ -63,7 +63,7 @@ class i3c_controller_tx extends uvm_sequence_item;
   }
   
   constraint readDataStatusSize_c {
-    soft readDataStatus.size() == MAXIMUM_BYTES;
+    readDataStatus.size() <= MAXIMUM_BYTES;
   }
 
   constraint operationWRITExwriteDataSize_c {
