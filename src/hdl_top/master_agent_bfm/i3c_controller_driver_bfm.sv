@@ -1,13 +1,13 @@
-`ifndef I3C_MASTER_DRIVER_BFM_INCLUDED_
-`define I3C_MASTER_DRIVER_BFM_INCLUDED_
+`ifndef I3C_CONTROLLER_DRIVER_BFM_INCLUDED_
+`define I3C_CONTROLLER_DRIVER_BFM_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-//Interface : i3c_master_driver_bfm
+//Interface : i3c_controller_driver_bfm
 //It connects with the HVL driver_proxy for driving the stimulus
 //--------------------------------------------------------------------------------------------
 import i3c_globals_pkg::*;
 
-interface i3c_master_driver_bfm(input pclk, 
+interface i3c_controller_driver_bfm(input pclk, 
                                 input areset,
                                 input scl_i,
                                 output reg scl_o,
@@ -32,15 +32,15 @@ interface i3c_master_driver_bfm(input pclk,
   //-------------------------------------------------------
   // Importing I3C Global Package and Slave package
   //-------------------------------------------------------
-  import i3c_master_pkg::i3c_master_driver_proxy;
+ // GopalS:  import i3c_controller_pkg::i3c_controller_driver_proxy;
 
-  //Variable : master_driver_proxy_h
+  //Variable : controller_driver_proxy_h
   //Creating the handle for proxy driver
-  i3c_master_driver_proxy i3c_master_drv_proxy_h;
+  i3c_controller_driver_proxy i3c_controller_drv_proxy_h;
   
   // Variable: name
   // Stores the name for this module
-  string name = "I3C_MASTER_DRIVER_BFM";
+  string name = "I3C_controller_DRIVER_BFM";
 
  initial begin
    $display(name);
@@ -115,55 +115,55 @@ interface i3c_master_driver_bfm(input pclk,
  //-------------------------------------------------------
  task drive_data(inout i3c_transfer_bits_s p_data_packet, 
                  input i3c_transfer_cfg_s p_cfg_pkt); 
-
-  int idle_time_i; // local variable for idle time
-  int tbuf_i;      // Idle time from configure
-  bit [SLAVE_ADDRESS_WIDTH -1:0] address_7b;
-  bit rw_b;
-  bit [7:0] wr_data_8b;
-  
-  `uvm_info(name, $sformatf("Starting the drive data method"), UVM_MEDIUM);
-  data_t  = p_data_packet;
-  cfg_pkt = p_cfg_pkt;
-  state = START;
-
-  //Driving Start Condition
-  drive_start();
-  state = ADDRESS;
-
-  //Driving Address byte
-  {rw_b,address_7b} = {data_t.read_write,data_t.slave_address};
-  drive_byte({rw_b,address_7b});
-  `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, read_write = %0b",address_7b, rw_b), UVM_NONE)
-  sample_ack(ack);
-  if(ack == 1'b1)begin
-    stop();
-    `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 1 and stop condition is triggered"), UVM_HIGH);
-  end else begin
-    `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 0"), UVM_HIGH);
-    if(rw_b == 0) begin
-      state = WRITE_DATA;
-      for(int i=0; i<data_t.size;i++) begin
-        wr_data_8b = data_t.wr_data[i];
-        drive_byte(wr_data_8b);
-        `uvm_info("DEBUG", $sformatf("Driving Write data %0h",wr_data_8b), UVM_NONE)
-      end
-      sample_ack(ack);
-    end else begin
-      state = READ_DATA;
-      `uvm_info("READ_DATA", $sformatf("Moving to READ_DATA state"), UVM_HIGH);
-      sample_read_data(cfg_pkt, ack);
-    end
-      if(ack == 1'b0) begin
-        state = STOP;
-        stop();
-        `uvm_info(name, $sformatf("Received ACK, moving to STOP state"), UVM_MEDIUM);
-      end else begin
-        stop();
-        `uvm_info(name, $sformatf("Received NACK, moving to STOP state"), UVM_MEDIUM);
-      end
-
-  end
+// GopalS: 
+// GopalS:   int idle_time_i; // local variable for idle time
+// GopalS:   int tbuf_i;      // Idle time from configure
+// GopalS:   bit [TARGET_ADDRESS_WIDTH -1:0] address_7b;
+// GopalS:   bit rw_b;
+// GopalS:   bit [7:0] writeData_8b;
+// GopalS:   
+// GopalS:   `uvm_info(name, $sformatf("Starting the drive data method"), UVM_MEDIUM);
+// GopalS:   data_t  = p_data_packet;
+// GopalS:   cfg_pkt = p_cfg_pkt;
+// GopalS:   state = START;
+// GopalS: 
+// GopalS:   //Driving Start Condition
+// GopalS:   drive_start();
+// GopalS:   state = ADDRESS;
+// GopalS: 
+// GopalS:   //Driving Address byte
+// GopalS:   {rw_b,address_7b} = {data_t.operation,data_t.targetAddress};
+// GopalS:   drive_byte({rw_b,address_7b});
+// GopalS:   `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, operation = %0b",address_7b, rw_b), UVM_NONE)
+// GopalS:   sample_ack(ack);
+// GopalS:   if(ack == 1'b1)begin
+// GopalS:     stop();
+// GopalS:     `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 1 and stop condition is triggered"), UVM_HIGH);
+// GopalS:   end else begin
+// GopalS:     `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 0"), UVM_HIGH);
+// GopalS:     if(rw_b == 0) begin
+// GopalS:       state = WRITE_DATA;
+// GopalS:       for(int i=0; i<data_t.size;i++) begin
+// GopalS:         writeData_8b = data_t.writeData[i];
+// GopalS:         drive_byte(writeData_8b);
+// GopalS:         `uvm_info("DEBUG", $sformatf("Driving Write data %0h",writeData_8b), UVM_NONE)
+// GopalS:       end
+// GopalS:       sample_ack(ack);
+// GopalS:     end else begin
+// GopalS:       state = READ_DATA;
+// GopalS:       `uvm_info("READ_DATA", $sformatf("Moving to READ_DATA state"), UVM_HIGH);
+// GopalS:       sample_read_data(cfg_pkt, ack);
+// GopalS:     end
+// GopalS:       if(ack == 1'b0) begin
+// GopalS:         state = STOP;
+// GopalS:         stop();
+// GopalS:         `uvm_info(name, $sformatf("Received ACK, moving to STOP state"), UVM_MEDIUM);
+// GopalS:       end else begin
+// GopalS:         stop();
+// GopalS:         `uvm_info(name, $sformatf("Received NACK, moving to STOP state"), UVM_MEDIUM);
+// GopalS:       end
+// GopalS: 
+// GopalS:   end
 
  endtask: drive_data
 
@@ -206,7 +206,7 @@ interface i3c_master_driver_bfm(input pclk,
 
      sda_oen <= TRISTATE_BUF_OFF;
      sda_o   <= 1;
-     state    = SLAVE_ADDR_ACK;
+     state    = TARGET_ADDR_ACK;
 
      @(posedge pclk);
      // Sample the ACK from the I2C bus
@@ -258,7 +258,7 @@ interface i3c_master_driver_bfm(input pclk,
     // Driving the ACK for slave address
     detect_negedge_scl();
     drive_sda(ack); 
-    state = SLAVE_ADDR_ACK;
+    state = TARGET_ADDR_ACK;
     detect_posedge_scl();
 
   endtask: sample_read_data
@@ -293,7 +293,7 @@ interface i3c_master_driver_bfm(input pclk,
     end while(!(scl_local == POSEDGE));
 
     scl_edge_value = edge_detect_e'(scl_local);
-    `uvm_info("MASTER_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
+    `uvm_info("controller_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
   
   endtask: detect_posedge_scl
   
@@ -319,9 +319,9 @@ interface i3c_master_driver_bfm(input pclk,
     end while(!(scl_local == NEGEDGE));
 
     scl_edge_value = edge_detect_e'(scl_local);
-    `uvm_info("MASTER_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
+    `uvm_info("controller_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
   
   endtask: detect_negedge_scl
   
-endinterface : i3c_master_driver_bfm
+endinterface : i3c_controller_driver_bfm
 `endif

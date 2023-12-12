@@ -1,11 +1,11 @@
-`ifndef I3C_MASTER_PKG_INCLUDED_
-`define I3C_MASTER_PKG_INCLUDED_
+`ifndef I3C_CONTROLLER_PKG_INCLUDED_
+`define I3C_CONTROLLER_PKG_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-// Package: master_pkg
-//  Includes all the files related to SPI master
+// Package: controller_pkg
+//  Includes all the files related to SPI controller
 //--------------------------------------------------------------------------------------------
-package i3c_master_pkg;
+package i3c_controller_pkg;
 
   //-------------------------------------------------------
   // Import uvm package
@@ -21,14 +21,14 @@ package i3c_master_pkg;
   //-------------------------------------------------------
   `include "i3c_controller_agent_config.sv"
   `include "i3c_controller_tx.sv"
-  `include "i3c_master_seq_item_converter.sv"
-  `include "i3c_master_cfg_converter.sv"
-  `include "i3c_master_sequencer.sv"
-  `include "i3c_master_driver_proxy.sv"
-  `include "i3c_master_monitor_proxy.sv"
-  `include "i3c_master_coverage.sv"
-  `include "i3c_master_agent.sv"
+ // GopalS:  `include "i3c_controller_seq_item_converter.sv"
+ // GopalS:  `include "i3c_controller_cfg_converter.sv"
+ // GopalS:  `include "i3c_controller_sequencer.sv"
+  `include "i3c_controller_driver_proxy.sv"
+ // GopalS:  `include "i3c_controller_monitor_proxy.sv"
+ // GopalS:  `include "i3c_controller_coverage.sv"
+ // GopalS:  `include "i3c_controller_agent.sv"
   
-endpackage : i3c_master_pkg
+endpackage : i3c_controller_pkg
 
 `endif

@@ -2,7 +2,7 @@
 `define HDL_TOP_INCLUDED_
 //--------------------------------------------------------------------------------------------
 // module : hdl_top
-// Description : hdl top has a interface and master and slave agent bfm
+// Description : hdl top has a interface and controller and target agent bfm
 //--------------------------------------------------------------------------------------------
 module hdl_top;
  //-------------------------------------------------------
@@ -50,16 +50,16 @@ module hdl_top;
    rst = 1'b1;
  end
 
- // Variable : intf_master
+ // Variable : intf_controller
  // SPI Interface Instantiation
- i3c_if intf_master(.pclk(clk),
+ i3c_if intf_controller(.pclk(clk),
                     .areset(rst),
                     .SCL(I3C_SCL),
                     .SDA(I3C_SDA));
 
- // Variable : intf_slave
+ // Variable : intf_target
  // SPI Interface Instantiation
- i3c_if intf_slave(.pclk(clk),
+ i3c_if intf_target(.pclk(clk),
                    .areset(rst),
                    .SCL(I3C_SCL),
                    .SDA(I3C_SDA));
@@ -89,13 +89,13 @@ module hdl_top;
  pullup p1 (I3C_SCL);
  pullup p2 (I3C_SDA);
 
- // Variable : master_agent_bfm_h
- // I2c Master BFM Agent Instantiation 
- i3c_master_agent_bfm i3c_master_agent_bfm_h(intf_master); 
+ // Variable : controller_agent_bfm_h
+ // I2c controller BFM Agent Instantiation 
+ i3c_controller_agent_bfm i3c_controller_agent_bfm_h(intf_controller); 
  
- // Variable : slave_agent_bfm_h
- // SPI Slave BFM Agent Instantiation
- i3c_slave_agent_bfm i3c_slave_agent_bfm_h(intf_slave);
+ // Variable : target_agent_bfm_h
+ // SPI target BFM Agent Instantiation
+ i3c_target_agent_bfm i3c_target_agent_bfm_h(intf_target);
 
  // To dump the waveforms
  initial begin

@@ -81,11 +81,35 @@ module i3c_controller_8b_write_seq_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
 
+  `SVTEST(Given_putTestReq_When_ReqSentThroughPut_Expect_sameReqThroughGetResponse)
+    i3c_controller_tx putTr;
+    i3c_controller_tx getTr;
+   
+    putTr = new();
+    uut.put_response(putTr);
+
+    uut.get_response(getTr);
+
+    `FAIL_UNLESS(putTr == getTr)
+  `SVTEST_END
+
+
   `SVTEST(Given_StartItem_When_CalledStart_Then_Expect_NewItemReq)
+    `FAIL_UNLESS(uut.req == null) 
     uut.start(null);
     `FAIL_UNLESS(uut.req != null) 
   `SVTEST_END
 
+/*
+  `SVTEST(Given_StartCalled_When_RandomizedValueNotMatchingWithCorrespondingValue_Expect_RandomizationFailure)
+   `uvm_info("Before randomized",$sformatf("req.operation = %0d req.writeData.size = %0d and targetAddress = %0b",uut.req.operation,uut.req.writeData.size,uut.req.targetAddress), UVM_HIGH)
+    uut.start(null);
+    uut.get_response(req);
+
+   `uvm_info("After randomized",$sformatf("req.operation = %0d req.writeData.size = %0d and targetAddress = %0b",req.operation,req.writeData.size,req.targetAddress), UVM_HIGH)
+
+  `SVTEST_END
+*/
 
   `SVTEST(Given_StartItemAndFinishItem_When_atLeastOnetimeRepeat_Expect_actualStartItemAndFinishItem_RepeatMinimumOnetime)
     `EXPECT_CALL(uut, start_item).at_least(1);
@@ -101,6 +125,8 @@ module i3c_controller_8b_write_seq_unit_test;
 
     `FAIL_UNLESS(req.writeData.size() == 1)
     `FAIL_UNLESS(req.operation == WRITE)
+   // `FAIL_UNLESS(req.targetAddress)
+   // `FAIL_UNLESS(req.readDataStatus)
       
   `SVTEST_END
 

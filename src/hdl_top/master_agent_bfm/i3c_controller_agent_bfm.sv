@@ -1,12 +1,12 @@
-`ifndef I3C_MASTER_AGENT_BFM_INCLUDED_
-`define I3C_MASTER_AGENT_BFM_INCLUDED_
+`ifndef I3C_CONTROLLER_AGENT_BFM_INCLUDED_
+`define I3C_CONTROLLER_AGENT_BFM_INCLUDED_
 
 //-------------------------------------------------------
-//module : i3c_master_agent_bfm
+//module : i3c_controller_agent_bfm
 //Description : Instaniate driver and monitor
 //
 //-------------------------------------------------------
-module i3c_master_agent_bfm(i3c_if intf);
+module i3c_controller_agent_bfm(i3c_if intf);
 
  //-------------------------------------------------------
  // Package : Importing Uvm Pakckage and Test Package
@@ -19,9 +19,9 @@ module i3c_master_agent_bfm(i3c_if intf);
   import i3c_globals_pkg::*;
 
  //-------------------------------------------------------
- //master driver bfm instantiation
+ //controller driver bfm instantiation
  //-------------------------------------------------------
- i3c_master_driver_bfm i3c_master_drv_bfm_h(.pclk(intf.pclk), 
+ i3c_controller_driver_bfm i3c_controller_drv_bfm_h(.pclk(intf.pclk), 
                                             .areset(intf.areset),
                                             .scl_i(intf.scl_i),
                                             .scl_o(intf.scl_o),
@@ -32,9 +32,9 @@ module i3c_master_agent_bfm(i3c_if intf);
                                            );
 
  //-------------------------------------------------------
- //master monitor bfm instatiation
+ //controller monitor bfm instatiation
  //-------------------------------------------------------
- i3c_master_monitor_bfm i3c_master_mon_bfm_h(.pclk(intf.pclk), 
+ i3c_controller_monitor_bfm i3c_controller_mon_bfm_h(.pclk(intf.pclk), 
                                             .areset(intf.areset),
                                             .scl_i(intf.scl_i),
                                             .scl_o(intf.scl_o),
@@ -49,17 +49,17 @@ module i3c_master_agent_bfm(i3c_if intf);
  //-------------------------------------------------------
  
  initial begin
-  uvm_config_db#(virtual i3c_master_driver_bfm)::set(null,"*","i3c_master_driver_bfm",
-                                                              i3c_master_drv_bfm_h);
+  uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"*","i3c_controller_driver_bfm",
+                                                              i3c_controller_drv_bfm_h);
 
-  uvm_config_db#(virtual i3c_master_monitor_bfm)::set(null,"*","i3c_master_monitor_bfm",
-                                                              i3c_master_mon_bfm_h);
+  uvm_config_db#(virtual i3c_controller_monitor_bfm)::set(null,"*","i3c_controller_monitor_bfm",
+                                                              i3c_controller_mon_bfm_h);
   end
 
  initial begin
-   $display("Master Agent BFM");
+   $display("controller Agent BFM");
  end
 
-endmodule : i3c_master_agent_bfm
+endmodule : i3c_controller_agent_bfm
 
 `endif

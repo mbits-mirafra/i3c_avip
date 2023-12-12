@@ -67,25 +67,24 @@ package i3c_globals_pkg;
   
   // struct: i3c_bits_transfer_s
   // 
-  // slave_address : array which holds the slave address  
-  // read_write : specifies the read or write condition after the slave address
+  // targetAddress : array which holds the slave address  
+  // operation : specifies the read or write condition after the slave address
   // register_address : array which holds the register address 
   // no_of_sda_bits_transfer: specifies how many sda bits to trasnfer 
   // slave_add_ack : specifies the acknowledgement after receiving slave adddress  
   // reg_add_ack :specifies the acknowledgement after receiving reg address
-  // wr_data_ack :specifies the acknowledgement after receiving data
+  // writeData_ack :specifies the acknowledgement after receiving data
   //
   typedef struct {
-    bit [TARGET_ADDRESS_WIDTH-1:0]slave_address;
-    bit read_write;
-    bit [DATA_WIDTH-1:0] wr_data[];
-    bit [DATA_WIDTH-1:0] rd_data[];
-    int size;
-    bit ack;
+    bit [TARGET_ADDRESS_WIDTH-1:0]targetAddress;
+    bit operation;
+    bit [DATA_WIDTH-1:0] writeData[];
+    bit [DATA_WIDTH-1:0] readData[];
+   // GopalS:  bit ack;
     int no_of_i3c_bits_transfer; 
     bit slave_add_ack;
     bit reg_add_ack;
-    bit [MAXIMUM_BYTES-1:0] wr_data_ack;
+    bit [MAXIMUM_BYTES-1:0] writeData_ack;
     bit [REGISTER_ADDRESS_WIDTH-1:0]register_address;
    } i3c_transfer_bits_s;
   
@@ -93,14 +92,14 @@ package i3c_globals_pkg;
   // struct: i3c_transfer_cfg_s
   // 
   // msb_first: specifies the shift direction
-  // read_write : read from or write to slave 
+  // operation : read from or write to slave 
   //
   typedef struct {
-    bit msb_first;
-    bit read_write;
-    int baudrate_divisor;
-    bit[TARGET_ADDRESS_WIDTH-1:0] slave_address;
-    bit [7:0]slave_memory[longint];
+    bit DataTransferdirectionMSBfirst;
+    bit operation;
+    int clockRateDividerValue;
+    bit[TARGET_ADDRESS_WIDTH-1:0] targetAddress;
+    bit [DATA_WIDTH-1:0]targetFIFOMemory[$];
   } i3c_transfer_cfg_s;
   
   // TODO(mshariff): Comments 

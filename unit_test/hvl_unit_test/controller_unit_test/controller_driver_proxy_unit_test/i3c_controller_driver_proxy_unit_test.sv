@@ -11,6 +11,12 @@ import i3c_globals_pkg::*;
 `include "i3c_controller_tx.sv"
 `include "i3c_controller_driver_proxy.sv"
 
+//`include "i3c_controller_pkg.sv"
+//import i3c_controller_pkg::*;
+
+`include "i3c_controller_driver_bfm.sv"
+//`include "i3c_controller_driver_bfm_mock.sv"
+
 typedef uvm_seq_item_pull_port#(i3c_controller_tx,i3c_controller_tx) item_pull_port_t;
 
 `include "svunit_uvm_mock_pkg.sv"
@@ -64,6 +70,9 @@ module i3c_controller_driver_proxy_unit_test;
 
   uvm_seq_item_pull_port_mock #(i3c_controller_tx) mock_seq_item_port;
 
+  //i3c_controller_driver_bfm_mock bfmMock = new(); 
+
+  i3c_controller_driver_bfm bfmInterface(.pclk(pclk), .areset(areset), .scl_i(scl_i), .scl_o(scl_o), .scl_oen(scl_oen), .sda_i(sda_i), .sda_o(sda_o), .sda_oen(sda_oen));
   //===================================
   // Build
   //===================================
@@ -74,6 +83,9 @@ module i3c_controller_driver_proxy_unit_test;
     mock_seq_item_port = new("mock_seq_item_port", null);
     uut.seq_item_port = mock_seq_item_port;
 
+    //uut.i3c_controller_drv_bfm_h = bfmMock;
+
+  uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"uut","i3c_controller_driver_bfm",bfmInterface);
     svunit_deactivate_uvm_component(uut);
   endfunction
 
@@ -88,6 +100,8 @@ module i3c_controller_driver_proxy_unit_test;
     `ON_CALL(mock_seq_item_port, get_next_item).will_by_default("_get_next_item");
     `ON_CALL(mock_seq_item_port, item_done).will_by_default("_item_done");
     `ON_CALL(mock_seq_item_port, put_response).will_by_default("_put_response");
+
+   // `ON_CALL(bfmMock, wait_for_reset).will_by_default("_wait_for_reset");
     svunit_activate_uvm_component(uut);
 
     //-----------------------------
@@ -134,6 +148,11 @@ module i3c_controller_driver_proxy_unit_test;
   //   `SVTEST_END
   //===================================
   `SVUNIT_TESTS_BEGIN
+
+ `SVTEST(Given_When_Expect)
+  // `EXPECT_CALL(bfmInterface, wait_for_reset).exactly(1);
+   bfmInterface.wait_for_reset();
+ `SVTEST_END
 
  `SVTEST(When_runPhasesStarted_Expect_getNextItemCalledOnce)
    `EXPECT_CALL(mock_seq_item_port, get_next_item).exactly(1);
