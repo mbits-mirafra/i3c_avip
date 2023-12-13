@@ -12,7 +12,7 @@ class i3c_controller_driver_proxy extends uvm_driver#(i3c_controller_tx);
 
  // GopalS:  i3c_controller_agent_config i3c_controller_agent_cfg_h;
   
- // GopalS:  virtual i3c_controller_driver_bfm i3c_controller_drv_bfm_h;
+  virtual i3c_controller_driver_bfm i3c_controller_drv_bfm_h;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -47,8 +47,8 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void i3c_controller_driver_proxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
-// GopalS:   if(!uvm_config_db#(virtual i3c_controller_driver_bfm)::get(this,"","i3c_controller_driver_bfm",i3c_controller_drv_bfm_h))
-// GopalS:   `uvm_fatal("FATAL_MDP_CANNOT_GET_controller_DRIVER_BFM","cannot get () i3c_controller_driver_bfm from uvm_config_db")
+  if(!uvm_config_db#(virtual i3c_controller_driver_bfm)::get(this,"","i3c_controller_driver_bfm",i3c_controller_drv_bfm_h))
+   `uvm_fatal("FATAL_MDP_CANNOT_GET_controller_DRIVER_BFM","cannot get () i3c_controller_driver_bfm from uvm_config_db")
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ endfunction : build_phase
 //--------------------------------------------------------------------------------------------
 function void i3c_controller_driver_proxy::end_of_elaboration_phase(uvm_phase phase);
   super.end_of_elaboration_phase(phase);
-// GopalS:    i3c_controller_drv_bfm_h.i3c_controller_drv_proxy_h = this;
+  i3c_controller_drv_bfm_h.i3c_controller_drv_proxy_h = this;
 endfunction  : end_of_elaboration_phase
 
 //--------------------------------------------------------------------------------------------
@@ -86,6 +86,10 @@ task i3c_controller_driver_proxy::run_phase(uvm_phase phase);
   super.run_phase(phase);
 
   `uvm_info(get_type_name(), "Running the Driver", UVM_NONE)
+
+  `uvm_info(get_type_name(), "MUNEEB :: Waiting for reset", UVM_NONE);
+  //i3c_controller_drv_bfm_h.wait_for_reset();
+  `uvm_info(get_type_name(), "MUNEEB :: Reset detected", UVM_NONE);
 
   forever begin
     seq_item_port.get_next_item(req);

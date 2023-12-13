@@ -15,7 +15,7 @@ import i3c_globals_pkg::*;
 //import i3c_controller_pkg::*;
 
 `include "i3c_controller_driver_bfm.sv"
-//`include "i3c_controller_driver_bfm_mock.sv"
+// GopalS: `include "i3c_controller_driver_bfm_mock.sv"
 
 typedef uvm_seq_item_pull_port#(i3c_controller_tx,i3c_controller_tx) item_pull_port_t;
 
@@ -70,9 +70,11 @@ module i3c_controller_driver_proxy_unit_test;
 
   uvm_seq_item_pull_port_mock #(i3c_controller_tx) mock_seq_item_port;
 
-  //i3c_controller_driver_bfm_mock bfmMock = new(); 
+  // GopalS: i3c_controller_driver_bfm_mock bfmMock = new(); 
 
   i3c_controller_driver_bfm bfmInterface(.pclk(pclk), .areset(areset), .scl_i(scl_i), .scl_o(scl_o), .scl_oen(scl_oen), .sda_i(sda_i), .sda_o(sda_o), .sda_oen(sda_oen));
+
+  // GopalS: virtual i3c_controller_driver_bfm bfm;
   //===================================
   // Build
   //===================================
@@ -83,9 +85,10 @@ module i3c_controller_driver_proxy_unit_test;
     mock_seq_item_port = new("mock_seq_item_port", null);
     uut.seq_item_port = mock_seq_item_port;
 
-    //uut.i3c_controller_drv_bfm_h = bfmMock;
+    // GopalS: uut.i3c_controller_drv_bfm_h = bfmMock;
+  // GopalS: bfm = bfmInterface;
 
-  uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"uut","i3c_controller_driver_bfm",bfmInterface);
+   uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"*","i3c_controller_driver_bfm",bfmInterface);
     svunit_deactivate_uvm_component(uut);
   endfunction
 
@@ -101,15 +104,13 @@ module i3c_controller_driver_proxy_unit_test;
     `ON_CALL(mock_seq_item_port, item_done).will_by_default("_item_done");
     `ON_CALL(mock_seq_item_port, put_response).will_by_default("_put_response");
 
-   // `ON_CALL(bfmMock, wait_for_reset).will_by_default("_wait_for_reset");
+    // GopalS: `ON_CALL(bfmMock, wait_for_reset).will_by_default("_wait_for_reset");
     svunit_activate_uvm_component(uut);
 
     //-----------------------------
     // start the testing phase
     //-----------------------------
     svunit_uvm_test_start();
-
-
 
   endtask
 
@@ -121,6 +122,8 @@ module i3c_controller_driver_proxy_unit_test;
   task teardown();
     svunit_ut.teardown();
     `FAIL_UNLESS(mock_seq_item_port.verify());
+    
+   // GopalS:  `FAIL_UNLESS(bfmMock.verify());
 
     //-----------------------------
     // terminate the testing phase 
@@ -149,9 +152,11 @@ module i3c_controller_driver_proxy_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
 
- `SVTEST(Given_When_Expect)
-  // `EXPECT_CALL(bfmInterface, wait_for_reset).exactly(1);
-   bfmInterface.wait_for_reset();
+ `SVTEST(When_runPhasesStarted_Expect_waitForResetCalledOnce)
+  // `EXPECT_CALL(bfmMock, wait_for_reset).exactly(1);
+   //`EXPECT_CALL(uut, wait_for_reset).exactly(1);
+   //bfmMock.wait_for_reset();
+   uut.wait_for_reset();
  `SVTEST_END
 
  `SVTEST(When_runPhasesStarted_Expect_getNextItemCalledOnce)
