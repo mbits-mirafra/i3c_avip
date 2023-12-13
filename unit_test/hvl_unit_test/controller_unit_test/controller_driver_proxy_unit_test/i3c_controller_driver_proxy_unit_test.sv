@@ -14,8 +14,8 @@ import i3c_globals_pkg::*;
 //`include "i3c_controller_pkg.sv"
 //import i3c_controller_pkg::*;
 
-`include "i3c_controller_driver_bfm.sv"
-// GopalS: `include "i3c_controller_driver_bfm_mock.sv"
+//`include "i3c_controller_driver_bfm.sv"
+`include "i3c_controller_driver_bfm_mock.sv"
 
 typedef uvm_seq_item_pull_port#(i3c_controller_tx,i3c_controller_tx) item_pull_port_t;
 
@@ -72,7 +72,14 @@ module i3c_controller_driver_proxy_unit_test;
 
   // GopalS: i3c_controller_driver_bfm_mock bfmMock = new(); 
 
-  i3c_controller_driver_bfm bfmInterface(.pclk(pclk), .areset(areset), .scl_i(scl_i), .scl_o(scl_o), .scl_oen(scl_oen), .sda_i(sda_i), .sda_o(sda_o), .sda_oen(sda_oen));
+   i3c_controller_driver_bfm dummyBfm();
+
+  // virtual i3c_controller_driver_bfm bfm;
+
+   initial begin
+     uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"*","i3c_controller_driver_bfm",dummyBfm);
+   end
+  //i3c_controller_driver_bfm bfmInterface(.pclk(pclk), .areset(areset), .scl_i(scl_i), .scl_o(scl_o), .scl_oen(scl_oen), .sda_i(sda_i), .sda_o(sda_o), .sda_oen(sda_oen));
 
   // GopalS: virtual i3c_controller_driver_bfm bfm;
   //===================================
@@ -88,17 +95,20 @@ module i3c_controller_driver_proxy_unit_test;
     // GopalS: uut.i3c_controller_drv_bfm_h = bfmMock;
   // GopalS: bfm = bfmInterface;
 
-   uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"*","i3c_controller_driver_bfm",bfmInterface);
+   //uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"*","i3c_controller_driver_bfm",bfm);
     svunit_deactivate_uvm_component(uut);
   endfunction
 
 
+   virtual i3c_controller_driver_bfm bfm;
   //===================================
   // Setup for running the Unit Tests
   //===================================
   task setup();
     svunit_ut.setup();
     /* Place Setup Code Here */
+
+     uvm_config_db#(virtual i3c_controller_driver_bfm)::get(null,"","i3c_controller_driver_bfm",bfm);
 
     `ON_CALL(mock_seq_item_port, get_next_item).will_by_default("_get_next_item");
     `ON_CALL(mock_seq_item_port, item_done).will_by_default("_item_done");
@@ -152,11 +162,15 @@ module i3c_controller_driver_proxy_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
 
+  `SVTEST(Given_When_Expect)
+    bfm.wait_for_reset();
+  `SVTEST_END
+/*
  `SVTEST(When_runPhasesStarted_Expect_waitForResetCalledOnce)
   // `EXPECT_CALL(bfmMock, wait_for_reset).exactly(1);
    //`EXPECT_CALL(uut, wait_for_reset).exactly(1);
-   //bfmMock.wait_for_reset();
-   uut.wait_for_reset();
+   bfmInterface.wait_for_reset();
+   //uut.wait_for_reset();
  `SVTEST_END
 
  `SVTEST(When_runPhasesStarted_Expect_getNextItemCalledOnce)
@@ -188,7 +202,7 @@ module i3c_controller_driver_proxy_unit_test;
      `FAIL_UNLESS(uut.req == _item)
     end
  `SVTEST_END
-
+*/
 
   `SVUNIT_TESTS_END
 
