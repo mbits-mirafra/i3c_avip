@@ -30,6 +30,9 @@ import svmock_pkg::*;
 class i3c_controller_driver_proxy_uvm_wrapper extends i3c_controller_driver_proxy;
 
   `uvm_component_utils(i3c_controller_driver_proxy_uvm_wrapper)
+
+    virtual i3c_controller_driver_bfm dummyBfm;
+
   function new(string name = "i3c_controller_driver_proxy_uvm_wrapper", uvm_component parent);
     super.new(name, parent);
   endfunction
@@ -38,7 +41,9 @@ class i3c_controller_driver_proxy_uvm_wrapper extends i3c_controller_driver_prox
   // Build
   //===================================
   function void build_phase(uvm_phase phase);
+
      super.build_phase(phase);
+     dummyBfm = i3c_controller_drv_bfm_h;
     /* Place Build Code Here */
   endfunction
 
@@ -163,8 +168,12 @@ module i3c_controller_driver_proxy_unit_test;
   //===================================
   `SVUNIT_TESTS_BEGIN
 
-  `SVTEST(Given_When_Expect)
-    //`EXPECT_CALL(uut, wait_for_reset).exactly(1);
+  `SVTEST(Expect_i3cControllerBfm_NotNull)
+    `FAIL_UNLESS(uut.dummyBfm != null)
+  `SVTEST_END
+
+  `SVTEST(Given_When_runPhaseStarted_Expect_waitForResetCalledOnce)
+    `FAIL_UNLESS(uut.dummyBfm.waitForResetTaskCounter == 1);
   `SVTEST_END
 /*
  `SVTEST(When_runPhasesStarted_Expect_waitForResetCalledOnce)
