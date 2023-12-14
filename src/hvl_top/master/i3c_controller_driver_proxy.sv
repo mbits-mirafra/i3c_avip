@@ -88,7 +88,7 @@ task i3c_controller_driver_proxy::run_phase(uvm_phase phase);
   `uvm_info(get_type_name(), "Running the Driver", UVM_NONE)
 
   `uvm_info(get_type_name(), "MUNEEB :: Waiting for reset", UVM_NONE);
-  //i3c_controller_drv_bfm_h.wait_for_reset();
+  i3c_controller_drv_bfm_h.wait_for_reset();
   `uvm_info(get_type_name(), "MUNEEB :: Reset detected", UVM_NONE);
 
   forever begin

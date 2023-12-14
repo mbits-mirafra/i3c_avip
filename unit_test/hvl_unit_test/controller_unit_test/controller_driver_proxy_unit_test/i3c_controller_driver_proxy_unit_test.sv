@@ -9,13 +9,13 @@ import uvm_pkg::*;
 import i3c_globals_pkg::*;
 
 `include "i3c_controller_tx.sv"
+`include "i3c_controller_driver_bfm_mock.sv"
 `include "i3c_controller_driver_proxy.sv"
 
 //`include "i3c_controller_pkg.sv"
 //import i3c_controller_pkg::*;
 
 //`include "i3c_controller_driver_bfm.sv"
-`include "i3c_controller_driver_bfm_mock.sv"
 
 typedef uvm_seq_item_pull_port#(i3c_controller_tx,i3c_controller_tx) item_pull_port_t;
 
@@ -74,7 +74,8 @@ module i3c_controller_driver_proxy_unit_test;
 
    i3c_controller_driver_bfm dummyBfm();
 
-  // virtual i3c_controller_driver_bfm bfm;
+   //virtual i3c_controller_driver_bfm bfm;
+  // bfm = dummyBfm;
 
    initial begin
      uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"*","i3c_controller_driver_bfm",dummyBfm);
@@ -95,12 +96,12 @@ module i3c_controller_driver_proxy_unit_test;
     // GopalS: uut.i3c_controller_drv_bfm_h = bfmMock;
   // GopalS: bfm = bfmInterface;
 
-   //uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"*","i3c_controller_driver_bfm",bfm);
+   //uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"","i3c_controller_driver_bfm",bfm);
     svunit_deactivate_uvm_component(uut);
   endfunction
 
 
-   virtual i3c_controller_driver_bfm bfm;
+   // GopalS: virtual i3c_controller_driver_bfm bfm;
   //===================================
   // Setup for running the Unit Tests
   //===================================
@@ -108,7 +109,7 @@ module i3c_controller_driver_proxy_unit_test;
     svunit_ut.setup();
     /* Place Setup Code Here */
 
-     uvm_config_db#(virtual i3c_controller_driver_bfm)::get(null,"","i3c_controller_driver_bfm",bfm);
+   //  uvm_config_db#(virtual i3c_controller_driver_bfm)::get(null,"","i3c_controller_driver_bfm",bfm);
 
     `ON_CALL(mock_seq_item_port, get_next_item).will_by_default("_get_next_item");
     `ON_CALL(mock_seq_item_port, item_done).will_by_default("_item_done");
@@ -163,7 +164,7 @@ module i3c_controller_driver_proxy_unit_test;
   `SVUNIT_TESTS_BEGIN
 
   `SVTEST(Given_When_Expect)
-    bfm.wait_for_reset();
+    //`EXPECT_CALL(uut, wait_for_reset).exactly(1);
   `SVTEST_END
 /*
  `SVTEST(When_runPhasesStarted_Expect_waitForResetCalledOnce)
