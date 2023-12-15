@@ -104,6 +104,8 @@ package i3c_globals_pkg;
   
   // TODO(mshariff): Comments 
   typedef enum int{
+    RESET_DEACTIVATED,
+    RESET_ACTIVATED,
     IDLE,
     FREE,
     START, 

@@ -51,10 +51,13 @@ interface i3c_controller_driver_bfm(input pclk,
   // Waiting for system reset to be active
   //-------------------------------------------------------
   task wait_for_reset();
+    state = RESET_DEACTIVATED;
     @(negedge areset);
- // GopalS:    `uvm_info(name, $sformatf("System reset detected"), UVM_HIGH);
-    @(posedge areset);
- // GopalS:    `uvm_info(name, $sformatf("System reset deactivated"), UVM_HIGH);
+    state = RESET_ACTIVATED;
+    // MSHA: @(negedge areset);
+ // // MSHA: GopalS:    `uvm_info(name, $sformatf("System reset detected"), UVM_HIGH);
+    // MSHA: @(posedge areset);
+ // // MSHA: GopalS:    `uvm_info(name, $sformatf("System reset deactivated"), UVM_HIGH);
   endtask: wait_for_reset
 
   //-------------------------------------------------------
