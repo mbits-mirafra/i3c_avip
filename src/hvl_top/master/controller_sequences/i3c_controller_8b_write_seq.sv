@@ -39,15 +39,14 @@ task i3c_controller_8b_write_seq::body();
 // GopalS:   `uvm_info("DEBUG", $sformatf("address = %0x",
 // GopalS:   p_sequencer.i3c_controller_agent_cfg_h.slave_address_array[0]), UVM_NONE)
 
-//  req = i3c_controller_tx::type_id::create("req"); 
+  req = i3c_controller_tx::type_id::create("req"); 
 
   start_item(req);
 
-    //req = i3c_controller_tx::type_id::create("req"); 
-    //if(!req.randomize() with {operation == WRITE;
-      //                        writeData.size()==1;}) begin
-     // `uvm_error(get_type_name(), "Randomization failed")
-   // end
+    if(!req.randomize() with {operation == WRITE;
+                              writeData.size()==1;}) begin
+      `uvm_error(get_type_name(), "Randomization failed")
+    end
   
     // GopalS: req.print();
   finish_item(req);
