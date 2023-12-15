@@ -100,24 +100,13 @@ module i3c_controller_8b_write_seq_unit_test;
     `FAIL_UNLESS(uut.req != null) 
   `SVTEST_END
 
-/*
-  `SVTEST(Given_StartCalled_When_RandomizedValueNotMatchingWithCorrespondingValue_Expect_RandomizationFailure)
-   `uvm_info("Before randomized",$sformatf("req.operation = %0d req.writeData.size = %0d and targetAddress = %0b",uut.req.operation,uut.req.writeData.size,uut.req.targetAddress), UVM_HIGH)
-    uut.start(null);
-    uut.get_response(req);
 
-   `uvm_info("After randomized",$sformatf("req.operation = %0d req.writeData.size = %0d and targetAddress = %0b",req.operation,req.writeData.size,req.targetAddress), UVM_HIGH)
-
-  `SVTEST_END
-*/
-
-  `SVTEST(Given_StartItemAndFinishItem_When_atLeastOnetimeRepeat_Expect_actualStartItemAndFinishItem_RepeatMinimumOnetime)
-    `EXPECT_CALL(uut, start_item).at_least(1);
-    `EXPECT_CALL(uut, finish_item).at_least(1);
+  `SVTEST(Given_StartItemAndFinishItem_When_CalledStart_Expect_StartItemAndFinishItemCalledOnce)
+    `EXPECT_CALL(uut, start_item).exactly(1);
+    `EXPECT_CALL(uut, finish_item).exactly(1);
 
     uut.start(null);
   `SVTEST_END
-
 
   `SVTEST(Taking_getResponseFromSequence_When_getResponseValueSameAsGivenValue_Expect_comparisonPass)
     uut.start(null);
