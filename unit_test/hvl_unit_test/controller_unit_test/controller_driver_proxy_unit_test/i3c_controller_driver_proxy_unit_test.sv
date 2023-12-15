@@ -12,11 +12,6 @@ import i3c_globals_pkg::*;
 `include "i3c_controller_driver_bfm_mock.sv"
 `include "i3c_controller_driver_proxy.sv"
 
-//`include "i3c_controller_pkg.sv"
-//import i3c_controller_pkg::*;
-
-//`include "i3c_controller_driver_bfm.sv"
-
 typedef uvm_seq_item_pull_port#(i3c_controller_tx,i3c_controller_tx) item_pull_port_t;
 
 `include "svunit_uvm_mock_pkg.sv"
@@ -75,19 +70,12 @@ module i3c_controller_driver_proxy_unit_test;
 
   uvm_seq_item_pull_port_mock #(i3c_controller_tx) mock_seq_item_port;
 
-  // GopalS: i3c_controller_driver_bfm_mock bfmMock = new(); 
-
    i3c_controller_driver_bfm dummyBfm();
-
-   //virtual i3c_controller_driver_bfm bfm;
-  // bfm = dummyBfm;
 
    initial begin
      uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"*","i3c_controller_driver_bfm",dummyBfm);
    end
-  //i3c_controller_driver_bfm bfmInterface(.pclk(pclk), .areset(areset), .scl_i(scl_i), .scl_o(scl_o), .scl_oen(scl_oen), .sda_i(sda_i), .sda_o(sda_o), .sda_oen(sda_oen));
 
-  // GopalS: virtual i3c_controller_driver_bfm bfm;
   //===================================
   // Build
   //===================================
@@ -98,15 +86,10 @@ module i3c_controller_driver_proxy_unit_test;
     mock_seq_item_port = new("mock_seq_item_port", null);
     uut.seq_item_port = mock_seq_item_port;
 
-    // GopalS: uut.i3c_controller_drv_bfm_h = bfmMock;
-  // GopalS: bfm = bfmInterface;
-
-   //uvm_config_db#(virtual i3c_controller_driver_bfm)::set(null,"","i3c_controller_driver_bfm",bfm);
     svunit_deactivate_uvm_component(uut);
   endfunction
 
 
-   // GopalS: virtual i3c_controller_driver_bfm bfm;
   //===================================
   // Setup for running the Unit Tests
   //===================================
@@ -114,13 +97,12 @@ module i3c_controller_driver_proxy_unit_test;
     svunit_ut.setup();
     /* Place Setup Code Here */
 
-   //  uvm_config_db#(virtual i3c_controller_driver_bfm)::get(null,"","i3c_controller_driver_bfm",bfm);
+    _item = null;
 
     `ON_CALL(mock_seq_item_port, get_next_item).will_by_default("_get_next_item");
     `ON_CALL(mock_seq_item_port, item_done).will_by_default("_item_done");
     `ON_CALL(mock_seq_item_port, put_response).will_by_default("_put_response");
 
-    // GopalS: `ON_CALL(bfmMock, wait_for_reset).will_by_default("_wait_for_reset");
     svunit_activate_uvm_component(uut);
 
     //-----------------------------
@@ -138,8 +120,6 @@ module i3c_controller_driver_proxy_unit_test;
   task teardown();
     svunit_ut.teardown();
     `FAIL_UNLESS(mock_seq_item_port.verify());
-    
-   // GopalS:  `FAIL_UNLESS(bfmMock.verify());
 
     //-----------------------------
     // terminate the testing phase 
@@ -172,18 +152,28 @@ module i3c_controller_driver_proxy_unit_test;
     `FAIL_UNLESS(uut.dummyBfm != null)
   `SVTEST_END
 
-  `SVTEST(Given_When_runPhaseStarted_Expect_waitForResetCalledOnce)
+  `SVTEST(When_runPhaseStarted_Expect_waitForResetCalledOnce)
     `FAIL_UNLESS(uut.dummyBfm.waitForResetTaskCounter == 1);
   `SVTEST_END
-/*
- `SVTEST(When_runPhasesStarted_Expect_waitForResetCalledOnce)
-  // `EXPECT_CALL(bfmMock, wait_for_reset).exactly(1);
-   //`EXPECT_CALL(uut, wait_for_reset).exactly(1);
-   bfmInterface.wait_for_reset();
-   //uut.wait_for_reset();
+
+  `SVTEST(When_runPhaseStarted_Expect_waitForResetAndDriveIdleStateCalledOnce)
+    `FAIL_UNLESS(uut.dummyBfm.waitForResetTaskCounter == 1);
+    `FAIL_UNLESS(uut.dummyBfm.driveIdleStateTaskCounter == 1);
+  `SVTEST_END
+
+
+ `SVTEST(Given_fourItem_When_runPhaseStarted_Expect_waitForIdleStateCalledFiveTimes)
+   repeat(4) begin
+     _item = new();
+     put_item(_item);
+     step(1);
+   end
+   `FAIL_UNLESS(uut.dummyBfm.waitForIdleStateCounter == 5)
  `SVTEST_END
 
+ 
  `SVTEST(When_runPhasesStarted_Expect_getNextItemCalledOnce)
+   put_item(_item);
    `EXPECT_CALL(mock_seq_item_port, get_next_item).exactly(1);
  `SVTEST_END
 
@@ -212,8 +202,23 @@ module i3c_controller_driver_proxy_unit_test;
      `FAIL_UNLESS(uut.req == _item)
     end
  `SVTEST_END
-*/
 
+ `SVTEST(Given_fourItem_When_runPhaseStarted_Expect_driveToBfmCounterCalledFourTimes)
+    repeat(4) begin
+     _item = new();
+     put_item(_item);
+     step(1);
+    end
+    $display("[UUT] - uut.dummyBfm.driveToBfmCounter = %0d",uut.dummyBfm.driveToBfmCounter);
+     `FAIL_UNLESS(uut.dummyBfm.driveToBfmCounter == 4)
+ `SVTEST_END
+
+/*
+ `SVTEST(Given_When_Expect)
+   //`FAIL_UNLESS(uut.struct_packet == null)
+   //  $display("[UUT] - struct_packet = %0p",uut.struct_packet); 
+ `SVTEST_END
+*/
   `SVUNIT_TESTS_END
 
   function void put_item(i3c_controller_tx t);

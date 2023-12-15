@@ -21,8 +21,8 @@ class i3c_controller_driver_proxy extends uvm_driver#(i3c_controller_tx);
   extern virtual function void connect_phase(uvm_phase phase);
   extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual task run_phase(uvm_phase phase);
-  // GopalS: extern virtual task drive_to_bfm(inout i3c_transfer_bits_s packet, 
-  // GopalS:                                  input i3c_transfer_cfg_s packet1);
+  extern virtual task drive_to_bfm(inout i3c_transfer_bits_s packet, 
+                                   input i3c_transfer_cfg_s packet1);
 
 endclass : i3c_controller_driver_proxy
 
@@ -85,33 +85,36 @@ endfunction  : end_of_elaboration_phase
 task i3c_controller_driver_proxy::run_phase(uvm_phase phase);
   super.run_phase(phase);
 
-  `uvm_info(get_type_name(), "Running the Driver", UVM_NONE)
+  `uvm_info(get_type_name(), "Running the Driver", UVM_HIGH)
 
-  `uvm_info(get_type_name(), "MUNEEB :: Waiting for reset", UVM_NONE);
+  `uvm_info(get_type_name(), "MUNEEB :: Waiting for reset", UVM_HIGH);
   i3c_controller_drv_bfm_h.wait_for_reset();
-  `uvm_info(get_type_name(), "MUNEEB :: Reset detected", UVM_NONE);
+  `uvm_info(get_type_name(), "MUNEEB :: Reset detected", UVM_HIGH);
+
+
+  `uvm_info(get_type_name(), "MUNEEB :: Driving Idle", UVM_HIGH);
+  i3c_controller_drv_bfm_h.drive_idle_state();
+  `uvm_info(get_type_name(), "MUNEEB :: Drove Idle", UVM_HIGH);
+
 
   forever begin
-    seq_item_port.get_next_item(req);
-    seq_item_port.item_done();
+    i3c_transfer_bits_s struct_packet;
+    i3c_transfer_cfg_s struct_cfg;
+
+    `uvm_info("DEBUG", "Inside i3c_controller_driver_proxy", UVM_HIGH);
+
+    i3c_controller_drv_bfm_h.wait_for_idle_state();
+
+      seq_item_port.get_next_item(req);
+
+      drive_to_bfm(struct_packet,struct_cfg);
+
+      seq_item_port.item_done();
   end
 
 
-// GopalS:   `uvm_info(get_type_name(), "MUNEEB :: Waiting for reset", UVM_NONE);
-// GopalS:   i3c_controller_drv_bfm_h.wait_for_reset();
-// GopalS:   `uvm_info(get_type_name(), "MUNEEB :: Reset detected", UVM_NONE);
-// GopalS: 
-// GopalS:   `uvm_info(get_type_name(), "MUNEEB :: Driving Idle", UVM_NONE);
-// GopalS:   i3c_controller_drv_bfm_h.drive_idle_state();
-// GopalS:   `uvm_info(get_type_name(), "MUNEEB :: Drove Idle", UVM_NONE);
-// GopalS: 
+
 // GopalS:   forever begin
-// GopalS:     i3c_transfer_bits_s struct_packet;
-// GopalS:     i3c_transfer_cfg_s struct_cfg;
-// GopalS:   
-// GopalS:     `uvm_info("DEBUG", "Inside i3c_controller_driver_proxy", UVM_NONE);
-// GopalS: 
-// GopalS:     i3c_controller_drv_bfm_h.wait_for_idle_state();
 // GopalS: 
 // GopalS:     seq_item_port.get_next_item(req);
 // GopalS:     
@@ -130,12 +133,12 @@ task i3c_controller_driver_proxy::run_phase(uvm_phase phase);
 // GopalS: 
 // GopalS:   end
 endtask : run_phase
-//
-// GopalS:  task i3c_controller_driver_proxy::drive_to_bfm(inout i3c_transfer_bits_s packet, 
-// GopalS:                                            input  i3c_transfer_cfg_s packet1);
-// GopalS:    `uvm_info("DEBUG", "Inside drive to bfm", UVM_NONE);
-// GopalS:    i3c_controller_drv_bfm_h.drive_data(packet,packet1); 
-// GopalS:    `uvm_info(get_type_name(),$sformatf("AFTER STRUCT PACKET : , \n %p",packet1),UVM_LOW);
-// GopalS:  endtask: drive_to_bfm
+
+  task i3c_controller_driver_proxy::drive_to_bfm(inout i3c_transfer_bits_s packet, 
+                                            input  i3c_transfer_cfg_s packet1);
+    `uvm_info("DEBUG", "Inside drive to bfm", UVM_NONE);
+    i3c_controller_drv_bfm_h.drive_data(packet,packet1); 
+    `uvm_info(get_type_name(),$sformatf("AFTER STRUCT PACKET : , \n %p",packet1),UVM_LOW);
+  endtask: drive_to_bfm
 
 `endif
