@@ -118,13 +118,13 @@ module i3c_controller_driver_bfm_unit_test;
     #2;
     fork
       begin : Arrange
-       bfmInterface.wait_for_reset();
+        bfmInterface.wait_for_reset();
       end
     join_none
 
     #2 activeLowReset = 0;
     repeat(3) @(posedge clk);
-    `FAIL_IF(bfmInterface.state == RESET_ACTIVATED)
+    #0 `FAIL_IF(bfmInterface.state == RESET_ACTIVATED)
   `SVTEST_END
 
   `SVTEST(Given_waitForResetTask_When_resetValue1toValue0_Expect_stateResetActivated)
