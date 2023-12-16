@@ -22,8 +22,12 @@ module i3c_controller_driver_bfm_unit_test;
 
   bit clk;
   bit activeLowReset;
-  bit scl_i;
-  bit sda_i;
+  bit sclInput;
+  bit sdaInput;
+  bit sclOutputEnable;
+  bit sclOutput;
+  bit sdaOutputEnable;
+  bit sdaOutput;
 
   initial begin
     clk = 0;
@@ -49,7 +53,7 @@ module i3c_controller_driver_bfm_unit_test;
   // running the Unit Tests on
   //===================================
 
-  i3c_controller_driver_bfm bfmInterface(.pclk(clk), .areset(activeLowReset), .scl_i(scl_i), .scl_o(scl_o), .scl_oen(scl_oen), .sda_i(sda_i), .sda_o(sda_o), .sda_oen(sda_oen));
+  i3c_controller_driver_bfm bfmInterface(.pclk(clk), .areset(activeLowReset), .scl_i(sclInput), .scl_o(sclOutput), .scl_oen(sclOutputEnable), .sda_i(sdaInput), .sda_o(sdaOutput), .sda_oen(sdaOutputEnable));
 
   //===================================
   // Build
@@ -101,7 +105,7 @@ module i3c_controller_driver_bfm_unit_test;
     bfmInterface.wait_for_reset();
   `SVTEST_END
 
-  `SVTEST(Given_waitForReset_When_ResetValueOne_Expect_stateResetDeactivated)
+  `SVTEST(Given_waitForResetTask_When_ResetValueOne_Expect_stateResetDeactivated)
     fork
       begin : Arrange
         bfmInterface.wait_for_reset();
@@ -140,52 +144,96 @@ module i3c_controller_driver_bfm_unit_test;
 
   `SVTEST_END
 
-  `SVTEST(Given_activeLowReset_When_waitForResetTaskCalled_Expect_TaskToReturnAfterAssertionFollowedbyDeassertion)
-    //Arrange in parallel to Act
+  `SVTEST(Given_waitForResetTask_When_resetValueNoRisingedge_Expect_stateResetNotDeactivated)
+  activeLowReset = 1;
+  #0;
     fork
       begin : Arrange
         bfmInterface.wait_for_reset();
       end
     join_none
 
-    begin : Act
-      //initila value 
-     // MSHA:  #2 activeLowReset = 0;
-     // MSHA:  @(posedge clk);
-     // MSHA:  `FAIL_UNLESS(bfmInterface.state == RESET_ACTIVATED)
-
-     // MSHA:  #2 activeLowReset = 1;
-     // MSHA:  `FAIL_UNLESS(bfmInterface.state == RESET_DEACTIVATED)
-    
-    end
+    activeLowReset = 0;
+    repeat(3) @(posedge clk);
+    #0 `FAIL_IF(bfmInterface.state == RESET_DEACTIVATED)
   `SVTEST_END
-// MSHA:   `SVTEST(When_callingWaitForResetMethod_Expect_waitForResetCalledOnec)
-// MSHA:     bfmInterface.wait_for_reset();
-// MSHA:   `SVTEST_END
-// MSHA: 
-// MSHA:   `SVTEST(Given_generatedClk_When_connectedToBfmAndComparingAtPosedge_Expect_SameClk)
-// MSHA:     @(posedge clk)
-// MSHA:     `FAIL_UNLESS(clk == bfmInterface.pclk) 
-// MSHA:   `SVTEST_END
-// MSHA: 
-// MSHA:   `SVTEST(Given_generatedReset_When_connectedToBfmAndComparingAtPosedge_Expect_SameReset)
-// MSHA:     @(posedge clk)
-// MSHA:     `FAIL_UNLESS(activeLowReset == bfmInterface.areset) 
-// MSHA:   `SVTEST_END
-// MSHA:   
-// MSHA:   `SVTEST(When_driveIdleStateCalled_Expect_stateIsEqualToIDLE)
-// MSHA:     bfmInterface.drive_idle_state();
-// MSHA:     `FAIL_UNLESS(bfmInterface.state == IDLE)
-// MSHA:   `SVTEST_END
-// MSHA:    
-// MSHA:   `SVTEST(Given_SclAndSdaInput_When_bothAreOne_Expect_waitForIdleStateCalled)
-// MSHA:     scl_i = 1;
-// MSHA:     sda_i = 1;
-// MSHA:     @(posedge clk)
-// MSHA:     bfmInterface.wait_for_idle_state();
-// MSHA:     `FAIL_UNLESS(scl_i == bfmInterface.scl_i) 
-// MSHA:     `FAIL_UNLESS(sda_i == bfmInterface.sda_i) 
-// MSHA:   `SVTEST_END
+
+  `SVTEST(Given_waitForResetTask_When_resetValue0toValue1_Expect_stateResetDeactivated)
+  activeLowReset = 1;
+  #0;
+    fork
+      begin : Arrange
+        bfmInterface.wait_for_reset();
+      end
+    join_none
+
+    activeLowReset = 0;
+    #2 activeLowReset = 1;
+    #0 `FAIL_UNLESS(bfmInterface.state == RESET_DEACTIVATED)
+  `SVTEST_END
+
+  `SVTEST(Given_driveIdleStateTask_When_clkValue0To1_Expect_sclOutputEnableZero)
+    sclOutputEnable = 1;
+    fork
+      begin : Arrange
+        bfmInterface.drive_idle_state();
+      end
+    join_none
+   
+    @(posedge clk);
+    #2 `FAIL_UNLESS(bfmInterface.scl_oen == 0)
+  `SVTEST_END
+
+
+  `SVTEST(Given_driveIdleStateTask_When_clkValue0To1_Expect_sclOutputOne)
+    sclOutput = 0;
+    fork
+      begin : Arrange
+        bfmInterface.drive_idle_state();
+      end
+    join_none
+   
+    @(posedge clk);
+    #2 `FAIL_UNLESS(bfmInterface.scl_o == 1)
+  `SVTEST_END
+
+  
+  `SVTEST(Given_driveIdleStateTask_When_clkValue0To1_Expect_sdaOutputEnableZero)
+    sdaOutputEnable = 1;
+    fork
+      begin : Arrange
+        bfmInterface.drive_idle_state();
+      end
+    join_none
+   
+    @(posedge clk);
+    #2 `FAIL_UNLESS(bfmInterface.sda_oen == 0)
+  `SVTEST_END
+
+  `SVTEST(Given_driveIdleStateTask_When_clkValue0To1_Expect_sdaOutputOne)
+    sdaOutput = 0;
+    fork
+      begin : Arrange
+        bfmInterface.drive_idle_state();
+      end
+    join_none
+   
+    @(posedge clk);
+    #2 `FAIL_UNLESS(bfmInterface.sda_o == 1)
+  `SVTEST_END
+
+
+  `SVTEST(Given_driveIdleStateTask_When_SclOutputEnableValue0SclOutputValue1sdaOutputEnableValue0SdaOutputValue1_Expect_stateIsIDLE)
+    fork
+      begin : Arrange
+        bfmInterface.drive_idle_state();
+      end
+    join_none
+   
+    repeat(2) @(posedge clk);
+    `FAIL_UNLESS(bfmInterface.state == IDLE)
+  `SVTEST_END
+
 
   `SVUNIT_TESTS_END
 

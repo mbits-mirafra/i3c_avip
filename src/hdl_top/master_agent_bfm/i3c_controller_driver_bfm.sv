@@ -46,25 +46,16 @@ interface i3c_controller_driver_bfm(input pclk,
    $display(name);
  end
 
-  //-------------------------------------------------------
-  // Task: wait_for_reset
-  // Waiting for system reset to be active
-  //-------------------------------------------------------
   task wait_for_reset();
     state = RESET_DEACTIVATED;
     @(negedge areset);
     state = RESET_ACTIVATED;
-    // MSHA: @(negedge areset);
- // // MSHA: GopalS:    `uvm_info(name, $sformatf("System reset detected"), UVM_HIGH);
-    // MSHA: @(posedge areset);
- // // MSHA: GopalS:    `uvm_info(name, $sformatf("System reset deactivated"), UVM_HIGH);
+    @(posedge areset);
+    state = RESET_DEACTIVATED;
   endtask: wait_for_reset
 
-  //-------------------------------------------------------
-  // Task: drive_idle_state
-  // Used for driving SCL=1 and SDA=1
   // TODO(mshariff): Put more comments for logic pf SCL and SDA
-  //-------------------------------------------------------
+
   task drive_idle_state();
     @(posedge pclk);
 
@@ -75,13 +66,9 @@ interface i3c_controller_driver_bfm(input pclk,
     sda_o   <= 1;
 
     state=IDLE;
-    `uvm_info(name, $sformatf("Successfully drove the IDLE state"), UVM_HIGH);
   endtask: drive_idle_state
 
-  //-------------------------------------------------------
-  // Task: wait_for_idle_state
-  // Waits for I3C bus to be in IDLe state (SCL=1 and SDA=1)
-  //-------------------------------------------------------
+
   task wait_for_idle_state();
     @(posedge pclk);
 
