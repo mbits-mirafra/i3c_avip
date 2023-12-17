@@ -68,14 +68,13 @@ interface i3c_controller_driver_bfm(input pclk,
     state=IDLE;
   endtask: drive_idle_state
 
-
   task wait_for_idle_state();
     @(posedge pclk);
 
     while(scl_i!=1 && sda_i!=1) begin
       @(posedge pclk);
     end
-      
+
     `uvm_info(name, $sformatf("I3C bus is free state detected"), UVM_HIGH);
   endtask: wait_for_idle_state
 

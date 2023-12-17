@@ -234,6 +234,68 @@ module i3c_controller_driver_bfm_unit_test;
     `FAIL_UNLESS(bfmInterface.state == IDLE)
   `SVTEST_END
 
+  `SVTEST(Given_waitForIdleStateTask_When_StateIsNotIdle_Expect_SclInputValueIs0SdaInputValueIs0)
+
+    sclInput = 0;
+    sdaInput = 0;
+    fork
+      begin : Arrange
+        bfmInterface.wait_for_idle_state();
+      end
+    join_none
+
+    @(posedge clk);
+    `FAIL_UNLESS(bfmInterface.scl_i == 0)
+    `FAIL_UNLESS(bfmInterface.sda_i == 0)
+   `SVTEST_END
+
+
+`SVTEST(Given_waitForIdleStateTask_When_StateIsNotIdle_Expect_SclInputValueIs0SdaInputValueIs1)
+
+    sclInput = 0;
+    sdaInput = 1;
+    fork
+      begin : Arrange
+        bfmInterface.wait_for_idle_state();
+      end
+    join_none
+
+    @(posedge clk);
+    `FAIL_UNLESS(bfmInterface.scl_i == 0)
+    `FAIL_UNLESS(bfmInterface.sda_i == 1)
+   `SVTEST_END
+
+
+`SVTEST(Given_waitForIdleStateTask_When_StateIsNotIdle_Expect_SclInputValueIs1SdaInputValueIs0)
+
+    sclInput = 1;
+    sdaInput = 0;
+    fork
+      begin : Arrange
+        bfmInterface.wait_for_idle_state();
+      end
+    join_none
+
+    @(posedge clk);
+    `FAIL_UNLESS(bfmInterface.scl_i == 1)
+    `FAIL_UNLESS(bfmInterface.sda_i == 0)
+   `SVTEST_END
+
+
+  `SVTEST(Given_waitForIdleStateTask_When_StateIsIdle_Expect_SclInputValueIs1SdaInputValueIs1)
+
+    sdaInput = 1;
+    sclInput = 1;
+    fork
+      begin : Arrange
+        bfmInterface.wait_for_idle_state();
+      end
+    join_none
+
+    @(posedge clk);
+   #0 `FAIL_UNLESS(bfmInterface.scl_i && bfmInterface.sda_i)
+   `SVTEST_END
+
 
   `SVUNIT_TESTS_END
 
