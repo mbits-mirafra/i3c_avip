@@ -169,27 +169,32 @@ endtask: drive_data
   // task for driving the sda_oen as high and sda as low
    task drive_start();
      @(posedge pclk);
-     scl_oen <= TRISTATE_BUF_OFF;
-     scl_o   <= 1;
-     sda_oen <= TRISTATE_BUF_OFF;
-     sda_o   <= 1;
+     drive_scl(1);
+     drive_sda(1);
+
+     // MSHA: scl_oen <= TRISTATE_BUF_OFF;
+     // MSHA: scl_o   <= 1;
+     // MSHA: sda_oen <= TRISTATE_BUF_OFF;
+     // MSHA: sda_o   <= 1;
 
      @(posedge pclk);
-     sda_oen <= TRISTATE_BUF_ON;
-     sda_o   <= 0;
+     drive_scl(1);
+     drive_sda(0);
+     // MSHA: sda_oen <= TRISTATE_BUF_ON;
+     // MSHA: sda_o   <= 0;
 
      `uvm_info(name, $sformatf("Driving start condition"), UVM_MEDIUM);
    endtask :drive_start
 
   // task for driving the address byte and data byte
-   task drive_byte(input bit[7:0] p_data_8b);
+   task drive_byte(input bit[7:0] data);
      int bit_no;
 
-     `uvm_info("DEBUG", $sformatf("Driving byte = %0b",p_data_8b), UVM_NONE)
+     `uvm_info("DEBUG", $sformatf("Driving byte = %0b",data), UVM_NONE)
      for(int k=0;k < DATA_WIDTH; k++) begin
        scl_tristate_buf_on();
        sda_oen <= TRISTATE_BUF_ON;
-       sda_o   <= p_data_8b[k];
+       sda_o   <= data[k];
        scl_tristate_buf_off();
      end
       
@@ -221,14 +226,17 @@ endtask: drive_data
    // Complete the SCL clock
    state = STOP;
    @(posedge pclk);
-   scl_oen <= TRISTATE_BUF_OFF;
-   scl_o   <= 1;
-   sda_oen <= TRISTATE_BUF_ON;
-   sda_o   <= 0;
+   // MSHA: scl_oen <= TRISTATE_BUF_OFF;
+   // MSHA: scl_o   <= 1;
+   drive_scl(1);
+   drive_sda(0);
+   // MSHA: sda_oen <= TRISTATE_BUF_ON;
+   // MSHA: sda_o   <= 0;
 
    @(posedge pclk);
-   sda_oen <= TRISTATE_BUF_OFF;
-   sda_o   <= 1;
+   drive_sda(1);
+   // MSHA: sda_oen <= TRISTATE_BUF_OFF;
+   // MSHA: sda_o   <= 1;
 
      
    // Checking for IDLE state
@@ -270,6 +278,11 @@ endtask: drive_data
     sda_oen <= value ? TRISTATE_BUF_OFF : TRISTATE_BUF_ON;
     sda_o   <= value;
   endtask: drive_sda
+
+  task drive_scl(input bit value);
+    scl_oen <= value ? TRISTATE_BUF_OFF : TRISTATE_BUF_ON;
+    scl_o   <= value;
+  endtask: drive_scl
 
   
   //-------------------------------------------------------

@@ -61,7 +61,8 @@ module i3c_controller_driver_bfm_unit_test;
                          .areset(activeLowReset), 
                          .scl_i(sclInput), 
                          .scl_o(sclOutput), 
-                         .scl_oen(sclOutputEnable),                         .sda_i(sdaInput), 
+                         .scl_oen(sclOutputEnable), 
+                         .sda_i(sdaInput), 
                          .sda_o(sdaOutput), 
                          .sda_oen(sdaOutputEnable)
                        );
