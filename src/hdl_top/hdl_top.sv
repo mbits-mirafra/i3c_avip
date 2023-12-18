@@ -91,6 +91,15 @@ module hdl_top;
 
  // Variable : master_agent_bfm_h
  // I2c Master BFM Agent Instantiation 
+
+
+ // TODO(mshariff): 
+ // The interface should have SDA and SCL along with
+ // (sda_o, sda_oe and sda_i) 
+ // (scl_o, scl_oe and scl_i) 
+ // But no clock and reset
+ //
+ // The clock and reset should be given to the agent_bfm block
  i3c_master_agent_bfm i3c_master_agent_bfm_h(intf_master); 
  
  // Variable : slave_agent_bfm_h

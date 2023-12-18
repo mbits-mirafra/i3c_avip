@@ -47,6 +47,11 @@ interface i3c_if(input pclk, input areset, inout SCL, inout SDA);
   assign scl_i = SCL;
   assign sda_i = SDA;
 
+  //-------------------------------------------------------
+  // These are used for debugging in the waveforms
+  //-------------------------------------------------------
+  assign SCL_local = (scl_oen) ? scl_o : 1'bz;
+  assign SDA_local = (sda_oen) ? sda_o : 1'bz;
 
 endinterface : i3c_if
 
