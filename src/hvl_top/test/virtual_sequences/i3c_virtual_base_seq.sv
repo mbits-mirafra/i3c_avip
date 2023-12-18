@@ -18,10 +18,10 @@ class i3c_virtual_base_seq extends uvm_sequence#(uvm_sequence_item);
    //virtual_sequencer  virtual_seqr_h;
 
    //--------------------------------------------------------------------------------------------
-   // declaring handles for master and slave sequencer and environment config
+   // declaring handles for controller and target sequencer and environment config
    //--------------------------------------------------------------------------------------------
-   i3c_master_sequencer  i3c_master_seqr_h;
-   i3c_slave_sequencer   i3c_slave_seqr_h;
+   i3c_controller_sequencer  i3c_controller_seqr_h;
+   i3c_target_sequencer   i3c_target_seqr_h;
    i3c_env_config i3c_env_cfg_h;
    
    //--------------------------------------------------------------------------------------------
@@ -62,10 +62,10 @@ task i3c_virtual_base_seq::body();
   `uvm_error(get_full_name(),"Virtual sequencer pointer cast failed")
   end
                                              
-  //connecting master sequencer and slave sequencer present in p_sequencer to
-  // local master sequencer and slave sequencer 
-  i3c_master_seqr_h=p_sequencer.i3c_master_seqr_h;
-  i3c_slave_seqr_h=p_sequencer.i3c_slave_seqr_h;
+  //connecting controller sequencer and target sequencer present in p_sequencer to
+  // local controller sequencer and target sequencer 
+  i3c_controller_seqr_h=p_sequencer.i3c_controller_seqr_h;
+  i3c_target_seqr_h=p_sequencer.i3c_target_seqr_h;
 
 endtask:body
 

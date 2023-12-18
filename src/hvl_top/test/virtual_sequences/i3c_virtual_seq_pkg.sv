@@ -17,10 +17,10 @@ package i3c_virtual_seq_pkg;
   //-------------------------------------------------------
   // Importing the required packages
   //-------------------------------------------------------
-  import i3c_master_pkg::*;
-  import i3c_slave_pkg::*;
-  import i3c_master_seq_pkg::*;
-  import i3c_slave_seq_pkg::*;
+  import i3c_controller_pkg::*;
+  import i3c_target_pkg::*;
+  import i3c_controller_seq_pkg::*;
+  import i3c_target_seq_pkg::*;
   import i3c_env_pkg::*;
 
  //including base_test for testing

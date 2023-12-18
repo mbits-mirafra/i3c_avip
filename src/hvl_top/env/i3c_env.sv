@@ -3,14 +3,14 @@
 
 //--------------------------------------------------------------------------------------------
 // Class: i3c_env
-// Environment contains slave_agent_top,master_agent_top and virtual_sequencer
+// Environment contains slave_agent_top,controller_agent_top and virtual_sequencer
 //--------------------------------------------------------------------------------------------
 class i3c_env extends uvm_env;
   `uvm_component_utils(i3c_env)
   
-  // Variable: i3c_master_agent_h
-  // declaring i3c_master agent handle
-  i3c_master_agent i3c_master_agent_h[];
+  // Variable: i3c_controller_agent_h
+  // declaring i3c_controller_agent handle
+  i3c_controller_agent i3c_controller_agent_h[];
   
   // Variable: i3c_slave_agent_h
   // Declaring i3c_slave handles
@@ -63,10 +63,10 @@ function void i3c_env::build_phase(uvm_phase phase);
     `uvm_fatal("CONFIG","cannot get() the i3c_env_cfg_h from the uvm_config_db . Have you set it?")
   end
   
-  i3c_master_agent_h=new[i3c_env_cfg_h.no_of_masters];
+  i3c_controller_agent_h=new[i3c_env_cfg_h.no_of_controllers];
      
-  foreach(i3c_master_agent_h[i])begin
-    i3c_master_agent_h[i]=i3c_master_agent::type_id::create($sformatf("i3c_master_agent_h[%0d]",i),this);
+  foreach(i3c_controller_agent_h[i])begin
+    i3c_controller_agent_h[i]=i3c_controller_agent::type_id::create($sformatf("i3c_controller_agent_h[%0d]",i),this);
   end
      
   i3c_slave_agent_h=new[i3c_env_cfg_h.no_of_slaves];    
@@ -96,9 +96,9 @@ function void i3c_env::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   if(i3c_env_cfg_h.has_virtual_sequencer)
   begin
-    foreach(i3c_master_agent_h[i])begin
-      i3c_virtual_seqr_h.i3c_master_seqr_h=i3c_master_agent_h[i].i3c_master_seqr_h;
-      i3c_master_agent_h[i].i3c_master_mon_proxy_h.master_analysis_port.connect(i3c_scoreboard_h.master_analysis_fifo.analysis_export); 
+    foreach(i3c_controller_agent_h[i])begin
+      i3c_virtual_seqr_h.i3c_controller_seqr_h=i3c_controller_agent_h[i].i3c_controller_seqr_h;
+      i3c_controller_agent_h[i].i3c_controller_mon_proxy_h.controller_analysis_port.connect(i3c_scoreboard_h.controller_analysis_fifo.analysis_export); 
     end
     foreach(i3c_slave_agent_h[i])begin
       i3c_virtual_seqr_h.i3c_slave_seqr_h=i3c_slave_agent_h[i].i3c_slave_seqr_h;
