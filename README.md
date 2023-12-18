@@ -1,3 +1,7 @@
+# If you want to run any unit template file use the below command :
+runSVUnit
+
+# And before that set the environment variable for the path, so for Path source this file i3c_setenv_path.csh
 
 # i3c_avip
 Verification IP project for I3C protocol 
