@@ -104,6 +104,15 @@ interface i3c_controller_driver_bfm(input pclk,
  //-------------------------------------------------------
  task drive_data(inout i3c_transfer_bits_s p_data_packet, 
                  input i3c_transfer_cfg_s p_cfg_pkt); 
+
+  state = START;
+  drive_start();
+  state = ADDRESS;
+
+endtask: drive_data
+
+// GopalS:  task drive_data(inout i3c_transfer_bits_s p_data_packet, 
+
 // GopalS: 
 // GopalS:   int idle_time_i; // local variable for idle time
 // GopalS:   int tbuf_i;      // Idle time from configure
@@ -154,7 +163,7 @@ interface i3c_controller_driver_bfm(input pclk,
 // GopalS: 
 // GopalS:   end
 
- endtask: drive_data
+// GopalS:  endtask: drive_data
 
 
   // task for driving the sda_oen as high and sda as low

@@ -29,6 +29,9 @@ module i3c_controller_driver_bfm_unit_test;
   bit sdaOutputEnable;
   bit sdaOutput;
 
+  i3c_transfer_bits_s dataPacketStruct;
+  i3c_transfer_cfg_s configPacketStruct;
+
   initial begin
     clk = 0;
     forever #10 clk = ~clk;
@@ -53,7 +56,15 @@ module i3c_controller_driver_bfm_unit_test;
   // running the Unit Tests on
   //===================================
 
-  i3c_controller_driver_bfm bfmInterface(.pclk(clk), .areset(activeLowReset), .scl_i(sclInput), .scl_o(sclOutput), .scl_oen(sclOutputEnable), .sda_i(sdaInput), .sda_o(sdaOutput), .sda_oen(sdaOutputEnable));
+  i3c_controller_driver_bfm bfmInterface(
+                         .pclk(clk), 
+                         .areset(activeLowReset), 
+                         .scl_i(sclInput), 
+                         .scl_o(sclOutput), 
+                         .scl_oen(sclOutputEnable),                         .sda_i(sdaInput), 
+                         .sda_o(sdaOutput), 
+                         .sda_oen(sdaOutputEnable)
+                       );
 
   //===================================
   // Build
@@ -296,6 +307,65 @@ module i3c_controller_driver_bfm_unit_test;
    #0 `FAIL_UNLESS(bfmInterface.scl_i && bfmInterface.sda_i)
    `SVTEST_END
 
+
+   `SVTEST(Given_driveDataTask_When_called_Expect_stateChangedIdleToStart)
+     bfmInterface.state = IDLE;
+
+    fork
+      begin : Arrange
+     bfmInterface.drive_data(dataPacketStruct,configPacketStruct);
+      end
+    join_none
+
+     #0 `FAIL_UNLESS(bfmInterface.state == START)
+   `SVTEST_END
+
+
+   `SVTEST(Given_driveDataTask_When_driveStartTaskCalled_Expect_sclOutputEnable0SclOutput1AndSdaOutputEnable0SdaOutput1)
+    fork
+      begin : Arrange
+     bfmInterface.drive_start();
+      end
+    join_none
+
+    @(posedge clk);
+    #1;
+    `FAIL_UNLESS(bfmInterface.scl_oen == 0)
+    `FAIL_UNLESS(bfmInterface.scl_o == 1)
+    `FAIL_UNLESS(bfmInterface.sda_oen == 0)
+    `FAIL_UNLESS(bfmInterface.sda_o == 1)
+      
+   `SVTEST_END
+
+
+   `SVTEST(Given_driveDataTask_When_driveStartTaskCalled_Expect_nextClkSdaOutputEnable1SclOutput0)
+    fork
+      begin : Arrange
+     bfmInterface.drive_start();
+      end
+    join_none
+
+    repeat(2)
+      @(posedge clk);
+    #1;
+    `FAIL_UNLESS(bfmInterface.sda_oen == 1)
+    `FAIL_UNLESS(bfmInterface.sda_o == 0)
+   `SVTEST_END
+
+
+   `SVTEST(Given_driveDataTask_When_called_Expect_stateChangedStartToAddress)
+     bfmInterface.state = START;
+
+    fork
+      begin : Arrange
+     bfmInterface.drive_data(dataPacketStruct,configPacketStruct);
+      end
+    join_none
+
+    repeat(2)
+      @(posedge clk);
+      #0 `FAIL_UNLESS(bfmInterface.state == ADDRESS)
+   `SVTEST_END
 
   `SVUNIT_TESTS_END
 
