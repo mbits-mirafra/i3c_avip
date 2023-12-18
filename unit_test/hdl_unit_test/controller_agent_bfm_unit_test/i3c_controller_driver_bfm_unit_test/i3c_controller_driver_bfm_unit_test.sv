@@ -184,69 +184,28 @@ module i3c_controller_driver_bfm_unit_test;
     #0 `FAIL_UNLESS(bfmInterface.state == RESET_DEACTIVATED)
   `SVTEST_END
 
-  `SVTEST(Given_driveIdleStateTask_When_clkValue0To1_Expect_sclOutputEnableZero)
+  `SVTEST(Given_driveIdleStateTask_When_called_Expect_stateIdle)
     sclOutputEnable = 1;
-    fork
-      begin : Arrange
-        bfmInterface.drive_idle_state();
-      end
-    join_none
-   
-    @(posedge clk);
-    #2 `FAIL_UNLESS(bfmInterface.scl_oen == 0)
-  `SVTEST_END
-
-
-  `SVTEST(Given_driveIdleStateTask_When_clkValue0To1_Expect_sclOutputOne)
     sclOutput = 0;
-    fork
-      begin : Arrange
-        bfmInterface.drive_idle_state();
-      end
-    join_none
-   
-    @(posedge clk);
-    #2 `FAIL_UNLESS(bfmInterface.scl_o == 1)
-  `SVTEST_END
-
-  
-  `SVTEST(Given_driveIdleStateTask_When_clkValue0To1_Expect_sdaOutputEnableZero)
     sdaOutputEnable = 1;
-    fork
-      begin : Arrange
-        bfmInterface.drive_idle_state();
-      end
-    join_none
-   
-    @(posedge clk);
-    #2 `FAIL_UNLESS(bfmInterface.sda_oen == 0)
-  `SVTEST_END
-
-  `SVTEST(Given_driveIdleStateTask_When_clkValue0To1_Expect_sdaOutputOne)
     sdaOutput = 0;
     fork
       begin : Arrange
         bfmInterface.drive_idle_state();
       end
     join_none
-   
-    @(posedge clk);
-    #2 `FAIL_UNLESS(bfmInterface.sda_o == 1)
+  
+    repeat(2)
+      @(posedge clk);
+      `FAIL_UNLESS(bfmInterface.scl_oen == 0)
+      `FAIL_UNLESS(bfmInterface.scl_o == 1)
+      `FAIL_UNLESS(bfmInterface.sda_oen == 0)
+      `FAIL_UNLESS(bfmInterface.sda_o == 1)
+
+      `FAIL_UNLESS(bfmInterface.state == IDLE)
   `SVTEST_END
 
-
-  `SVTEST(Given_driveIdleStateTask_When_SclOutputEnableValue0SclOutputValue1sdaOutputEnableValue0SdaOutputValue1_Expect_stateIsIDLE)
-    fork
-      begin : Arrange
-        bfmInterface.drive_idle_state();
-      end
-    join_none
-   
-    repeat(2) @(posedge clk);
-    `FAIL_UNLESS(bfmInterface.state == IDLE)
-  `SVTEST_END
-
-  `SVTEST(Given_waitForIdleStateTask_When_StateIsNotIdle_Expect_SclInputValueIs0SdaInputValueIs0)
+  `SVTEST(Given_waitForIdleStateTask_When_StateIsNotIdle_Expect_SclInputAndSdaInputValueBothNotOne)
 
     sclInput = 0;
     sdaInput = 0;
@@ -257,55 +216,25 @@ module i3c_controller_driver_bfm_unit_test;
     join_none
 
     @(posedge clk);
-    `FAIL_UNLESS(bfmInterface.scl_i == 0)
-    `FAIL_UNLESS(bfmInterface.sda_i == 0)
-   `SVTEST_END
+    `FAIL_IF(bfmInterface.scl_i && bfmInterface.sda_i)
 
-
-`SVTEST(Given_waitForIdleStateTask_When_StateIsNotIdle_Expect_SclInputValueIs0SdaInputValueIs1)
-
+    @(posedge clk);
     sclInput = 0;
     sdaInput = 1;
-    fork
-      begin : Arrange
-        bfmInterface.wait_for_idle_state();
-      end
-    join_none
+    @(posedge clk);
+    `FAIL_IF(bfmInterface.scl_i && bfmInterface.sda_i)
 
     @(posedge clk);
-    `FAIL_UNLESS(bfmInterface.scl_i == 0)
-    `FAIL_UNLESS(bfmInterface.sda_i == 1)
-   `SVTEST_END
-
-
-`SVTEST(Given_waitForIdleStateTask_When_StateIsNotIdle_Expect_SclInputValueIs1SdaInputValueIs0)
-
     sclInput = 1;
     sdaInput = 0;
-    fork
-      begin : Arrange
-        bfmInterface.wait_for_idle_state();
-      end
-    join_none
+    @(posedge clk);
+    `FAIL_IF(bfmInterface.scl_i && bfmInterface.sda_i)
 
     @(posedge clk);
-    `FAIL_UNLESS(bfmInterface.scl_i == 1)
-    `FAIL_UNLESS(bfmInterface.sda_i == 0)
-   `SVTEST_END
-
-
-  `SVTEST(Given_waitForIdleStateTask_When_StateIsIdle_Expect_SclInputValueIs1SdaInputValueIs1)
-
-    sdaInput = 1;
     sclInput = 1;
-    fork
-      begin : Arrange
-        bfmInterface.wait_for_idle_state();
-      end
-    join_none
-
+    sdaInput = 1;
     @(posedge clk);
-   #0 `FAIL_UNLESS(bfmInterface.scl_i && bfmInterface.sda_i)
+    `FAIL_UNLESS(bfmInterface.scl_i && bfmInterface.sda_i)
    `SVTEST_END
 
 
@@ -322,7 +251,7 @@ module i3c_controller_driver_bfm_unit_test;
    `SVTEST_END
 
 
-   `SVTEST(Given_driveDataTask_When_driveStartTaskCalled_Expect_sclOutputEnable0SclOutput1AndSdaOutputEnable0SdaOutput1)
+   `SVTEST(Given_driveDataTask_When_driveStartTaskCalled_Expect_sclOutputEnable0SclOutput1AndSdaOutputEnable0SdaOutput1_AndNextClkSdaOutputEnable1SdaOutput0)
     fork
       begin : Arrange
      bfmInterface.drive_start();
@@ -336,21 +265,12 @@ module i3c_controller_driver_bfm_unit_test;
     `FAIL_UNLESS(bfmInterface.sda_oen == 0)
     `FAIL_UNLESS(bfmInterface.sda_o == 1)
       
-   `SVTEST_END
-
-
-   `SVTEST(Given_driveDataTask_When_driveStartTaskCalled_Expect_nextClkSdaOutputEnable1SclOutput0)
-    fork
-      begin : Arrange
-     bfmInterface.drive_start();
-      end
-    join_none
-
     repeat(2)
       @(posedge clk);
     #1;
     `FAIL_UNLESS(bfmInterface.sda_oen == 1)
     `FAIL_UNLESS(bfmInterface.sda_o == 0)
+
    `SVTEST_END
 
 
@@ -366,6 +286,25 @@ module i3c_controller_driver_bfm_unit_test;
     repeat(2)
       @(posedge clk);
       #0 `FAIL_UNLESS(bfmInterface.state == ADDRESS)
+   `SVTEST_END
+
+
+    dataPacketStruct.operation = 0;
+    dataPacketStruct.targetAddress = 7'b1010101;
+
+   `SVTEST(Given_dataPacketStruct_when_driveDataTaskCalled_Expect_concatenationOfOperationAndTargetAddress_OperationBitAndAddress7BitsSame)
+    bit [7:0] addrByte;
+    addrByte = 8'b01010101;
+
+    fork
+      begin : Arrange
+     bfmInterface.drive_data(dataPacketStruct,configPacketStruct);
+      end
+    join_none
+
+    repeat(3)
+      @(posedge clk);
+      `FAIL_UNLESS(addrByte == {bfmInterface.drive_data.operationBit,bfmInterface.drive_data.address7Bits})
    `SVTEST_END
 
   `SVUNIT_TESTS_END

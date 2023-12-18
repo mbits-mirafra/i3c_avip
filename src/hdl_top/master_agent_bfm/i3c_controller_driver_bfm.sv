@@ -20,8 +20,8 @@ interface i3c_controller_driver_bfm(input pclk,
                                 //inout sda);
                               );
   i3c_fsm_state_e state;
-  i3c_transfer_bits_s data_t;
-  i3c_transfer_cfg_s cfg_pkt;
+  i3c_transfer_bits_s dataPacketStruct;
+  i3c_transfer_cfg_s configPacketStruct;
   bit ack;
   //-------------------------------------------------------
   // Importing UVM Package 
@@ -105,34 +105,33 @@ interface i3c_controller_driver_bfm(input pclk,
  task drive_data(inout i3c_transfer_bits_s p_data_packet, 
                  input i3c_transfer_cfg_s p_cfg_pkt); 
 
+  bit operationBit;
+  bit [TARGET_ADDRESS_WIDTH-1:0] address7Bits;
+
+  `uvm_info(name, $sformatf("Starting the drive data method"), UVM_HIGH);
+  dataPacketStruct = p_data_packet;
+  configPacketStruct = p_cfg_pkt;
+
   state = START;
   drive_start();
   state = ADDRESS;
 
+  {operationBit,address7Bits} = {dataPacketStruct.operation,dataPacketStruct.targetAddress};
+
+  drive_byte({operationBit,address7Bits});
+  `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, operation = %0b",address7Bits, operationBit), UVM_NONE)
+
 endtask: drive_data
+
 
 // GopalS:  task drive_data(inout i3c_transfer_bits_s p_data_packet, 
 
 // GopalS: 
 // GopalS:   int idle_time_i; // local variable for idle time
 // GopalS:   int tbuf_i;      // Idle time from configure
-// GopalS:   bit [TARGET_ADDRESS_WIDTH -1:0] address_7b;
-// GopalS:   bit rw_b;
 // GopalS:   bit [7:0] writeData_8b;
 // GopalS:   
-// GopalS:   `uvm_info(name, $sformatf("Starting the drive data method"), UVM_MEDIUM);
-// GopalS:   data_t  = p_data_packet;
-// GopalS:   cfg_pkt = p_cfg_pkt;
-// GopalS:   state = START;
-// GopalS: 
-// GopalS:   //Driving Start Condition
-// GopalS:   drive_start();
-// GopalS:   state = ADDRESS;
-// GopalS: 
-// GopalS:   //Driving Address byte
-// GopalS:   {rw_b,address_7b} = {data_t.operation,data_t.targetAddress};
-// GopalS:   drive_byte({rw_b,address_7b});
-// GopalS:   `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, operation = %0b",address_7b, rw_b), UVM_NONE)
+
 // GopalS:   sample_ack(ack);
 // GopalS:   if(ack == 1'b1)begin
 // GopalS:     stop();
