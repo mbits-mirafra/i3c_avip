@@ -112,14 +112,17 @@ interface i3c_controller_driver_bfm(input pclk,
   dataPacketStruct = p_data_packet;
   configPacketStruct = p_cfg_pkt;
 
-  state = START;
   drive_start();
-  state = ADDRESS;
 
-  {operationBit,address7Bits} = {dataPacketStruct.operation,dataPacketStruct.targetAddress};
+  drive_address(dataPacketStruct.targetAddress);
+  `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h",dataPacketStruct.targetAddress), UVM_NONE)
 
-  drive_byte({address7Bits, operationBit});
-  `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, operation = %0b",address7Bits, operationBit), UVM_NONE)
+  drive_operation(dataPacketStruct.operation);
+  `uvm_info("DEBUG", $sformatf("operation Bit is sent, operation = %0b",dataPacketStruct.operation), UVM_NONE)
+
+  // GopalS: {operationBit,address7Bits} = {dataPacketStruct.operation,dataPacketStruct.targetAddress};
+  // GopalS: drive_byte({address7Bits, operationBit});
+  // GopalS: `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, operation = %0b",address7Bits, operationBit), UVM_NONE)
 
   sample_ack(dataPacketStruct.targetAddressStatus);
       `uvm_info("BFM", $sformatf("UT dataPacket.targetAddressStatus = %0d", dataPacketStruct.targetAddressStatus), UVM_NONE)
@@ -188,40 +191,55 @@ endtask: drive_data
      // MSHA: sda_oen <= TRISTATE_BUF_ON;
      // MSHA: sda_o   <= 0;
 
+     state = START;
      `uvm_info(name, $sformatf("Driving start condition"), UVM_MEDIUM);
    endtask :drive_start
 
-  // task for driving the address byte and data byte
-   task drive_byte(input bit[7:0] data);
-     int bit_no;
+   task drive_address(input bit[6:0] data);
 
-     `uvm_info("DEBUG", $sformatf("Driving byte = %0b",data), UVM_NONE)
-     for(int k=0;k < DATA_WIDTH; k++) begin
+     `uvm_info("DEBUG", $sformatf("Driving Address = %0b",data), UVM_NONE)
+     for(int k=0;k < TARGET_ADDRESS_WIDTH; k++) begin
        scl_tristate_buf_on();
        sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= data[k];
        scl_tristate_buf_off();
+       state = ADDRESS;
      end
       
-   endtask :drive_byte
+   endtask :drive_address
+
+
+   task drive_operation(input bit wrBit);
+
+     `uvm_info("DEBUG", $sformatf("Driving operation Bit = %0b",wrBit), UVM_NONE)
+       scl_tristate_buf_on();
+       sda_oen <= TRISTATE_BUF_ON;
+       sda_o   <= wrBit;
+       scl_tristate_buf_off();
+       state = WR_BIT;
+      
+   endtask :drive_operation
 
 
   // task for sampling the Acknowledge
    task sample_ack(output bit p_ack);
-     @(posedge pclk);
-     scl_oen <= TRISTATE_BUF_ON;
-     scl_o   <= 0;
+     scl_tristate_buf_on();
+   // GopalS:   @(posedge pclk);
+   // GopalS:   scl_oen <= TRISTATE_BUF_ON;
+   // GopalS:   scl_o   <= 0;
 
-     sda_oen <= TRISTATE_BUF_OFF;
-     sda_o   <= 1;
-     state    = TARGET_ADDR_ACK;
+     //p_ack    = sda_i;
+     p_ack    = 1;
+     scl_tristate_buf_off();
+     state    = ADDR_ACK;
 
-     @(posedge pclk);
-     // Sample the ACK from the I2C bus
-     @(posedge pclk);
-     scl_oen <= TRISTATE_BUF_OFF;
-     scl_o   <= 1;
-     p_ack    = sda_i;
+  // GopalS:    @(posedge pclk);
+  // GopalS:    sda_oen <= TRISTATE_BUF_OFF;
+  // GopalS:    sda_o   <= 1;
+
+   // GopalS:   @(posedge pclk);
+   // GopalS:   scl_oen <= TRISTATE_BUF_OFF;
+   // GopalS:   scl_o   <= 1;
 
      `uvm_info(name, $sformatf("Sampled ACK value %0b",p_ack), UVM_MEDIUM);
    endtask :sample_ack
@@ -229,7 +247,6 @@ endtask: drive_data
  
   task stop();
    // Complete the SCL clock
-   state = STOP;
    @(posedge pclk);
    // MSHA: scl_oen <= TRISTATE_BUF_OFF;
    // MSHA: scl_o   <= 1;
@@ -243,12 +260,13 @@ endtask: drive_data
    // MSHA: sda_oen <= TRISTATE_BUF_OFF;
    // MSHA: sda_o   <= 1;
 
+   state = STOP;
      
    // Checking for IDLE state
-   @(posedge pclk);
-   if(scl_i && sda_i) begin
-     state = IDLE;
-   end
+// GopalS:    @(posedge pclk);
+// GopalS:    if(scl_i && sda_i) begin
+// GopalS:      state = IDLE;
+// GopalS:    end
   endtask
 
 
@@ -269,7 +287,7 @@ endtask: drive_data
     // Driving the ACK for slave address
     detect_negedge_scl();
     drive_sda(ack); 
-    state = TARGET_ADDR_ACK;
+    state = ADDR_ACK;
     detect_posedge_scl();
 
   endtask: sample_read_data
