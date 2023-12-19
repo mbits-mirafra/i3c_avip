@@ -8,7 +8,11 @@ import uvm_pkg::*;
 `include "i3c_globals_pkg.sv"
 import i3c_globals_pkg::*;
 
+`include "i3c_controller_pkg.sv"
+import i3c_controller_pkg::*;
+
 `include "i3c_controller_tx.sv"
+`include "i3c_controller_agent_config.sv"
 `include "i3c_controller_driver_proxy.sv"
 `include "i3c_controller_driver_bfm.sv"
 
@@ -291,9 +295,9 @@ module i3c_controller_driver_bfm_unit_test;
     dataPacketStruct.operation = 0;
     dataPacketStruct.targetAddress = 7'b1010101;
 
-   `SVTEST(Given_dataPacketStruct_when_driveDataTaskCalled_Expect_concatenationOfOperationAndTargetAddress_OperationBitAndAddress7BitsSame)
+   `SVTEST(Given_dataPacketStruct_When_driveDataTaskCalled_Expect_concatenationOfTheOperationTargetAddress_And_OperationBitAddress7Bits_BothSame)
     bit [7:0] addrByte;
-    addrByte = 8'b01010101;
+    addrByte = {dataPacketStruct.operation,dataPacketStruct.targetAddress};
 
     fork
       begin : Arrange
@@ -304,6 +308,22 @@ module i3c_controller_driver_bfm_unit_test;
     repeat(3)
       @(posedge clk);
       `FAIL_UNLESS(addrByte == {bfmInterface.drive_data.operationBit,bfmInterface.drive_data.address7Bits})
+   `SVTEST_END
+
+
+   `SVTEST(Given_sampleAckTask_When_sdaInputOne_Expect_targetAddressStatusOne)
+     bit targetAddressStatus;
+     sdaInput = 1;
+     fork
+      begin : Arrange
+       bfmInterface.sample_ack(targetAddressStatus);
+      end
+     join_none
+
+    repeat(4)
+      @(posedge clk);
+      `FAIL_UNLESS(targetAddressStatus == 1)
+     
    `SVTEST_END
 
   `SVUNIT_TESTS_END

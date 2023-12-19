@@ -121,6 +121,11 @@ interface i3c_controller_driver_bfm(input pclk,
   drive_byte({operationBit,address7Bits});
   `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, operation = %0b",address7Bits, operationBit), UVM_NONE)
 
+  sample_ack(dataPacketStruct.targetAddressStatus);
+  if(dataPacketStruct.targetAddressStatus == 1'b1)begin
+    stop();
+    `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 1 and stop condition is triggered"), UVM_HIGH);
+  end
 endtask: drive_data
 
 

@@ -78,6 +78,7 @@ package i3c_globals_pkg;
   typedef struct {
     bit [TARGET_ADDRESS_WIDTH-1:0]targetAddress;
     bit operation;
+    bit targetAddressStatus;
     bit [DATA_WIDTH-1:0] writeData[];
     bit [DATA_WIDTH-1:0] readData[];
    // GopalS:  bit ack;
