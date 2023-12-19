@@ -70,7 +70,8 @@ module i3c_controller_driver_bfm_unit_test;
                          .sda_o(sdaOutput), 
                          .sda_oen(sdaOutputEnable)
                        );
-
+  assign bfmInterface.scl_i = bfmInterface.scl_o;                  
+  assign bfmInterface.sda_i = bfmInterface.sda_o;                  
   //===================================
   // Build
   //===================================
@@ -324,6 +325,43 @@ module i3c_controller_driver_bfm_unit_test;
     repeat(4)
       @(posedge clk);
       `FAIL_UNLESS(targetAddressStatus == 1)
+     
+   `SVTEST_END
+
+   `SVTEST(Given_driveData_When_9thSClClockWithSDAZero_Expect_targetAddressStatusACK)
+     sdaInput = 0; 
+     dataPacketStruct.targetAddress = 7'b1010101;
+     dataPacketStruct.operation = 0;     
+     fork
+      begin : Arrange
+        bfmInterface.drive_data(dataPacketStruct,configPacketStruct);
+      end
+     join_none
+
+    repeat(9)
+      @(posedge bfmInterface.scl_i);
+      `FAIL_UNLESS(dataPacketStruct.targetAddressStatus == 0)
+     
+   `SVTEST_END
+
+   `SVTEST(Given_driveData_When_9thSClClockWithSDAOne_Expect_targetAddressStatusOne)
+     i3c_transfer_bits_s dataPacket;
+     sdaInput = 1; 
+
+     dataPacket.targetAddress = 7'b1010101;
+     dataPacket.operation = 0;     
+     fork
+      begin : Arrange
+        bfmInterface.drive_data(dataPacket,configPacketStruct);
+      end
+     join_none
+
+    repeat(9)
+      @(posedge bfmInterface.scl_i);
+
+      #5;
+      `uvm_info("UT", $sformatf("UT dataPacket.targetAddressStatus = %0d", dataPacket.targetAddressStatus), UVM_NONE)
+      #0 `FAIL_UNLESS(dataPacket.targetAddressStatus == 1)
      
    `SVTEST_END
 

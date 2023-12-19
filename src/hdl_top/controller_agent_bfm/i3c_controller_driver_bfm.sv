@@ -118,10 +118,11 @@ interface i3c_controller_driver_bfm(input pclk,
 
   {operationBit,address7Bits} = {dataPacketStruct.operation,dataPacketStruct.targetAddress};
 
-  drive_byte({operationBit,address7Bits});
+  drive_byte({address7Bits, operationBit});
   `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h, operation = %0b",address7Bits, operationBit), UVM_NONE)
 
   sample_ack(dataPacketStruct.targetAddressStatus);
+      `uvm_info("BFM", $sformatf("UT dataPacket.targetAddressStatus = %0d", dataPacketStruct.targetAddressStatus), UVM_NONE)
   if(dataPacketStruct.targetAddressStatus == 1'b1)begin
     stop();
     `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 1 and stop condition is triggered"), UVM_HIGH);
