@@ -1,4 +1,4 @@
-+incdir+$PROJECT/src/globals/
-+incdir+$PROJECT/src/hvl_top/slave/
++incdir+$I3C_PROJECT/src/globals/
++incdir+$I3C_PROJECT/src/hvl_top/target/
 
 

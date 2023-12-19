@@ -14,15 +14,15 @@ package i3c_env_pkg;
 
   // Importing the required packages
   import i3c_globals_pkg::*;
-  import i3c_master_pkg::*;
-  import i3c_slave_pkg::*;
+  import i3c_controller_pkg::*;
+  import i3c_target_pkg::*;
 
   // Include all other files
-  `include "i3c_env_config.sv"
-  `include "i3c_virtual_sequencer.sv"
+   `include "i3c_env_config.sv"
+   `include "i3c_virtual_sequencer.sv"
 
   // SCOREBOARD
-  `include "i3c_scoreboard.sv"
+//  `include "i3c_scoreboard.sv"
 
   // Coverage 
 

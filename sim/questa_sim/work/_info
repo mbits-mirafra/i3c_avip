@@ -9,92 +9,91 @@ z2
 cModel Technology
 Z0 d/hwetools/work_area/frontend/gopal_b7/git_test1/i3c_project/i3c_avip/sim/questa_sim
 T_opt
-!s110 1700652684
-VBYmG=oC@00Bf7nn:6QMh[0
+!s110 1702961072
+VbIlDaMSAYg?_XT3[bO:Ef1
 04 7 4 work hvl_top fast 0
 04 7 4 work hdl_top fast 0
-=1-a4badb503ddd-655de68b-e468e-1857
+=1-a4badb503ddd-65811fb0-365f7-72f7
 o-quiet -auto_acc_if_foreign -work work +acc=npr
 Z1 tCvgOpt 0
 n@_opt
 OE;O;10.6c;65
 vhdl_top
 Z2 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z3 !s110 1700652677
+Z3 !s110 1702961036
 !i10b 1
-!s100 ?KHP<I`c0O<eefR_:e9OW2
-I_U8Kljfl`Um^M0YYYzz?W0
+!s100 [nR1S<ZQWHQ<4ZRRF5<Dd1
+I:_NE3WA4VF^GZ7i1;cLAg2
 Z4 VDg1SIo80bB@j0V0VzS_@n1
 !s105 hdl_top_sv_unit
 S1
 R0
-Z5 w1699893513
+w1702644506
 8../../src/hdl_top/hdl_top.sv
 F../../src/hdl_top/hdl_top.sv
 L0 7
-Z6 OE;L;10.6c;65
+Z5 OE;L;10.6c;65
 r1
 !s85 0
 31
-Z7 !s108 1700652674.000000
-Z8 !s107 ../../src/hvl_top/test/i3c_direct_ccc_setdasa_test.sv|../../src/hvl_top/test/i3c_8b_write_followed_by_read_test.sv|../../src/hvl_top/test/i3c_8b_read_test.sv|../../src/hvl_top/test/i3c_8b_write_test.sv|../../src/hvl_top/test/i3c_base_test.sv|../../src/hvl_top/test/virtual_sequences//i3c_virtual_8b_direct_ccc_setdasa_seq.sv|../../src/hvl_top/test/virtual_sequences//i3c_virtual_8b_write_followed_by_read_seq.sv|../../src/hvl_top/test/virtual_sequences//i3c_virtual_8b_read_seq.sv|../../src/hvl_top/test/virtual_sequences//i3c_virtual_8b_write_seq.sv|../../src/hvl_top/test/virtual_sequences//i3c_virtual_base_seq.sv|../../src/hvl_top/env/i3c_env.sv|../../src/hvl_top/env/i3c_scoreboard.sv|../../src/hvl_top/env/virtual_sequencer//i3c_virtual_sequencer.sv|../../src/hvl_top/env/i3c_env_config.sv|../../src/hvl_top/test/sequences/slave_sequences//i3c_8b_slave_seq.sv|../../src/hvl_top/test/sequences/slave_sequences//i3c_slave_base_seq.sv|../../src/hvl_top/test/sequences/master_sequences//i3c_master_8b_write_read_seq.sv|../../src/hvl_top/test/sequences/master_sequences//i3c_master_8b_read_seq.sv|../../src/hvl_top/test/sequences/master_sequences//i3c_master_8b_write_seq.sv|../../src/hvl_top/test/sequences/master_sequences//i3c_master_base_seq.sv|../../src/hvl_top/slave/i3c_slave_agent.sv|../../src/hvl_top/slave/i3c_slave_coverage.sv|../../src/hvl_top/slave/i3c_slave_monitor_proxy.sv|../../src/hvl_top/slave/i3c_slave_driver_proxy.sv|../../src/hvl_top/slave/i3c_slave_sequencer.sv|../../src/hvl_top/slave/i3c_slave_cfg_converter.sv|../../src/hvl_top/slave/i3c_slave_seq_item_converter.sv|../../src/hvl_top/slave/i3c_slave_tx.sv|../../src/hvl_top/slave/i3c_slave_agent_config.sv|../../src/hvl_top/master//i3c_master_agent.sv|../../src/hvl_top/master//i3c_master_coverage.sv|../../src/hvl_top/master//i3c_master_monitor_proxy.sv|../../src/hvl_top/master//i3c_master_driver_proxy.sv|../../src/hvl_top/master//i3c_master_sequencer.sv|../../src/hvl_top/master//i3c_master_cfg_converter.sv|../../src/hvl_top/master//i3c_master_seq_item_converter.sv|../../src/hvl_top/master//i3c_master_tx.sv|../../src/hvl_top/master//i3c_master_agent_config.sv|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|../../src/hvl_top/hvl_top.sv|../../src/hdl_top/hdl_top.sv|../../src/hdl_top/slave_agent_bfm/i3c_slave_agent_bfm.sv|../../src/hdl_top/slave_agent_bfm/i3c_slave_monitor_bfm.sv|../../src/hdl_top/slave_agent_bfm/i3c_slave_driver_bfm.sv|../../src/hdl_top/master_agent_bfm/i3c_master_agent_bfm.sv|../../src/hdl_top/master_agent_bfm/i3c_master_monitor_bfm.sv|../../src/hdl_top/master_agent_bfm/i3c_master_driver_bfm.sv|../../src/hdl_top/i3c_interface/i3c_if.sv|../../src/hvl_top/test/i3c_test_pkg.sv|../../src/hvl_top/test/virtual_sequences/i3c_virtual_seq_pkg.sv|../../src/hvl_top/env/i3c_env_pkg.sv|../../src/hvl_top/test/sequences/slave_sequences/i3c_slave_seq_pkg.sv|../../src/hvl_top/test/sequences/master_sequences/i3c_master_seq_pkg.sv|../../src/hvl_top/slave/i3c_slave_pkg.sv|../../src/hvl_top/master/i3c_master_pkg.sv|../../src/globals/i3c_globals_pkg.sv|
-Z9 !s90 -sv|+acc|+cover|+fcover|-l|i3c_compile.log|-f|../i3c_compile.f|
+Z6 !s108 1702961034.000000
+Z7 !s107 ../../src/hvl_top/test/i3c_8b_write_test.sv|../../src/hvl_top/test/i3c_base_test.sv|../../src/hvl_top/test/virtual_sequences//i3c_virtual_8b_write_seq.sv|../../src/hvl_top/test/virtual_sequences//i3c_virtual_base_seq.sv|../../src/hvl_top/env/i3c_env.sv|../../src/hvl_top/env/virtual_sequencer//i3c_virtual_sequencer.sv|../../src/hvl_top/env/i3c_env_config.sv|../../src/hvl_top/target/target_sequences//i3c_target_8b_seq.sv|../../src/hvl_top/target/target_sequences//i3c_target_base_seq.sv|../../src/hvl_top/controller/controller_sequences//i3c_controller_8b_write_seq.sv|../../src/hvl_top/controller/controller_sequences//i3c_controller_base_seq.sv|../../src/hvl_top/target//i3c_target_agent.sv|../../src/hvl_top/target//i3c_target_monitor_proxy.sv|../../src/hvl_top/target//i3c_target_sequencer.sv|../../src/hvl_top/target//i3c_target_cfg_converter.sv|../../src/hvl_top/target//i3c_target_seq_item_converter.sv|../../src/hvl_top/target//i3c_target_tx.sv|../../src/hvl_top/target//i3c_target_agent_config.sv|../../src/hvl_top/controller//i3c_controller_agent.sv|../../src/hvl_top/controller//i3c_controller_monitor_proxy.sv|../../src/hvl_top/controller//i3c_controller_driver_proxy.sv|../../src/hvl_top/controller//i3c_controller_sequencer.sv|../../src/hvl_top/controller//i3c_controller_cfg_converter.sv|../../src/hvl_top/controller//i3c_controller_seq_item_converter.sv|../../src/hvl_top/controller//i3c_controller_tx.sv|../../src/hvl_top/controller//i3c_controller_agent_config.sv|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|../../src/hvl_top/hvl_top.sv|../../src/hdl_top/hdl_top.sv|../../src/hdl_top/target_agent_bfm/i3c_target_agent_bfm.sv|../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv|../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv|../../src/hdl_top/controller_agent_bfm/i3c_controller_agent_bfm.sv|../../src/hdl_top/controller_agent_bfm/i3c_controller_monitor_bfm.sv|../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv|../../src/hdl_top/i3c_interface/i3c_if.sv|../../src/hvl_top/test/i3c_test_pkg.sv|../../src/hvl_top/test/virtual_sequences/i3c_virtual_seq_pkg.sv|../../src/hvl_top/env/i3c_env_pkg.sv|../../src/hvl_top/target/target_sequences/i3c_target_seq_pkg.sv|../../src/hvl_top/controller/controller_sequences/i3c_controller_seq_pkg.sv|../../src/hvl_top/target/i3c_target_pkg.sv|../../src/hvl_top/controller/i3c_controller_pkg.sv|../../src/globals/i3c_globals_pkg.sv|
+Z8 !s90 -sv|+acc|+cover|+fcover|-l|i3c_compile.log|-f|../i3c_compile.f|
 !i113 0
-Z10 !s102 +cover
-Z11 o-sv +acc +cover +fcover -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
-Z12 !s92 -sv +acc +cover +fcover +incdir+../../src/globals/ +incdir+../../src/hvl_top/test/sequences/master_sequences/ +incdir+../../src/hvl_top/master/ +incdir+../../src/hdl_top/master_agent_bfm/ +incdir+../../src/hvl_top/env/virtual_sequencer/ +incdir+../../src/hvl_top/test/virtual_sequences/ +incdir+../../src/hvl_top/env +incdir+../../src/hvl_top/slave +incdir+../../src/hvl_top/test/sequences/slave_sequences/ +incdir+../../src/hvl_top/test +incdir+../../src/hdl_top/slave_agent_bfm +incdir+../../src/hdl_top/i3c_interface -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z9 !s102 +cover
+Z10 o-sv +acc +cover +fcover -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z11 !s92 -sv +acc +cover +fcover +incdir+../../src/globals/ +incdir+../../src/hvl_top/controller/controller_sequences/ +incdir+../../src/hvl_top/controller/ +incdir+../../src/hdl_top/controller_agent_bfm/ +incdir+../../src/hvl_top/env/virtual_sequencer/ +incdir+../../src/hvl_top/test/virtual_sequences/ +incdir+../../src/hvl_top/env +incdir+../../src/hvl_top/target/ +incdir+../../src/hvl_top/target/target_sequences/ +incdir+../../src/hvl_top/test +incdir+../../src/hdl_top/target_agent_bfm +incdir+../../src/hdl_top/i3c_interface -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R1
 vhvl_top
 R2
-Z13 DXx6 mtiUvm 7 uvm_pkg 0 22 oMKUklN?>LE6@MJe7=2><1
-Z14 DXx4 work 15 i3c_globals_pkg 0 22 :5_BD6Ko8o64hTYBiiWX33
-Z15 DXx4 work 14 i3c_master_pkg 0 22 VCB<A8Gb<Y@XbUn5l]<2F3
-Z16 DXx4 work 13 i3c_slave_pkg 0 22 F2Dz`L=[egK7RnnK77Qlj2
-Z17 DXx4 work 11 i3c_env_pkg 0 22 fBE9[@i]682PlkHe=lXED1
-Z18 DXx4 work 18 i3c_master_seq_pkg 0 22 `gCRhT_69nQDMj`J5;;2L2
-Z19 DXx4 work 17 i3c_slave_seq_pkg 0 22 Ch[Ph_4F[bJ[EHoM2>Mjg3
-Z20 DXx4 work 19 i3c_virtual_seq_pkg 0 22 7`eRd7Hgfzzi:8Dj:P1Q?1
-DXx4 work 12 i3c_test_pkg 0 22 A[j6QicUZLl]X:T6[SSP>2
+Z12 DXx6 mtiUvm 7 uvm_pkg 0 22 oMKUklN?>LE6@MJe7=2><1
+Z13 DXx4 work 15 i3c_globals_pkg 0 22 6n7lUZkCAa[TT^@Mc]<jE3
+Z14 DXx4 work 18 i3c_controller_pkg 0 22 P6ck1nzWmO1DHNA=o4<JN2
+Z15 DXx4 work 14 i3c_target_pkg 0 22 U@0T_G8a_MKfKV^XlM;NH3
+Z16 DXx4 work 11 i3c_env_pkg 0 22 SL=oeYI;ZX;UN6QiIS;WJ2
+Z17 DXx4 work 22 i3c_controller_seq_pkg 0 22 XEef7hZLTBART<hU?g2?L3
+Z18 DXx4 work 18 i3c_target_seq_pkg 0 22 aZY<G_EA>lX:hU7Rgiec50
+Z19 DXx4 work 19 i3c_virtual_seq_pkg 0 22 `8OgYb;cV1oCDIKaYk:B^2
+DXx4 work 12 i3c_test_pkg 0 22 N;UBG^E5g2ZKLO3[Dgn`:3
 R3
 !i10b 1
 !s100 7[R?<LdRWN29KW_YN7WhT1
-I@GRJ9KKF2j1AiTbT@i>Mo1
+IRAjm^DOChUEJno7PPZX5B1
 R4
 !s105 hvl_top_sv_unit
 S1
 R0
-R5
+Z20 w1702644478
 8../../src/hvl_top/hvl_top.sv
 F../../src/hvl_top/hvl_top.sv
 L0 5
-R6
+R5
 r1
 !s85 0
 31
+R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Xi3c_env_pkg
+vi3c_controller_agent_bfm
 R2
+R12
 R13
-R14
-R15
-R16
-Z21 !s110 1700652675
+R3
 !i10b 1
-!s100 Gl93@KTiGb;9C_YdeBJ8Z0
-IfBE9[@i]682PlkHe=lXED1
-VfBE9[@i]682PlkHe=lXED1
+!s100 6^8VmaOEl;z0aEc[FWJIC0
+ImKMfn@8Yz0A@?DZEXj?L<3
+R4
+!s105 i3c_controller_agent_bfm_sv_unit
 S1
 R0
-R5
-8../../src/hvl_top/env/i3c_env_pkg.sv
-F../../src/hvl_top/env/i3c_env_pkg.sv
+Z21 w1702923421
+8../../src/hdl_top/controller_agent_bfm/i3c_controller_agent_bfm.sv
+F../../src/hdl_top/controller_agent_bfm/i3c_controller_agent_bfm.sv
 Z22 F/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh
 Z23 F/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh
 Z24 F/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh
@@ -107,133 +106,38 @@ Z30 F/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/sr
 Z31 F/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh
 Z32 F/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh
 Z33 F/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh
-F../../src/hvl_top/env/i3c_env_config.sv
-F../../src/hvl_top/env/virtual_sequencer//i3c_virtual_sequencer.sv
-F../../src/hvl_top/env/i3c_scoreboard.sv
-F../../src/hvl_top/env/i3c_env.sv
 L0 9
-R6
-r1
-!s85 0
-31
-R7
-R8
-R9
-!i113 0
-R10
-R11
-R12
-R1
-Xi3c_globals_pkg
-R2
-!s110 1700652674
-!i10b 1
-!s100 G1WTW[n7O3f7IjK]C?Hfo1
-I:5_BD6Ko8o64hTYBiiWX33
-V:5_BD6Ko8o64hTYBiiWX33
-S1
-R0
 R5
-8../../src/globals/i3c_globals_pkg.sv
-F../../src/globals/i3c_globals_pkg.sv
-L0 7
-R6
 r1
 !s85 0
 31
-R7
-R8
-R9
-!i113 0
-R10
-R11
-R12
-R1
-Yi3c_if
-R2
-R21
-!i10b 1
-!s100 a_C=Ci1EL9okn]R:UdBKB3
-ImAe=cofg^PUKF?UWgWU483
-R4
-!s105 i3c_if_sv_unit
-S1
-R0
-R5
-8../../src/hdl_top/i3c_interface/i3c_if.sv
-F../../src/hdl_top/i3c_interface/i3c_if.sv
-L0 8
 R6
-r1
-!s85 0
-31
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-vi3c_master_agent_bfm
+Yi3c_controller_driver_bfm
 R2
 R13
-R14
-!s110 1700652676
-!i10b 1
-!s100 X]LGRL3Vj7>K1;9[QNE:V1
-IVVP:TzH7O=B2_H;WnI;CF1
-R4
-!s105 i3c_master_agent_bfm_sv_unit
-S1
-R0
-R5
-8../../src/hdl_top/master_agent_bfm/i3c_master_agent_bfm.sv
-F../../src/hdl_top/master_agent_bfm/i3c_master_agent_bfm.sv
-R22
-R23
-R24
-R25
-R26
-R27
-R28
-R29
-R30
-R31
-R32
-R33
-L0 9
-R6
-r1
-!s85 0
-31
-R7
-R8
-R9
-!i113 0
-R10
-R11
+DXx4 work 33 i3c_controller_driver_bfm_sv_unit 0 22 kLXDJ9iKP`KNNgO?6N22^2
 R12
-R1
-Yi3c_master_driver_bfm
-R2
 R14
-DXx4 work 29 i3c_master_driver_bfm_sv_unit 0 22 hJ_C6:CDE;M:d41=RQl6_1
-R13
-R15
 R4
 r1
 !s85 0
 31
 !i10b 1
-!s100 j?J0lZcGSoYVo<jbGc=TH2
-IPzD0R5zmoXdX=F@3Oz6R^2
-!s105 i3c_master_driver_bfm_sv_unit
+!s100 67lf=mNi0@KE0[O2>VO2h1
+IkA]VM@6jio<6L^6>`eAhH2
+!s105 i3c_controller_driver_bfm_sv_unit
 S1
 R0
-R5
-Z34 8../../src/hdl_top/master_agent_bfm/i3c_master_driver_bfm.sv
-Z35 F../../src/hdl_top/master_agent_bfm/i3c_master_driver_bfm.sv
+Z34 w1702960463
+Z35 8../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv
+Z36 F../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv
 R22
 R23
 R24
@@ -247,60 +151,60 @@ R31
 R32
 R33
 L0 10
+R5
 R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Xi3c_master_driver_bfm_sv_unit
+Xi3c_controller_driver_bfm_sv_unit
 R2
-R14
-VhJ_C6:CDE;M:d41=RQl6_1
+R13
+VkLXDJ9iKP`KNNgO?6N22^2
 r1
 !s85 0
 31
 !i10b 1
-!s100 [`zm2?_ZH3TW;9iR[Tlni1
-IhJ_C6:CDE;M:d41=RQl6_1
+!s100 ak5^YD1ZUUXZXmIJ8[]DA2
+IkLXDJ9iKP`KNNgO?6N22^2
 !i103 1
 S1
 R0
-R5
 R34
 R35
+R36
 L0 8
+R5
 R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Yi3c_master_monitor_bfm
+Yi3c_controller_monitor_bfm
 R2
-R14
-DXx4 work 30 i3c_master_monitor_bfm_sv_unit 0 22 E^lFWX_aLCR6]gYZb@@D40
 R13
-R15
+DXx4 work 34 i3c_controller_monitor_bfm_sv_unit 0 22 zB_S]_1blaB?dRAg5En7o0
+R12
+R14
 R4
 r1
 !s85 0
 31
 !i10b 1
-!s100 <0EOEn`6SnYc5PL1mSRWd0
-I_dcV@GW7FFl2M04c=R@]J0
-!s105 i3c_master_monitor_bfm_sv_unit
+!s100 T3^93KH15I1@8igzUI^M<1
+IcQ<96VobGo20>:NPRmmBz2
+!s105 i3c_controller_monitor_bfm_sv_unit
 S1
 R0
-R5
-Z36 8../../src/hdl_top/master_agent_bfm/i3c_master_monitor_bfm.sv
-Z37 F../../src/hdl_top/master_agent_bfm/i3c_master_monitor_bfm.sv
+R21
+Z37 8../../src/hdl_top/controller_agent_bfm/i3c_controller_monitor_bfm.sv
+Z38 F../../src/hdl_top/controller_agent_bfm/i3c_controller_monitor_bfm.sv
 R22
 R23
 R24
@@ -314,56 +218,56 @@ R31
 R32
 R33
 L0 9
+R5
 R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Xi3c_master_monitor_bfm_sv_unit
+Xi3c_controller_monitor_bfm_sv_unit
 R2
-R14
-VE^lFWX_aLCR6]gYZb@@D40
+R13
+VzB_S]_1blaB?dRAg5En7o0
 r1
 !s85 0
 31
 !i10b 1
-!s100 5N57SF2;[Am=eoMN`K;bG3
-IE^lFWX_aLCR6]gYZb@@D40
+!s100 66mF<EOETnT7zSlSQc8E:2
+IzB_S]_1blaB?dRAg5En7o0
 !i103 1
 S1
 R0
-R5
-R36
+R21
 R37
+R38
 L0 8
+R5
 R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Xi3c_master_pkg
-!s115 i3c_master_driver_bfm
+Xi3c_controller_pkg
+!s115 i3c_controller_driver_bfm
 R2
+R12
 R13
-R14
-R21
+Z39 !s110 1702961034
 !i10b 1
-!s100 HAkCTNH38^DFRcVL4oBgT1
-IVCB<A8Gb<Y@XbUn5l]<2F3
-VVCB<A8Gb<Y@XbUn5l]<2F3
+!s100 GbY6JZ@dKc_><_:H@HDmT1
+IP6ck1nzWmO1DHNA=o4<JN2
+VP6ck1nzWmO1DHNA=o4<JN2
 S1
 R0
-w1700556568
-8../../src/hvl_top/master/i3c_master_pkg.sv
-F../../src/hvl_top/master/i3c_master_pkg.sv
+w1702960913
+8../../src/hvl_top/controller/i3c_controller_pkg.sv
+F../../src/hvl_top/controller/i3c_controller_pkg.sv
 R22
 R23
 R24
@@ -376,43 +280,85 @@ R30
 R31
 R32
 R33
-F../../src/hvl_top/master//i3c_master_agent_config.sv
-F../../src/hvl_top/master//i3c_master_tx.sv
-F../../src/hvl_top/master//i3c_master_seq_item_converter.sv
-F../../src/hvl_top/master//i3c_master_cfg_converter.sv
-F../../src/hvl_top/master//i3c_master_sequencer.sv
-F../../src/hvl_top/master//i3c_master_driver_proxy.sv
-F../../src/hvl_top/master//i3c_master_monitor_proxy.sv
-F../../src/hvl_top/master//i3c_master_coverage.sv
-F../../src/hvl_top/master//i3c_master_agent.sv
+F../../src/hvl_top/controller//i3c_controller_agent_config.sv
+F../../src/hvl_top/controller//i3c_controller_tx.sv
+F../../src/hvl_top/controller//i3c_controller_seq_item_converter.sv
+F../../src/hvl_top/controller//i3c_controller_cfg_converter.sv
+F../../src/hvl_top/controller//i3c_controller_sequencer.sv
+F../../src/hvl_top/controller//i3c_controller_driver_proxy.sv
+F../../src/hvl_top/controller//i3c_controller_monitor_proxy.sv
+F../../src/hvl_top/controller//i3c_controller_agent.sv
 L0 8
-R6
+R5
 r1
 !s85 0
 31
+R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Xi3c_master_seq_pkg
+Xi3c_controller_seq_pkg
 R2
+R12
+R13
+R14
+Z40 !s110 1702961035
+!i10b 1
+!s100 D>70J:KS8iQi4F]:VO>U?1
+IXEef7hZLTBART<hU?g2?L3
+VXEef7hZLTBART<hU?g2?L3
+S1
+R0
+R21
+8../../src/hvl_top/controller/controller_sequences/i3c_controller_seq_pkg.sv
+F../../src/hvl_top/controller/controller_sequences/i3c_controller_seq_pkg.sv
+R22
+R23
+R24
+R25
+R26
+R27
+R28
+R29
+R30
+R31
+R32
+R33
+F../../src/hvl_top/controller/controller_sequences//i3c_controller_base_seq.sv
+F../../src/hvl_top/controller/controller_sequences//i3c_controller_8b_write_seq.sv
+L0 9
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R10
+R11
+R1
+Xi3c_env_pkg
+R2
+R12
 R13
 R14
 R15
-R21
+R40
 !i10b 1
-!s100 SJz^X87NnZ_TUccajWAEX1
-I`gCRhT_69nQDMj`J5;;2L2
-V`gCRhT_69nQDMj`J5;;2L2
+!s100 `1WQcR3CA]0]EUG@amgMn2
+ISL=oeYI;ZX;UN6QiIS;WJ2
+VSL=oeYI;ZX;UN6QiIS;WJ2
 S1
 R0
-w1700652668
-8../../src/hvl_top/test/sequences/master_sequences/i3c_master_seq_pkg.sv
-F../../src/hvl_top/test/sequences/master_sequences/i3c_master_seq_pkg.sv
+w1702959797
+8../../src/hvl_top/env/i3c_env_pkg.sv
+F../../src/hvl_top/env/i3c_env_pkg.sv
 R22
 R23
 R24
@@ -425,38 +371,88 @@ R30
 R31
 R32
 R33
-F../../src/hvl_top/test/sequences/master_sequences//i3c_master_base_seq.sv
-F../../src/hvl_top/test/sequences/master_sequences//i3c_master_8b_write_seq.sv
-F../../src/hvl_top/test/sequences/master_sequences//i3c_master_8b_read_seq.sv
-F../../src/hvl_top/test/sequences/master_sequences//i3c_master_8b_write_read_seq.sv
+F../../src/hvl_top/env/i3c_env_config.sv
+F../../src/hvl_top/env/virtual_sequencer//i3c_virtual_sequencer.sv
+F../../src/hvl_top/env/i3c_env.sv
 L0 9
-R6
+R5
 r1
 !s85 0
 31
+R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-vi3c_slave_agent_bfm
+Xi3c_globals_pkg
 R2
-R13
-R14
-R3
+R39
 !i10b 1
-!s100 8[ZUmJ0Zod5L9MG5XEH4m3
-I=mLic3MF<zlEPO?WN<N:n1
-R4
-!s105 i3c_slave_agent_bfm_sv_unit
+!s100 gYX<ed0W^H37`Agod3cbU1
+I6n7lUZkCAa[TT^@Mc]<jE3
+V6n7lUZkCAa[TT^@Mc]<jE3
 S1
 R0
+w1702960228
+8../../src/globals/i3c_globals_pkg.sv
+F../../src/globals/i3c_globals_pkg.sv
+L0 7
 R5
-8../../src/hdl_top/slave_agent_bfm/i3c_slave_agent_bfm.sv
-F../../src/hdl_top/slave_agent_bfm/i3c_slave_agent_bfm.sv
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R10
+R11
+R1
+Yi3c_if
+R2
+R40
+!i10b 1
+!s100 a_C=Ci1EL9okn]R:UdBKB3
+I@mj8TH?dWkfXAhWhNVaXl1
+R4
+!s105 i3c_if_sv_unit
+S1
+R0
+R20
+8../../src/hdl_top/i3c_interface/i3c_if.sv
+F../../src/hdl_top/i3c_interface/i3c_if.sv
+L0 8
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R10
+R11
+R1
+vi3c_target_agent_bfm
+R2
+R12
+R13
+R3
+!i10b 1
+!s100 PCRNAcg[FKj^J^Jiz<:VU0
+I1hYRmZoj]@U3=cMnL`<<Z1
+R4
+!s105 i3c_target_agent_bfm_sv_unit
+S1
+R0
+w1702959414
+8../../src/hdl_top/target_agent_bfm/i3c_target_agent_bfm.sv
+F../../src/hdl_top/target_agent_bfm/i3c_target_agent_bfm.sv
 R22
 R23
 R24
@@ -470,37 +466,36 @@ R31
 R32
 R33
 L0 4
-R6
+R5
 r1
 !s85 0
 31
+R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Yi3c_slave_driver_bfm
+Yi3c_target_driver_bfm
 R2
-R14
-DXx4 work 28 i3c_slave_driver_bfm_sv_unit 0 22 :WO7z7;=<9Tof]h>?iZBY1
 R13
-R16
+DXx4 work 29 i3c_target_driver_bfm_sv_unit 0 22 CiXaJ8>^EI=j9j^^fcmge1
+R12
 R4
 r1
 !s85 0
 31
 !i10b 1
-!s100 NlkDhPk:;dfm:LlC_j8h43
-IbBR1ffiPzc?QzFH0lz=WF1
-!s105 i3c_slave_driver_bfm_sv_unit
+!s100 70P8T]mOLa[CK82_Yd]a91
+I<SDSnn2LFOSUVYGWY51>M2
+!s105 i3c_target_driver_bfm_sv_unit
 S1
 R0
-R5
-Z38 8../../src/hdl_top/slave_agent_bfm/i3c_slave_driver_bfm.sv
-Z39 F../../src/hdl_top/slave_agent_bfm/i3c_slave_driver_bfm.sv
+Z41 w1702960743
+Z42 8../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv
+Z43 F../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv
 R22
 R23
 R24
@@ -514,57 +509,57 @@ R31
 R32
 R33
 L0 8
+R5
 R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Xi3c_slave_driver_bfm_sv_unit
+Xi3c_target_driver_bfm_sv_unit
 R2
-R14
-V:WO7z7;=<9Tof]h>?iZBY1
+R13
+VCiXaJ8>^EI=j9j^^fcmge1
 r1
 !s85 0
 31
 !i10b 1
-!s100 @LSe77zg`CVFLm5@hcmO`3
-I:WO7z7;=<9Tof]h>?iZBY1
+!s100 mmU_[8NZ<K7Mc_HcbTRYJ3
+ICiXaJ8>^EI=j9j^^fcmge1
 !i103 1
 S1
 R0
-R5
-R38
-R39
+R41
+R42
+R43
 L0 7
+R5
 R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Yi3c_slave_monitor_bfm
+Yi3c_target_monitor_bfm
 R2
+R12
 R13
-R14
-R16
+R15
 R3
 !i10b 1
-!s100 cFGd[3QUE?QbfRIB?izkj2
-IDVNW^eP^Kh<Q=3R047SoA2
+!s100 X[7LQYCWcCL>ffD_L]JX:1
+IWQoM3<16zO_B:nh?D`mzA3
 R4
-!s105 i3c_slave_monitor_bfm_sv_unit
+!s105 i3c_target_monitor_bfm_sv_unit
 S1
 R0
-R5
-8../../src/hdl_top/slave_agent_bfm/i3c_slave_monitor_bfm.sv
-F../../src/hdl_top/slave_agent_bfm/i3c_slave_monitor_bfm.sv
+w1702959381
+8../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv
+F../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv
 R22
 R23
 R24
@@ -578,33 +573,32 @@ R31
 R32
 R33
 L0 8
-R6
+R5
 r1
 !s85 0
 31
+R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Xi3c_slave_pkg
-!s115 i3c_slave_driver_bfm
+Xi3c_target_pkg
 R2
+R12
 R13
-R14
-R21
+R39
 !i10b 1
-!s100 J^dG?BJ^a7P>NX^CP2PKN1
-IF2Dz`L=[egK7RnnK77Qlj2
-VF2Dz`L=[egK7RnnK77Qlj2
+!s100 5IfBaA<kf18jSzB@8Fl7I0
+IU@0T_G8a_MKfKV^XlM;NH3
+VU@0T_G8a_MKfKV^XlM;NH3
 S1
 R0
-R5
-8../../src/hvl_top/slave/i3c_slave_pkg.sv
-F../../src/hvl_top/slave/i3c_slave_pkg.sv
+w1702959719
+8../../src/hvl_top/target/i3c_target_pkg.sv
+F../../src/hvl_top/target/i3c_target_pkg.sv
 R22
 R23
 R24
@@ -617,43 +611,41 @@ R30
 R31
 R32
 R33
-F../../src/hvl_top/slave/i3c_slave_agent_config.sv
-F../../src/hvl_top/slave/i3c_slave_tx.sv
-F../../src/hvl_top/slave/i3c_slave_seq_item_converter.sv
-F../../src/hvl_top/slave/i3c_slave_cfg_converter.sv
-F../../src/hvl_top/slave/i3c_slave_sequencer.sv
-F../../src/hvl_top/slave/i3c_slave_driver_proxy.sv
-F../../src/hvl_top/slave/i3c_slave_monitor_proxy.sv
-F../../src/hvl_top/slave/i3c_slave_coverage.sv
-F../../src/hvl_top/slave/i3c_slave_agent.sv
+F../../src/hvl_top/target//i3c_target_agent_config.sv
+F../../src/hvl_top/target//i3c_target_tx.sv
+F../../src/hvl_top/target//i3c_target_seq_item_converter.sv
+F../../src/hvl_top/target//i3c_target_cfg_converter.sv
+F../../src/hvl_top/target//i3c_target_sequencer.sv
+F../../src/hvl_top/target//i3c_target_monitor_proxy.sv
+F../../src/hvl_top/target//i3c_target_agent.sv
 L0 8
-R6
+R5
 r1
 !s85 0
 31
+R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
-Xi3c_slave_seq_pkg
+Xi3c_target_seq_pkg
 R2
+R12
 R13
-R14
-R16
-R21
+R15
+R40
 !i10b 1
-!s100 X42:=1<g;Vh`bO_>bQBkY1
-ICh[Ph_4F[bJ[EHoM2>Mjg3
-VCh[Ph_4F[bJ[EHoM2>Mjg3
+!s100 gjY>iZ>jlD4:gGWV8OeX02
+IaZY<G_EA>lX:hU7Rgiec50
+VaZY<G_EA>lX:hU7Rgiec50
 S1
 R0
-R5
-8../../src/hvl_top/test/sequences/slave_sequences/i3c_slave_seq_pkg.sv
-F../../src/hvl_top/test/sequences/slave_sequences/i3c_slave_seq_pkg.sv
+w1702959959
+8../../src/hvl_top/target/target_sequences/i3c_target_seq_pkg.sv
+F../../src/hvl_top/target/target_sequences/i3c_target_seq_pkg.sv
 R22
 R23
 R24
@@ -666,23 +658,24 @@ R30
 R31
 R32
 R33
-F../../src/hvl_top/test/sequences/slave_sequences//i3c_slave_base_seq.sv
-F../../src/hvl_top/test/sequences/slave_sequences//i3c_8b_slave_seq.sv
+F../../src/hvl_top/target/target_sequences//i3c_target_base_seq.sv
+F../../src/hvl_top/target/target_sequences//i3c_target_8b_seq.sv
 L0 9
-R6
+R5
 r1
 !s85 0
 31
+R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
 Xi3c_test_pkg
 R2
+R12
 R13
 R14
 R15
@@ -690,15 +683,14 @@ R16
 R17
 R18
 R19
-R20
-R21
+R40
 !i10b 1
-!s100 DU2Oa]1VE4D<8@DK=zoh22
-IA[j6QicUZLl]X:T6[SSP>2
-VA[j6QicUZLl]X:T6[SSP>2
+!s100 L9bNKbX;XG=UfmhR8cH8C2
+IN;UBG^E5g2ZKLO3[Dgn`:3
+VN;UBG^E5g2ZKLO3[Dgn`:3
 S1
 R0
-Z40 w1700489443
+w1702960413
 8../../src/hvl_top/test/i3c_test_pkg.sv
 F../../src/hvl_top/test/i3c_test_pkg.sv
 R22
@@ -715,39 +707,36 @@ R32
 R33
 F../../src/hvl_top/test/i3c_base_test.sv
 F../../src/hvl_top/test/i3c_8b_write_test.sv
-F../../src/hvl_top/test/i3c_8b_read_test.sv
-F../../src/hvl_top/test/i3c_8b_write_followed_by_read_test.sv
-F../../src/hvl_top/test/i3c_direct_ccc_setdasa_test.sv
 L0 9
-R6
+R5
 r1
 !s85 0
 31
+R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1
 Xi3c_virtual_seq_pkg
 R2
+R12
 R13
 R14
 R15
-R16
-R18
-R19
 R17
-R21
+R18
+R16
+R40
 !i10b 1
-!s100 8XR^PE`@TM1CEjPez<:eC3
-I7`eRd7Hgfzzi:8Dj:P1Q?1
-V7`eRd7Hgfzzi:8Dj:P1Q?1
+!s100 >YVe5GCB6g>oX7`9Yjf?j1
+I`8OgYb;cV1oCDIKaYk:B^2
+V`8OgYb;cV1oCDIKaYk:B^2
 S1
 R0
-R40
+w1702960071
 8../../src/hvl_top/test/virtual_sequences/i3c_virtual_seq_pkg.sv
 F../../src/hvl_top/test/virtual_sequences/i3c_virtual_seq_pkg.sv
 R22
@@ -764,19 +753,16 @@ R32
 R33
 F../../src/hvl_top/test/virtual_sequences//i3c_virtual_base_seq.sv
 F../../src/hvl_top/test/virtual_sequences//i3c_virtual_8b_write_seq.sv
-F../../src/hvl_top/test/virtual_sequences//i3c_virtual_8b_read_seq.sv
-F../../src/hvl_top/test/virtual_sequences//i3c_virtual_8b_write_followed_by_read_seq.sv
-F../../src/hvl_top/test/virtual_sequences//i3c_virtual_8b_direct_ccc_setdasa_seq.sv
 L0 9
-R6
+R5
 r1
 !s85 0
 31
+R6
 R7
 R8
-R9
 !i113 0
+R9
 R10
 R11
-R12
 R1

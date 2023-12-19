@@ -7,7 +7,7 @@
 package i3c_globals_pkg;
 
   // NO_OF_TARGETS to be connected to the i3c_interface
-  parameter int NO_OF_MASTERS = 1;
+  parameter int NO_OF_CONTROLLERS = 1;
 
   // NO_OF_MASTERS to be connected to the i3c_interface
   parameter int NO_OF_TARGETS = 1;
@@ -78,6 +78,7 @@ package i3c_globals_pkg;
   typedef struct {
     bit [TARGET_ADDRESS_WIDTH-1:0]targetAddress;
     bit operation;
+    bit targetAddressStatus;
     bit [DATA_WIDTH-1:0] writeData[];
     bit [DATA_WIDTH-1:0] readData[];
    // GopalS:  bit ack;

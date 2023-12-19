@@ -9,6 +9,7 @@ import uvm_pkg::*;
 import i3c_globals_pkg::*;
 
 `include "i3c_controller_tx.sv"
+`include "i3c_controller_agent_config.sv"
 `include "i3c_controller_driver_bfm_mock.sv"
 `include "i3c_controller_driver_proxy.sv"
 

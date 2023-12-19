@@ -13,5 +13,6 @@
 # //  18 U.S.C. Section 1905.
 # //
 # i3c_8b_write_test/waveform.wlf opened as dataset "waveform"
-add wave -position insertpoint waveform:/hdl_top/intf_master/*
-add wave -position insertpoint waveform:/hdl_top/intf_slave/*
+add wave -position insertpoint waveform:/hdl_top/intf_controller/*
+add wave -position insertpoint  \
+waveform:/hdl_top/i3c_controller_agent_bfm_h/i3c_controller_drv_bfm_h/state

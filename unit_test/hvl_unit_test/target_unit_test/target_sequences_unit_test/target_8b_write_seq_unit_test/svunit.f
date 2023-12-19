@@ -1,6 +1,6 @@
 +incdir+$I3C_PROJECT/src/globals/
-+incdir+$I3C_PROJECT/src/hvl_top/slave/
-+incdir+$I3C_PROJECT/src/hvl_top/slave/target_sequences/
++incdir+$I3C_PROJECT/src/hvl_top/target/
++incdir+$I3C_PROJECT/src/hvl_top/target/target_sequences/
 
 //-parseinfo macro
 //-Epretty blat
