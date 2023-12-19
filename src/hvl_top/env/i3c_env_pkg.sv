@@ -18,8 +18,8 @@ package i3c_env_pkg;
   import i3c_target_pkg::*;
 
   // Include all other files
-  `include "i3c_env_config.sv"
-  `include "i3c_virtual_sequencer.sv"
+   `include "i3c_env_config.sv"
+   `include "i3c_virtual_sequencer.sv"
 
   // SCOREBOARD
 //  `include "i3c_scoreboard.sv"

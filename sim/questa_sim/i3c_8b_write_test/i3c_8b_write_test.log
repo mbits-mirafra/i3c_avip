@@ -1,0 +1,287 @@
+# vsim -vopt work.hvl_top work.hdl_top -voptargs="+acc=npr" -assertdebug "+UVM_TESTNAME=i3c_8b_write_test" "+UVM_VERBOSITY=UVM_FULL" "+define+" -l i3c_8b_write_test/i3c_8b_write_test.log -sva -coverage -c -do "log -r /*; add wave -r /*; coverage save -onexit -assert -directive -cvg -codeAll i3c_8b_write_test/i3c_8b_write_test_coverage.ucdb; run -all; exit" -wlf i3c_8b_write_test/waveform.wlf 
+# Start time: 10:14:32 on Dec 19,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim
+# //  Version 10.6c linux Jul 25 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.i3c_globals_pkg(fast)
+# Loading mtiUvm.uvm_pkg
+# Loading work.i3c_target_pkg(fast)
+# Loading work.i3c_controller_driver_bfm(fast)
+# Loading work.i3c_controller_pkg(fast)
+# Loading work.i3c_env_pkg(fast)
+# Loading work.i3c_target_seq_pkg(fast)
+# Loading work.i3c_controller_seq_pkg(fast)
+# Loading work.i3c_virtual_seq_pkg(fast)
+# Loading work.i3c_test_pkg(fast)
+# Loading work.hvl_top(fast)
+# Loading work.hdl_top(fast)
+# Loading work.i3c_if(fast)
+# Loading work.i3c_controller_agent_bfm(fast)
+# Loading work.i3c_controller_driver_bfm_sv_unit(fast)
+# Loading work.i3c_controller_driver_bfm(fast)
+# Loading work.i3c_controller_monitor_bfm_sv_unit(fast)
+# Loading work.i3c_controller_monitor_bfm(fast)
+# Loading work.i3c_target_agent_bfm(fast)
+# Loading work.i3c_target_driver_bfm_sv_unit(fast)
+# Loading work.i3c_target_driver_bfm(fast)
+# Loading work.i3c_target_monitor_bfm(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading work.i3c_target_driver_bfm(fast)
+# Loading work.i3c_target_monitor_bfm(fast)
+# Loading work.i3c_controller_monitor_bfm(fast)
+# Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
+# log -r /*
+#  add wave -r /*
+#  coverage save -onexit -assert -directive -cvg -codeAll i3c_8b_write_test/i3c_8b_write_test_coverage.ucdb
+#  run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(217) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test i3c_8b_write_test...
+# HDL TOP
+# I3C_controller_DRIVER_BFM
+# i3c controller Monitor BFM
+# controller Agent BFM
+# 
+# target Monitor BFM
+# DEBUG_MSHA :: drv_str = i3c_target_driver_bfm_0
+# DEBUG_MSHA :: mon_str = i3c_target_monitor_bfm_0
+# target Agent BFM
+# UVM_INFO ../../src/hvl_top/test/i3c_base_test.sv(79) @ 0: uvm_test_top [i3c_8b_write_test] i3c_controller_agent_cfg = 
+#  ----------------------------------------------------------------------------
+# Name                           Type                         Size  Value     
+# ----------------------------------------------------------------------------
+# i3c_controller_agent_cfg_h[0]  i3c_controller_agent_config  -     @504      
+#   isActive                     string                       10    UVM_ACTIVE
+#   no_of_targets                integral                     32    'd1       
+#   DataTransferdirection        string                       9     MSB_FIRST 
+#   primary_prescalar            integral                     3     'd1       
+#   secondary_prescalar          integral                     3     'd0       
+#   clockRateDividerValue        integral                     32    'd4       
+#   hasCoverage                  integral                     1     1         
+# ----------------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/i3c_base_test.sv(99) @ 0: uvm_test_top [i3c_8b_write_test] i3c_target_agent_cfg = 
+#  --------------------------------------------------------------------
+# Name                       Type                     Size  Value     
+# --------------------------------------------------------------------
+# i3c_target_agent_cfg_h[0]  i3c_target_agent_config  -     @509      
+#   isActive                 string                   10    UVM_ACTIVE
+#   DataTransferdirection    string                   9     MSB_FIRST 
+#   hasCoverage              integral                 1     1         
+# --------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/i3c_base_test.sv(103) @ 0: uvm_test_top [i3c_8b_write_test] i3c_env_cfg = 
+#  ----------------------------------------------------
+# Name                     Type            Size  Value
+# ----------------------------------------------------
+# i3c_env_cfg_h            i3c_env_config  -     @496 
+#   has_scoreboard         integral        1     1    
+#   has_virtual_sequencer  integral        1     1    
+#   no_of_controllers      integral        32    'd1  
+#   no_of_targets          integral        32    'd1  
+# ----------------------------------------------------
+# 
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# --------------------------------------------------------------------------
+# Name                              Type                         Size  Value
+# --------------------------------------------------------------------------
+# uvm_test_top                      i3c_8b_write_test            -     @473 
+#   i3c_env_h                       i3c_env                      -     @497 
+#     i3c_controller_agent_h[0]     i3c_controller_agent         -     @519 
+#       i3c_controller_drv_proxy_h  i3c_controller_driver_proxy  -     @643 
+#         rsp_port                  uvm_analysis_port            -     @658 
+#         seq_item_port             uvm_seq_item_pull_port       -     @650 
+#       i3c_controller_seqr_h       i3c_controller_sequencer     -     @666 
+#         rsp_export                uvm_analysis_export          -     @673 
+#         seq_item_export           uvm_seq_item_pull_imp        -     @767 
+#         arbitration_queue         array                        0     -    
+#         lock_queue                array                        0     -    
+#         num_last_reqs             integral                     32    'd1  
+#         num_last_rsps             integral                     32    'd1  
+#     i3c_target_agent_h[0]         i3c_target_agent             -     @526 
+#       i3c_target_mon_proxy_h      i3c_target_monitor_proxy     -     @782 
+#         target_analysis_port      uvm_analysis_port            -     @899 
+#       i3c_target_seqr_h           i3c_target_sequencer         -     @789 
+#         rsp_export                uvm_analysis_export          -     @796 
+#         seq_item_export           uvm_seq_item_pull_imp        -     @890 
+#         arbitration_queue         array                        0     -    
+#         lock_queue                array                        0     -    
+#         num_last_reqs             integral                     32    'd1  
+#         num_last_rsps             integral                     32    'd1  
+#     virtual_seqr_h                i3c_virtual_sequencer        -     @533 
+#       i3c_controller_seqr_h       i3c_controller_sequencer     -     @918 
+#         rsp_export                uvm_analysis_export          -     @925 
+#         seq_item_export           uvm_seq_item_pull_imp        -     @1019
+#         arbitration_queue         array                        0     -    
+#         lock_queue                array                        0     -    
+#         num_last_reqs             integral                     32    'd1  
+#         num_last_rsps             integral                     32    'd1  
+#       i3c_target_seqr_h           i3c_target_sequencer         -     @1027
+#         rsp_export                uvm_analysis_export          -     @1034
+#         seq_item_export           uvm_seq_item_pull_imp        -     @1128
+#         arbitration_queue         array                        0     -    
+#         lock_queue                array                        0     -    
+#         num_last_reqs             integral                     32    'd1  
+#         num_last_rsps             integral                     32    'd1  
+#       rsp_export                  uvm_analysis_export          -     @540 
+#       seq_item_export             uvm_seq_item_pull_imp        -     @634 
+#       arbitration_queue           array                        0     -    
+#       lock_queue                  array                        0     -    
+#       num_last_reqs               integral                     32    'd1  
+#       num_last_rsps               integral                     32    'd1  
+# --------------------------------------------------------------------------
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] End Of Elaboration
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'run'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'run'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'run'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'run'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'run'
+# UVM_INFO ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv(88) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_drv_proxy_h [i3c_controller_driver_proxy] Running the Driver
+# UVM_INFO ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv(90) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_drv_proxy_h [i3c_controller_driver_proxy] MUNEEB :: Waiting for reset
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'post_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'post_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'post_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'post_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'post_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'post_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'post_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'post_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'post_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'post_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'post_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'post_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'post_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'post_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'post_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'pre_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h [PHASESEQ] No default phase sequence for phase 'post_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'post_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.virtual_seqr_h.i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'post_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h [PHASESEQ] No default phase sequence for phase 'post_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1385) @ 0: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h [PHASESEQ] No default phase sequence for phase 'post_shutdown'
+# UVM_INFO ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv(92) @ 70: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_drv_proxy_h [i3c_controller_driver_proxy] MUNEEB :: Reset detected
+# UVM_INFO ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv(95) @ 70: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_drv_proxy_h [i3c_controller_driver_proxy] MUNEEB :: Driving Idle
+# UVM_INFO ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv(97) @ 90: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_drv_proxy_h [i3c_controller_driver_proxy] MUNEEB :: Drove Idle
+# UVM_INFO ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv(104) @ 90: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_drv_proxy_h [DEBUG] Inside i3c_controller_driver_proxy
+# UVM_INFO ../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv(78) @ 110: reporter [I3C_controller_DRIVER_BFM] I3C bus is free state detected
+# --------------------------------------------------------
+# Name                           Type               Size  Value                                                                                               
+# --------------------------------------------------------
+# req                            i3c_controller_tx  -     @1171                                                                                               
+#   begin_time                   time               64    110                                                                                                 
+#   depth                        int                32    'd2                                                                                                 
+#   parent sequence (name)       string             29    i3c_controller_8b_write_seq_h                                                                       
+#   parent sequence (full name)  string             100   uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h.i3c_controller_8b_write_seq_h
+#   sequencer                    string             70    uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_seqr_h                              
+#   targetAddress                integral           7     'h64                                                                                                
+#   targetAddressStatus          string             3     ACK                                                                                                 
+#   operation                    string             5     WRITE                                                                                               
+#   writeData[0]                 integral           8     'hdc                                                                                                
+# --------------------------------------------------------
+# UVM_INFO ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv(139) @ 110: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_drv_proxy_h [DEBUG] Inside drive to bfm
+# UVM_INFO ../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv(111) @ 110: reporter [I3C_controller_DRIVER_BFM] Starting the drive data method
+# UVM_INFO ../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv(180) @ 150: reporter [I3C_controller_DRIVER_BFM] Driving start condition
+# UVM_INFO ../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv(187) @ 150: reporter [DEBUG] Driving byte = 0
+# UVM_INFO ../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv(122) @ 470: reporter [DEBUG] Address is sent, address = 0, operation = 0
+# UVM_INFO ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv(141) @ 470: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_drv_proxy_h [i3c_controller_driver_proxy] AFTER STRUCT PACKET : , 
+#  '{DataTransferdirectionMSBfirst:0, operation:0, clockRateDividerValue:0, targetAddress:0, targetFIFOMemory:'{}}
+# UVM_INFO ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv(104) @ 470: uvm_test_top.i3c_env_h.i3c_controller_agent_h[0].i3c_controller_drv_proxy_h [DEBUG] Inside i3c_controller_driver_proxy
+# UVM_INFO ../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv(78) @ 490: reporter [I3C_controller_DRIVER_BFM] I3C bus is free state detected
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1245) @ 490: reporter [TEST_DONE] All end-of-test objections have been dropped. Calling stop tasks
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 490: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :   90
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [DEBUG]     5
+# [I3C_controller_DRIVER_BFM]     4
+# [PHASESEQ]    65
+# [Questa UVM]     3
+# [RNTST]     1
+# [TEST_DONE]     2
+# [UVMTOP]     1
+# [i3c_8b_write_test]     3
+# [i3c_controller_driver_proxy]     6
+# ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 490 ns  Iteration: 54  Instance: /hvl_top
+# Saving coverage database on exit...
+# End time: 10:14:36 on Dec 19,2023, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 0

@@ -32,7 +32,7 @@ interface i3c_controller_driver_bfm(input pclk,
   //-------------------------------------------------------
   // Importing I3C Global Package and Slave package
   //-------------------------------------------------------
- // GopalS:  import i3c_controller_pkg::i3c_controller_driver_proxy;
+  import i3c_controller_pkg::i3c_controller_driver_proxy;
 
   //Variable : controller_driver_proxy_h
   //Creating the handle for proxy driver

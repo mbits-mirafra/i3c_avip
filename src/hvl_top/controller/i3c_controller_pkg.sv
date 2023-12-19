@@ -25,7 +25,7 @@ package i3c_controller_pkg;
   `include "i3c_controller_cfg_converter.sv"
   `include "i3c_controller_sequencer.sv"
   `include "i3c_controller_driver_proxy.sv"
- // GopalS:  `include "i3c_controller_monitor_proxy.sv"
+  `include "i3c_controller_monitor_proxy.sv"
  // GopalS:  `include "i3c_controller_coverage.sv"
  `include "i3c_controller_agent.sv"
   

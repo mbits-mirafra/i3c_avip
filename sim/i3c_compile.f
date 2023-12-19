@@ -22,8 +22,8 @@
 ../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv
 ../../src/hdl_top/controller_agent_bfm/i3c_controller_monitor_bfm.sv
 ../../src/hdl_top/controller_agent_bfm/i3c_controller_agent_bfm.sv
-../../src/hdl_top/target_agent_bfm/i3c_slave_driver_bfm.sv
-../../src/hdl_top/target_agent_bfm/i3c_slave_monitor_bfm.sv
-../../src/hdl_top/target_agent_bfm/i3c_slave_agent_bfm.sv
+../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv
+../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv
+../../src/hdl_top/target_agent_bfm/i3c_target_agent_bfm.sv
 ../../src/hdl_top/hdl_top.sv
 ../../src/hvl_top/hvl_top.sv 

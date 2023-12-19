@@ -12,7 +12,7 @@ class i3c_virtual_sequencer extends uvm_sequencer #(uvm_sequence_item);
   
   // Variable: env_cfg_h
   // Declaring environment configuration handle
-  i3c_env_config i3c_env_cfg_h;
+   i3c_env_config i3c_env_cfg_h;
 
   // Variable: controller_seqr_h
   // Declaring controller sequencer handle

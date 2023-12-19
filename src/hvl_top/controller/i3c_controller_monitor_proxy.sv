@@ -19,7 +19,7 @@ class i3c_controller_monitor_proxy extends uvm_component;
   extern virtual function void connect_phase(uvm_phase phase);
   extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual function void start_of_simulation_phase(uvm_phase phase);
-  //extern virtual task run_phase(uvm_phase phase);
+  extern virtual task run_phase(uvm_phase phase);
 
 endclass : i3c_controller_monitor_proxy
 

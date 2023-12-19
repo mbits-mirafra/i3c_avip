@@ -19,8 +19,8 @@ package i3c_target_seq_pkg;
   // Importing the required packages
   //-------------------------------------------------------
   
-  `include "i3c_target_base_seq.sv"
-  `include "i3c_target_8b_seq.sv"
+   `include "i3c_target_base_seq.sv"
+   `include "i3c_target_8b_seq.sv"
 
 endpackage : i3c_target_seq_pkg
 `endif
