@@ -188,10 +188,12 @@ endtask: drive_data
      @(posedge pclk);
      drive_scl(1);
      drive_sda(0);
+     state = START;
      // MSHA: sda_oen <= TRISTATE_BUF_ON;
      // MSHA: sda_o   <= 0;
 
-     state = START;
+    // @(posedge pclk);
+    // drive_scl(0);
      `uvm_info(name, $sformatf("Driving start condition"), UVM_MEDIUM);
    endtask :drive_start
 
@@ -200,10 +202,10 @@ endtask: drive_data
      `uvm_info("DEBUG", $sformatf("Driving Address = %0b",data), UVM_NONE)
      for(int k=0;k < TARGET_ADDRESS_WIDTH; k++) begin
        scl_tristate_buf_on();
+       state = ADDRESS;
        sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= data[k];
        scl_tristate_buf_off();
-       state = ADDRESS;
      end
       
    endtask :drive_address
@@ -213,10 +215,10 @@ endtask: drive_data
 
      `uvm_info("DEBUG", $sformatf("Driving operation Bit = %0b",wrBit), UVM_NONE)
        scl_tristate_buf_on();
+       state = WR_BIT;
        sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= wrBit;
        scl_tristate_buf_off();
-       state = WR_BIT;
       
    endtask :drive_operation
 
@@ -224,14 +226,14 @@ endtask: drive_data
   // task for sampling the Acknowledge
    task sample_ack(output bit p_ack);
      scl_tristate_buf_on();
+     state    = ADDR_ACK;
    // GopalS:   @(posedge pclk);
    // GopalS:   scl_oen <= TRISTATE_BUF_ON;
    // GopalS:   scl_o   <= 0;
 
-     //p_ack    = sda_i;
-     p_ack    = 1;
+     p_ack    = sda_i;
+     // GopalS: p_ack    = 1;
      scl_tristate_buf_off();
-     state    = ADDR_ACK;
 
   // GopalS:    @(posedge pclk);
   // GopalS:    sda_oen <= TRISTATE_BUF_OFF;
@@ -250,17 +252,20 @@ endtask: drive_data
    @(posedge pclk);
    // MSHA: scl_oen <= TRISTATE_BUF_OFF;
    // MSHA: scl_o   <= 1;
-   drive_scl(1);
+   drive_scl(0);
    drive_sda(0);
    // MSHA: sda_oen <= TRISTATE_BUF_ON;
    // MSHA: sda_o   <= 0;
 
    @(posedge pclk);
-   drive_sda(1);
+   drive_scl(1);
    // MSHA: sda_oen <= TRISTATE_BUF_OFF;
    // MSHA: sda_o   <= 1;
 
+   @(posedge pclk);
+   drive_sda(1);
    state = STOP;
+
      
    // Checking for IDLE state
 // GopalS:    @(posedge pclk);
