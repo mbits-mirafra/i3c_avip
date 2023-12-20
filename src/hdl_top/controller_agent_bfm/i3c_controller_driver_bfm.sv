@@ -1,10 +1,6 @@
 `ifndef I3C_CONTROLLER_DRIVER_BFM_INCLUDED_
 `define I3C_CONTROLLER_DRIVER_BFM_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-//Interface : i3c_controller_driver_bfm
-//It connects with the HVL driver_proxy for driving the stimulus
-//--------------------------------------------------------------------------------------------
 import i3c_globals_pkg::*;
 
 interface i3c_controller_driver_bfm(input pclk, 
@@ -23,15 +19,10 @@ interface i3c_controller_driver_bfm(input pclk,
   i3c_transfer_bits_s dataPacketStruct;
   i3c_transfer_cfg_s configPacketStruct;
   bit ack;
-  //-------------------------------------------------------
-  // Importing UVM Package 
-  //-------------------------------------------------------
+
   import uvm_pkg::*;
   `include "uvm_macros.svh" 
   
-  //-------------------------------------------------------
-  // Importing I3C Global Package and Slave package
-  //-------------------------------------------------------
   import i3c_controller_pkg::i3c_controller_driver_proxy;
 
   //Variable : controller_driver_proxy_h
@@ -74,7 +65,7 @@ interface i3c_controller_driver_bfm(input pclk,
     while(scl_i!=1 && sda_i!=1) begin
       @(posedge pclk);
     end
-
+    state = IDLE;
     `uvm_info(name, $sformatf("I3C bus is free state detected"), UVM_HIGH);
   endtask: wait_for_idle_state
 
@@ -107,6 +98,7 @@ interface i3c_controller_driver_bfm(input pclk,
 
   bit operationBit;
   bit [TARGET_ADDRESS_WIDTH-1:0] address7Bits;
+  bit [DATA_WIDTH-1:0] writeData8Bits;
 
   `uvm_info(name, $sformatf("Starting the drive data method"), UVM_HIGH);
   dataPacketStruct = p_data_packet;
@@ -129,7 +121,22 @@ interface i3c_controller_driver_bfm(input pclk,
   if(dataPacketStruct.targetAddressStatus == 1'b1)begin
     stop();
     `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 1 and stop condition is triggered"), UVM_HIGH);
-  end
+  end else begin
+    `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 0"), UVM_HIGH);
+     if(dataPacketStruct.operation == 0) begin
+        for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
+          writeData8Bits = dataPacketStruct.writeData[i];
+          drive_writeDataByte(writeData8Bits);
+          `uvm_info("DEBUG", $sformatf("Driving Write data %0h",writeData8Bits), UVM_NONE)
+
+          sample_ack(dataPacketStruct.writeDataStatus[i]);
+         // GopalS:  if(dataPacketStruct.writeDataStatus[i] == 1)
+        // GopalS:    stop();
+        end
+        // GopalS:  if(ack == 0)
+        // GopalS:   stop();
+      end
+    end
 endtask: drive_data
 
 
@@ -141,7 +148,6 @@ endtask: drive_data
 // GopalS:   bit [7:0] writeData_8b;
 // GopalS:   
 
-// GopalS:   sample_ack(ack);
 // GopalS:   if(ack == 1'b1)begin
 // GopalS:     stop();
 // GopalS:     `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 1 and stop condition is triggered"), UVM_HIGH);
@@ -179,6 +185,7 @@ endtask: drive_data
      @(posedge pclk);
      drive_scl(1);
      drive_sda(1);
+     state = START;
 
      // MSHA: scl_oen <= TRISTATE_BUF_OFF;
      // MSHA: scl_o   <= 1;
@@ -188,7 +195,6 @@ endtask: drive_data
      @(posedge pclk);
      drive_scl(1);
      drive_sda(0);
-     state = START;
      // MSHA: sda_oen <= TRISTATE_BUF_ON;
      // MSHA: sda_o   <= 0;
 
@@ -197,14 +203,14 @@ endtask: drive_data
      `uvm_info(name, $sformatf("Driving start condition"), UVM_MEDIUM);
    endtask :drive_start
 
-   task drive_address(input bit[6:0] data);
+   task drive_address(input bit[6:0] addr);
 
-     `uvm_info("DEBUG", $sformatf("Driving Address = %0b",data), UVM_NONE)
+     `uvm_info("DEBUG", $sformatf("Driving Address = %0b",addr), UVM_NONE)
      for(int k=0;k < TARGET_ADDRESS_WIDTH; k++) begin
        scl_tristate_buf_on();
        state = ADDRESS;
        sda_oen <= TRISTATE_BUF_ON;
-       sda_o   <= data[k];
+       sda_o   <= addr[k];
        scl_tristate_buf_off();
      end
       
@@ -214,7 +220,10 @@ endtask: drive_data
    task drive_operation(input bit wrBit);
 
      `uvm_info("DEBUG", $sformatf("Driving operation Bit = %0b",wrBit), UVM_NONE)
-       scl_tristate_buf_on();
+      @(posedge pclk);
+      scl_oen <= TRISTATE_BUF_ON;
+      scl_o   <= 0;
+   // GopalS:     scl_tristate_buf_on();
        state = WR_BIT;
        sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= wrBit;
@@ -225,15 +234,24 @@ endtask: drive_data
 
   // task for sampling the Acknowledge
    task sample_ack(output bit p_ack);
-     scl_tristate_buf_on();
+    // GopalS:  scl_tristate_buf_on();
+      @(posedge pclk);
+      scl_oen <= TRISTATE_BUF_ON;
+      scl_o   <= 0;
+
+     sda_oen <= TRISTATE_BUF_OFF;
+     sda_o   <= 1;
+     
      state    = ADDR_ACK;
    // GopalS:   @(posedge pclk);
    // GopalS:   scl_oen <= TRISTATE_BUF_ON;
    // GopalS:   scl_o   <= 0;
+      @(posedge pclk);
+      scl_oen <= TRISTATE_BUF_OFF;
+      scl_o   <= 1;
 
      p_ack    = sda_i;
-     // GopalS: p_ack    = 1;
-     scl_tristate_buf_off();
+    // GopalS:  scl_tristate_buf_off();
 
   // GopalS:    @(posedge pclk);
   // GopalS:    sda_oen <= TRISTATE_BUF_OFF;
@@ -249,22 +267,26 @@ endtask: drive_data
  
   task stop();
    // Complete the SCL clock
+      @(posedge pclk);
+      scl_oen <= TRISTATE_BUF_ON;
+      scl_o   <= 0;
+   state = STOP;
    @(posedge pclk);
    // MSHA: scl_oen <= TRISTATE_BUF_OFF;
    // MSHA: scl_o   <= 1;
-   drive_scl(0);
+   drive_scl(1);
    drive_sda(0);
    // MSHA: sda_oen <= TRISTATE_BUF_ON;
    // MSHA: sda_o   <= 0;
 
    @(posedge pclk);
    drive_scl(1);
+   drive_sda(1);
    // MSHA: sda_oen <= TRISTATE_BUF_OFF;
    // MSHA: sda_o   <= 1;
 
-   @(posedge pclk);
-   drive_sda(1);
-   state = STOP;
+    @(posedge pclk);
+   // GopalS:  drive_sda(1);
 
      
    // Checking for IDLE state
@@ -273,6 +295,20 @@ endtask: drive_data
 // GopalS:      state = IDLE;
 // GopalS:    end
   endtask
+
+
+   task drive_writeDataByte(input bit[7:0] wdata);
+
+     `uvm_info("DEBUG", $sformatf("Driving writeData = %0b",wdata), UVM_NONE)
+     for(int k=0;k < DATA_WIDTH; k++) begin
+       scl_tristate_buf_on();
+       state = WRITE_DATA;
+       sda_oen <= TRISTATE_BUF_ON;
+       sda_o   <= wdata[k];
+       scl_tristate_buf_off();
+     end
+      
+   endtask :drive_writeDataByte
 
 
   task sample_read_data(input i3c_transfer_cfg_s cfg_pkt, output bit ack);

@@ -46,7 +46,7 @@ function void i3c_controller_cfg_converter::from_class(input i3c_controller_agen
 
 //  target_address_width=target_address_width_e'(input_conv_h.target_address_width);
   
- output_conv.DataTransferdirectionMSBfirst = dataTransferDirection_e'(input_conv_h.DataTransferdirection);
+ output_conv.DataTransferdirection = dataTransferDirection_e'(input_conv_h.DataTransferdirection);
  output_conv.clockRateDividerValue = input_conv_h.get_clockrate_divider_value();
 
  `uvm_info("conv_bd",$sformatf("bd = \n %p",output_conv.clockRateDividerValue),UVM_LOW)

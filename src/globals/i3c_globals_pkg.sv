@@ -79,8 +79,10 @@ package i3c_globals_pkg;
     bit [TARGET_ADDRESS_WIDTH-1:0]targetAddress;
     bit operation;
     bit targetAddressStatus;
-    bit [DATA_WIDTH-1:0] writeData[];
-    bit [DATA_WIDTH-1:0] readData[];
+    bit writeDataStatus[MAXIMUM_BYTES];
+    bit readDataStatus[MAXIMUM_BYTES];
+    bit [DATA_WIDTH-1:0] writeData[MAXIMUM_BYTES];
+    bit [DATA_WIDTH-1:0] readData[MAXIMUM_BYTES];
    // GopalS:  bit ack;
     int no_of_i3c_bits_transfer; 
     bit slave_add_ack;
@@ -96,7 +98,7 @@ package i3c_globals_pkg;
   // operation : read from or write to slave 
   //
   typedef struct {
-    bit DataTransferdirectionMSBfirst;
+    bit DataTransferdirection;
     bit operation;
     int clockRateDividerValue;
     bit[TARGET_ADDRESS_WIDTH-1:0] targetAddress;

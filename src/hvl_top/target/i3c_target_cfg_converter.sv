@@ -47,7 +47,7 @@ function void i3c_target_cfg_converter::from_class(input i3c_target_agent_config
   //target address is configurable so for it we do casting 
  // target_address_width=target_address_width_e'(input_conv_h.target_address_width);
   
- output_conv.DataTransferdirectionMSBfirst = dataTransferDirection_e'(input_conv_h.DataTransferdirection);
+ output_conv.DataTransferdirection = dataTransferDirection_e'(input_conv_h.DataTransferdirection);
 // output_conv.targetAddress = input_conv_h.targetAddress;
  output_conv.targetFIFOMemory = input_conv_h.targetFIFOMemory;
   
