@@ -56,7 +56,7 @@ interface i3c_controller_driver_bfm(input pclk,
     sda_oen <= TRISTATE_BUF_OFF;
     sda_o   <= 1;
 
-    state=IDLE;
+    state <= IDLE;
   endtask: drive_idle_state
 
   task wait_for_idle_state();
@@ -137,8 +137,15 @@ interface i3c_controller_driver_bfm(input pclk,
         end
         if(ack == 0)
         stop();
-      end
+      end else begin
+        for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
+       // GopalS: state = READ_DATA;
+       // GopalS: `uvm_info("READ_DATA", $sformatf("Moving to READ_DATA state"), UVM_HIGH);
+       sample_read_data(dataPacketStruct.readData[i],dataPacketStruct.readDataStatus[i]);
+     end
+     stop();
     end
+  end
 endtask: drive_data
 
 
@@ -210,7 +217,7 @@ endtask: drive_data
      `uvm_info("DEBUG", $sformatf("Driving Address = %0b",addr), UVM_NONE)
      for(int k=0;k < TARGET_ADDRESS_WIDTH; k++) begin
        scl_tristate_buf_on();
-       state = ADDRESS;
+       state <= ADDRESS;
        sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= addr[k];
        scl_tristate_buf_off();
@@ -226,7 +233,7 @@ endtask: drive_data
       scl_oen <= TRISTATE_BUF_ON;
       scl_o   <= 0;
    // GopalS:     scl_tristate_buf_on();
-       state = WR_BIT;
+       state <= WR_BIT;
        sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= wrBit;
        scl_tristate_buf_off();
@@ -244,7 +251,7 @@ endtask: drive_data
      sda_oen <= TRISTATE_BUF_OFF;
      sda_o   <= 1;
      
-     state    = ACK_NACK;
+     state <= ACK_NACK;
    // GopalS:   @(posedge pclk);
    // GopalS:   scl_oen <= TRISTATE_BUF_ON;
    // GopalS:   scl_o   <= 0;
@@ -252,7 +259,7 @@ endtask: drive_data
       scl_oen <= TRISTATE_BUF_OFF;
       scl_o   <= 1;
 
-     p_ack    = sda_i;
+     p_ack <= sda_i;
     // GopalS:  scl_tristate_buf_off();
 
   // GopalS:    @(posedge pclk);
@@ -272,7 +279,7 @@ endtask: drive_data
       @(posedge pclk);
       scl_oen <= TRISTATE_BUF_ON;
       scl_o   <= 0;
-   state = STOP;
+   state <= STOP;
    @(posedge pclk);
    // MSHA: scl_oen <= TRISTATE_BUF_OFF;
    // MSHA: scl_o   <= 1;
@@ -304,7 +311,7 @@ endtask: drive_data
      `uvm_info("DEBUG", $sformatf("Driving writeData = %0b",wdata), UVM_NONE)
      for(int k=0;k < DATA_WIDTH; k++) begin
        scl_tristate_buf_on();
-       state = WRITE_DATA;
+       state <= WRITE_DATA;
        sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= wdata[k];
        scl_tristate_buf_off();
@@ -313,27 +320,54 @@ endtask: drive_data
    endtask :drive_writeDataByte
 
 
-  task sample_read_data(input i3c_transfer_cfg_s cfg_pkt, output bit ack);
-    bit [7:0] rdata;
+   task sample_read_data(output bit [7:0]rdata, input bit ack);
 
-    for(int k=0;k < DATA_WIDTH; k++) begin
-      detect_posedge_scl();
-      rdata[k] = sda_i;
-      sda_oen <= TRISTATE_BUF_OFF;
-      sda_o   <= 1;
-    end
+     for(int k=0;k < DATA_WIDTH; k++) begin
+       scl_tristate_buf_on();
+       state <= READ_DATA;
+       sda_oen <= TRISTATE_BUF_OFF;
+       sda_o   <= 1;
+       rdata[k] <= sda_i;
+       scl_tristate_buf_off();
 
-    `uvm_info(name, $sformatf("DEBUG :: Value of sampled read data = %0x", rdata[7:0]), UVM_NONE); 
-   
-    ack = 1'b0;
+       @(posedge pclk);
+       scl_oen <= TRISTATE_BUF_ON;
+       scl_o   <= 0;
 
-    // Driving the ACK for slave address
-    detect_negedge_scl();
-    drive_sda(ack); 
-    state = ACK_NACK;
-    detect_posedge_scl();
+       @(posedge pclk);
+       sda_oen <= TRISTATE_BUF_ON;
+       sda_o   <= ack;
+       
+       @(posedge pclk);
+       scl_oen <= TRISTATE_BUF_OFF;
+       scl_o   <= 1;
 
-  endtask: sample_read_data
+     end
+     `uvm_info("DEBUG", $sformatf("Moving readData = %0b",rdata), UVM_NONE)
+   endtask: sample_read_data
+
+
+// GopalS:   task sample_read_data(input i3c_transfer_cfg_s cfg_pkt, output bit ack);
+// GopalS:     bit [7:0] rdata;
+// GopalS: 
+// GopalS:     for(int k=0;k < DATA_WIDTH; k++) begin
+// GopalS:       detect_posedge_scl();
+// GopalS:       rdata[k] <= sda_i;
+// GopalS:       sda_oen <= TRISTATE_BUF_OFF;
+// GopalS:       sda_o   <= 1;
+// GopalS:     end
+// GopalS: 
+// GopalS:     `uvm_info(name, $sformatf("DEBUG :: Value of sampled read data = %0x", rdata[7:0]), UVM_NONE); 
+// GopalS:    
+// GopalS:     ack = 1'b0;
+// GopalS: 
+// GopalS:     // Driving the ACK for slave address
+// GopalS:     detect_negedge_scl();
+// GopalS:     drive_sda(ack); 
+// GopalS:     state = ACK_NACK;
+// GopalS:     detect_posedge_scl();
+// GopalS: 
+// GopalS:   endtask: sample_read_data
 
 
   //--------------------------------------------------------------------------------------------

@@ -46,17 +46,22 @@ function void i3c_controller_seq_item_converter::from_class(input i3c_controller
   output_conv.targetAddress = input_conv_h.targetAddress;
 
   output_conv.operation = operationType_e'(input_conv_h.operation);
- // GopalS:  output_conv.size = input_conv_h.size;
-  // GopalS: output_conv.writeData = new[output_conv.size];    
   for(int i=0; i<input_conv_h.writeData.size();i++) begin
     output_conv.writeData[i] = input_conv_h.writeData[i];    
   end
   
+  for(int i=0; i<input_conv_h.readDataStatus.size();i++) begin
+    output_conv.readDataStatus[i] = input_conv_h.readDataStatus[i];    
+  end
   //converting of the register address
 // output_conv.register_address = input_conv_h.register_address;
 // `uvm_info("DEBUG_MSHA", $sformatf("input_conv_h.register_address = %0x and output_conv.register_address = %0x", input_conv_h.register_address, output_conv.register_address ), UVM_NONE)
 
+if(input_conv_h.operation == 0) begin
   output_conv.no_of_i3c_bits_transfer = input_conv_h.writeData.size() * DATA_WIDTH;
+end else begin
+  output_conv.no_of_i3c_bits_transfer = input_conv_h.readDataStatus.size() * DATA_WIDTH;
+end
 
   for(int i=0; i<input_conv_h.writeData.size();i++) begin
    // MSHA: `uvm_info("controller_seq_item_conv_class",
