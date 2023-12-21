@@ -139,12 +139,10 @@ interface i3c_controller_driver_bfm(input pclk,
         stop();
       end else begin
         for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
-       // GopalS: state = READ_DATA;
-       // GopalS: `uvm_info("READ_DATA", $sformatf("Moving to READ_DATA state"), UVM_HIGH);
-       sample_read_data(dataPacketStruct.readData[i],dataPacketStruct.readDataStatus[i]);
-     end
-     stop();
-    end
+          sample_read_data(dataPacketStruct.readData[i],dataPacketStruct.readDataStatus[i]);
+        end
+        stop();
+      end
   end
 endtask: drive_data
 
@@ -325,24 +323,24 @@ endtask: drive_data
      for(int k=0;k < DATA_WIDTH; k++) begin
        scl_tristate_buf_on();
        state <= READ_DATA;
-       sda_oen <= TRISTATE_BUF_OFF;
+       sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= 1;
        rdata[k] <= sda_i;
        scl_tristate_buf_off();
+     end
 
        @(posedge pclk);
        scl_oen <= TRISTATE_BUF_ON;
        scl_o   <= 0;
 
-       @(posedge pclk);
        sda_oen <= TRISTATE_BUF_ON;
        sda_o   <= ack;
+       state <= ACK_NACK;
        
        @(posedge pclk);
        scl_oen <= TRISTATE_BUF_OFF;
        scl_o   <= 1;
 
-     end
      `uvm_info("DEBUG", $sformatf("Moving readData = %0b",rdata), UVM_NONE)
    endtask: sample_read_data
 

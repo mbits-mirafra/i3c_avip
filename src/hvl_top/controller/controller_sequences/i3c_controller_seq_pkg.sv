@@ -22,7 +22,7 @@ package i3c_controller_seq_pkg;
   `include "i3c_controller_base_seq.sv"
 
   `include "i3c_controller_8b_write_seq.sv"
-//  `include "i3c_controller_8b_read_seq.sv"
+  `include "i3c_controller_8b_read_seq.sv"
 //  `include "i3c_controller_8b_write_read_seq.sv"
 endpackage : i3c_controller_seq_pkg
 `endif
