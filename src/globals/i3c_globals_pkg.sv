@@ -114,7 +114,7 @@ package i3c_globals_pkg;
     START, 
     ADDRESS,
     WR_BIT,
-    ADDR_ACK,
+    ACK_NACK,
     WRITE_DATA,
     READ_DATA,
     SAMPLE_WRITE_DATA,

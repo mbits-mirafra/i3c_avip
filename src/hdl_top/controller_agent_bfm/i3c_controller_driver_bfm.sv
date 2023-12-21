@@ -130,11 +130,13 @@ interface i3c_controller_driver_bfm(input pclk,
           `uvm_info("DEBUG", $sformatf("Driving Write data %0h",writeData8Bits), UVM_NONE)
 
           sample_ack(dataPacketStruct.writeDataStatus[i]);
-         // GopalS:  if(dataPacketStruct.writeDataStatus[i] == 1)
-        // GopalS:    stop();
+          if(dataPacketStruct.writeDataStatus[i] == 1) begin
+            stop();
+            break;
+          end
         end
-        // GopalS:  if(ack == 0)
-        // GopalS:   stop();
+        if(ack == 0)
+        stop();
       end
     end
 endtask: drive_data
@@ -242,7 +244,7 @@ endtask: drive_data
      sda_oen <= TRISTATE_BUF_OFF;
      sda_o   <= 1;
      
-     state    = ADDR_ACK;
+     state    = ACK_NACK;
    // GopalS:   @(posedge pclk);
    // GopalS:   scl_oen <= TRISTATE_BUF_ON;
    // GopalS:   scl_o   <= 0;
@@ -328,7 +330,7 @@ endtask: drive_data
     // Driving the ACK for slave address
     detect_negedge_scl();
     drive_sda(ack); 
-    state = ADDR_ACK;
+    state = ACK_NACK;
     detect_posedge_scl();
 
   endtask: sample_read_data

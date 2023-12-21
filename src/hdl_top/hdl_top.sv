@@ -79,7 +79,19 @@ module hdl_top;
       intf_controller.sda_oen = 0;
       intf_controller.sda_o = 1;
   end
- // MSHA: // Implementing week0 and week1 concept
+  initial begin
+    repeat(18)
+      @(posedge I3C_SCL);
+  
+      @(negedge I3C_SCL); 
+      intf_controller.sda_oen = 1;
+      intf_controller.sda_o = 0;
+  
+      @(posedge I3C_SCL);
+      intf_controller.sda_oen = 0;
+      intf_controller.sda_o = 1;
+  end
+  // MSHA: // Implementing week0 and week1 concept
  // MSHA: // Logic for Pull-up registers using opne-drain concept
  // MSHA: assign (weak0,weak1) SCL = 1'b1;
  // MSHA: assign (weak0,weak1) SDA = 1'b1;
