@@ -24,7 +24,7 @@ package i3c_target_pkg;
   `include "i3c_target_seq_item_converter.sv"
   `include "i3c_target_cfg_converter.sv"
   `include "i3c_target_sequencer.sv"
-  // GopalS: `include "i3c_target_driver_proxy.sv"
+  `include "i3c_target_driver_proxy.sv"
   `include "i3c_target_monitor_proxy.sv"
   // GopalS: `include "i3c_target_coverage.sv"
   `include "i3c_target_agent.sv"

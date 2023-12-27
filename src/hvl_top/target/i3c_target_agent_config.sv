@@ -1,9 +1,6 @@
 `ifndef I3C_TARGET_AGENT_CONFIG_INCLUDED_
 `define I3C_TARGET_AGENT_CONFIG_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-// Class: i3c_target_agent_config
-//--------------------------------------------------------------------------------------------
 class i3c_target_agent_config extends uvm_object;
   `uvm_object_utils(i3c_target_agent_config)
 
@@ -29,7 +26,7 @@ function void i3c_target_agent_config::do_print(uvm_printer printer);
 
   printer.print_string ("isActive",isActive.name());
   printer.print_string ("DataTransferdirection",DataTransferdirection.name());
-  //printer.print_string ("TARGET_ADDRESS_WIDTH",TARGET_ADDRESS_WIDTH.name());
+//printer.print_string ("TARGET_ADDRESS_WIDTH",TARGET_ADDRESS_WIDTH.name());
   printer.print_field ("hasCoverage",hasCoverage, 1, UVM_DEC);
 
 endfunction : do_print

@@ -50,13 +50,28 @@ function void i3c_target_seq_item_converter::from_class(input i3c_target_tx inpu
 
   output_conv.operation = operationType_e'(input_conv_h.operation);
   
-  //converting of the register address
-  //output_conv.register_address = input_conv_h.register_address;
+ //converting of the register address
+ //output_conv.register_address = input_conv_h.register_address;
   //`uvm_info("DEBUG_MSHA", $sformatf("input_conv_h.register_address = %0x and output_conv.register_address = %0x", input_conv_h.register_address, output_conv.register_address ), UVM_NONE)
 
 
 
-  //for(int i=0; i<input_conv_h.data.size();i++) begin
+  for(int i=0; i<input_conv_h.readData.size();i++)  begin
+    output_conv.readData[i]= input_conv_h.readData[i]; 
+  end
+
+  for(int i=0; i<input_conv_h.writeDataStatus.size();i++) begin
+    output_conv.writeDataStatus[i] = input_conv_h.readDataStatus[i];    
+  end
+ 
+if(input_conv_h.operation == 1) begin
+  output_conv.no_of_i3c_bits_transfer = input_conv_h.readData.size() * DATA_WIDTH;
+end else begin
+  output_conv.no_of_i3c_bits_transfer = input_conv_h.writeDataStatus.size() * DATA_WIDTH;
+end
+
+  for(int i=0; i<input_conv_h.readData.size();i++) begin
+  end 
    // MSHA: `uvm_info("target_seq_item_conv_class",
    // MSHA: $sformatf("data = \n %p",output_conv.data),UVM_LOW)
    // MSHA:// output_conv.data = output_conv.data << DATA_LENGTH;
@@ -65,9 +80,6 @@ function void i3c_target_seq_item_converter::from_class(input i3c_target_tx inpu
    // MSHA: `uvm_info("target_seq_item_conv_class",
    // MSHA: $sformatf("After shift input_cov_h data = \n %p",
    // MSHA: input_conv_h.data[i]),UVM_LOW)
-
-    //output_conv.data[i][DATA_WIDTH-1:0] = input_conv_h.data[i];    
-
    // MSHA: `uvm_info("target_seq_item_conv_class",
    // MSHA: $sformatf("After shift input_cov_h data = \n %p",
    // MSHA: input_conv_h.data[i]),UVM_LOW)
@@ -80,22 +92,22 @@ function void i3c_target_seq_item_converter::from_class(input i3c_target_tx inpu
   // Be default the ACK should be 1
   // so that the target ACK value can be stored
   //output_conv.target_add_ack = 1;
-  output_conv.reg_add_ack = 1;
-  output_conv.writeData_ack = '1;
+//  output_conv.reg_add_ack = 1;
+  output_conv.readData_ack = '1;
 
 endfunction: from_class 
 
 
 //--------------------------------------------------------------------------------------------
 // function:to_class
-// converting struct data items into seq_item transactions
+// converting struct data items into ctions
 //--------------------------------------------------------------------------------------------
 function void i3c_target_seq_item_converter::to_class(input i3c_transfer_bits_s input_conv_h,
                                                       output i3c_target_tx output_conv);
   output_conv = new();
 
   // Defining the size of arrays
-  //output_conv.data = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
+  output_conv.readData = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
 
   // Storing the values in the respective arrays
   //converting back the target address 
@@ -110,10 +122,10 @@ function void i3c_target_seq_item_converter::to_class(input i3c_transfer_bits_s 
 
  
   //converting back the data
-  //for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
-  //output_conv.data[i] = input_conv_h.data[i][DATA_WIDTH-1:0];
-  //`uvm_info("target_seq_item_conv_class",
-  //$sformatf("To class data = \n %p",output_conv.data[i]),UVM_LOW)
+  for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
+  output_conv.readData[i] = input_conv_h.readData[i][DATA_WIDTH-1:0];
+  `uvm_info("target_seq_item_conv_class",
+  $sformatf("To class data = \n %p",output_conv.readData[i]),UVM_LOW)
   //end
 
   // Acknowledgement bits
@@ -142,9 +154,9 @@ function void i3c_target_seq_item_converter::do_print(uvm_printer printer);
   //  printer.print_field($sformatf("register_address"),i3c_st.register_address,8,UVM_HEX);
   //end
 
-  //foreach(i3c_st.data[i]) begin
-  //  printer.print_field($sformatf("data[%0d]",i),i3c_st.data[i],8,UVM_HEX);
-  //end
+  foreach(i3c_st.writeData[i]) begin
+  printer.print_field($sformatf("writeData[%0d]",i),i3c_st.writedata[i],8,UVM_HEX);
+  end
 
 endfunction : do_print
 

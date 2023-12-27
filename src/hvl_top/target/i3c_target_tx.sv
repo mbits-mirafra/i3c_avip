@@ -1,11 +1,8 @@
 `ifndef I3C_TARGET_TX_INCLUDED_
 `define I3C_TARGET_TX_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-// Class: i3c_target_tx
-//--------------------------------------------------------------------------------------------
 class i3c_target_tx extends uvm_sequence_item;
-  `uvm_object_utils(i3c_target_tx)
+ `uvm_object_utils(i3c_target_tx)
 
   rand bit [DATA_WIDTH-1:0] readData[];
   rand acknowledge_e targetAddressStatus;  
@@ -17,7 +14,6 @@ class i3c_target_tx extends uvm_sequence_item;
        acknowledge_e readDataStatus[];
 
   rand bit[31:0] size;  
-  // rand read_write_e read_write;
 
   constraint readDataSizeMax_c{
              soft readData.size() == MAXIMUM_BYTES;}
@@ -37,21 +33,9 @@ class i3c_target_tx extends uvm_sequence_item;
   extern function void do_print(uvm_printer printer);
 endclass : i3c_target_tx
 
-  //--------------------------------------------------------------------------------------------
-  // Construct: new
-  // Parameters:
-  // name - i3c_target_tx
-  //  parent - parent under which this component is created
-  //--------------------------------------------------------------------------------------------
-  
-  function i3c_target_tx::new(string name = "i3c_target_tx");
-   super.new(name);
-  endfunction : new
-
-
-//--------------------------------------------------------------------------------------------
-// do_copy method
-//--------------------------------------------------------------------------------------------
+function i3c_target_tx::new(string name = "i3c_target_tx");
+  super.new(name);
+endfunction : new
 
 function void i3c_target_tx::do_copy (uvm_object rhs);
   i3c_target_tx target_rhs;
@@ -71,10 +55,6 @@ function void i3c_target_tx::do_copy (uvm_object rhs);
 
 endfunction : do_copy
 
-
-//--------------------------------------------------------------------------------------------
-// do_compare method
-//--------------------------------------------------------------------------------------------
 function bit  i3c_target_tx::do_compare (uvm_object rhs,uvm_comparer comparer);
   i3c_target_tx target_rhs;
 
@@ -92,10 +72,7 @@ function bit  i3c_target_tx::do_compare (uvm_object rhs,uvm_comparer comparer);
   readData == target_rhs.readData &&
   readDataStatus == target_rhs.readDataStatus;
 endfunction : do_compare 
-//--------------------------------------------------------------------------------------------
-// Function: do_print method
-// Print method can be added to display the data members values
-//--------------------------------------------------------------------------------------------
+
 function void i3c_target_tx::do_print(uvm_printer printer);
   super.do_print(printer);
 

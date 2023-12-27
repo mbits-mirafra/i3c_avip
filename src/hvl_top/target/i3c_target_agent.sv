@@ -12,7 +12,7 @@ class i3c_target_agent extends uvm_component;
   
   i3c_target_monitor_proxy i3c_target_mon_proxy_h;
   i3c_target_sequencer i3c_target_seqr_h;
- // GopalS:  i3c_target_driver_proxy i3c_target_drv_proxy_h;
+  i3c_target_driver_proxy i3c_target_drv_proxy_h;
  // GopalS:  i3c_target_coverage i3c_target_cov_h;
 
   //-------------------------------------------------------
@@ -52,7 +52,7 @@ function void i3c_target_agent::build_phase(uvm_phase phase);
     if(i3c_target_agent_cfg_h.isActive==UVM_ACTIVE)
       begin
 
-       // GopalS:  i3c_target_drv_proxy_h=i3c_target_driver_proxy::type_id::create("i3c_target_drv_proxy_h",this);
+    i3c_target_drv_proxy_h=i3c_target_driver_proxy::type_id::create("i3c_target_drv_proxy_h",this);
         i3c_target_seqr_h=i3c_target_sequencer::type_id::create("i3c_target_seqr_h",this);
       
       end
@@ -74,10 +74,10 @@ function void i3c_target_agent::connect_phase(uvm_phase phase);
 
   if(i3c_target_agent_cfg_h.isActive==UVM_ACTIVE)
   begin
-    // GopalS: i3c_target_drv_proxy_h.i3c_target_agent_cfg_h=i3c_target_agent_cfg_h;
+  i3c_target_drv_proxy_h.i3c_target_agent_cfg_h=i3c_target_agent_cfg_h;
     i3c_target_seqr_h.i3c_target_agent_cfg_h=i3c_target_agent_cfg_h;
 
-   // GopalS:  i3c_target_drv_proxy_h.seq_item_port.connect(i3c_target_seqr_h.seq_item_export);
+  i3c_target_drv_proxy_h.seq_item_port.connect(i3c_target_seqr_h.seq_item_export);
   end
 
     i3c_target_mon_proxy_h.i3c_target_agent_cfg_h=i3c_target_agent_cfg_h;
