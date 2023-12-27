@@ -11,9 +11,6 @@ interface i3c_controller_driver_bfm(input pclk,
                                 input sda_i,
                                 output reg sda_o,
                                 output reg sda_oen
-                                //Illegal inout port connection
-                                //inout scl,
-                                //inout sda);
                               );
   i3c_fsm_state_e state;
   i3c_transfer_bits_s dataPacketStruct;
@@ -192,7 +189,7 @@ task sample_ack(output bit p_ack);
   scl_oen <= TRISTATE_BUF_OFF;
   scl_o   <= 1;
 
-  p_ack <= sda_i;
+  p_ack = sda_i;
 
   `uvm_info(name, $sformatf("Sampled ACK value %0b",p_ack), UVM_MEDIUM);
 endtask :sample_ack
@@ -239,7 +236,7 @@ task sample_read_data(output bit [7:0]rdata, input bit ack);
   for(int k=0;k < DATA_WIDTH; k++) begin
     scl_tristate_buf_on();
     state <= READ_DATA;
-    sda_oen <= TRISTATE_BUF_ON;
+    sda_oen <= TRISTATE_BUF_OFF;
     sda_o   <= 1;
     rdata[k] <= sda_i;
     scl_tristate_buf_off();
