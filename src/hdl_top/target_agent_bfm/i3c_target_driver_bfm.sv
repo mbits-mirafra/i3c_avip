@@ -16,7 +16,9 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
                                output reg sda_oen);
   
   i3c_fsm_state_e state;
-  i3c_transfer_cfg_s cfg_pkt;
+  i3c_transfer_bits_s dataPacketStruck;
+  i3c_transfer_cfg_s configPacketStruck;
+  bit [7:0] rdata;
 
   import uvm_pkg::*;
   `include "uvm_macros.svh" 
@@ -25,14 +27,17 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   
   i3c_target_driver_proxy i3c_target_drv_proxy_h;
   
+  initial begin
+    $display(NAME);
+  end
   
-   task wait_for_system_reset();
-     state = RESET_DEACTIVATED;
-     @(negedge areset);
-     state = RESET_ACTIVATED;
-     @(posedge areset);
-     state = RESET_DEACTIVATED;
-   endtask: wait_for_system_reset
+  task wait_for_system_reset();
+    state = RESET_DEACTIVATED;
+    @(negedge areset);
+    state = RESET_ACTIVATED;
+    @(posedge areset);
+    state = RESET_DEACTIVATED;
+  endtask: wait_for_system_reset
 
 
   // TODO(mshariff): Put more comments for logic pf SCL and SDA
@@ -57,18 +62,34 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   endtask: wait_for_idle_state
 
 
- task drive_data(inout i3c_transfer_bits_s p_data_packet, 
-                 input i3c_transfer_cfg_s p_cfg_pkt);
+  task drive_data(inout i3c_transfer_bits_s p_data_packet, 
+                  input i3c_transfer_cfg_s p_cfg_pkt);
   
-    acknowledge_e ack;
-    operationType_e wr_rd;
+    dataPacketStruck = p_data_packet;
+    configPacketStruck = p_cfg_pkt;
 
-  detect_start();
-  sample_target_address(p_cfg_pkt, ack, wr_rd);
-    `uvm_info("DEBUG", $sformatf("target address %0x :: Received ACK %0s", 
-                                       p_cfg_pkt.targetAddress, ack.name()), UVM_NONE); 
+    detect_start();
 
-endtask: drive_data
+    sample_target_address(configPacketStruck,dataPacketStruck.targetAddressStatus);
+    
+    sample_operation(dataPacketStruck.operation);
+    
+    drive_ack(dataPacketStruck.targetAddressStatus);
+
+    if(dataPacketStruck.targetAddressStatus == ACK) begin
+      if(dataPacketStruck.operation == WRITE) begin
+        sample_write_data(configPacketStruck,dataPacketStruck.writeDataStatus[0]);
+        drive_ack(dataPacketStruck.writeDataStatus[0]);
+      end else begin
+        rdata = configPacketStruck.targetFIFOMemory.pop_front();
+        drive_read_data(rdata);
+        sample_ack(dataPacketStruck.readDataStatus[0]);
+      end
+    end else begin
+      detect_stop();
+    end
+    detect_stop();
+  endtask: drive_data
   
 
   task detect_start();
@@ -87,11 +108,11 @@ endtask: drive_data
   endtask: detect_start
 
 
-task sample_target_address(input i3c_transfer_cfg_s cfg_pkt, output acknowledge_e ack, output operationType_e wr_rd);
-    bit [7:0] local_addr;
+  task sample_target_address(input i3c_transfer_cfg_s cfg_pkt, output acknowledge_e ack);
+    bit [6:0] local_addr;
 
     state = ADDRESS;
-    for(int k=0;k <= 7; k++) begin
+    for(int k=0;k < 7; k++) begin
       detect_posedge_scl();
       local_addr[k] = sda_i;
       sda_oen <= TRISTATE_BUF_OFF;
@@ -109,21 +130,34 @@ task sample_target_address(input i3c_transfer_cfg_s cfg_pkt, output acknowledge_
       ack = ACK;
     end
  
-    if(local_addr[7] == 1'b0) begin
+  endtask: sample_target_address
+
+
+  task sample_operation(output operationType_e wr_rd);
+    bit operation;
+
+    detect_posedge_scl();
+    state = WR_BIT;
+    operation = sda_i;
+    sda_oen <= TRISTATE_BUF_OFF;
+    sda_o   <= 1;
+
+    if(operation == 1'b0) begin
       wr_rd = WRITE;
     end else begin
       wr_rd = READ;
     end
-    // Driving the ACK for target address
+  endtask: sample_operation
+
+
+  task drive_ack(input bit ack);
     detect_negedge_scl();
-    drive_sda(ack); 
     state = ACK_NACK;
+    drive_sda(ack); 
     detect_posedge_scl();
+  endtask: drive_ack
 
-  endtask: sample_target_address
 
-
-  
   //-------------------------------------------------------
   // Task: detect_posedge_scl
   // Detects the edge on scl with regards to pclk
@@ -182,6 +216,61 @@ task sample_target_address(input i3c_transfer_cfg_s cfg_pkt, output acknowledge_
     sda_o   <= value;
   endtask: drive_sda
 
+
+  task sample_write_data(inout i3c_transfer_cfg_s cfg_pkt, output acknowledge_e ack);
+    bit [7:0] wdata;
+
+    state = WRITE_DATA;
+    for(int k=0;k < DATA_WIDTH; k++) begin
+      detect_posedge_scl();
+      wdata[k] = sda_i;
+      sda_oen <= TRISTATE_BUF_OFF;
+      sda_o   <= 1;
+    end
+
+    `uvm_info(NAME, $sformatf("DEBUG :: Value of sampled write data = %0x", wdata[7:0]), UVM_NONE); 
+    cfg_pkt.targetFIFOMemory.push_back(wdata);
+   
+    ack = ACK;
+  endtask: sample_write_data
+
+
+  task drive_read_data(input bit[7:0] rdata);
+    int bit_no;
+
+    `uvm_info("DEBUG", $sformatf("Driving byte = %0b",rdata), UVM_NONE)
+    state = READ_DATA;
+    for(int k=0;k < DATA_WIDTH; k++) begin
+      detect_negedge_scl();
+      sda_oen <= TRISTATE_BUF_ON;
+      sda_o   <= rdata[k];
+      detect_posedge_scl();
+    end
+  endtask :drive_read_data
+
+
+  task sample_ack(output bit ack);
+    detect_negedge_scl();
+    state    = ACK_NACK;
+    ack     = sda_i;
+    detect_posedge_scl();
+  endtask :sample_ack
+
+
+  task detect_stop();
+    // 2bit shift register to check the edge on sda and stability on scl
+    bit [1:0] scl_local;
+    bit [1:0] sda_local;
+
+    // Detect the edge on scl
+    state = STOP;
+    do begin
+      @(negedge pclk);
+      scl_local = {scl_local[0], scl_i};
+      sda_local = {sda_local[0], sda_i};
+    end while(!(sda_local == POSEDGE && scl_local == 2'b11) );
+    `uvm_info(NAME, $sformatf("Stop condition is detected"), UVM_HIGH);
+  endtask: detect_stop
  /* 
   //--------------------------------------------------------------------------------------------
   // Task: sample_target_address
@@ -275,7 +364,7 @@ task sample_target_address(input i3c_transfer_cfg_s cfg_pkt, output acknowledge_
   task sample_write_data(input i3c_transfer_cfg_s cfg_pkt, output acknowledge_e ack);
     bit [7:0] wdata;
 
-    state = SAMPLE_WRITE_DATA;
+    state = WRITE_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_posedge_scl();
       wdata[k] = sda_i;
@@ -325,8 +414,6 @@ task sample_target_address(input i3c_transfer_cfg_s cfg_pkt, output acknowledge_
      state    = target_ADDR_ACK;
 
      @(posedge pclk);
-     // Sample the ACK from the I2C bus
-     @(posedge pclk);
      scl_oen <= TRISTATE_BUF_OFF;
      scl_o   <= 1;
      ack     = sda_i;
@@ -334,9 +421,9 @@ task sample_target_address(input i3c_transfer_cfg_s cfg_pkt, output acknowledge_
      `uvm_info(name, $sformatf("Sampled ACK value %0b",p_ack), UVM_MEDIUM);
 
      if(ack == 1'b0) begin
-       p_ack = POS_ACK;
+       p_ack = ACK;
      end else begin
-       p_ack = NEG_ACK;
+       p_ack = NACK;
      end
    endtask :sample_ack
 

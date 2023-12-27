@@ -49,6 +49,7 @@ function void i3c_target_seq_item_converter::from_class(input i3c_target_tx inpu
   output_conv.targetAddress = input_conv_h.targetAddress;
 
   output_conv.operation = operationType_e'(input_conv_h.operation);
+  output_conv.targetAddressStatus = acknowledge_e'(input_conv_h.targetAddressStatus);
   
  //converting of the register address
  //output_conv.register_address = input_conv_h.register_address;
@@ -61,7 +62,7 @@ function void i3c_target_seq_item_converter::from_class(input i3c_target_tx inpu
   end
 
   for(int i=0; i<input_conv_h.writeDataStatus.size();i++) begin
-    output_conv.writeDataStatus[i] = input_conv_h.readDataStatus[i];    
+    output_conv.writeDataStatus[i] = input_conv_h.writeDataStatus[i];    
   end
  
 if(input_conv_h.operation == 1) begin

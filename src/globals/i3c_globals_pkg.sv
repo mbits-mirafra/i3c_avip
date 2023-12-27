@@ -117,7 +117,6 @@ package i3c_globals_pkg;
     ACK_NACK,
     WRITE_DATA,
     READ_DATA,
-    SAMPLE_WRITE_DATA,
     STOP
   }i3c_fsm_state_e;
 
