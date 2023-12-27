@@ -93,7 +93,7 @@ end
   // so that the target ACK value can be stored
   //output_conv.target_add_ack = 1;
 //  output_conv.reg_add_ack = 1;
-  output_conv.readData_ack = '1;
+ // output_conv.readData_ack = '1;
 
 endfunction: from_class 
 
@@ -126,7 +126,7 @@ function void i3c_target_seq_item_converter::to_class(input i3c_transfer_bits_s 
   output_conv.readData[i] = input_conv_h.readData[i][DATA_WIDTH-1:0];
   `uvm_info("target_seq_item_conv_class",
   $sformatf("To class data = \n %p",output_conv.readData[i]),UVM_LOW)
-  //end
+  end
 
   // Acknowledgement bits
   //output_conv.target_add_ack = input_conv_h.target_add_ack;
@@ -155,7 +155,7 @@ function void i3c_target_seq_item_converter::do_print(uvm_printer printer);
   //end
 
   foreach(i3c_st.writeData[i]) begin
-  printer.print_field($sformatf("writeData[%0d]",i),i3c_st.writedata[i],8,UVM_HEX);
+  printer.print_field($sformatf("writeData[%0d]",i),i3c_st.writeData[i],8,UVM_HEX);
   end
 
 endfunction : do_print

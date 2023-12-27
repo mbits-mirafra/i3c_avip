@@ -61,8 +61,8 @@ module hdl_top;
  // SPI Interface Instantiation
  i3c_if intf_target(.pclk(clk),
                    .areset(rst),
-                   .SCL(/*I3C_SCL*/),
-                   .SDA(/*I3C_SDA*/));
+                   .SCL(I3C_SCL),
+                   .SDA(I3C_SDA));
 
 //-------------------------------------------------------
 // Simple target logic for ACK

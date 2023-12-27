@@ -69,7 +69,7 @@ module i3c_target_agent_bfm #(parameter int target_ID=0)
   mon_str = {"i3c_target_monitor_bfm_",$sformatf("%0d",target_ID)};
   $display("DEBUG_MSHA :: mon_str = %0s", mon_str);
 
-  uvm_config_db#(virtual i3c_target_driver_bfm)::set(null,"*",drv_str,
+  uvm_config_db#(virtual i3c_target_driver_bfm)::set(null,"*","i3c_target_driver_bfm",
                                                               i3c_target_drv_bfm_h);
 
   uvm_config_db#(virtual i3c_target_monitor_bfm)::set(null,"*",mon_str,
