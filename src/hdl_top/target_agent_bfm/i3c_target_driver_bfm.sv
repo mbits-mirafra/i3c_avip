@@ -74,12 +74,12 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
     
     sample_operation(dataPacketStruck.operation);
     
-    drive_ack(dataPacketStruck.targetAddressStatus);
+    driveAddressAck(dataPacketStruck.targetAddressStatus);
 
     if(dataPacketStruck.targetAddressStatus == ACK) begin
       if(dataPacketStruck.operation == WRITE) begin
         sample_write_data(configPacketStruck,dataPacketStruck.writeDataStatus[0]);
-        drive_ack(dataPacketStruck.writeDataStatus[0]);
+        driveWdataAck(dataPacketStruck.writeDataStatus[0]);
       end else begin
         rdata = configPacketStruck.targetFIFOMemory.pop_front();
         drive_read_data(rdata);
@@ -111,6 +111,7 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   task sample_target_address(input i3c_transfer_cfg_s cfg_pkt, output acknowledge_e ack);
     bit [6:0] local_addr;
 
+    @(posedge pclk);
     state = ADDRESS;
     for(int k=0;k < 7; k++) begin
       detect_posedge_scl();
@@ -129,13 +130,13 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
     else begin
       ack = ACK;
     end
- 
   endtask: sample_target_address
 
 
   task sample_operation(output operationType_e wr_rd);
     bit operation;
 
+    @(posedge pclk); 
     state = WR_BIT;
     detect_posedge_scl();
     operation = sda_i;
@@ -150,13 +151,27 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   endtask: sample_operation
 
 
-  task drive_ack(input bit ack);
+  task driveAddressAck(input bit ack);
+    @(posedge pclk); 
     state = ACK_NACK;
     detect_negedge_scl();
     drive_sda(ack); 
-    detect_posedge_scl();
-  endtask: drive_ack
+    repeat(2)
+      @(posedge pclk); 
+    sda_oen <= TRISTATE_BUF_OFF;
+    sda_o   <= 1;
+  endtask: driveAddressAck
 
+  task driveWdataAck(input bit ack);
+    @(posedge pclk); 
+    state = ACK_NACK;
+    detect_negedge_scl();
+    drive_sda(ack); 
+    repeat(2)
+      @(posedge pclk); 
+    sda_oen <= TRISTATE_BUF_OFF;
+    sda_o   <= 1;
+  endtask: driveWdataAck
 
   //-------------------------------------------------------
   // Task: detect_posedge_scl
@@ -220,12 +235,16 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   task sample_write_data(inout i3c_transfer_cfg_s cfg_pkt, output acknowledge_e ack);
     bit [7:0] wdata;
 
+    repeat(2) 
+    //  @(posedge pclk);
+    // GopalS: detect_negedge_scl();
     state = WRITE_DATA;
+   // sda_oen <= TRISTATE_BUF_OFF;
+   // sda_o   <= 1;
+
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_posedge_scl();
       wdata[k] = sda_i;
-      sda_oen <= TRISTATE_BUF_OFF;
-      sda_o   <= 1;
     end
 
     `uvm_info(NAME, $sformatf("DEBUG :: Value of sampled write data = %0x", wdata[7:0]), UVM_NONE); 

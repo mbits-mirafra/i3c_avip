@@ -67,18 +67,18 @@ module hdl_top;
 //-------------------------------------------------------
 // Simple target logic for ACK
 //-------------------------------------------------------
-  initial begin
-    repeat(9)
-      @(posedge I3C_SCL);
-  
-      @(negedge I3C_SCL); 
-      intf_controller.sda_oen <= 1;
-      intf_controller.sda_o <= 0;
-  
-      @(posedge I3C_SCL);
-      intf_controller.sda_oen <= 0;
-      intf_controller.sda_o <= 1;
-  end
+// GopalS:   initial begin
+// GopalS:     repeat(9)
+// GopalS:       @(posedge I3C_SCL);
+// GopalS:   
+// GopalS:       @(negedge I3C_SCL); 
+// GopalS:       intf_controller.sda_oen <= 1;
+// GopalS:       intf_controller.sda_o <= 0;
+// GopalS:   
+// GopalS:       @(posedge I3C_SCL);
+// GopalS:       intf_controller.sda_oen <= 0;
+// GopalS:       intf_controller.sda_o <= 1;
+// GopalS:   end
 
  // MSHA: // Implementing week0 and week1 concept
  // MSHA: // Logic for Pull-up registers using opne-drain concept
