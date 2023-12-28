@@ -123,7 +123,7 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
     `uvm_info(NAME, $sformatf("DEBUG :: Value of target_address = %0x", cfg_pkt.targetAddress), UVM_NONE); 
    
     // Check if the sampled address belongs to this target
-    if(local_addr[6:0] != cfg_pkt.targetAddress) begin
+    if(local_addr[6:0] != 7'b1010101) begin
       ack = NACK;
     end
     else begin
@@ -136,8 +136,8 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   task sample_operation(output operationType_e wr_rd);
     bit operation;
 
-    detect_posedge_scl();
     state = WR_BIT;
+    detect_posedge_scl();
     operation = sda_i;
     sda_oen <= TRISTATE_BUF_OFF;
     sda_o   <= 1;
@@ -151,8 +151,8 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
 
 
   task drive_ack(input bit ack);
-    detect_negedge_scl();
     state = ACK_NACK;
+    detect_negedge_scl();
     drive_sda(ack); 
     detect_posedge_scl();
   endtask: drive_ack

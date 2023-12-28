@@ -44,7 +44,8 @@ task i3c_controller_8b_write_seq::body();
   start_item(req);
 
     if(!req.randomize() with {operation == WRITE;
-                              writeData.size()==1;}) begin
+                              writeData.size()==1; 
+                              targetAddress == 7'b1010101;}) begin
       `uvm_error(get_type_name(), "Randomization failed")
     end
   

@@ -21,6 +21,8 @@ package i3c_target_seq_pkg;
   
    `include "i3c_target_base_seq.sv"
    `include "i3c_target_8b_seq.sv"
+   `include "i3c_target_8b_write_seq.sv" 
+   `include "i3c_target_8b_read_seq.sv" 
 
 endpackage : i3c_target_seq_pkg
 `endif
