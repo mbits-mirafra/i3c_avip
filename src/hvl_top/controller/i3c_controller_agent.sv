@@ -9,7 +9,7 @@ class i3c_controller_agent extends uvm_component;
   `uvm_component_utils(i3c_controller_agent)
 
   i3c_controller_agent_config i3c_controller_agent_cfg_h;
-//  i3c_controller_monitor_proxy i3c_controller_mon_proxy_h;
+  i3c_controller_monitor_proxy i3c_controller_mon_proxy_h;
   i3c_controller_sequencer i3c_controller_seqr_h;
   i3c_controller_driver_proxy i3c_controller_drv_proxy_h;
  // i3c_controller_coverage i3c_controller_cov_h;
@@ -48,7 +48,7 @@ function void i3c_controller_agent::build_phase(uvm_phase phase);
   if(!uvm_config_db #(i3c_controller_agent_config)::get(this,"","i3c_controller_agent_config",i3c_controller_agent_cfg_h))
     `uvm_fatal("config","cannot get the config m_cfg from uvm_config_db. Have u set it ?")
     
-//    i3c_controller_mon_proxy_h=i3c_controller_monitor_proxy::type_id::create("i3c_controller_mon_proxy_h",this);
+    i3c_controller_mon_proxy_h=i3c_controller_monitor_proxy::type_id::create("i3c_controller_mon_proxy_h",this);
   
   if(i3c_controller_agent_cfg_h.isActive==UVM_ACTIVE)
   

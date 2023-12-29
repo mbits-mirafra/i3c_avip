@@ -72,7 +72,7 @@ module i3c_target_agent_bfm #(parameter int target_ID=0)
   uvm_config_db#(virtual i3c_target_driver_bfm)::set(null,"*","i3c_target_driver_bfm",
                                                               i3c_target_drv_bfm_h);
 
-  uvm_config_db#(virtual i3c_target_monitor_bfm)::set(null,"*",mon_str,
+  uvm_config_db#(virtual i3c_target_monitor_bfm)::set(null,"*","i3c_target_monitor_bfm",
                                                               i3c_target_mon_bfm_h);
   end
 

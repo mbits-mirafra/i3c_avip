@@ -28,10 +28,9 @@ endfunction : new
 
 function void i3c_controller_monitor_proxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  if(!uvm_config_db #(i3c_controller_agent_config)::get(this,"","i3c_controller_agent_config",i3c_controller_agent_cfg_h))begin
-    `uvm_fatal("CONFIG","cannot get the i3c_controller_agent_cfg_h () . have you set it?")
+  if(!uvm_config_db #(virtual i3c_controller_monitor_bfm)::get(this,"","i3c_controller_monitor_bfm",i3c_controller_mon_bfm_h))begin
+  `uvm_fatal("FATAL_MDP_CANNOT_GET_controller_MONITOR_BFM","cannot get () i3c_controller_monitor_bfm from uvm_config_db")
   end
-    controller_analysis_port=new("controller_analysis_port",this);
 endfunction : build_phase
 
 function void i3c_controller_monitor_proxy::connect_phase(uvm_phase phase);
@@ -48,9 +47,7 @@ function void i3c_controller_monitor_proxy::start_of_simulation_phase(uvm_phase 
 endfunction : start_of_simulation_phase
 
 task i3c_controller_monitor_proxy::run_phase(uvm_phase phase);
-//  phase.raise_objection(this, "i3c_controller_monitor_proxy");
 
-//  super.run_phase(phase);
   i3c_controller_tx tx_packet;
 
   tx_packet = i3c_controller_tx::type_id::create("tx_packet");
@@ -61,22 +58,22 @@ task i3c_controller_monitor_proxy::run_phase(uvm_phase phase);
   i3c_controller_mon_bfm_h.wait_for_reset();
   i3c_controller_mon_bfm_h.sample_idle_state();
  
-  forever begin
-   i3c_transfer_bits_s struct_packet;
-   i3c_transfer_cfg_s struct_cfg;
-
-   i3c_controller_mon_bfm_h.wait_for_idle_state();
   
-   //i3c_controller_seq_item_converter::from_class(req, struct_packet);
-   i3c_controller_cfg_converter::from_class(i3c_controller_agent_cfg_h, struct_cfg);
-   i3c_controller_mon_bfm_h.sample_data(struct_packet,struct_cfg);
-   i3c_controller_seq_item_converter::to_class(struct_packet,tx_packet);
+    `uvm_info(get_type_name(),"gopal - calling forever loop in the Monitor Proxy", UVM_HIGH)
+  forever begin
+    i3c_transfer_bits_s struct_packet;
+    i3c_transfer_cfg_s struct_cfg;
+
+    i3c_controller_mon_bfm_h.wait_for_idle_state();
    
-  `uvm_info(get_type_name(), "Reset detected", UVM_HIGH);
-  `uvm_info(get_type_name(), "Sampling Idle_state", UVM_HIGH);
- 
-  `uvm_info(get_type_name(), "Sampled Idle_state", UVM_HIGH);
-   controller_analysis_port.write(tx_packet);
+    i3c_controller_seq_item_converter::from_class(tx_packet, struct_packet);
+    i3c_controller_mon_bfm_h.sample_data(struct_packet,struct_cfg);
+    i3c_controller_seq_item_converter::to_class(struct_packet,tx_packet);
+    
+     $display("gopal [controller_monitor_proxy] targetAddress = %0b",tx_packet.targetAddress);
+     $display("gopal [controller_monitor_proxy] writeData = %p",tx_packet.writeData);
+     $display("gopal [controller_monitor_proxy] readData = %0b",tx_packet.readData[0]);
+    controller_analysis_port.write(tx_packet);
  end
 endtask : run_phase
 

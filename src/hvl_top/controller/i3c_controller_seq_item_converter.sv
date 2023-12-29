@@ -108,7 +108,7 @@ function void i3c_controller_seq_item_converter::to_class(input i3c_transfer_bit
   //converting back the slave address 
   output_conv.targetAddress = input_conv_h.targetAddress;    
   `uvm_info("controller_seq_item_conv_class",
-  $sformatf("To class targetAddress = \n %p",output_conv.targetAddress),UVM_LOW)
+  $sformatf("To class targetAddress =  %0b",output_conv.targetAddress),UVM_LOW)
 
   //converting back the register_address 
   // GopalS: output_conv.register_address = input_conv_h.register_address;
@@ -118,9 +118,9 @@ function void i3c_controller_seq_item_converter::to_class(input i3c_transfer_bit
  
   //converting back the data
   for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
-  output_conv.writeData[i] = input_conv_h.writeData[i][DATA_WIDTH-1:0];
+  output_conv.writeData[i] = input_conv_h.writeData[i];
   `uvm_info("controller_seq_item_conv_class",
-  $sformatf("To class writeData = \n %p",output_conv.writeData[i]),UVM_LOW)
+  $sformatf("To class writeData =  %0b",output_conv.writeData[i]),UVM_LOW)
   end
 
   // Acknowledgement bits
