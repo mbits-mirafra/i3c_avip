@@ -238,8 +238,8 @@ interface i3c_controller_driver_bfm(input pclk,
       state <= READ_DATA;
       sda_oen <= TRISTATE_BUF_OFF;
       sda_o   <= 1;
-      rdata[k] <= sda_i;
       scl_tristate_buf_off();
+      rdata[k] <= sda_i;
     end
   
     @(posedge pclk);

@@ -136,14 +136,13 @@ interface i3c_controller_monitor_bfm(input pclk,
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_negedge_scl();
       rdata[k] = sda_i;
-      detect_posedge_scl();
     end
   endtask :sample_read_data
   
   task sample_ack();
     detect_negedge_scl();
     state    = ACK_NACK;
-    detect_posedge_scl();
+    detect_negedge_scl();
   endtask :sample_ack
   
   task detect_stop();

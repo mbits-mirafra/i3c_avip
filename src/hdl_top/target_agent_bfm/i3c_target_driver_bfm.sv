@@ -81,7 +81,10 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
         sample_write_data(configPacketStruck,dataPacketStruck.writeDataStatus[0]);
         driveWdataAck(dataPacketStruck.writeDataStatus[0]);
       end else begin
-        rdata = configPacketStruck.targetFIFOMemory.pop_front();
+        if(configPacketStruck.targetFIFOMemory.size()==0) begin
+          rdata = 8'hff;
+        end else
+          rdata = configPacketStruck.targetFIFOMemory.pop_front();
         drive_read_data(rdata);
         sample_ack(dataPacketStruck.readDataStatus[0]);
       end
@@ -255,7 +258,6 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
 
 
   task drive_read_data(input bit[7:0] rdata);
-    int bit_no;
 
     `uvm_info("DEBUG", $sformatf("Driving byte = %0b",rdata), UVM_NONE)
     state = READ_DATA;
@@ -263,8 +265,10 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
       detect_negedge_scl();
       sda_oen <= TRISTATE_BUF_ON;
       sda_o   <= rdata[k];
-      detect_posedge_scl();
     end
+    @(posedge pclk);
+      sda_oen <= TRISTATE_BUF_OFF;
+      sda_o   <= 1;
   endtask :drive_read_data
 
 
@@ -272,7 +276,7 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
     detect_negedge_scl();
     state    = ACK_NACK;
     ack     = sda_i;
-    detect_posedge_scl();
+    detect_negedge_scl();
   endtask :sample_ack
 
 

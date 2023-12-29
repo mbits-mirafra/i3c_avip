@@ -19,6 +19,7 @@ interface i3c_target_monitor_bfm(input pclk,
   
   i3c_target_monitor_proxy i3c_target_mon_proxy_h; 
  
+  i3c_fsm_state_e state;
   initial begin
     $display("target Monitor BFM");
   end
@@ -37,6 +38,7 @@ interface i3c_target_monitor_bfm(input pclk,
     while(scl_i!=1 && sda_i!=1) begin
      @(posedge pclk);
     end
+    state = IDLE;
   endtask: wait_for_idle_state
   
   task sample_data(inout i3c_transfer_bits_s struct_packet,inout i3c_transfer_cfg_s struct_cfg);
@@ -62,6 +64,7 @@ interface i3c_target_monitor_bfm(input pclk,
   task detect_start();
     bit [1:0] scl_local;
     bit [1:0] sda_local;
+    state = START;
   
     do begin
       @(negedge pclk);
@@ -73,6 +76,7 @@ interface i3c_target_monitor_bfm(input pclk,
   task sample_target_address(output bit [6:0] address, output bit ack);
   
     @(posedge pclk);
+    state = ADDRESS;
     for(int k=0;k < 7; k++) begin
       detect_posedge_scl();
       address[k] = sda_i;
@@ -89,6 +93,7 @@ interface i3c_target_monitor_bfm(input pclk,
   task sample_operation(output operationType_e wr_rd);
     bit operation;
     @(posedge pclk); 
+    state = WR_BIT;
     detect_posedge_scl();
     operation = sda_i;
    if(operation == 0)
@@ -99,13 +104,15 @@ interface i3c_target_monitor_bfm(input pclk,
   
   task sampleAddressAck(output bit ack);
     @(posedge pclk); 
+    state = ACK_NACK;
     detect_negedge_scl();
+    @(posedge pclk); 
     ack = sda_i;
-    repeat(2)
-      @(posedge pclk); 
+    @(posedge pclk); 
   endtask: sampleAddressAck
   
   task sample_write_data(output bit [7:0] wdata);
+    state = WRITE_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_posedge_scl();
       wdata[k] = sda_i;
@@ -114,6 +121,7 @@ interface i3c_target_monitor_bfm(input pclk,
   
   task sampleWdataAck();
     @(posedge pclk); 
+    state = ACK_NACK;
     detect_negedge_scl();
     repeat(2)
      @(posedge pclk); 
@@ -121,21 +129,23 @@ interface i3c_target_monitor_bfm(input pclk,
   
   
   task sample_read_data(output bit[7:0] rdata);
+    state = READ_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_negedge_scl();
       rdata[k] = sda_i;
-      detect_posedge_scl();
     end
   endtask :sample_read_data
   
   task sample_ack();
     detect_negedge_scl();
-    detect_posedge_scl();
+    state    = ACK_NACK;
+    detect_negedge_scl();
   endtask :sample_ack
   
   task detect_stop();
     bit [1:0] scl_local;
     bit [1:0] sda_local;
+    state = STOP;
   
     do begin
       @(negedge pclk);

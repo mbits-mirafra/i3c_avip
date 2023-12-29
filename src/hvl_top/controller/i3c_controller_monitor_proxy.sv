@@ -50,7 +50,7 @@ task i3c_controller_monitor_proxy::run_phase(uvm_phase phase);
 
   i3c_controller_tx tx_packet;
 
-  tx_packet = i3c_controller_tx::type_id::create("tx_packet");
+ // GopalS:  tx_packet = i3c_controller_tx::type_id::create("tx_packet");
 
   `uvm_info(get_type_name(),"Running the Monitor Proxy", UVM_HIGH)
 
@@ -59,17 +59,19 @@ task i3c_controller_monitor_proxy::run_phase(uvm_phase phase);
   i3c_controller_mon_bfm_h.sample_idle_state();
  
   
-    `uvm_info(get_type_name(),"gopal - calling forever loop in the Monitor Proxy", UVM_HIGH)
   forever begin
     i3c_transfer_bits_s struct_packet;
     i3c_transfer_cfg_s struct_cfg;
 
     i3c_controller_mon_bfm_h.wait_for_idle_state();
    
-    i3c_controller_seq_item_converter::from_class(tx_packet, struct_packet);
     i3c_controller_mon_bfm_h.sample_data(struct_packet,struct_cfg);
+    `uvm_info(get_type_name(),"gopal - After sample_data task in the controller Monitor Proxy", UVM_HIGH)
     i3c_controller_seq_item_converter::to_class(struct_packet,tx_packet);
     
+   // GopalS:  $cast(tx_packet,tx.clone());
+   // GopalS:  `uvm_info(get_type_name(),$sformatf("Packet received from sample_data clone packet is \n %s",tx.sprint()),UVM_HIGH)   
+
      $display("gopal [controller_monitor_proxy] targetAddress = %0b",tx_packet.targetAddress);
      $display("gopal [controller_monitor_proxy] writeData = %p",tx_packet.writeData);
      $display("gopal [controller_monitor_proxy] readData = %0b",tx_packet.readData[0]);

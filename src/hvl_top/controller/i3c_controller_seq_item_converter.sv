@@ -1,18 +1,9 @@
 `ifndef I3C_CONTROLLER_SEQ_ITEM_CONVERTER_INCLUDED_
 `define I3C_CONTROLLER_SEQ_ITEM_CONVERTER_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-// class : i3c_controller_seq_item_converter
-// Description:
-// class converting seq_item transactions into struct data items and viceversa
-//--------------------------------------------------------------------------------------------
 
 class i3c_controller_seq_item_converter extends uvm_object;
   
-  
-  //-------------------------------------------------------
-  // Externally defined Tasks and Functions
-  //-------------------------------------------------------
   extern function new(string name = "i3c_controller_seq_item_converter");
   extern static function void from_class(input i3c_controller_tx input_conv_h,
                                          output i3c_transfer_bits_s output_conv);
@@ -25,20 +16,10 @@ class i3c_controller_seq_item_converter extends uvm_object;
 
 endclass : i3c_controller_seq_item_converter
 
-//--------------------------------------------------------------------------------------------
-// Construct: new
-//
-// Parameters:
-//  name - i3c_controller_seq_item_converter
-//--------------------------------------------------------------------------------------------
 function i3c_controller_seq_item_converter::new(string name = "i3c_controller_seq_item_converter");
   super.new(name);
 endfunction : new
 
-//--------------------------------------------------------------------------------------------
-// function: from_class
-// converting seq_item transactions into struct data items
-//--------------------------------------------------------------------------------------------
 function void i3c_controller_seq_item_converter::from_class(input i3c_controller_tx input_conv_h,
                                                         output i3c_transfer_bits_s output_conv);
   
@@ -93,12 +74,8 @@ end
 endfunction: from_class 
 
 
-//--------------------------------------------------------------------------------------------
-// function:to_class
-// converting struct data items into seq_item transactions
-//--------------------------------------------------------------------------------------------
 function void i3c_controller_seq_item_converter::to_class(input i3c_transfer_bits_s input_conv_h,
-                                                      output i3c_controller_tx output_conv);
+       output i3c_controller_tx output_conv);
   output_conv = new();
 
   // Defining the size of arrays
