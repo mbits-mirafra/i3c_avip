@@ -1,10 +1,6 @@
 `ifndef I3C_CONTROLLER_AGENT_INCLUDED_
 `define I3C_CONTROLLER_AGENT_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-// Class: i3c_controller_agent
-// <Description_here>
-//--------------------------------------------------------------------------------------------
 class i3c_controller_agent extends uvm_component;
   `uvm_component_utils(i3c_controller_agent)
 

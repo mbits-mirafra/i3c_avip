@@ -1,10 +1,6 @@
 `ifndef I3C_ENV_INCLUDED_
 `define I3C_ENV_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-// Class: i3c_env
-// Environment contains target_agent_top,controller_agent_top and virtual_sequencer
-//--------------------------------------------------------------------------------------------
 class i3c_env extends uvm_env;
   `uvm_component_utils(i3c_env)
   
@@ -26,7 +22,7 @@ class i3c_env extends uvm_env;
   
   // Variable: i3c_scoreboard_h
   // declaring scoreboard handle
-// GopalS:   i3c_scoreboard i3c_scoreboard_h;
+ i3c_scoreboard i3c_scoreboard_h;
   
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -79,30 +75,23 @@ function void i3c_env::build_phase(uvm_phase phase);
    i3c_virtual_seqr_h=i3c_virtual_sequencer::type_id::create("virtual_seqr_h",this);
   end 
   
-// GopalS:   if(i3c_env_cfg_h.has_scoreboard)begin
-// GopalS:    i3c_scoreboard_h=i3c_scoreboard::type_id::create("i3c_scoreboard_h",this);
-// GopalS:   end 
+  if(i3c_env_cfg_h.has_scoreboard)begin
+    i3c_scoreboard_h=i3c_scoreboard::type_id::create("i3c_scoreboard_h",this);
+  end 
 
 endfunction : build_phase
 
-//--------------------------------------------------------------------------------------------
-// Function: connect_phase
-// <Description_here>
-//
-// Parameters:
-//  phase - uvm phase
-//--------------------------------------------------------------------------------------------
 function void i3c_env::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   if(i3c_env_cfg_h.has_virtual_sequencer)
   begin
     foreach(i3c_controller_agent_h[i])begin
       i3c_virtual_seqr_h.i3c_controller_seqr_h=i3c_controller_agent_h[i].i3c_controller_seqr_h;
-  // GopalS:     i3c_controller_agent_h[i].i3c_controller_mon_proxy_h.controller_analysis_port.connect(i3c_scoreboard_h.controller_analysis_fifo.analysis_export); 
+      i3c_controller_agent_h[i].i3c_controller_mon_proxy_h.controller_analysis_port.connect(i3c_scoreboard_h.controller_analysis_fifo.analysis_export); 
     end
     foreach(i3c_target_agent_h[i])begin
       i3c_virtual_seqr_h.i3c_target_seqr_h=i3c_target_agent_h[i].i3c_target_seqr_h;
-    // GopalS:   i3c_target_agent_h[i].i3c_target_mon_proxy_h.target_analysis_port.connect(i3c_scoreboard_h.target_analysis_fifo.analysis_export);
+     i3c_target_agent_h[i].i3c_target_mon_proxy_h.target_analysis_port.connect(i3c_scoreboard_h.target_analysis_fifo.analysis_export);
     end
   end
 endfunction : connect_phase

@@ -1,7 +1,6 @@
 `ifndef I3C_CONTROLLER_SEQ_ITEM_CONVERTER_INCLUDED_
 `define I3C_CONTROLLER_SEQ_ITEM_CONVERTER_INCLUDED_
 
-
 class i3c_controller_seq_item_converter extends uvm_object;
   
   extern function new(string name = "i3c_controller_seq_item_converter");
@@ -79,6 +78,7 @@ function void i3c_controller_seq_item_converter::to_class(input i3c_transfer_bit
   output_conv = new();
 
   // Defining the size of arrays
+  output_conv.operation = operationType_e'(input_conv_h.operation);
   output_conv.writeData = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
 
   // Storing the values in the respective arrays

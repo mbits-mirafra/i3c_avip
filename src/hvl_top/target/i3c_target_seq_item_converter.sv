@@ -108,6 +108,7 @@ function void i3c_target_seq_item_converter::to_class(input i3c_transfer_bits_s 
   output_conv = new();
 
   // Defining the size of arrays
+  output_conv.operation = operationType_e'(input_conv_h.operation);
   output_conv.readData = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
 
   // Storing the values in the respective arrays
