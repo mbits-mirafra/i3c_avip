@@ -1,14 +1,8 @@
-
 `ifndef I3C_ENV_PKG_INCLUDED_
 `define I3C_ENV_PKG_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-// Package: i3c_env_pkg
-// Includes all the files related to I3C i3c_env
-//--------------------------------------------------------------------------------------------
 package i3c_env_pkg;
   
-  // Import uvm package
   `include "uvm_macros.svh"
   import uvm_pkg::*;
 

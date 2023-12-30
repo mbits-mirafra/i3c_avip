@@ -1,18 +1,11 @@
 `ifndef I3C_TARGET_COVERAGE_INCLUDED_
 `define I3C_TARGET_COVERAGE_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-//  Class: i3c_target_coverage
-// i3c_target_coverage determines the how much code is covered for better functionality of the TB.
-//--------------------------------------------------------------------------------------------
 class i3c_target_coverage extends uvm_subscriber#(i3c_target_tx);
   `uvm_component_utils(i3c_target_coverage)
 
-  //creating handle for target transaction coverage
   i3c_target_tx target_tx_cov_data;
 
-  // Variable: master_agent_cfg_h
-  // Declaring handle for master agent configuration class 
   i3c_target_agent_config i3c_target_agent_cfg_h;
 
   //-------------------------------------------------------
@@ -25,11 +18,11 @@ class i3c_target_coverage extends uvm_subscriber#(i3c_target_tx);
     // Mode of the operation
     
     //this coverpoint is to check the target address width
-    target_ADDRESS_WID_CP : coverpoint cfg.target_address {
+    TARGET_ADDRESS_WID_CP : coverpoint cfg.targetAddress {
       option.comment = "Width of the the target address";
 
-      bins target_ADDRESS_WIDTH_7 = {7};
-      bins target_ADDRESS_WIDTH_10 = {10};
+      bins TARGET_ADDRESS_WIDTH_7 = {7};
+      bins TARGET_ADDRESS_WIDTH_10 = {10};
     }
 
     //this coverpoint is to check the target_addr_ack 
@@ -69,7 +62,7 @@ class i3c_target_coverage extends uvm_subscriber#(i3c_target_tx);
  //     bins READ_DATA_WIDTH_MAX = {[48:MAXIMUM_BITS]};
  //   }
     //this coverpoint is to check the operation is read or write 
-    OPERATION_READ_WRITE_CP : coverpoint read_write_e'(packet.read_write){
+    OPERATION_READ_WRITE_CP : coverpoint operationType_e'(packet.operation){
       option.comment = "operation is read or write";
 
       bins READ = {1};
@@ -77,7 +70,7 @@ class i3c_target_coverage extends uvm_subscriber#(i3c_target_tx);
     }
 
     //this coverpoint is to check the direction of the data transfer 
-    SHIFT_DIRECTION_CP : coverpoint shift_direction_e'(cfg.shift_dir){
+    DATA_TRANSFER_DIRECTION_CP : coverpoint dataTransferDirection_e'(cfg.DataTransferdirection){
       option.comment = "shift_direction of i3c MSB or LSB";
 
       bins LSB_FIRST = {0};

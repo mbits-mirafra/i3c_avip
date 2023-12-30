@@ -4,54 +4,27 @@
 class i3c_env extends uvm_env;
   `uvm_component_utils(i3c_env)
   
-  // Variable: i3c_controller_agent_h
-  // declaring i3c_controller_agent handle
   i3c_controller_agent i3c_controller_agent_h[];
   
-  // Variable: i3c_target_agent_h
-  // Declaring i3c_target handles
   i3c_target_agent i3c_target_agent_h[];
 
-  // Variable: i3c_virtual_seqr_h
-  // declaring handle for virtual sequencer
   i3c_virtual_sequencer i3c_virtual_seqr_h; 
   
-  // Variable: i3c_env_cfg_h
-  // Declaring environment configuration handle
   i3c_env_config i3c_env_cfg_h;
   
-  // Variable: i3c_scoreboard_h
-  // declaring scoreboard handle
- i3c_scoreboard i3c_scoreboard_h;
+  i3c_scoreboard i3c_scoreboard_h;
   
-  //-------------------------------------------------------
-  // Externally defined Tasks and Functions
-  //-------------------------------------------------------
   extern function new(string name = "i3c_env", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
   extern virtual function void connect_phase(uvm_phase phase);
 
 endclass : i3c_env
 
-//--------------------------------------------------------------------------------------------
-// Construct: new
-//
-// Parameters:
-//  name - i3c_env
-//  parent - parent under which this component is created
-//--------------------------------------------------------------------------------------------
 function i3c_env::new(string name = "i3c_env",
                                  uvm_component parent = null);
   super.new(name, parent);
 endfunction : new
 
-//--------------------------------------------------------------------------------------------
-// Function: build_phase
-// <Description_here>
-//
-// Parameters:
-//  phase - uvm phase
-//--------------------------------------------------------------------------------------------
 function void i3c_env::build_phase(uvm_phase phase);
   super.build_phase(phase);
 
@@ -78,8 +51,8 @@ function void i3c_env::build_phase(uvm_phase phase);
   if(i3c_env_cfg_h.has_scoreboard)begin
     i3c_scoreboard_h=i3c_scoreboard::type_id::create("i3c_scoreboard_h",this);
   end 
-
 endfunction : build_phase
+
 
 function void i3c_env::connect_phase(uvm_phase phase);
   super.connect_phase(phase);

@@ -20,7 +20,6 @@ function i3c_target_agent_config::new(string name = "i3c_target_agent_config");
   super.new(name);
 endfunction : new
 
-// Function: do_print method
 function void i3c_target_agent_config::do_print(uvm_printer printer);
   super.do_print(printer);
 
