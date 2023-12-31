@@ -7,7 +7,7 @@ class i3c_controller_coverage extends uvm_subscriber#(i3c_controller_tx);
  i3c_controller_agent_config i3c_controller_agent_cfg_h;
  
 covergroup controller_covergroup with function sample (i3c_controller_agent_config cfg, i3c_controller_tx packet);
-    option.per_instance = 1;
+   option.per_instance = 1;
    
    OPERATION_CP : coverpoint packet.operation{
    option.comment = "Operation";
@@ -19,18 +19,18 @@ covergroup controller_covergroup with function sample (i3c_controller_agent_conf
    bins TARGETADDRESS = {[0:$]};
    }
 
-   foreach(packet.writeData[i]) {
-   WRITEDATA_CP : coverpoint packet.writeData{
-   //option.comment = "writeData";
-   bins WRITEDATA = {[*]};
+/*   foreach(packet.writeData[i]) begin
+   WRITEDATA_CP : coverpoint packet.writeData[0]{
+   option.comment = "writeData";
+   bins WRITEDATA = {[0:$]};
    } 
-  }
-
+  end
    READDATA_CP : coverpoint packet.readData{
    option.comment = "readData";
    bins READDATA = {[0:$]};
    }
 
+*/
   endgroup : controller_covergroup
 
   extern function new(string name = "i3c_controller_coverage", uvm_component parent = null);
