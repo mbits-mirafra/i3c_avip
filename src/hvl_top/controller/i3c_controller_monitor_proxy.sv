@@ -67,15 +67,10 @@ task i3c_controller_monitor_proxy::run_phase(uvm_phase phase);
     i3c_controller_mon_bfm_h.wait_for_idle_state();
    
     i3c_controller_mon_bfm_h.sample_data(struct_packet,struct_cfg);
-    `uvm_info(get_type_name(),"gopal - After sample_data task in the controller Monitor Proxy", UVM_HIGH)
     i3c_controller_seq_item_converter::to_class(struct_packet,tx);    
-   // GopalS:  $cast(tx_packet,tx.clone());
-   // GopalS:  `uvm_info(get_type_name(),$sformatf("Packet received from sample_data clone packet is \n %s",tx.sprint()),UVM_HIGH)   
-     $display("gopal [controller_monitor_proxy] operation = %s",tx.operation);
-     $display("gopal [controller_monitor_proxy] targetAddress = %0b",tx.targetAddress);
-     $display("gopal [controller_monitor_proxy] writeData = %p",tx.writeData);
-     $display("gopal [controller_monitor_proxy] readData = %0b",tx.readData[0]);
-     $cast(tx_packet, tx.clone());
+
+    $cast(tx_packet, tx.clone());
+    `uvm_info(get_type_name(),$sformatf("Packet received from sample_data clone packet is \n %s",tx_packet.sprint()),UVM_HIGH)   
  
     controller_analysis_port.write(tx_packet);
    

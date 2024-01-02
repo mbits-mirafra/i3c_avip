@@ -83,11 +83,7 @@ package i3c_globals_pkg;
     bit readDataStatus[MAXIMUM_BYTES];
     bit [DATA_WIDTH-1:0] writeData[MAXIMUM_BYTES];
     bit [DATA_WIDTH-1:0] readData[MAXIMUM_BYTES];
-   // GopalS:  bit ack;
     int no_of_i3c_bits_transfer; 
-    bit slave_add_ack;
-    bit reg_add_ack;
-    bit [MAXIMUM_BYTES-1:0] writeData_ack;
     bit [REGISTER_ADDRESS_WIDTH-1:0]register_address;
    } i3c_transfer_bits_s;
   

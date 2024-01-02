@@ -71,14 +71,11 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
   
     i3c_target_seq_item_converter::from_class(tx_packet, struct_packet);
     i3c_target_mon_bfm_h.sample_data(struct_packet,struct_cfg);
-    `uvm_info(get_type_name(),"gopal - After sample_data task in the target Monitor Proxy", UVM_HIGH)
     i3c_target_seq_item_converter::to_class(struct_packet,tx);
    
-    $display("Gopal[-target_monitor_proxy] targetAddress = %0b",tx.targetAddress);
-    $display("Gopal[-target_monitor_proxy] writeData = %p",tx.writeData);
-    $display("Gopal[-target_monitor_proxy] readData = %p",tx.readData);
     $cast(tx_packet, tx.clone());
-    
+    `uvm_info(get_type_name(),$sformatf("Packet received from sample_data clone packet is \n %s",tx_packet.sprint()),UVM_HIGH)   
+
     target_analysis_port.write(tx_packet);
   end
 

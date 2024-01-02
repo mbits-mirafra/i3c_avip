@@ -4,7 +4,6 @@
 class i3c_controller_driver_proxy extends uvm_driver#(i3c_controller_tx);
   `uvm_component_utils(i3c_controller_driver_proxy)
  
-  i3c_controller_tx tx;
   i3c_controller_agent_config i3c_controller_agent_cfg_h;
   virtual i3c_controller_driver_bfm i3c_controller_drv_bfm_h;
 

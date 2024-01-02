@@ -34,6 +34,7 @@ interface i3c_controller_monitor_bfm(input pclk,
 
   task sample_idle_state();
     @(posedge pclk);
+    state <= IDLE;
   endtask: sample_idle_state
   
   task wait_for_idle_state();
@@ -45,6 +46,7 @@ interface i3c_controller_monitor_bfm(input pclk,
   endtask: wait_for_idle_state
   
   task sample_data(inout i3c_transfer_bits_s struct_packet,inout i3c_transfer_cfg_s struct_cfg);
+
     detect_start();
     
     sample_target_address(struct_packet.targetAddress,struct_packet.targetAddressStatus);
@@ -52,16 +54,17 @@ interface i3c_controller_monitor_bfm(input pclk,
     sampleAddressAck(struct_packet.targetAddressStatus);
     if(struct_packet.targetAddressStatus == ACK) begin
       if(struct_packet.operation == WRITE) begin
-        sample_write_data(struct_packet.writeData[0]);
+        sample_write_data(struct_packet.writeData[0],struct_packet.no_of_i3c_bits_transfer);
         sampleWdataAck();
       end else begin
-          sample_read_data(struct_packet.readData[0]);
+          sample_read_data(struct_packet.readData[0],struct_packet.no_of_i3c_bits_transfer);
           sample_ack();
         end
       end else begin
       detect_stop();
     end
        detect_stop();
+
   endtask: sample_data
   
   task detect_start();
@@ -114,28 +117,30 @@ interface i3c_controller_monitor_bfm(input pclk,
     @(posedge pclk); 
   endtask: sampleAddressAck
   
-  task sample_write_data(output bit [7:0] wdata);
+  task sample_write_data(output bit[7:0] wdata, output int bitsTransfer);
     state = WRITE_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_posedge_scl();
       wdata[k] = sda_i;
+      bitsTransfer++;
     end
   endtask: sample_write_data
   
   task sampleWdataAck();
-    @(posedge pclk); 
     state = ACK_NACK;
     detect_negedge_scl();
-    repeat(2)
-     @(posedge pclk); 
+    detect_negedge_scl();
+    //repeat(2)
+    // @(posedge pclk); 
   endtask: sampleWdataAck
   
   
-  task sample_read_data(output bit[7:0] rdata);
+  task sample_read_data(output bit[7:0] rdata, output int bitsTransfer);
     state = READ_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_negedge_scl();
       rdata[k] = sda_i;
+      bitsTransfer++;
     end
   endtask :sample_read_data
   
