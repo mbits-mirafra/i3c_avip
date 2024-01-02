@@ -6,7 +6,7 @@ class i3c_controller_coverage extends uvm_subscriber#(i3c_controller_tx);
 
 i3c_controller_agent_config i3c_controller_agent_cfg_h;
  
-covergroup i3c_controller_coverage with function sample (i3c_controller_agent_config cfg, i3c_controller_tx packet);
+covergroup i3c_controller_coverage with function sample(i3c_controller_agent_config cfg, i3c_controller_tx packet);
    option.per_instance = 1;
    
    OPERATION_CP : coverpoint packet.operation{
@@ -23,18 +23,18 @@ covergroup i3c_controller_coverage with function sample (i3c_controller_agent_co
    option.comment = "targetAddressStatus";
    bins TARGET_ADDRESS_STATUS = {0,1};
    }
-/*
+
    WRITEDATA_CP : coverpoint packet.writeData.size()*DATA_WIDTH {
    option.comment = "Data size of the packet transfer";
-   bins W1 = {8};    
-  // bins WRITEDATA_WIDTH_2 = {16};
-  // bins WRITEDATA_WIDTH_3 = {24};
-  // bins WRITEDATA_WIDTH_4 = {32};
-  // bins WRITEDATA_WIDTH_5 = {64};
-  // bins WRITEDATA_WIDTH_6 = {[72:MAXIMUM_BITS]};
+   bins WRITEDATA_WIDTH_1 = {8};
+   bins WRITEDATA_WIDTH_2 = {16};
+   bins WRITEDATA_WIDTH_3 = {24};
+   bins WRITEDATA_WIDTH_4 = {32};
+   bins WRITEDATA_WIDTH_5 = {64};
+   bins WRITEDATA_WIDTH_6 = {[72:MAXIMUM_BITS]};
  }
 
- /*
+/*
    READDATA_CP : coverpoint packet.readData{
    option.comment = "readData";
 master_coverage.sv   bins READDATA = {[0:$]};
