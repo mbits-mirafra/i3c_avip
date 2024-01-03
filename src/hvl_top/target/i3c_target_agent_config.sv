@@ -12,7 +12,7 @@ class i3c_target_agent_config extends uvm_object;
   bit [DATA_WIDTH-1:0]targetFIFOMemory[$];
  
   extern function new(string name = "i3c_target_agent_config");
- extern function void do_print(uvm_printer printer);
+  extern function void do_print(uvm_printer printer);
 
 endclass : i3c_target_agent_config
 

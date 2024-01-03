@@ -116,12 +116,13 @@ interface i3c_controller_driver_bfm(input pclk,
         end else begin
           for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
             sample_read_data(dataPacketStruct.readData[i],dataPacketStruct.readDataStatus[i]);
+            if(dataPacketStruct.readDataStatus[i] == 1)
+              break;
           end
           stop();
         end
     end
   endtask: drive_data
-
 
 
   task drive_start();
@@ -258,8 +259,6 @@ interface i3c_controller_driver_bfm(input pclk,
   endtask: sample_read_data
   
   
-  // Drive the logic sda value as '0' or '1' over the I3C inteerface using the tristate buffers
-  //--------------------------------------------------------------------------------------------
   task drive_sda(input bit value);
     sda_oen <= value ? TRISTATE_BUF_OFF : TRISTATE_BUF_ON;
     sda_o   <= value;
@@ -271,10 +270,6 @@ interface i3c_controller_driver_bfm(input pclk,
   endtask: drive_scl
   
     
-  //-------------------------------------------------------
-  // Task: detect_posedge_scl
-  // Detects the edge on scl with regards to pclk
-  //-------------------------------------------------------
   task detect_posedge_scl();
     // 2bit shift register to check the edge on scl
     bit [1:0] scl_local;
@@ -283,7 +278,6 @@ interface i3c_controller_driver_bfm(input pclk,
     // default value of scl_local is logic 1
     scl_local = 2'b11;
   
-    // Detect the edge on scl
     do begin
       @(negedge pclk);
       scl_local = {scl_local[0], scl_i};
@@ -294,10 +288,6 @@ interface i3c_controller_driver_bfm(input pclk,
   endtask: detect_posedge_scl
     
     
-  //-------------------------------------------------------
-  // Task: detect_negedge_scl
-  // Detects the negative edge on scl with regards to pclk
-  //-------------------------------------------------------
   task detect_negedge_scl();
     // 2bit shift register to check the edge on scl
     bit [1:0] scl_local;
@@ -306,12 +296,9 @@ interface i3c_controller_driver_bfm(input pclk,
     // default value of scl_local is logic 1
     scl_local = 2'b11;
   
-    // Detect the edge on scl
     do begin
-  
       @(negedge pclk);
       scl_local = {scl_local[0], scl_i};
-  
     end while(!(scl_local == NEGEDGE));
   
     scl_edge_value = edge_detect_e'(scl_local);

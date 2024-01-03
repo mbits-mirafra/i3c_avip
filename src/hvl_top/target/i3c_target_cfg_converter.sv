@@ -35,6 +35,7 @@ function void i3c_target_cfg_converter::from_class(input i3c_target_agent_config
  output_conv.DataTransferdirection = dataTransferDirection_e'(input_conv_h.DataTransferdirection);
  //output_conv.targetAddress = input_conv_h.targetAddress;
  output_conv.targetFIFOMemory = input_conv_h.targetFIFOMemory;
+ output_conv.defaultReadData = input_conv_h.defaultReadData;
   
 
 

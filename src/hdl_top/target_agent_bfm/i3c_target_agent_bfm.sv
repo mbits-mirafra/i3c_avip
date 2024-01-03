@@ -4,19 +4,10 @@
 module i3c_target_agent_bfm #(parameter int target_ID=0) 
                               (i3c_if intf);
 
- //-------------------------------------------------------
- // Package : Importing Uvm Pakckage and Test Package
- //-------------------------------------------------------
- import uvm_pkg::*;
- `include "uvm_macros.svh"
-  //-------------------------------------------------------
-  // Package : Importing SPI Global Package 
-  //-------------------------------------------------------
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
   import i3c_globals_pkg::*;
- //-------------------------------------------------------
-  //-------------------------------------------------------
-  //I3C target driver bfm instantiation
-  //-------------------------------------------------------
+
   i3c_target_driver_bfm i3c_target_drv_bfm_h(.pclk(intf.pclk), 
                                            .areset(intf.areset),
                                            .scl_i(intf.scl_i),
@@ -25,7 +16,7 @@ module i3c_target_agent_bfm #(parameter int target_ID=0)
                                            .sda_i(intf.sda_i),
                                            .sda_o(intf.sda_o),
                                            .sda_oen(intf.sda_oen)
-					   //.scl(intf.scl),
+                              					   //.scl(intf.scl),
                                            //.sda(intf.sda)
                                           );
   // MSHA: assign i3c_target_drv_bfm_h.target_id = target_ID;
