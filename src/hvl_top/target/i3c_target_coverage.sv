@@ -52,6 +52,11 @@ class i3c_target_coverage extends uvm_subscriber#(i3c_target_tx);
   bins READDATA_STATUS = {1,0};
 }
 
+OPERATION_CP_X_WRITEDATA_CP:cross OPERATION_CP, WRITEDATA_CP;
+
+OPERATION_CP_X_READDATA_CP:cross OPERATION_CP, READDATA_CP;
+
+
   /*
   //target_ADDR_ACK_BIT  : coverpoint packet.target_addr_ack {
   //  option.comment = "target addr ack bit to dete";
