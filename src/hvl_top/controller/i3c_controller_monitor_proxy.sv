@@ -67,6 +67,7 @@ task i3c_controller_monitor_proxy::run_phase(uvm_phase phase);
     i3c_controller_mon_bfm_h.wait_for_idle_state();
    
     i3c_controller_mon_bfm_h.sample_data(struct_packet,struct_cfg);
+
     i3c_controller_seq_item_converter::to_class(struct_packet,tx);    
 
     $cast(tx_packet, tx.clone());

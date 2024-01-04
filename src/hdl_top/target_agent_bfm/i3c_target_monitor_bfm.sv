@@ -17,6 +17,7 @@ interface i3c_target_monitor_bfm(input pclk,
   import i3c_target_pkg::*;
   import i3c_target_pkg::i3c_target_monitor_proxy;
   
+  string name = "I3C_TARGET_MONITOR_BFM";
   i3c_target_monitor_proxy i3c_target_mon_proxy_h; 
  
   i3c_fsm_state_e state;
@@ -50,16 +51,46 @@ interface i3c_target_monitor_bfm(input pclk,
     sampleAddressAck(struct_packet.targetAddressStatus);
     if(struct_packet.targetAddressStatus == ACK) begin
       if(struct_packet.operation == WRITE) begin
-        sample_write_data(struct_packet.writeData[0],struct_packet.no_of_i3c_bits_transfer);
-        sampleWdataAck();
+       // GopalS:  sample_write_data(struct_packet.writeData[0],struct_packet.no_of_i3c_bits_transfer);
+       // GopalS:  sampleWdataAck(struct_packet.writeDataStatus[0]);
+
+      fork
+        begin
+          for(int i=0;i<MAXIMUM_BYTES;i++) begin
+            sample_write_data(struct_packet,i);
+            sampleWdataAck(struct_packet.writeDataStatus[i]);
+          end
+        end
+
+        begin
+          wrDetect_stop();
+        end
+      join_any
+      disable fork;
+
       end else begin
           sample_read_data(struct_packet.readData[0],struct_packet.no_of_i3c_bits_transfer);
-          sample_ack();
+          sample_ack(struct_packet.readDataStatus[0]);
+
+     // GopalS:    fork
+     // GopalS:      begin
+     // GopalS:        for(int i=0;i<MAXIMUM_BYTES;i++) begin
+     // GopalS:          sample_read_data(struct_packet,i);
+     // GopalS:          sample_ack(struct_packet.readDataStatus[i]);
+     // GopalS:        end
+     // GopalS:      end
+
+     // GopalS:      begin
+     // GopalS:        wrDetect_stop();
+     // GopalS:      end
+     // GopalS:    join_any
+     // GopalS:    disable fork;
+
         end
       end else begin
       detect_stop();
     end
-       detect_stop();
+     // GopalS:   detect_stop();
   endtask: sample_data
   
   task detect_start();
@@ -112,6 +143,7 @@ interface i3c_target_monitor_bfm(input pclk,
     @(posedge pclk); 
   endtask: sampleAddressAck
   
+/*
   task sample_write_data(output bit [7:0] wdata, output int bitsTransfer);
     state = WRITE_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
@@ -120,11 +152,24 @@ interface i3c_target_monitor_bfm(input pclk,
       bitsTransfer++;
     end
   endtask: sample_write_data
+  */
+
+  task sample_write_data(output i3c_transfer_bits_s pkt, input int i);
+    bit[DATA_WIDTH-1:0] wdata;
+    state = WRITE_DATA;
+    for(int k=0;k < DATA_WIDTH; k++) begin
+      detect_posedge_scl();
+      wdata[k] = sda_i;
+      pkt.no_of_i3c_bits_transfer++;
+    end
+    pkt.writeData[i] = wdata;
+  endtask: sample_write_data
   
-  task sampleWdataAck();
-    @(posedge pclk); 
+
+  task sampleWdataAck(output bit ack);
     state = ACK_NACK;
     detect_negedge_scl();
+    ack = sda_i;
     repeat(2)
      @(posedge pclk); 
   endtask: sampleWdataAck
@@ -139,12 +184,43 @@ interface i3c_target_monitor_bfm(input pclk,
     end
   endtask :sample_read_data
   
-  task sample_ack();
+/*
+  task sample_read_data(inout i3c_transfer_bits_s pkt,input int i);
+    bit [DATA_WIDTH-1:0] rdata;
+    state = READ_DATA;
+    for(int k=0;k < DATA_WIDTH; k++) begin
+      detect_negedge_scl();
+      rdata[k] = sda_i;
+      pkt.no_of_i3c_bits_transfer++;
+    end
+    pkt.readData[i] = rdata;
+  endtask :sample_read_data
+  */
+
+  task sample_ack(output bit ack);
     detect_negedge_scl();
     state    = ACK_NACK;
+    ack = sda_i;
     detect_negedge_scl();
   endtask :sample_ack
   
+
+  task wrDetect_stop();
+    // 2bit shift register to check the edge on sda and stability on scl
+    bit [1:0] scl_local;
+    bit [1:0] sda_local;
+
+    // GopalS: state = STOP;
+    do begin
+      @(negedge pclk);
+      scl_local = {scl_local[0], scl_i};
+      sda_local = {sda_local[0], sda_i};
+    end while(!(sda_local == POSEDGE && scl_local == 2'b11) );
+    state = STOP;
+    `uvm_info(name, $sformatf("Stop condition is detected"), UVM_HIGH);
+  endtask: wrDetect_stop
+  
+
   task detect_stop();
     bit [1:0] scl_local;
     bit [1:0] sda_local;

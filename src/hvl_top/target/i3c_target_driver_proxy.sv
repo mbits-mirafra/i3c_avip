@@ -73,41 +73,5 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
 endtask : run_phase
 
 
-/*    i3c_target_drv_bfm_h.detect_start();
-    i3c_target_drv_bfm_h.start_sim(struct_cfg);
-
-
-    //wait for the statrt condition
-    i3c_target_drv_bfm_h.detect_start()
-
-    //// Sample the target address from I3C bus
-    i3c_target_drv_bfm_h.sample_target_address(struct_cfg, ack, rd_wr);
-    //`uvm_info("DEBUG_MUKUL", $sformatf("target address %0x :: Received ACK %0s", 
-    //                                   struct_cfg.target_address, ack.name()), UVM_NONE); 
-
-    // Proceed further only if the I3C packet is addressed to this target                                       
-    if(ack == POS_ACK) begin
-
-      seq_item_port.get_next_item(req);
-    //  `uvm_info(get_type_name(),$sformatf("Received packet from i3c target sequencer : , \n %s",
-    //                                      req.sprint()),UVM_HIGH)
-
-      i3c_target_seq_item_converter::from_class(req, struct_packet); 
-      struct_packet.target_address = struct_cfg.target_address;
-      struct_packet.read_write = rd_wr; 
-      struct_packet.target_addr_ack = ack;
-
-    //  i3c_target_drv_bfm_h.sample_reg_address(struct_packet, struct_cfg);
-
-      i3c_target_seq_item_converter::to_class(struct_packet, req);
-    //  `uvm_info(get_type_name(),$sformatf("Received packet from target DRIVER BFM : , \n %s",
-    //                                      req.sprint()),UVM_HIGH)
-
-      seq_item_port.item_done();
-    end
-  end
-  
-endtask : run_phase
-*/
 `endif
 

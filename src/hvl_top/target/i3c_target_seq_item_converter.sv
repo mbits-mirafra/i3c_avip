@@ -33,11 +33,11 @@ function void i3c_target_seq_item_converter::from_class(input i3c_target_tx inpu
     output_conv.writeDataStatus[i] = input_conv_h.writeDataStatus[i];    
   end
  
-if(input_conv_h.operation == 1) begin
-  output_conv.no_of_i3c_bits_transfer = input_conv_h.readData.size() * DATA_WIDTH;
-end else begin
-  output_conv.no_of_i3c_bits_transfer = input_conv_h.writeDataStatus.size() * DATA_WIDTH;
-end
+// GopalS: if(input_conv_h.operation == 1) begin
+// GopalS:   output_conv.no_of_i3c_bits_transfer = input_conv_h.readData.size() * DATA_WIDTH;
+// GopalS: end else begin
+// GopalS:   output_conv.no_of_i3c_bits_transfer = input_conv_h.writeDataStatus.size() * DATA_WIDTH;
+// GopalS: end
 
  //converting of the register address
  //output_conv.register_address = input_conv_h.register_address;

@@ -59,12 +59,9 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   endtask: wait_for_idle_state
 
 
-  task drive_data(inout i3c_transfer_bits_s p_data_packet, 
-                  input i3c_transfer_cfg_s p_cfg_pkt);
+  task drive_data(inout i3c_transfer_bits_s dataPacketStruck, 
+                  inout i3c_transfer_cfg_s configPacketStruck);
   
-    dataPacketStruck = p_data_packet;
-    configPacketStruck = p_cfg_pkt;
-
     detect_start();
 
     sample_target_address(configPacketStruck,dataPacketStruck.targetAddressStatus);
@@ -75,20 +72,54 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
 
     if(dataPacketStruck.targetAddressStatus == ACK) begin
       if(dataPacketStruck.operation == WRITE) begin
-        sample_write_data(configPacketStruck,dataPacketStruck.writeDataStatus[0]);
-        driveWdataAck(dataPacketStruck.writeDataStatus[0]);
+      // GopalS:   sample_write_data(configPacketStruck,dataPacketStruck.writeDataStatus[0]);
+      // GopalS:   driveWdataAck(dataPacketStruck.writeDataStatus[0]);
+
+        fork
+          begin
+            for(int i=0;i<MAXIMUM_BYTES;i++) begin
+              sample_write_data(configPacketStruck,dataPacketStruck,i);
+              driveWdataAck(dataPacketStruck.writeDataStatus[i]);
+            end
+          end
+
+          begin
+            wrDetect_stop();
+          end
+        join_any
+        disable fork;
+
       end else begin
         if(configPacketStruck.targetFIFOMemory.size()==0) begin
           rdata = configPacketStruck.defaultReadData;
         end else
           rdata = configPacketStruck.targetFIFOMemory.pop_front();
-        drive_read_data(rdata);
+        drive_read_data(rdata,dataPacketStruck);
         sample_ack(dataPacketStruck.readDataStatus[0]);
+
+     // GopalS:    fork
+     // GopalS:      begin
+     // GopalS:        for(int i=0;i<MAXIMUM_BYTES;i++) begin
+     // GopalS:          if(configPacketStruck.targetFIFOMemory.size()==0) begin
+     // GopalS:            rdata = configPacketStruck.defaultReadData;
+     // GopalS:          end else
+     // GopalS:            rdata = configPacketStruck.targetFIFOMemory.pop_front();
+     // GopalS:          drive_read_data(rdata,dataPacketStruck);
+     // GopalS:          sample_ack(dataPacketStruck.readDataStatus[i]);
+     // GopalS:        end
+     // GopalS:      end
+
+     // GopalS:      begin
+     // GopalS:        wrDetect_stop();
+     // GopalS:      end
+     // GopalS:    join_any
+     // GopalS:    disable fork;
+
       end
     end else begin
       detect_stop();
     end
-    detect_stop();
+   // GopalS:  detect_stop();
   endtask: drive_data
   
 
@@ -211,16 +242,11 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
     sda_o   <= value;
   endtask: drive_sda
 
-
+/*
   task sample_write_data(inout i3c_transfer_cfg_s cfg_pkt, output acknowledge_e ack);
     bit [7:0] wdata;
 
-    //repeat(2) 
-    //  @(posedge pclk);
-    // GopalS: detect_negedge_scl();
     state = WRITE_DATA;
-   // sda_oen <= TRISTATE_BUF_OFF;
-   // sda_o   <= 1;
 
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_posedge_scl();
@@ -232,9 +258,26 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
    
     ack = ACK;
   endtask: sample_write_data
+*/
+
+  task sample_write_data(inout i3c_transfer_cfg_s cfg_pkt, inout i3c_transfer_bits_s pkt, input int i);
+    bit [7:0] wdata;
+    state = WRITE_DATA;
+    for(int k=0;k < DATA_WIDTH; k++) begin
+      detect_posedge_scl();
+      wdata[k] = sda_i;
+      pkt.no_of_i3c_bits_transfer++;
+    end
+
+    `uvm_info(NAME, $sformatf("DEBUG :: Value of sampled write data = %0x", wdata[7:0]), UVM_NONE); 
+    cfg_pkt.targetFIFOMemory.push_back(wdata);
+   
+    pkt.writeData[i] = wdata;
+    pkt.writeDataStatus[i] = ACK;
+  endtask: sample_write_data
 
 
-  task drive_read_data(input bit[7:0] rdata);
+  task drive_read_data(input bit[7:0] rdata,inout i3c_transfer_bits_s pkt);
 
     `uvm_info("DEBUG", $sformatf("Driving byte = %0b",rdata), UVM_NONE)
     state = READ_DATA;
@@ -242,10 +285,12 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
       detect_negedge_scl();
       sda_oen <= TRISTATE_BUF_ON;
       sda_o   <= rdata[k];
+      pkt.no_of_i3c_bits_transfer++;
     end
     @(posedge pclk);
-      sda_oen <= TRISTATE_BUF_OFF;
-      sda_o   <= 1;
+    @(posedge pclk);
+    sda_oen <= TRISTATE_BUF_OFF;
+    sda_o   <= 1;
   endtask :drive_read_data
 
 
@@ -253,8 +298,24 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
     detect_negedge_scl();
     state    = ACK_NACK;
     ack     = sda_i;
-    detect_negedge_scl();
+    @(posedge pclk);
+    @(posedge pclk);
   endtask :sample_ack
+
+
+  task wrDetect_stop();
+    // 2bit shift register to check the edge on sda and stability on scl
+    bit [1:0] scl_local;
+    bit [1:0] sda_local;
+
+    // GopalS: state = STOP;
+    do begin
+      @(negedge pclk);
+      scl_local = {scl_local[0], scl_i};
+      sda_local = {sda_local[0], sda_i};
+    end while(!(sda_local == POSEDGE && scl_local == 2'b11) );
+    `uvm_info(NAME, $sformatf("Stop condition is detected"), UVM_HIGH);
+  endtask: wrDetect_stop
 
 
   task detect_stop();
