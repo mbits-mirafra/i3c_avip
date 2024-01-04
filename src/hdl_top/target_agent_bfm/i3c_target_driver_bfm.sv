@@ -261,7 +261,7 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
 */
 
   task sample_write_data(inout i3c_transfer_cfg_s cfg_pkt, inout i3c_transfer_bits_s pkt, input int i);
-    bit [7:0] wdata;
+    bit [DATA_WIDTH-1:0] wdata;
     state = WRITE_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
       detect_posedge_scl();
@@ -314,6 +314,7 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
       scl_local = {scl_local[0], scl_i};
       sda_local = {sda_local[0], sda_i};
     end while(!(sda_local == POSEDGE && scl_local == 2'b11) );
+    state = STOP;
     `uvm_info(NAME, $sformatf("Stop condition is detected"), UVM_HIGH);
   endtask: wrDetect_stop
 
