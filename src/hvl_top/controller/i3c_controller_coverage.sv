@@ -54,12 +54,11 @@ covergroup i3c_controller_covergroup with function sample(i3c_controller_agent_c
   bins READDATA_STATUS = {1,0};
 }
 
-OPERATION_CP_X_WRITEDATA_CP:cross OPERATION_CP, WRITEDATA_CP;
+OPERATION_CP_X_WRITEDATA_CP:cross OPERATION_CP,WRITEDATA_CP;
+OPERATION_CP_X_READDATA_CP:cross OPERATION_CP,READDATA_CP;
 
-OPERATION_CP_X_READDATA_CP:cross OPERATION_CP, READDATA_CP;
 
-
-  endgroup : i3c_controller_covergroup
+endgroup : i3c_controller_covergroup
 
   extern function new(string name = "i3c_controller_coverage", uvm_component parent = null);
   extern virtual function void display();

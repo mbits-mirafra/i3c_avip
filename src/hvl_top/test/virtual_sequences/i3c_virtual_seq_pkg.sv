@@ -27,6 +27,8 @@ package i3c_virtual_seq_pkg;
  `include "i3c_virtual_base_seq.sv"
  `include "i3c_virtual_8b_write_seq.sv"
  `include "i3c_virtual_8b_read_seq.sv"
+ `include "i3c_virtual_16b_write_seq.sv"
+
 // GopalS:  `include "i3c_virtual_8b_write_followed_by_read_seq.sv"
 // GopalS:  `include "i3c_virtual_8b_direct_ccc_setdasa_seq.sv" 
 endpackage : i3c_virtual_seq_pkg
