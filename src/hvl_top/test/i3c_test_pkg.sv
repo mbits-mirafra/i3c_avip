@@ -21,6 +21,10 @@ package i3c_test_pkg;
  `include "i3c_16b_read_test.sv" 
  `include "i3c_32b_write_test.sv"
  `include "i3c_32b_read_test.sv"
+ `include "i3c_64b_write_test.sv"
+ `include "i3c_64b_read_test.sv"
+ `include "i3c_maximum_bits_write_seq.sv"
+ `include "i3c_maximum_bits_read_seq.sv"
 
 // GopalS:  `include "i3c_8b_write_followed_by_read_test.sv"
 // GopalS:  `include "i3c_direct_ccc_setdasa_test.sv"

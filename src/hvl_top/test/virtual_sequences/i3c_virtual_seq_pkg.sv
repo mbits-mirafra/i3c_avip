@@ -19,6 +19,10 @@ package i3c_virtual_seq_pkg;
  `include "i3c_virtual_16b_read_seq.sv"
  `include "i3c_virtual_32b_write_seq.sv"
  `include "i3c_virtual_32b_read_seq.sv"
+ `include "i3c_virtual_64b_write_seq.sv"
+ `include "i3c_virtual_64b_read_seq.sv"
+ `include "i3c_virtual_maximum_bits_write_seq.sv"
+ `include "i3c_virtual_maximum_bits_read_seq.sv"
 
 // GopalS:  `include "i3c_virtual_8b_write_followed_by_read_seq.sv"
 // GopalS:  `include "i3c_virtual_8b_direct_ccc_setdasa_seq.sv" 
