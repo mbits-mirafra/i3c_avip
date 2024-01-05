@@ -24,7 +24,7 @@ task i3c_target_8b_read_seq::body();
 
   start_item(req);
 
-  if(!req.randomize() with {readData.size == 1;}) begin
+  if(!req.randomize()) begin
     `uvm_error(get_type_name(), "Randomization failed")
   end
 

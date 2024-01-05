@@ -69,22 +69,22 @@ interface i3c_target_monitor_bfm(input pclk,
       disable fork;
 
       end else begin
-          sample_read_data(struct_packet.readData[0],struct_packet.no_of_i3c_bits_transfer);
-          sample_ack(struct_packet.readDataStatus[0]);
+     // GopalS:      sample_read_data(struct_packet.readData[0],struct_packet.no_of_i3c_bits_transfer);
+     // GopalS:      sample_ack(struct_packet.readDataStatus[0]);
 
-     // GopalS:    fork
-     // GopalS:      begin
-     // GopalS:        for(int i=0;i<MAXIMUM_BYTES;i++) begin
-     // GopalS:          sample_read_data(struct_packet,i);
-     // GopalS:          sample_ack(struct_packet.readDataStatus[i]);
-     // GopalS:        end
-     // GopalS:      end
+        fork
+          begin
+            for(int i=0;i<MAXIMUM_BYTES;i++) begin
+              sample_read_data(struct_packet,i);
+              sample_ack(struct_packet.readDataStatus[i]);
+            end
+          end
 
-     // GopalS:      begin
-     // GopalS:        wrDetect_stop();
-     // GopalS:      end
-     // GopalS:    join_any
-     // GopalS:    disable fork;
+          begin
+            wrDetect_stop();
+          end
+        join_any
+        disable fork;
 
         end
       end else begin
@@ -174,7 +174,7 @@ interface i3c_target_monitor_bfm(input pclk,
      @(posedge pclk); 
   endtask: sampleWdataAck
   
-  
+/*  
   task sample_read_data(output bit[7:0] rdata, output int bitsTransfer);
     state = READ_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
@@ -183,8 +183,8 @@ interface i3c_target_monitor_bfm(input pclk,
       bitsTransfer++;
     end
   endtask :sample_read_data
-  
-/*
+*/
+
   task sample_read_data(inout i3c_transfer_bits_s pkt,input int i);
     bit [DATA_WIDTH-1:0] rdata;
     state = READ_DATA;
@@ -195,13 +195,14 @@ interface i3c_target_monitor_bfm(input pclk,
     end
     pkt.readData[i] = rdata;
   endtask :sample_read_data
-  */
+  
 
   task sample_ack(output bit ack);
     detect_negedge_scl();
     state    = ACK_NACK;
     ack = sda_i;
-    detect_negedge_scl();
+    @(posedge pclk);
+    @(posedge pclk);
   endtask :sample_ack
   
 

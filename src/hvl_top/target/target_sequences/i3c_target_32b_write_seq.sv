@@ -25,8 +25,7 @@ task i3c_target_32b_write_seq::body();
 
   start_item(req);
 
-    if(!req.randomize() with {writeDataStatus.size()==4;})
-    begin
+    if(!req.randomize()) begin
       `uvm_error(get_type_name(), "Randomization failed")
     end
   

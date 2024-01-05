@@ -25,8 +25,7 @@ task i3c_target_maximum_bits_read_seq::body();
 
   start_item(req);
 
-    if(!req.randomize() with {readData.size()== MAXIMUM_BITS;})
-    begin
+    if(!req.randomize()) begin
       `uvm_error(get_type_name(), "Randomization failed")
     end
   
