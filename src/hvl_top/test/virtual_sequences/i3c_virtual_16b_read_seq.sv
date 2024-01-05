@@ -16,8 +16,6 @@ function i3c_virtual_16b_read_seq::new(string name = "i3c_virtual_16b_read_seq")
   super.new(name);
 endfunction : new
 
-//task : body
-
 task i3c_virtual_16b_read_seq::body();
  super.body(); //Sets up the sub-sequencer pointer
 

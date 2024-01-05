@@ -90,36 +90,54 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
         disable fork;
 
       end else begin
-        if(configPacketStruck.targetFIFOMemory.size()==0) begin
-          rdata = configPacketStruck.defaultReadData;
-        end else
-          rdata = configPacketStruck.targetFIFOMemory.pop_front();
-        drive_read_data(rdata,dataPacketStruck);
-        sample_ack(dataPacketStruck.readDataStatus[0]);
+     // GopalS:    if(configPacketStruck.targetFIFOMemory.size()==0) begin
+     // GopalS:      rdata = configPacketStruck.defaultReadData;
+     // GopalS:    end else
+     // GopalS:      rdata = configPacketStruck.targetFIFOMemory.pop_front();
+     // GopalS:    drive_read_data(rdata,dataPacketStruck);
+     // GopalS:    sample_ack(dataPacketStruck.readDataStatus[0]);
 
-     // GopalS:    fork
-     // GopalS:      begin
-     // GopalS:        for(int i=0;i<MAXIMUM_BYTES;i++) begin
-     // GopalS:          if(configPacketStruck.targetFIFOMemory.size()==0) begin
-     // GopalS:            rdata = configPacketStruck.defaultReadData;
-     // GopalS:          end else
-     // GopalS:            rdata = configPacketStruck.targetFIFOMemory.pop_front();
-     // GopalS:          drive_read_data(rdata,dataPacketStruck);
-     // GopalS:          sample_ack(dataPacketStruck.readDataStatus[i]);
-     // GopalS:        end
-     // GopalS:      end
+/*
+        fork
+          begin
+            for(int i=0;i<MAXIMUM_BYTES;i++) begin
+              drive_read_data(dataPacketStruck,i);
+              sample_ack(dataPacketStruck.readDataStatus[i]);
+            end
+          end
 
-     // GopalS:      begin
-     // GopalS:        wrDetect_stop();
-     // GopalS:      end
-     // GopalS:    join_any
-     // GopalS:    disable fork;
+          begin
+            wrDetect_stop();
+          end
+        join_any
+        disable fork;
+*/     
+
+       
+        fork
+          begin
+            for(int i=0;i<MAXIMUM_BYTES;i++) begin
+              if(configPacketStruck.targetFIFOMemory.size()==0) begin
+                rdata = configPacketStruck.defaultReadData;
+              end else
+                rdata = configPacketStruck.targetFIFOMemory.pop_front();
+              drive_read_data(rdata,dataPacketStruck);
+              sample_ack(dataPacketStruck.readDataStatus[i]);
+            end
+          end
+
+          begin
+            wrDetect_stop();
+          end
+        join_any
+        disable fork;
+      
 
       end
     end else begin
       detect_stop();
     end
-   // GopalS:  detect_stop();
+    //detect_stop();
   endtask: drive_data
   
 
@@ -293,6 +311,25 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
     sda_o   <= 1;
   endtask :drive_read_data
 
+/*
+  task drive_read_data(inout i3c_transfer_bits_s pkt, input int i);
+    bit [DATA_WIDTH-1:0] rdata;
+    rdata = pkt.readData[i];
+    `uvm_info("DEBUG", $sformatf("Driving byte = %0b",rdata), UVM_NONE)
+
+    state = READ_DATA;
+    for(int k=0;k < DATA_WIDTH; k++) begin
+      detect_negedge_scl();
+      sda_oen <= TRISTATE_BUF_ON;
+      sda_o   <= rdata[k];
+      pkt.no_of_i3c_bits_transfer++;
+    end
+    @(posedge pclk);
+    @(posedge pclk);
+    sda_oen <= TRISTATE_BUF_OFF;
+    sda_o   <= 1;
+  endtask :drive_read_data
+*/
 
   task sample_ack(output bit ack);
     detect_negedge_scl();
