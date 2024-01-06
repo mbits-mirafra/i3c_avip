@@ -13,12 +13,12 @@ package i3c_virtual_seq_pkg;
   import i3c_env_pkg::*;
 
  `include "i3c_virtual_base_seq.sv"
- `include "i3c_virtual_8b_write_seq.sv"
- `include "i3c_virtual_8b_read_seq.sv"
- `include "i3c_virtual_16b_write_seq.sv"
- `include "i3c_virtual_16b_read_seq.sv"
- `include "i3c_virtual_32b_write_seq.sv"
- `include "i3c_virtual_32b_read_seq.sv"
+ `include "i3c_virtual_writeOperationWith8bitsData_seq.sv"
+ `include "i3c_virtual_readOperationWith8bitsData_seq.sv"
+ `include "i3c_virtual_writeOperationWith16bitsData_seq.sv"
+ `include "i3c_virtual_readOperationWith16bitsData_seq.sv"
+ `include "i3c_virtual_writeOperationWith32bitsData_seq.sv"
+ `include "i3c_virtual_readOperationWith32bitsData_seq.sv"
  `include "i3c_virtual_64b_write_seq.sv"
  `include "i3c_virtual_64b_read_seq.sv"
  `include "i3c_virtual_maximum_bits_write_seq.sv"

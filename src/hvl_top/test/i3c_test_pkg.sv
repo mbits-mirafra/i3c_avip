@@ -15,12 +15,12 @@ package i3c_test_pkg;
   import i3c_virtual_seq_pkg::*;
 
  `include "i3c_base_test.sv"
- `include "i3c_8b_write_test.sv"
- `include "i3c_8b_read_test.sv"
- `include "i3c_16b_write_test.sv"
- `include "i3c_16b_read_test.sv" 
- `include "i3c_32b_write_test.sv"
- `include "i3c_32b_read_test.sv"
+ `include "i3c_writeOperationWith8bitsData_test.sv"
+ `include "i3c_readOperationWith8bitsData_test.sv"
+ `include "i3c_writeOperationWith16bitsData_test.sv"
+ `include "i3c_readOperationWith16bitsData_test.sv"
+ `include "i3c_writeOperationWith32bitsData_test.sv"
+ `include "i3c_readOperationWith32bitsData_test.sv"
  `include "i3c_64b_write_test.sv"
  `include "i3c_64b_read_test.sv"
  `include "i3c_maximum_bits_write_seq.sv"

@@ -9,12 +9,12 @@ package i3c_controller_seq_pkg;
   import i3c_globals_pkg::*; 
  
   `include "i3c_controller_base_seq.sv"
-  `include "i3c_controller_8b_write_seq.sv"
-  `include "i3c_controller_8b_read_seq.sv"
-  `include "i3c_controller_16b_write_seq.sv"
-  `include "i3c_controller_16b_read_seq.sv"
-  `include "i3c_controller_32b_write_seq.sv"
-  `include "i3c_controller_32b_read_seq.sv"
+  `include "i3c_controller_writeOperationWith8bitsData_seq.sv"
+  `include "i3c_controller_readOperationWith8bitsData_seq.sv"
+  `include "i3c_controller_writeOperationWith16bitsData_seq.sv"
+  `include "i3c_controller_readOperationWith16bitsData_seq.sv"
+  `include "i3c_controller_writeOperationWith32bitsData_seq.sv"
+  `include "i3c_controller_readOperationWith32bitsData_seq.sv"
   `include "i3c_controller_64b_write_seq.sv"
   `include "i3c_controller_64b_read_seq.sv"
   `include "i3c_controller_maximum_bits_write_seq.sv"

@@ -1,19 +1,19 @@
-`ifndef I3C_CONTROLLER_16B_READ_SEQ_INCLUDED_
-`define I3C_CONTROLLER_16B_READ_SEQ_INCLUDED_
+`ifndef I3C_CONTROLLER_READOPERATIONWITH16BITSDATA_SEQ_INCLUDED_
+`define I3C_CONTROLLER_READOPERATIONWITH16BITSDATA_SEQ_INCLUDED_
 
-class i3c_controller_16b_read_seq extends i3c_controller_base_seq;
-  `uvm_object_utils(i3c_controller_16b_read_seq)
+class i3c_controller_readOperationWith16bitsData_seq extends i3c_controller_base_seq;
+  `uvm_object_utils(i3c_controller_readOperationWith16bitsData_seq)
 
-  extern function new(string name = "i3c_controller_16b_read_seq");
+  extern function new(string name = "i3c_controller_readOperationWith16bitsData_seq");
   extern task body();
-endclass : i3c_controller_16b_read_seq
+endclass : i3c_controller_readOperationWith16bitsData_seq
 
-function i3c_controller_16b_read_seq::new(string name = "i3c_controller_16b_read_seq");
+function i3c_controller_readOperationWith16bitsData_seq::new(string name = "i3c_controller_readOperationWith16bitsData_seq");
   super.new(name);
 endfunction : new
 
 
-task i3c_controller_16b_read_seq::body();
+task i3c_controller_readOperationWith16bitsData_seq::body();
   super.body();
 
 // Mahadeva:  req.i3c_controller_agent_cfg_h = p_sequencer.i3c_controller_agent_cfg_h;
