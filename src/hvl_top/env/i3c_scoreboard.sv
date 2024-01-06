@@ -46,18 +46,16 @@ forever begin
  `uvm_info(get_type_name(),$sformatf("before calling controller's analysis fifo get method"),UVM_HIGH)
  controller_analysis_fifo.get(i3c_controller_tx_h);
   i3c_controller_tx_count++;
-  $display("Controller_side WriteData :%0d",i3c_controller_tx_h.writeData[0]);
+
   `uvm_info(get_type_name(),$sformatf("after calling controller's analysis fifo get method"),UVM_HIGH) 
   `uvm_info(get_type_name(),$sformatf("printing i3c_controller_tx_h, \n %s",i3c_controller_tx_h.sprint()),UVM_HIGH)
- $display("M1 :%0d",i3c_controller_tx_count);
 
  `uvm_info(get_type_name(),$sformatf("before calling target analysis fifo get method"),UVM_HIGH)
   target_analysis_fifo.get(i3c_target_tx_h);
   i3c_target_tx_count++;
-  $display("Target_side WriteData :%0d",i3c_target_tx_h.writeData[0]);
+
   `uvm_info(get_type_name(),$sformatf("after calling target's analysis fifo get method"),UVM_HIGH)
   `uvm_info(get_type_name(),$sformatf("printing i3c_target_tx_h, \n %s",i3c_target_tx_h.sprint()),UVM_HIGH)
-  $display("M2 :%0d",i3c_target_tx_count);
  
   `uvm_info(get_type_name(),$sformatf("--\n------SCOREBOARD COMPARISIONS-----"),UVM_HIGH)
   if(i3c_controller_tx_h.targetAddress == i3c_target_tx_h.targetAddress) begin

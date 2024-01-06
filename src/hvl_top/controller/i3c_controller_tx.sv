@@ -186,12 +186,7 @@ function void i3c_controller_tx::do_print(uvm_printer printer);
 
 endfunction : do_print
 
-//--------------------------------------------------------------------------------------------
-// Function: post_randomize
-// Used for setting target address value based on the configurations value
-//--------------------------------------------------------------------------------------------
 function void i3c_controller_tx::post_randomize();
-// MSHA:   targetAddress = i3c_controller_agent_cfg_h.targetAddress_array[index];
-// MSHA:   `uvm_info("DEBUG_MSHA", $sformatf("index = %0d and targetAddress = %0x", index, targetAddress), UVM_NONE)
+  readDataStatus[readDataStatus.size()-1] = NACK;
 endfunction: post_randomize
 `endif

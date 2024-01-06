@@ -80,13 +80,13 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
             for(int i=0;i<MAXIMUM_BYTES;i++) begin
               sample_write_data(configPacketStruck,dataPacketStruck,i);
               driveWdataAck(dataPacketStruck.writeDataStatus[i]);
+              if(dataPacketStruck.writeDataStatus[i] == NACK)
+                break;
             end
           end
+        join_none
 
-          begin
-            wrDetect_stop();
-          end
-        join_any
+        wrDetect_stop();
         disable fork;
 
       end else begin
@@ -119,17 +119,19 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
             for(int i=0;i<MAXIMUM_BYTES;i++) begin
               if(configPacketStruck.targetFIFOMemory.size()==0) begin
                 rdata = configPacketStruck.defaultReadData;
-              end else
+              end else begin
                 rdata = configPacketStruck.targetFIFOMemory.pop_front();
+              end
               drive_read_data(rdata,dataPacketStruck);
               sample_ack(dataPacketStruck.readDataStatus[i]);
+              if(dataPacketStruck.readDataStatus[i] == NACK)
+                break;
             end
-          end
 
-          begin
-            wrDetect_stop();
           end
-        join_any
+       join_none
+
+        wrDetect_stop();
         disable fork;
       
 
@@ -203,6 +205,7 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
     state = ACK_NACK;
     detect_negedge_scl();
     drive_sda(ack); 
+    //TODO write detect_edge
     repeat(2)
       @(posedge pclk); 
     sda_oen <= TRISTATE_BUF_OFF;
@@ -305,6 +308,7 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
       sda_o   <= rdata[k];
       pkt.no_of_i3c_bits_transfer++;
     end
+    // TODO detect_edge
     @(posedge pclk);
     @(posedge pclk);
     sda_oen <= TRISTATE_BUF_OFF;
