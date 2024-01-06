@@ -1,19 +1,19 @@
-`ifndef I3C_CONTROLLER_64B_WRITE_SEQ_INCLUDED_
-`define I3C_CONTROLLER_64B_WRITE_SEQ_INCLUDED_
+`ifndef I3C_CONTROLLER_WRITEOPERATIONWITH64BITSDATA_SEQ_INCLUDED_
+`define I3C_CONTROLLER_WRITEOPERATIONWITH64BITSDATA_SEQ_INCLUDED_
 
-class i3c_controller_64b_write_seq extends i3c_controller_base_seq;
-  `uvm_object_utils(i3c_controller_64b_write_seq)
+class i3c_controller_writeOperationWith64bitsData_seq extends i3c_controller_base_seq;
+  `uvm_object_utils(i3c_controller_writeOperationWith64bitsData_seq)
 
-  extern function new(string name = "i3c_controller_64b_write_seq");
+  extern function new(string name = "i3c_controller_writeOperationWith64bitsData_seq");
   extern task body();
-endclass : i3c_controller_64b_write_seq
+endclass : i3c_controller_writeOperationWith64bitsData_seq
 
-function i3c_controller_64b_write_seq::new(string name = "i3c_controller_64b_write_seq");
+function i3c_controller_writeOperationWith64bitsData_seq::new(string name = "i3c_controller_writeOperationWith64bitsData_seq");
   super.new(name);
 endfunction : new
 
 
-task i3c_controller_64b_write_seq::body();
+task i3c_controller_writeOperationWith64bitsData_seq::body();
   super.body();
 
 // GopalS:   req.i3c_controller_agent_cfg_h = p_sequencer.i3c_controller_agent_cfg_h;

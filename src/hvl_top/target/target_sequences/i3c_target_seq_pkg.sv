@@ -16,10 +16,10 @@ package i3c_target_seq_pkg;
    `include "i3c_target_readOperationWith16bitsData_seq.sv"
    `include "i3c_target_writeOperationWith32bitsData_seq.sv"
    `include "i3c_target_readOperationWith32bitsData_seq.sv"
-   `include "i3c_target_64b_write_seq.sv"
-   `include "i3c_target_64b_read_seq.sv"
-   `include "i3c_target_maximum_bits_write_seq.sv"
-   `include "i3c_target_maximum_bits_read_seq.sv"
+   `include "i3c_target_writeOperationWith64bitsData_seq.sv"
+   `include "i3c_target_readOperationWith64bitsData_seq.sv"
+   `include "i3c_target_writeOperationWithMaximumbitsData_seq.sv"
+   `include "i3c_target_readOperationWithMaximumbitsData_seq.sv"
 
-endpackage : i3c_target_seq_pkg
+ endpackage : i3c_target_seq_pkg
 `endif
