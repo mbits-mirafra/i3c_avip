@@ -32,36 +32,6 @@ function void i3c_target_seq_item_converter::from_class(input i3c_target_tx inpu
   for(int i=0; i<input_conv_h.writeDataStatus.size();i++) begin
     output_conv.writeDataStatus[i] = input_conv_h.writeDataStatus[i];    
   end
- 
-// GopalS: if(input_conv_h.operation == 1) begin
-// GopalS:   output_conv.no_of_i3c_bits_transfer = input_conv_h.readData.size() * DATA_WIDTH;
-// GopalS: end else begin
-// GopalS:   output_conv.no_of_i3c_bits_transfer = input_conv_h.writeDataStatus.size() * DATA_WIDTH;
-// GopalS: end
-
- //converting of the register address
- //output_conv.register_address = input_conv_h.register_address;
-  //`uvm_info("DEBUG_MSHA", $sformatf("input_conv_h.register_address = %0x and output_conv.register_address = %0x", input_conv_h.register_address, output_conv.register_address ), UVM_NONE)
-
-  for(int i=0; i<input_conv_h.readData.size();i++) begin
-  end 
-   // MSHA: `uvm_info("target_seq_item_conv_class",
-   // MSHA: $sformatf("data = \n %p",output_conv.data),UVM_LOW)
-   // MSHA:// output_conv.data = output_conv.data << DATA_LENGTH;
-   // MSHA: `uvm_info("target_seq_item_conv_class",
-   // MSHA: $sformatf("After shift data = \n %p",output_conv.data),UVM_LOW)
-   // MSHA: `uvm_info("target_seq_item_conv_class",
-   // MSHA: $sformatf("After shift input_cov_h data = \n %p",
-   // MSHA: input_conv_h.data[i]),UVM_LOW)
-   // MSHA: `uvm_info("target_seq_item_conv_class",
-   // MSHA: $sformatf("After shift input_cov_h data = \n %p",
-   // MSHA: input_conv_h.data[i]),UVM_LOW)
-   // MSHA: //output_conv.data[i*8 +: 8]= input_conv_h.data[i];    
-   // MSHA: 
-   // MSHA: `uvm_info("target_seq_item_conv_class",
-   // MSHA: $sformatf("data = \n %p",output_conv.data),UVM_LOW)
-  //end
-
 endfunction: from_class 
 
 
@@ -96,35 +66,18 @@ function void i3c_target_seq_item_converter::to_class(input i3c_transfer_bits_s 
   for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
     output_conv.writeDataStatus[i] = acknowledge_e'(input_conv_h.writeDataStatus[i]);
   end
-  //converting back the register_address 
-  //output_conv.register_address = input_conv_h.register_address;
-  //`uvm_info("target_seq_item_conv_class",
-  //$sformatf("To class register_address = \n %p",output_conv.register_address),UVM_LOW)
-
-  // Acknowledgement bits
-  //output_conv.target_add_ack = input_conv_h.target_add_ack;
-  //output_conv.reg_add_ack = input_conv_h.reg_add_ack;
-  // MSHA: for(int i=0nput_conv_h.wr_data_ack[i]) begin
-  // MSHA:   output_conv.wr_data_ack= '1;
-  
 endfunction: to_class
 
 function void i3c_target_seq_item_converter::do_print(uvm_printer printer);
-
   i3c_transfer_bits_s i3c_st;
   super.do_print(printer);
 
   if(i3c_st.targetAddress) begin
     printer.print_field($sformatf("targetAddress"),i3c_st.targetAddress,8,UVM_HEX);
   end
-
   foreach(i3c_st.writeData[i]) begin
   printer.print_field($sformatf("writeData[%0d]",i),i3c_st.writeData[i],8,UVM_HEX);
   end
-
-  //if(i3c_st.register_address) begin
-  //  printer.print_field($sformatf("register_address"),i3c_st.register_address,8,UVM_HEX);
-  //end
 endfunction : do_print
 
 `endif

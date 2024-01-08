@@ -26,6 +26,9 @@ class i3c_target_tx extends uvm_sequence_item;
   constraint writeDataStatusSize_c{ 
              soft writeDataStatus.size() == MAXIMUM_BYTES;}
  
+  constraint writeDataStatusValue_c{foreach(writeDataStatus[i])
+                                      soft writeDataStatus[i] == ACK;}
+
   extern function new(string name = "i3c_target_tx");
   extern function void do_copy(uvm_object rhs);
   extern function bit do_compare(uvm_object rhs, 
@@ -80,20 +83,23 @@ function void i3c_target_tx::do_print(uvm_printer printer);
   printer.print_string($sformatf("targetAddressStatus"),targetAddressStatus.name());
   printer.print_string($sformatf("operation"),operation.name());
 
-  foreach(writeData[i]) begin
-    printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],$bits(writeData[i]),UVM_HEX);
-  end
+  if(operation == WRITE) begin
+    foreach(writeData[i]) begin
+      printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],$bits(writeData[i]),UVM_HEX);
+    end
 
-  foreach(writeDataStatus[i]) begin
-    printer.print_string($sformatf("writeDataStatus[%0d]",i),writeDataStatus[i].name());
-  end
+    foreach(writeDataStatus[i]) begin
+      printer.print_string($sformatf("writeDataStatus[%0d]",i),writeDataStatus[i].name());
+    end
+  end else begin
   
-  foreach(readData[i]) begin
-  printer.print_field($sformatf("readData[%0d]",i),this.readData[i],$bits(readData[i]),UVM_HEX);
-  end
+    foreach(readData[i]) begin
+      printer.print_field($sformatf("readData[%0d]",i),this.readData[i],$bits(readData[i]),UVM_HEX);
+    end
   
-  foreach(readDataStatus[i]) begin
-  printer.print_string($sformatf("readDataStatus[%0d]",i),readDataStatus[i].name());
+    foreach(readDataStatus[i]) begin
+      printer.print_string($sformatf("readDataStatus[%0d]",i),readDataStatus[i].name());
+    end
   end
 endfunction
 `endif

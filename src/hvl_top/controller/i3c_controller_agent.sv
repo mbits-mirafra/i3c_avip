@@ -51,8 +51,6 @@ function void i3c_controller_agent::connect_phase(uvm_phase phase);
    end                                                                                               
                                                                                                        
   if(i3c_controller_agent_cfg_h.hasCoverage) begin                                                         
-   // MSHA: controller_cov_h.controller_agent_cfg_h = controller_agent_cfg_h;                            
-   i3c_controller_cov_h.i3c_controller_agent_cfg_h = i3c_controller_agent_cfg_h;
    i3c_controller_mon_proxy_h.controller_analysis_port.connect(i3c_controller_cov_h.analysis_export);
  end                                                                                               
   i3c_controller_mon_proxy_h.i3c_controller_agent_cfg_h = i3c_controller_agent_cfg_h; 

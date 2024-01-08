@@ -27,11 +27,7 @@ task i3c_controller_readOperationWith32bitsData_seq::body();
 
   if(!req.randomize() with {operation == READ;
                             readDataStatus.size == 4;
-                            targetAddress == 7'b1010101;
-                            readDataStatus[0] == 0;
-                            readDataStatus[1] == 0;
-                            readDataStatus[2] == 0;
-                            readDataStatus[3] == 0;}) begin
+                            targetAddress == 7'b1010101;}) begin
     `uvm_error(get_type_name(), "Randomization failed")
   end
 

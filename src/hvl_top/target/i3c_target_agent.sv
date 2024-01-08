@@ -55,7 +55,6 @@ function void i3c_target_agent::connect_phase(uvm_phase phase);
   i3c_target_mon_proxy_h.i3c_target_agent_cfg_h=i3c_target_agent_cfg_h;
   
   if(i3c_target_agent_cfg_h.hasCoverage) begin                                                         
-    i3c_target_cov_h.i3c_target_agent_cfg_h = i3c_target_agent_cfg_h;
     i3c_target_mon_proxy_h.target_analysis_port.connect(i3c_target_cov_h.analysis_export);
   end  
 endfunction : connect_phase

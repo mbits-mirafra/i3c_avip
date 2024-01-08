@@ -4,9 +4,7 @@
 class i3c_controller_coverage extends uvm_subscriber#(i3c_controller_tx);
  `uvm_component_utils(i3c_controller_coverage)
 
-i3c_controller_agent_config i3c_controller_agent_cfg_h;
- 
-covergroup i3c_controller_covergroup with function sample(i3c_controller_agent_config cfg, i3c_controller_tx packet);
+covergroup i3c_controller_covergroup with function sample(i3c_controller_tx packet);
    option.per_instance = 1;
    
   OPERATION_CP : coverpoint packet.operation{
@@ -84,8 +82,7 @@ endfunction : display
 
 
 function void i3c_controller_coverage::write(i3c_controller_tx t);
- `uvm_info(get_type_name(), $sformatf("Config values = %0s",i3c_controller_agent_cfg_h.sprint()), UVM_HIGH);
-  i3c_controller_covergroup.sample(i3c_controller_agent_cfg_h,t);     
+  i3c_controller_covergroup.sample(t);     
 endfunction: write
 
 function void i3c_controller_coverage::report_phase(uvm_phase phase);

@@ -4,11 +4,7 @@
 class i3c_target_coverage extends uvm_subscriber#(i3c_target_tx);
   `uvm_component_utils(i3c_target_coverage)
 
-  i3c_target_tx target_tx_cov_data;
-
-  i3c_target_agent_config i3c_target_agent_cfg_h;
-
- covergroup target_covergroup with function sample (i3c_target_agent_config cfg, i3c_target_tx packet);
+ covergroup target_covergroup with function sample (i3c_target_tx packet);
   option.per_instance = 1;
   
      
@@ -127,7 +123,7 @@ endfunction : display
 
 function void i3c_target_coverage::write(i3c_target_tx t);
  `uvm_info("DEBUG_m_coverage", $sformatf("I3C_target_TX %0p",t),UVM_NONE);
-    target_covergroup.sample(i3c_target_agent_cfg_h,t);     
+    target_covergroup.sample(t);     
 endfunction: write
 
 function void i3c_target_coverage::report_phase(uvm_phase phase);

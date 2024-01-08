@@ -48,54 +48,44 @@ interface i3c_controller_monitor_bfm(input pclk,
   task sample_data(inout i3c_transfer_bits_s struct_packet,inout i3c_transfer_cfg_s struct_cfg);
 
     detect_start();
-    
-    sample_target_address(struct_packet.targetAddress,struct_packet.targetAddressStatus);
+    sample_target_address(struct_packet);
     sample_operation(struct_packet.operation);
     sampleAddressAck(struct_packet.targetAddressStatus);
 
     if(struct_packet.targetAddressStatus == ACK) begin
       if(struct_packet.operation == WRITE) begin
-      // GopalS:   sample_write_data(struct_packet.writeData[0],struct_packet.no_of_i3c_bits_transfer);
-     // GopalS:   sampleWdataAck(struct_packet.writeDataStatus[0]);
-
       fork
         begin
           for(int i=0;i<MAXIMUM_BYTES;i++) begin
             sample_write_data(struct_packet,i);
             sampleWdataAck(struct_packet.writeDataStatus[i]);
+            if(struct_packet.writeDataStatus[i] == NACK)
+                break;
           end
         end
+      join_none
 
-        begin
-          wrDetect_stop();
-        end
-      join_any
+      wrDetect_stop();
       disable fork;
 
       end else begin
-     // GopalS:      sample_read_data(struct_packet.readData[0],struct_packet.no_of_i3c_bits_transfer);
-     // GopalS:      sample_ack(struct_packet.readDataStatus[0]);
-
          fork
            begin
              for(int i=0;i<MAXIMUM_BYTES;i++) begin
                sample_read_data(struct_packet,i);
                sample_ack(struct_packet.readDataStatus[i]);
+              if(struct_packet.readDataStatus[i] == NACK)
+                break;
              end
            end
+         join_none
 
-           begin
-             wrDetect_stop();
-           end
-         join_any
+         wrDetect_stop();
          disable fork;
-
         end
       end else begin
       detect_stop();
     end
-      //detect_stop();
-
   endtask: sample_data
   
   task detect_start();
@@ -110,21 +100,15 @@ interface i3c_controller_monitor_bfm(input pclk,
     end while(!(sda_local == NEGEDGE && scl_local == 2'b11) );
   endtask: detect_start
   
-  task sample_target_address(output bit [6:0] address, output bit ack);
-  
+  task sample_target_address(inout i3c_transfer_bits_s pkt);
+    bit [TARGET_ADDRESS_WIDTH-1:0] address;
     @(posedge pclk);
     state = ADDRESS;
     for(int k=0;k < 7; k++) begin
       detect_posedge_scl();
       address[k] = sda_i;
     end
-  
-    if(address[6:0] != 7'b1010101) begin
-      ack = NACK;
-    end
-    else begin
-      ack = ACK;
-    end
+    pkt.targetAddress = address;
   endtask: sample_target_address
   
   task sample_operation(output operationType_e wr_rd);
@@ -139,6 +123,7 @@ interface i3c_controller_monitor_bfm(input pclk,
      wr_rd = READ;
   endtask: sample_operation
   
+
   task sampleAddressAck(output bit ack);
     @(posedge pclk); 
     state = ACK_NACK;
@@ -148,18 +133,8 @@ interface i3c_controller_monitor_bfm(input pclk,
     @(posedge pclk); 
   endtask: sampleAddressAck
 
-  /*
-  task sample_write_data(output bit[7:0] wdata, output int bitsTransfer);
-    state = WRITE_DATA;
-    for(int k=0;k < DATA_WIDTH; k++) begin
-      detect_posedge_scl();
-      wdata[k] = sda_i;
-      bitsTransfer++;
-    end
-  endtask: sample_write_data
-  */
 
-  task sample_write_data(output i3c_transfer_bits_s pkt, input int i);
+  task sample_write_data(inout i3c_transfer_bits_s pkt, input int i);
     bit[DATA_WIDTH-1:0] wdata;
     state = WRITE_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
@@ -174,22 +149,12 @@ interface i3c_controller_monitor_bfm(input pclk,
   task sampleWdataAck(output bit ack);
     state = ACK_NACK;
     detect_negedge_scl();
+    @(posedge pclk);
     ack = sda_i;
-    //detect_negedge_scl();
-    repeat(2)
-     @(posedge pclk); 
+    //TODO
+    @(posedge pclk);
   endtask: sampleWdataAck
   
- /* 
-  task sample_read_data(output bit[7:0] rdata, output int bitsTransfer);
-    state = READ_DATA;
-    for(int k=0;k < DATA_WIDTH; k++) begin
-      detect_negedge_scl();
-      rdata[k] = sda_i;
-      bitsTransfer++;
-    end
-  endtask :sample_read_data
-  */
 
   task sample_read_data(inout i3c_transfer_bits_s pkt,input int i);
     bit [DATA_WIDTH-1:0] rdata;
@@ -206,8 +171,9 @@ interface i3c_controller_monitor_bfm(input pclk,
   task sample_ack(output bit ack);
     detect_negedge_scl();
     state    = ACK_NACK;
-    ack = sda_i;
     @(posedge pclk);
+    ack = sda_i;
+    //TODO
     @(posedge pclk);
   endtask :sample_ack
   
@@ -217,7 +183,6 @@ interface i3c_controller_monitor_bfm(input pclk,
     bit [1:0] scl_local;
     bit [1:0] sda_local;
 
-    // GopalS: state = STOP;
     do begin
       @(negedge pclk);
       scl_local = {scl_local[0], scl_i};
@@ -265,7 +230,6 @@ interface i3c_controller_monitor_bfm(input pclk,
     end while(!(scl_local == NEGEDGE));
   
     scl_edge_value = edge_detect_e'(scl_local);
-  
   endtask: detect_negedge_scl
 
 endinterface : i3c_controller_monitor_bfm

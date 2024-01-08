@@ -5,9 +5,10 @@ class i3c_target_agent_config extends uvm_object;
   `uvm_object_utils(i3c_target_agent_config)
 
   uvm_active_passive_enum isActive = UVM_ACTIVE;
-  bit hasCoverage = 1;
-  dataTransferDirection_e DataTransferdirection;
-  bit [TARGET_ADDRESS_WIDTH-1 :0] targetAddress[];  
+  hasCoverage_e hasCoverage = TRUE;
+
+  dataTransferDirection_e dataTransferDirection;
+  bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress = 7'b1010101;  
   bit [DATA_WIDTH-1:0]defaultReadData = 'hFF;
   bit [DATA_WIDTH-1:0]targetFIFOMemory[$];
  
@@ -24,9 +25,9 @@ function void i3c_target_agent_config::do_print(uvm_printer printer);
   super.do_print(printer);
 
   printer.print_string ("isActive",isActive.name());
-  printer.print_string ("DataTransferdirection",DataTransferdirection.name());
-//printer.print_string ("TARGET_ADDRESS_WIDTH",TARGET_ADDRESS_WIDTH.name());
-  printer.print_field ("hasCoverage",hasCoverage, 1, UVM_DEC);
+  printer.print_string ("dataTransferDirection",dataTransferDirection.name());
+  printer.print_string("hasCoverage",hasCoverage.name());
+  printer.print_field("targetAddress",targetAddress,$bits(targetAddress),UVM_HEX);
 
 endfunction : do_print
 

@@ -41,7 +41,9 @@ endfunction  : end_of_elaboration_phase
 
 task i3c_target_driver_proxy::run_phase(uvm_phase phase);
   super.run_phase(phase);
-  
+   
+  i3c_target_agent_cfg_h = i3c_target_agent_config::type_id::create(" i3c_target_agent_cfg_h");
+
   i3c_target_drv_bfm_h.wait_for_system_reset();
   i3c_target_drv_bfm_h.drive_idle_state();
 

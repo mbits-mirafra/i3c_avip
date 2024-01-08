@@ -53,6 +53,10 @@ package i3c_globals_pkg;
     LSB_FIRST = 1'b0
   } dataTransferDirection_e;
   
+  typedef enum bit {
+    TRUE = 1'b1,
+    FALSE = 1'b0
+  } hasCoverage_e;
   
   // Enum: operationType_e
   // 
@@ -94,7 +98,7 @@ package i3c_globals_pkg;
   // operation : read from or write to slave 
   //
   typedef struct {
-    bit DataTransferdirection;
+    bit dataTransferDirection;
     bit operation;
     int clockRateDividerValue;
     bit[TARGET_ADDRESS_WIDTH-1:0] targetAddress;

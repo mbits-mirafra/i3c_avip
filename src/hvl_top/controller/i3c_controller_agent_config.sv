@@ -5,8 +5,8 @@ class i3c_controller_agent_config extends uvm_object;
   `uvm_object_utils(i3c_controller_agent_config)
 
   uvm_active_passive_enum isActive=UVM_ACTIVE;  
-  bit hasCoverage = 1;
-  rand dataTransferDirection_e DataTransferdirection;
+  hasCoverage_e hasCoverage = TRUE;
+  rand dataTransferDirection_e dataTransferDirection;
   bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress[];
   
   rand protected bit[2:0] primary_prescalar;
@@ -33,11 +33,11 @@ function void i3c_controller_agent_config::do_print(uvm_printer printer);
 
   printer.print_string ("isActive",isActive.name());
   printer.print_field ("no_of_targets",no_of_targets,$bits(no_of_targets), UVM_DEC);
-  printer.print_string ("DataTransferdirection",DataTransferdirection.name());
+  printer.print_string ("dataTransferDirection",dataTransferDirection.name());
   printer.print_field ("primary_prescalar",primary_prescalar, 3, UVM_DEC);
   printer.print_field ("secondary_prescalar",secondary_prescalar, 3, UVM_DEC);
   printer.print_field ("clockRateDividerValue",clockRateDividerValue, $bits(clockRateDividerValue), UVM_DEC);
-  printer.print_field ("hasCoverage",hasCoverage, 1, UVM_DEC);
+  printer.print_string("hasCoverage",hasCoverage.name());
   
 endfunction : do_print
 

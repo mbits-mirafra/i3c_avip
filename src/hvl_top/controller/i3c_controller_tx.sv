@@ -66,6 +66,9 @@ class i3c_controller_tx extends uvm_sequence_item;
     readDataStatus.size() <= MAXIMUM_BYTES;
   }
 
+  constraint readDataStatusValue_c{foreach(readDataStatus[i])
+                                      soft readDataStatus[i] == ACK;}
+
   constraint operationWRITExwriteDataSize_c {
                     if(operation == WRITE) 
                       (writeData.size() > 0);
@@ -88,21 +91,10 @@ class i3c_controller_tx extends uvm_sequence_item;
 
 endclass : i3c_controller_tx
 
-//--------------------------------------------------------------------------------------------
-//  Construct: new
-//  initializes the class object
-//
-//  Parameters:
-//  name - i3c_controller_tx
-//  parent - parent under which this component is created
-//--------------------------------------------------------------------------------------------
 function i3c_controller_tx::new(string name = "i3c_controller_tx");
   super.new(name);
 endfunction : new
 
-//--------------------------------------------------------------------------------------------
-// do_copy method
-//--------------------------------------------------------------------------------------------
 
 function void i3c_controller_tx::do_copy (uvm_object rhs);
   i3c_controller_tx controller_rhs;
@@ -122,10 +114,6 @@ function void i3c_controller_tx::do_copy (uvm_object rhs);
 
 endfunction : do_copy
 
-
-//--------------------------------------------------------------------------------------------
-// do_compare method
-//--------------------------------------------------------------------------------------------
 function bit  i3c_controller_tx::do_compare (uvm_object rhs,uvm_comparer comparer);
   i3c_controller_tx controller_rhs;
 
@@ -143,10 +131,8 @@ function bit  i3c_controller_tx::do_compare (uvm_object rhs,uvm_comparer compare
   readData == controller_rhs.readData &&
   readDataStatus == controller_rhs.readDataStatus;
 endfunction : do_compare 
-//--------------------------------------------------------------------------------------------
-// Function: do_print method
-// Print method can be added to display the data members values
-//--------------------------------------------------------------------------------------------
+
+
 function void i3c_controller_tx::do_print(uvm_printer printer);
   super.do_print(printer);
 
@@ -154,35 +140,23 @@ function void i3c_controller_tx::do_print(uvm_printer printer);
   printer.print_string($sformatf("targetAddressStatus"),targetAddressStatus.name());
   printer.print_string($sformatf("operation"),operation.name());
 
-  foreach(writeData[i]) begin
-    printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],$bits(writeData[i]),UVM_HEX);
-  end
+  if(operation == WRITE) begin 
+    foreach(writeData[i]) begin
+      printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],$bits(writeData[i]),UVM_HEX);
+    end
 
-  foreach(writeDataStatus[i]) begin
-    printer.print_string($sformatf("writeDataStatus[%0d]",i),writeDataStatus[i].name());
-  end
+    foreach(writeDataStatus[i]) begin
+      printer.print_string($sformatf("writeDataStatus[%0d]",i),writeDataStatus[i].name());
+    end
+  end else begin
+    foreach(readData[i]) begin
+      printer.print_field($sformatf("readData[%0d]",i),this.readData[i],$bits(readData[i]),UVM_HEX);
+    end
   
-  foreach(readData[i]) begin
-  printer.print_field($sformatf("readData[%0d]",i),this.readData[i],$bits(readData[i]),UVM_HEX);
+    foreach(readDataStatus[i]) begin
+      printer.print_string($sformatf("readDataStatus[%0d]",i),readDataStatus[i].name());
+    end
   end
-  
-  foreach(readDataStatus[i]) begin
-  printer.print_string($sformatf("readDataStatus[%0d]",i),readDataStatus[i].name());
-  end
- 
-
-
-
-
-  // GopalS: for(int i = 0;i < size;i++) begin
-  // GopalS:   printer.print_field($sformatf("writeData[%0d]",i),this.writeData[i],8,UVM_HEX);
-  // GopalS: end
-
-  //printer.print_field($sformatf("target_add_ack"),this.target_add_ack,1,UVM_BIN);
-  //printer.print_field($sformatf("reg_add_ack"),this.reg_add_ack,1,UVM_BIN);
-  //foreach(writeData_ack[i]) begin
-  //  printer.print_field($sformatf("writeData_ack[%0d]",i),this.writeData_ack[i],1,UVM_HEX);
-  //end
 
 endfunction : do_print
 
