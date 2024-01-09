@@ -12,10 +12,11 @@ covergroup i3c_controller_covergroup with function sample(i3c_controller_tx pack
    bins OPERATION = {0,1};
   } 
 
-  TARGET_ADRRESS_CP : coverpoint packet.targetAddress{
+  TARGET_ADDRESS_CP : coverpoint packet.targetAddress{
    option.comment = "TargetAddress";
-   bins TARGETADDRESS = {[0:$]};
-  }
+   bins TARGETADDRESS = {[8:119],[128:$]};
+   ignore_bins RESERVEDADDRESS = {[0:7],[120:127]};
+ }
 
   TARGET_ADDRESS_STATUS_CP : coverpoint packet.targetAddressStatus{
    option.comment = "targetAddressStatus";

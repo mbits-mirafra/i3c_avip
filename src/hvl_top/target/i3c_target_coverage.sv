@@ -13,6 +13,12 @@ class i3c_target_coverage extends uvm_subscriber#(i3c_target_tx);
    bins OPERATION = {0,1};
    }
 
+  TARGET_ADDRESS_CP : coverpoint packet.targetAddress{
+   option.comment = "TargetAddress";
+   bins TARGETADDRESS = {[8:119],[128:$]};
+   ignore_bins RESERVEDADDRESS = {[0:7],[120:127]};
+ }
+
    TARGET_ADDRESS_STATUS_CP : coverpoint packet.targetAddressStatus{
    option.comment = "targetAddressStatus";
    bins TARGET_ADDRESS_STATUS = {0,1};
@@ -52,52 +58,6 @@ OPERATION_CP_X_WRITEDATA_CP:cross OPERATION_CP, WRITEDATA_CP;
 
 OPERATION_CP_X_READDATA_CP:cross OPERATION_CP, READDATA_CP;
 
-
-  /*
-  //target_ADDR_ACK_BIT  : coverpoint packet.target_addr_ack {
-  //  option.comment = "target addr ack bit to dete";
-
-    //  bins target_ADDR_ACK = {1};
-    //  bins target_ADDR_NACK = {0};
-    //}
-    //
-    ////this coverpoint is to check the target register address width
-    //target_REGISTER_ADDRESS_WID_CP : coverpoint packet.register_address {
-    //  option.comment = "Width of the the target register address";
-
-    //  bins target_REGISTER_ADDRESS_WIDTH_8 = {8};
-    //}
-    
-    //this coverpoint is to check the write data width
- //   WR_DATA_WID_CP : coverpoint packet.wr_data.size()*DATA_WIDTH{
- //     option.comment = "Width of the the target address";
-
- //     bins WRITE_DATA_WIDTH_8 = {8};
- //     bins WRITE_DATA_WIDTH_16 = {16};
- //     bins WRITE_DATA_WIDTH_24 = {24};
- //     bins WRITE_DATA_WIDTH_32 = {32};
- //     bins WRITE_DATA_WIDTH_MAX = {[48:MAXIMUM_BITS]};
- //   }
-    
- //   //this coverpoint is to check the read data width
- //   RD_DATA_WID_CP : coverpoint packet.rd_data.size()*DATA_WIDTH{
- //     option.comment = "Width of the the target address";
-
- //     bins READ_DATA_WIDTH_8 = {8};
- //     bins READ_DATA_WIDTH_16 = {16};
- //     bins READ_DATA_WIDTH_24 = {24};
- //     bins READ_DATA_WIDTH_32 = {32};
- //     bins READ_DATA_WIDTH_MAX = {[48:MAXIMUM_BITS]};
- //   }
-    //this coverpoint is to check the operation is read or write 
-    OPERATION_READ_WRITE_CP : coverpoint operationType_e'(packet.operation){
-      option.comment = "operation is read or write";
-
-      bins READ = {1};
-      bins WRITE = {0};
-    }
-    
-    */
   endgroup :target_covergroup
 
 
