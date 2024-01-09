@@ -1,9 +1,6 @@
 `ifndef I3C_GLOBALS_PKG_INCLUDED_
 `define I3C_GLOBALS_PKG_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-// global pkg for all variables 
-//--------------------------------------------------------------------------------------------
 package i3c_globals_pkg;
 
   // NO_OF_TARGETS to be connected to the i3c_interface
@@ -70,15 +67,6 @@ package i3c_globals_pkg;
   } operationType_e;
   
   // struct: i3c_bits_transfer_s
-  // 
-  // targetAddress : array which holds the slave address  
-  // operation : specifies the read or write condition after the slave address
-  // register_address : array which holds the register address 
-  // no_of_sda_bits_transfer: specifies how many sda bits to trasnfer 
-  // slave_add_ack : specifies the acknowledgement after receiving slave adddress  
-  // reg_add_ack :specifies the acknowledgement after receiving reg address
-  // writeData_ack :specifies the acknowledgement after receiving data
-  //
   typedef struct {
     bit [TARGET_ADDRESS_WIDTH-1:0]targetAddress;
     bit operation;

@@ -113,7 +113,6 @@ interface i3c_controller_monitor_bfm(input pclk,
   
   task sample_operation(output operationType_e wr_rd);
     bit operation;
-    @(posedge pclk); 
     state = WR_BIT;
     detect_posedge_scl();
     operation = sda_i;
@@ -125,12 +124,9 @@ interface i3c_controller_monitor_bfm(input pclk,
   
 
   task sampleAddressAck(output bit ack);
-    @(posedge pclk); 
     state = ACK_NACK;
-    detect_negedge_scl();
-    @(posedge pclk); 
+    detect_posedge_scl();
     ack = sda_i;
-    @(posedge pclk); 
   endtask: sampleAddressAck
 
 
@@ -148,11 +144,8 @@ interface i3c_controller_monitor_bfm(input pclk,
 
   task sampleWdataAck(output bit ack);
     state = ACK_NACK;
-    detect_negedge_scl();
-    @(posedge pclk);
+    detect_posedge_scl();
     ack = sda_i;
-    //TODO
-    @(posedge pclk);
   endtask: sampleWdataAck
   
 
@@ -160,7 +153,7 @@ interface i3c_controller_monitor_bfm(input pclk,
     bit [DATA_WIDTH-1:0] rdata;
     state = READ_DATA;
     for(int k=0;k < DATA_WIDTH; k++) begin
-      detect_negedge_scl();
+      detect_posedge_scl();
       rdata[k] = sda_i;
       pkt.no_of_i3c_bits_transfer++;
     end
@@ -169,12 +162,10 @@ interface i3c_controller_monitor_bfm(input pclk,
   
 
   task sample_ack(output bit ack);
-    detect_negedge_scl();
     state    = ACK_NACK;
-    @(posedge pclk);
+    detect_posedge_scl();
     ack = sda_i;
     //TODO
-    @(posedge pclk);
   endtask :sample_ack
   
 

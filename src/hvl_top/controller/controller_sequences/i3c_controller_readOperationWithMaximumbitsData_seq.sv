@@ -25,7 +25,7 @@ task i3c_controller_readOperationWithMaximumbitsData_seq::body();
 
   start_item(req);
     if(!req.randomize() with {operation == READ;
-                              readDataStatus.size()== MAXIMUM_BITS; 
+                              readDataStatus.size()== MAXIMUM_BYTES; 
                               targetAddress == 7'b1010101;}) begin
       `uvm_error(get_type_name(), "Randomization failed")
     end

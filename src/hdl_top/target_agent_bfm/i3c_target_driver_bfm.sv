@@ -87,7 +87,7 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
               end else begin
                 rdata = configPacketStruck.targetFIFOMemory.pop_front();
               end
-              drive_read_data(rdata,dataPacketStruck);
+              drive_read_data(rdata,dataPacketStruck,i);
               sample_ack(dataPacketStruck.readDataStatus[i]);
               if(dataPacketStruck.readDataStatus[i] == NACK)
                 break;
@@ -122,7 +122,6 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   task sample_target_address(inout i3c_transfer_cfg_s cfg_pkt, inout i3c_transfer_bits_s pkt);
     bit [TARGET_ADDRESS_WIDTH-1:0] local_addr;
 
-    @(posedge pclk);
     state = ADDRESS;
     for(int k=0;k < 7; k++) begin
       detect_posedge_scl();
@@ -147,7 +146,6 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   task sample_operation(output operationType_e wr_rd);
     bit operation;
 
-    @(posedge pclk); 
     state = WR_BIT;
     detect_posedge_scl();
     operation = sda_i;
@@ -162,24 +160,20 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
 
 
   task driveAddressAck(input bit ack);
-    @(posedge pclk); 
     state = ACK_NACK;
     detect_negedge_scl();
     drive_sda(ack); 
     //TODO write detect_edge
-    repeat(2)
-      @(posedge pclk); 
+    detect_edge_scl();
     drive_sda(1);
   endtask: driveAddressAck
 
   task driveWdataAck(input bit ack);
-    @(posedge pclk); 
     state = ACK_NACK;
     detect_negedge_scl();
     drive_sda(ack); 
     //TODO
-    repeat(2)
-      @(posedge pclk); 
+    detect_edge_scl();
     drive_sda(1);
   endtask: driveWdataAck
 
@@ -215,6 +209,21 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
     `uvm_info("target_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
   endtask: detect_negedge_scl
 
+  task detect_edge_scl();
+    // 2bit shift register to check the edge on scl
+    bit [1:0] scl_local;
+    edge_detect_e scl_edge_value;
+    // default value of scl_local is logic 1
+    scl_local = 2'b10;
+
+    do begin
+      @(negedge pclk);
+      scl_local = {scl_local[0], scl_i};
+    end while(!(scl_local == POSEDGE));
+
+    scl_edge_value = edge_detect_e'(scl_local);
+    `uvm_info("TARGET_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
+  endtask: detect_edge_scl
 
   task drive_sda(input bit value);
     sda_oen <= value ? TRISTATE_BUF_OFF : TRISTATE_BUF_ON;
@@ -245,7 +254,7 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
   endtask: sample_write_data
 
 
-  task drive_read_data(input bit[7:0] rdata,inout i3c_transfer_bits_s pkt);
+  task drive_read_data(input bit[7:0] rdata,inout i3c_transfer_bits_s pkt,input int i);
 
     `uvm_info("DEBUG", $sformatf("Driving byte = %0b",rdata), UVM_NONE)
     state = READ_DATA;
@@ -255,20 +264,18 @@ interface i3c_target_driver_bfm #(parameter string NAME = "I3C_target_DRIVER_BFM
       sda_o   <= rdata[k];
       pkt.no_of_i3c_bits_transfer++;
     end
+    pkt.readData[i] = rdata;
     // TODO detect_edge
-    @(posedge pclk);
-    @(posedge pclk);
+    detect_edge_scl();
     drive_sda(1); 
   endtask :drive_read_data
 
 
   task sample_ack(output bit ack);
-    detect_negedge_scl();
     state    = ACK_NACK;
+    detect_posedge_scl();
     ack     = sda_i;
     //TODO
-    @(posedge pclk);
-    @(posedge pclk);
   endtask :sample_ack
 
 
