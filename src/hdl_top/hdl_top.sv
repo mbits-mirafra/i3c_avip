@@ -1,32 +1,18 @@
 `ifndef HDL_TOP_INCLUDED_
 `define HDL_TOP_INCLUDED_
-//--------------------------------------------------------------------------------------------
-// module : hdl_top
+
 // Description : hdl top has a interface and controller and target agent bfm
-//--------------------------------------------------------------------------------------------
 module hdl_top;
- //-------------------------------------------------------
- // Clock Reset Initialization
- //-------------------------------------------------------
  bit clk;
  bit rst;
-
- // MSHA:tri1 SCL;
- // MSHA:tri1 SDA;
 
  wire I3C_SCL;
  wire I3C_SDA;
 
- //-------------------------------------------------------
- // Display statement for HDL_TOP
- //-------------------------------------------------------
  initial begin
- $display("HDL TOP");
+   $display("HDL TOP");
  end
 
- //-------------------------------------------------------
- // System Clock Generation
- //-------------------------------------------------------
  initial begin
    clk = 1'b0;
    forever #10 clk = ~clk;
@@ -51,34 +37,18 @@ module hdl_top;
  end
 
  // Variable : intf_controller
- // SPI Interface Instantiation
+ // I3C Interface Instantiation
  i3c_if intf_controller(.pclk(clk),
                     .areset(rst),
                     .SCL(I3C_SCL),
                     .SDA(I3C_SDA));
 
  // Variable : intf_target
- // SPI Interface Instantiation
+ // I3C Interface Instantiation
  i3c_if intf_target(.pclk(clk),
                    .areset(rst),
                    .SCL(I3C_SCL),
                    .SDA(I3C_SDA));
-
-//-------------------------------------------------------
-// Simple target logic for ACK
-//-------------------------------------------------------
-// GopalS:   initial begin
-// GopalS:     repeat(9)
-// GopalS:       @(posedge I3C_SCL);
-// GopalS:   
-// GopalS:       @(negedge I3C_SCL); 
-// GopalS:       intf_controller.sda_oen <= 1;
-// GopalS:       intf_controller.sda_o <= 0;
-// GopalS:   
-// GopalS:       @(posedge I3C_SCL);
-// GopalS:       intf_controller.sda_oen <= 0;
-// GopalS:       intf_controller.sda_o <= 1;
-// GopalS:   end
 
  // MSHA: // Implementing week0 and week1 concept
  // MSHA: // Logic for Pull-up registers using opne-drain concept
@@ -106,14 +76,13 @@ module hdl_top;
  pullup p2 (I3C_SDA);
 
  // Variable : controller_agent_bfm_h
- // I2c controller BFM Agent Instantiation 
+ // I3C controller BFM Agent Instantiation 
  i3c_controller_agent_bfm i3c_controller_agent_bfm_h(intf_controller); 
  
  // Variable : target_agent_bfm_h
- // SPI target BFM Agent Instantiation
+ // I3C target BFM Agent Instantiation
  i3c_target_agent_bfm i3c_target_agent_bfm_h(intf_target);
 
- // To dump the waveforms
  initial begin
    $dumpfile("i3c_avip.vcd");
    $dumpvars();

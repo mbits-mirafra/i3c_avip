@@ -17,10 +17,10 @@ interface i3c_target_monitor_bfm(input pclk,
   import i3c_target_pkg::*;
   import i3c_target_pkg::i3c_target_monitor_proxy;
   
-  string name = "I3C_TARGET_MONITOR_BFM";
   i3c_target_monitor_proxy i3c_target_mon_proxy_h; 
- 
   i3c_fsm_state_e state;
+
+  string name = "I3C_TARGET_MONITOR_BFM";
   initial begin
     $display("target Monitor BFM");
   end
@@ -97,21 +97,22 @@ interface i3c_target_monitor_bfm(input pclk,
     end while(!(sda_local == NEGEDGE && scl_local == 2'b11) );
   endtask: detect_start
   
+
   task sample_target_address(inout i3c_transfer_bits_s pkt);
     bit [TARGET_ADDRESS_WIDTH-1:0] address;
-    @(posedge pclk);
     state = ADDRESS;
     for(int k=0;k < 7; k++) begin
-      detect_posedge_scl();
+      detectEdge_scl(POSEDGE);
       address[k] = sda_i;
     end
     pkt.targetAddress = address;
   endtask: sample_target_address
   
+
   task sample_operation(output operationType_e wr_rd);
     bit operation;
     state = WR_BIT;
-    detect_posedge_scl();
+    detectEdge_scl(POSEDGE);
     operation = sda_i;
    if(operation == 0)
      wr_rd = WRITE;
@@ -119,9 +120,10 @@ interface i3c_target_monitor_bfm(input pclk,
      wr_rd = READ;
   endtask: sample_operation
   
+
   task sampleAddressAck(output bit ack);
     state = ACK_NACK;
-    detect_posedge_scl();
+    detectEdge_scl(POSEDGE);
     ack = sda_i;
   endtask: sampleAddressAck
   
@@ -129,8 +131,8 @@ interface i3c_target_monitor_bfm(input pclk,
   task sample_write_data(inout i3c_transfer_bits_s pkt, input int i);
     bit[DATA_WIDTH-1:0] wdata;
     state = WRITE_DATA;
-    for(int k=0;k < DATA_WIDTH; k++) begin
-      detect_posedge_scl();
+    for(int k=DATA_WIDTH-1; k>=0; k--) begin
+      detectEdge_scl(POSEDGE);
       wdata[k] = sda_i;
       pkt.no_of_i3c_bits_transfer++;
     end
@@ -140,17 +142,16 @@ interface i3c_target_monitor_bfm(input pclk,
 
   task sampleWdataAck(output bit ack);
     state = ACK_NACK;
-    detect_posedge_scl();
+    detectEdge_scl(POSEDGE);
     ack = sda_i;
-    //TODO
   endtask: sampleWdataAck
   
 
   task sample_read_data(inout i3c_transfer_bits_s pkt,input int i);
     bit [DATA_WIDTH-1:0] rdata;
     state = READ_DATA;
-    for(int k=0;k < DATA_WIDTH; k++) begin
-      detect_posedge_scl();
+    for(int k=DATA_WIDTH-1; k>=0; k--) begin
+      detectEdge_scl(POSEDGE);
       rdata[k] = sda_i;
       pkt.no_of_i3c_bits_transfer++;
     end
@@ -160,9 +161,8 @@ interface i3c_target_monitor_bfm(input pclk,
 
   task sample_ack(output bit ack);
     state    = ACK_NACK;
-    detect_posedge_scl();
+    detectEdge_scl(POSEDGE);
     ack = sda_i;
-    //TODO
   endtask :sample_ack
   
 
@@ -193,32 +193,23 @@ interface i3c_target_monitor_bfm(input pclk,
     end while(!(sda_local == POSEDGE && scl_local == 2'b11) );
   endtask: detect_stop
   
-  
-  task detect_posedge_scl();
+
+  task detectEdge_scl(input edge_detect_e edgeSCL);
+    // 2bit shift register to check the edge on scl
     bit [1:0] scl_local;
     edge_detect_e scl_edge_value;
-  
+    // default value of scl_local is logic 1
     scl_local = 2'b11;
+
     do begin
       @(negedge pclk);
       scl_local = {scl_local[0], scl_i};
-    end while(!(scl_local == POSEDGE));
-  
+    end while(!(scl_local == edgeSCL));
+
     scl_edge_value = edge_detect_e'(scl_local);
-  endtask: detect_posedge_scl
-    
-  task detect_negedge_scl();
-    bit [1:0] scl_local;
-    edge_detect_e scl_edge_value;
+    `uvm_info("TARGET_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
+  endtask: detectEdge_scl
   
-    scl_local = 2'b11;
-    do begin
-      @(negedge pclk);
-      scl_local = {scl_local[0], scl_i};
-    end while(!(scl_local == NEGEDGE));
-  
-    scl_edge_value = edge_detect_e'(scl_local);
-  endtask: detect_negedge_scl
 
 endinterface : i3c_target_monitor_bfm
 

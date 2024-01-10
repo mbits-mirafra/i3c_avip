@@ -6,7 +6,6 @@ class i3c_writeOperationWith8bitsData_test extends i3c_base_test;
 
   i3c_virtual_writeOperationWith8bitsData_seq i3c_virtual_writeOperationWith8bitsData_seq_h;
 
-
   extern function new(string name = "i3c_writeOperationWith8bitsData_test", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
   extern virtual task run_phase(uvm_phase phase);
@@ -24,9 +23,7 @@ endfunction : build_phase
 
 task i3c_writeOperationWith8bitsData_test::run_phase(uvm_phase phase);
 
-
   i3c_virtual_writeOperationWith8bitsData_seq_h = i3c_virtual_writeOperationWith8bitsData_seq::type_id::create("i3c_virtual_writeOperationWith8bitsData_seq_h");
-
 
   phase.raise_objection(this);
 

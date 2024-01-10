@@ -18,13 +18,12 @@ endfunction : new
 
 
 task i3c_virtual_readOperationWithMaximumbitsData_seq::body();
- super.body(); //Sets up the sub-sequencer pointer
+ super.body();
 
-  
    i3c_controller_readOperationWithMaximumbitsData_seq_h=i3c_controller_readOperationWithMaximumbitsData_seq::type_id::create("i3c_controller_readOperationWithMaximumbitsData_seq_h");
    i3c_target_readOperationWithMaximumbitsData_seq_h=i3c_target_readOperationWithMaximumbitsData_seq::type_id::create("i3c_target_readOperationWithMaximumbitsData_seq_h");
 
- fork
+  fork
     begin: TARGET_SEQ_START
       forever begin
         i3c_target_readOperationWithMaximumbitsData_seq_h.start(p_sequencer.i3c_target_seqr_h); 
@@ -32,15 +31,11 @@ task i3c_virtual_readOperationWithMaximumbitsData_seq::body();
     end
   join_none
 
-
-  fork
-    begin: CONTROLLER_SEQ_START
-      repeat(1) begin
-        i3c_controller_readOperationWithMaximumbitsData_seq_h.start(p_sequencer.i3c_controller_seqr_h);
-      end
+  begin: CONTROLLER_SEQ_START
+    repeat(1) begin
+      i3c_controller_readOperationWithMaximumbitsData_seq_h.start(p_sequencer.i3c_controller_seqr_h);
     end
-  join
-
+  end
 endtask: body
 
 `endif

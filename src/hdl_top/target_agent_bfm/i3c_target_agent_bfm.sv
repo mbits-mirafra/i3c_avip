@@ -16,8 +16,6 @@ module i3c_target_agent_bfm #(parameter int target_ID=0)
                                            .sda_i(intf.sda_i),
                                            .sda_o(intf.sda_o),
                                            .sda_oen(intf.sda_oen)
-                              					   //.scl(intf.scl),
-                                           //.sda(intf.sda)
                                           );
   // MSHA: assign i3c_target_drv_bfm_h.target_id = target_ID;
 
@@ -70,7 +68,6 @@ module i3c_target_agent_bfm #(parameter int target_ID=0)
   initial begin
     $display("target Agent BFM");
   end
-
 
 endmodule : i3c_target_agent_bfm
 

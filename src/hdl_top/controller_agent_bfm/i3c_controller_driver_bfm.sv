@@ -13,18 +13,14 @@ interface i3c_controller_driver_bfm(input pclk,
                                 output reg sda_oen
                               );
   i3c_fsm_state_e state;
-  i3c_transfer_bits_s dataPacketStruct;
-  i3c_transfer_cfg_s configPacketStruct;
 
   import uvm_pkg::*;
   `include "uvm_macros.svh" 
-  
   import i3c_controller_pkg::i3c_controller_driver_proxy;
 
   i3c_controller_driver_proxy i3c_controller_drv_proxy_h;
   
-  string name = "I3C_controller_DRIVER_BFM";
-
+  string name = "I3C_CONTROLLER_DRIVER_BFM";
   initial begin
     $display(name);
   end
@@ -71,7 +67,6 @@ interface i3c_controller_driver_bfm(input pclk,
 
   task drive_data(inout i3c_transfer_bits_s dataPacketStruct, 
                   input i3c_transfer_cfg_s configPacketStruct); 
-
     `uvm_info(name, $sformatf("Starting the drive data method"), UVM_HIGH);
   
     drive_start();
@@ -168,14 +163,13 @@ interface i3c_controller_driver_bfm(input pclk,
     @(posedge pclk);
     drive_scl(1);
     drive_sda(1);
-   
     @(posedge pclk);
   endtask
   
   
   task drive_writeDataByte(input bit[7:0] wdata);
     `uvm_info("DEBUG", $sformatf("Driving writeData = %0b",wdata), UVM_NONE)
-    for(int k=0;k < DATA_WIDTH; k++) begin
+    for(int k=DATA_WIDTH-1; k>=0; k--) begin
       scl_tristate_buf_on();
       state <= WRITE_DATA;
       sda_oen <= TRISTATE_BUF_ON;
@@ -183,19 +177,19 @@ interface i3c_controller_driver_bfm(input pclk,
       scl_tristate_buf_off();
     end
   endtask :drive_writeDataByte
-  
-  
+
+
   task sample_read_data(output bit [7:0]rdata);
-    for(int k=0;k < DATA_WIDTH; k++) begin
+    for(int k=DATA_WIDTH-1; k>=0; k--) begin
       scl_tristate_buf_on();
       state <= READ_DATA;
       drive_sda(1);
       scl_tristate_buf_off();
       rdata[k] <= sda_i;
     end
-  
     `uvm_info("DEBUG", $sformatf("Moving readData = %0b",rdata), UVM_NONE)
   endtask: sample_read_data
+
 
   task drive_readDataStatus(input bit ack);
     @(posedge pclk);
@@ -219,42 +213,6 @@ interface i3c_controller_driver_bfm(input pclk,
     scl_oen <= value ? TRISTATE_BUF_OFF : TRISTATE_BUF_ON;
     scl_o   <= value;
   endtask: drive_scl
-  
-    
-  task detect_posedge_scl();
-    // 2bit shift register to check the edge on scl
-    bit [1:0] scl_local;
-    edge_detect_e scl_edge_value;
-  
-    // default value of scl_local is logic 1
-    scl_local = 2'b11;
-  
-    do begin
-      @(negedge pclk);
-      scl_local = {scl_local[0], scl_i};
-    end while(!(scl_local == POSEDGE));
-  
-    scl_edge_value = edge_detect_e'(scl_local);
-    `uvm_info("controller_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
-  endtask: detect_posedge_scl
-    
-    
-  task detect_negedge_scl();
-    // 2bit shift register to check the edge on scl
-    bit [1:0] scl_local;
-    edge_detect_e scl_edge_value;
-  
-    // default value of scl_local is logic 1
-    scl_local = 2'b11;
-  
-    do begin
-      @(negedge pclk);
-      scl_local = {scl_local[0], scl_i};
-    end while(!(scl_local == NEGEDGE));
-  
-    scl_edge_value = edge_detect_e'(scl_local);
-    `uvm_info("controller_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
-  endtask: detect_negedge_scl
   
 endinterface : i3c_controller_driver_bfm
 `endif
