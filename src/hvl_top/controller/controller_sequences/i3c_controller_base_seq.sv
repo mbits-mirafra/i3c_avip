@@ -16,7 +16,7 @@ function i3c_controller_base_seq::new(string name = "i3c_controller_base_seq");
 endfunction : new
 
 task i3c_controller_base_seq::body();
-
+//super.body();
 //dynamic casting of p_sequencer and m_sequencer
 // GopalS:    if(!$cast(p_sequencer,m_sequencer))begin
 // GopalS:      `uvm_error(get_full_name(),"Virtual sequencer pointer cast failed")

@@ -9,18 +9,20 @@ covergroup i3c_controller_covergroup with function sample(i3c_controller_tx pack
    
   OPERATION_CP : coverpoint packet.operation{
    option.comment = "Operation";
-   bins OPERATION = {0,1};
+   bins OPERATION_WRITE = {0};
+   bins OPERATION_READ = {1};
   } 
 
   TARGET_ADDRESS_CP : coverpoint packet.targetAddress{
    option.comment = "TargetAddress";
-   bins TARGETADDRESS = {[8:119],[128:$]};
+   bins TARGETADDRESS = {[8:119]};
    ignore_bins RESERVEDADDRESS = {[0:7],[120:127]};
  }
 
   TARGET_ADDRESS_STATUS_CP : coverpoint packet.targetAddressStatus{
    option.comment = "targetAddressStatus";
-   bins TARGET_ADDRESS_STATUS = {0,1};
+   bins TARGET_ADDRESS_STATUS_ACK = {0};
+   bins TARGET_ADDRESS_STATUS_NACK = {1};
   }
 
   WRITEDATA_CP : coverpoint packet.writeData.size()*DATA_WIDTH {
@@ -45,12 +47,14 @@ covergroup i3c_controller_covergroup with function sample(i3c_controller_tx pack
 
  WRITEDATA_STATUS_CP : coverpoint packet.writeDataStatus.size()==1 {
   option.comment = "writeData status";
-  bins WRITEDATA_STATUS = {1,0};
+  bins WRITEDATA_STATUS_ACK= {0};
+  bins WRITEDATA_STATUS_NACK= {1};
 }
 
   READDATA_STATUS_CP : coverpoint packet.readDataStatus.size()==1 {
   option.comment = "readData status";
-  bins READDATA_STATUS = {1,0};
+  bins READDATA_STATUS_ACK= {0};
+  bins READDATA_STATUS_NACK= {1};
 }
 
 OPERATION_CP_X_WRITEDATA_CP:cross OPERATION_CP,WRITEDATA_CP;

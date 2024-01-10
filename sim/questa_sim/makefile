@@ -151,9 +151,9 @@ clean_compile:
 	rm -rf work/ *_compile.log transcript waveform.wlf
 	rm -rf merged_coverage.ucdb merged_cov_html_report
 
-clean:
-	make clean_compile
-	make clean_simulate
+#clean:
+#	make clean_compile
+#	make clean_simulate
 
 ## For Regression and coverage merge
 ##

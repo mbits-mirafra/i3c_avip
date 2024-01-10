@@ -14,7 +14,7 @@ endfunction : new
 
 task i3c_target_writeOperationWith16bitsData_seq::body();
 
-  super.body();
+//  super.body();
 
 // GopalS:   req.i3c_target_agent_cfg_h = p_sequencer.i3c_target_agent_cfg_h;
 

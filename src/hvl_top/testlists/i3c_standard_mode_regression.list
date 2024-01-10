@@ -1,11 +1,11 @@
-# Regression list for I3C WRITE and READ TRANSFERS
-#
+i3c_writeOperationWith8bitsData_test
+i3c_writeOperationWith16bitsData_test
+i3c_writeOperationWith32bitsData_test
+i3c_writeOperationWith64bitsData_test
+i3c_writeOperationWithMaximumbitsData_test
+i3c_readOperationWith8bitsData_test
+i3c_readOperationWith16bitsData_test
+i3c_readOperationWith32bitsData_test
+i3c_readOperationWith64bitsData_test
+i3c_readOperationWithMaximumbitsData_test
 
-i3c_8b_write_test
-i3c_8b_read_test
-<<<<<<< HEAD
-#i3c_8b_write_followed_by_read_test 
-=======
-i3c_8b_write_followed_by_read_test 
->>>>>>> c4f85435c5a3c85352db7a6c0304ac51c41d10ac
-i3c_direct_ccc_setdasa_test
