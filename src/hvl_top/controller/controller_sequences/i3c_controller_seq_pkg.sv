@@ -19,6 +19,9 @@ package i3c_controller_seq_pkg;
   `include "i3c_controller_readOperationWith64bitsData_seq.sv"
   `include "i3c_controller_writeOperationWithMaximumbitsData_seq.sv"
   `include "i3c_controller_readOperationWithMaximumbitsData_seq.sv"
+  `include "i3c_controller_writeOperationWithRandomDataTransferWidth_seq.sv"
+  `include "i3c_controller_readOperationWithRandomDataTransferWidth_seq.sv"
+  `include "i3c_controller_randomOperationWithRandomDataTransferWidth_seq.sv"
 
   //  `include "i3c_controller_8b_write_read_seq.sv"
 endpackage : i3c_controller_seq_pkg

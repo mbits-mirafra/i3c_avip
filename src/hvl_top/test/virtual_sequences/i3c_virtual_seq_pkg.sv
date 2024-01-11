@@ -23,6 +23,11 @@ package i3c_virtual_seq_pkg;
  `include "i3c_virtual_readOperationWith64bitsData_seq.sv"
  `include "i3c_virtual_writeOperationWithMaximumbitsData_seq.sv"
  `include "i3c_virtual_readOperationWithMaximumbitsData_seq.sv"
+ `include "i3c_virtual_writeOperationWith8bitsData_startStopCombination_seq.sv"
+ `include "i3c_virtual_readOperationWith8bitsData_startStopCombination_seq.sv"
+ `include "i3c_virtual_writeOperationWithRandomDataTransferWidth_seq.sv"
+ `include "i3c_virtual_readOperationWithRandomDataTransferWidth_seq.sv"
+ `include "i3c_virtual_randomOperationWithRandomDataTransferWidth_seq.sv"
 
 // GopalS:  `include "i3c_virtual_8b_write_followed_by_read_seq.sv"
 // GopalS:  `include "i3c_virtual_8b_direct_ccc_setdasa_seq.sv" 

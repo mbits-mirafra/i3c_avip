@@ -25,6 +25,11 @@ package i3c_test_pkg;
  `include "i3c_readOperationWith64bitsData_test.sv"
  `include "i3c_writeOperationWithMaximumbitsData_test.sv"
  `include "i3c_readOperationWithMaximumbitsData_test.sv"
+ `include "i3c_writeOperationWith8bitsData_startStopCombination_test.sv"
+ `include "i3c_readOperationWith8bitsData_startStopCombination_test.sv"
+ `include "i3c_writeOperationWithRandomDataTransferWidth_test.sv"
+ `include "i3c_readOperationWithRandomDataTransferWidth_test.sv"
+ `include "i3c_randomOperationWithRandomDataTransferWidth_test.sv"
 
 // GopalS:  `include "i3c_8b_write_followed_by_read_test.sv"
 // GopalS:  `include "i3c_direct_ccc_setdasa_test.sv"
