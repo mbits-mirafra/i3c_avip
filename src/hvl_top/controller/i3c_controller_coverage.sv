@@ -16,7 +16,7 @@ covergroup i3c_controller_covergroup with function sample(i3c_controller_tx pack
   TARGET_ADDRESS_CP : coverpoint packet.targetAddress{
    option.comment = "TargetAddress";
    bins TARGETADDRESS = {[8:119]};
-   ignore_bins RESERVEDADDRESS = {[0:7],[120:127]};
+   illegal_bins RESERVEDADDRESS = {[0:7],[120:127]};
  }
 
   TARGET_ADDRESS_STATUS_CP : coverpoint packet.targetAddressStatus{
@@ -87,7 +87,9 @@ endfunction : display
 
 
 function void i3c_controller_coverage::write(i3c_controller_tx t);
+  `uvm_info(get_type_name(), $sformatf("Before Calling the Sample Method"),UVM_HIGH);
   i3c_controller_covergroup.sample(t);     
+  `uvm_info(get_type_name(), $sformatf("After Calling the Sample Method"),UVM_HIGH);
 endfunction: write
 
 function void i3c_controller_coverage::report_phase(uvm_phase phase);

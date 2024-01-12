@@ -17,7 +17,7 @@ class i3c_target_coverage extends uvm_subscriber#(i3c_target_tx);
   TARGET_ADDRESS_CP : coverpoint packet.targetAddress{
    option.comment = "TargetAddress";
    bins TARGETADDRESS = {[8:119]};
-   ignore_bins RESERVEDADDRESS = {[0:7],[120:127]};
+   illegal_bins RESERVEDADDRESS = {[0:7],[120:127]};
  }
 
    TARGET_ADDRESS_STATUS_CP : coverpoint packet.targetAddressStatus{
