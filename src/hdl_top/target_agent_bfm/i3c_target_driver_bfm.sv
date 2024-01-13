@@ -257,7 +257,7 @@ interface i3c_target_driver_bfm(input pclk,
 
   task detectEdge_scl(input edge_detect_e edgeSCL);
     // 2bit shift register to check the edge on scl
-    bit [1:0] scl_local;
+    bit [1:0] scl_local; //default value 
     edge_detect_e scl_edge_value;
     // default value of scl_local is logic 1
     scl_local = 2'b11;

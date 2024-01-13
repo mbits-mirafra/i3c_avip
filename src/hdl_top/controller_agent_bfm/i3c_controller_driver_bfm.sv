@@ -115,7 +115,7 @@ interface i3c_controller_driver_bfm(input pclk,
   
   task drive_address(input bit[6:0] addr);
     `uvm_info("DEBUG", $sformatf("Driving Address = %0b",addr), UVM_NONE)
-    for(int k=0;k < TARGET_ADDRESS_WIDTH; k++) begin
+   for(int k=TARGET_ADDRESS_WIDTH-1;k>=0 ;k--)begin
       scl_tristate_buf_on();
       state <= ADDRESS;
       sda_oen <= TRISTATE_BUF_ON;
@@ -169,6 +169,7 @@ interface i3c_controller_driver_bfm(input pclk,
   
   task drive_writeDataByte(input bit[7:0] wdata);
     `uvm_info("DEBUG", $sformatf("Driving writeData = %0b",wdata), UVM_NONE)
+//TODO //Update the this logic LSB first <F3><F3><F3><F3>
     for(int k=DATA_WIDTH-1; k>=0; k--) begin
       scl_tristate_buf_on();
       state <= WRITE_DATA;
