@@ -84,12 +84,12 @@ end
    for(int i=0; i<i3c_controller_tx_h.writeData.size(); i++) begin
    if(i3c_controller_tx_h.writeData[i] == i3c_target_tx_h.writeData[i]) begin
    `uvm_info(get_type_name(),$sformatf("i3c_writeData from controller and target is equal"),UVM_HIGH);
-   `uvm_info("SB_WRITEDATA_MATCHED", $sformatf("Controller writeData = %0b and Target writeData = %0b",i3c_controller_tx_h.writeData[i], i3c_target_tx_h.writeData[i]), UVM_HIGH);
+   `uvm_info("SB_WRITEDATA_MATCHED", $sformatf("Controller writeData = %0x and Target writeData = %0x",i3c_controller_tx_h.writeData[i], i3c_target_tx_h.writeData[i]), UVM_HIGH);
  writeDataComparisonSuccessCount++;
 end
  else begin
    `uvm_error(get_type_name(),$sformatf("i3c_writeData from controller and target is equal"));
-   `uvm_info("SB_WRITEDATA_MISMATCHED", $sformatf("Controller writeData = %0b and Target writeData = %0b",i3c_controller_tx_h.writeData[i], i3c_target_tx_h.writeData[i]), UVM_HIGH); 
+   `uvm_info("SB_WRITEDATA_MISMATCHED", $sformatf("Controller writeData = %0x and Target writeData = %0x",i3c_controller_tx_h.writeData[i], i3c_target_tx_h.writeData[i]), UVM_HIGH); 
  writeDataComparisonFailedCount++;
  end
  end
@@ -98,12 +98,12 @@ end
   for(int i=0; i<i3c_controller_tx_h.readData.size(); i++) begin
    if(i3c_controller_tx_h.readData[i] == i3c_target_tx_h.readData[i]) begin
    `uvm_info(get_type_name(),$sformatf("i3c_readData from controller and target is equal"),UVM_HIGH);
-   `uvm_info("SB_READDATA_MATCHED", $sformatf("Controller readData = %0b and Target readData = %0b",i3c_controller_tx_h.readData[i], i3c_target_tx_h.readData[i]), UVM_HIGH);
+   `uvm_info("SB_READDATA_MATCHED", $sformatf("Controller readData = %0x and Target readData = %0x",i3c_controller_tx_h.readData[i], i3c_target_tx_h.readData[i]), UVM_HIGH);
  readDataComparisonSuccessCount++; 
  end
  else begin
    `uvm_error(get_type_name(),$sformatf("i3c_readData from controller and target is equal"));
-   `uvm_info("SB_READDATA_MISMATCHED", $sformatf("Controller readData = %0b and Target readData = %0b",i3c_controller_tx_h.readData[i], i3c_target_tx_h.readData[i]), UVM_HIGH); 
+   `uvm_info("SB_READDATA_MISMATCHED", $sformatf("Controller readData = %0x and Target readData = %0x",i3c_controller_tx_h.readData[i], i3c_target_tx_h.readData[i]), UVM_HIGH); 
  readDataComparisonFailedCount++;
  end
  end

@@ -68,6 +68,7 @@ task i3c_controller_driver_proxy::run_phase(uvm_phase phase);
     i3c_controller_seq_item_converter::from_class(req, struct_packet);
     `uvm_info(get_type_name(), $sformatf("Converted req struct\n%p",struct_packet), UVM_HIGH)
     i3c_controller_cfg_converter::from_class(i3c_controller_agent_cfg_h, struct_cfg);
+    `uvm_info(get_type_name(), $sformatf("Converted cfg struct\n%p",struct_cfg), UVM_HIGH)
 
     drive_to_bfm(struct_packet,struct_cfg);
  

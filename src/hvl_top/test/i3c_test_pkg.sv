@@ -31,6 +31,8 @@ package i3c_test_pkg;
  `include "i3c_readOperationWithRandomDataTransferWidth_test.sv"
  `include "i3c_randomOperationWithRandomDataTransferWidth_test.sv"
 
+ `include "i3c_writeOperationWithMSBDataDirection_test.sv"
+ `include "i3c_writeOperationWithLSBDataDirection_test.sv"
 // GopalS:  `include "i3c_8b_write_followed_by_read_test.sv"
 // GopalS:  `include "i3c_direct_ccc_setdasa_test.sv"
 endpackage : i3c_test_pkg

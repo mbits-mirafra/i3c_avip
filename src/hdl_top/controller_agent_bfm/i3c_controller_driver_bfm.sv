@@ -82,7 +82,8 @@ interface i3c_controller_driver_bfm(input pclk,
       `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 0"), UVM_HIGH);
        if(dataPacketStruct.operation == WRITE) begin
           for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
-            drive_writeDataByte(dataPacketStruct.writeData[i]);
+            drive_writeDataByte(dataPacketStruct.writeData[i], 
+                                configPacketStruct.dataTransferDirection);
             sample_ack(dataPacketStruct.writeDataStatus[i]);
             if(dataPacketStruct.writeDataStatus[i] == NACK)
               break;
@@ -115,6 +116,7 @@ interface i3c_controller_driver_bfm(input pclk,
   
   task drive_address(input bit[6:0] addr);
     `uvm_info("DEBUG", $sformatf("Driving Address = %0b",addr), UVM_NONE)
+   // Target address should always be driven with MSB as direction of transfer
    for(int k=TARGET_ADDRESS_WIDTH-1;k>=0 ;k--)begin
       scl_tristate_buf_on();
       state <= ADDRESS;
@@ -167,14 +169,19 @@ interface i3c_controller_driver_bfm(input pclk,
   endtask
   
   
-  task drive_writeDataByte(input bit[7:0] wdata);
+  task drive_writeDataByte(input bit[7:0] wdata, input dataTransferDirection_e dir);
     `uvm_info("DEBUG", $sformatf("Driving writeData = %0b",wdata), UVM_NONE)
-//TODO //Update the this logic LSB first <F3><F3><F3><F3>
-    for(int k=DATA_WIDTH-1; k>=0; k--) begin
+
+    `uvm_info("Controller_Driver_BFM", $sformatf("Direction %s", dir.name()), UVM_HIGH);
+    for(int k=0, bit_no = 0; k<DATA_WIDTH; k++) begin
+      // Logic for MSB first or LSB first 
+      bit_no = (dir == MSB_FIRST) ? 
+                ((DATA_WIDTH - 1) - k) : k;
+
       scl_tristate_buf_on();
       state <= WRITE_DATA;
       sda_oen <= TRISTATE_BUF_ON;
-      sda_o   <= wdata[k];
+      sda_o   <= wdata[bit_no];
       scl_tristate_buf_off();
     end
   endtask :drive_writeDataByte

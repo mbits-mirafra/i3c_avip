@@ -56,7 +56,9 @@ interface i3c_controller_monitor_bfm(input pclk,
       fork
         begin
           for(int i=0;i<MAXIMUM_BYTES;i++) begin
-            sample_write_data(struct_packet,i);
+            sample_write_data(struct_packet,
+                              i,
+                              struct_cfg.dataTransferDirection);
             sampleWdataAck(struct_packet.writeDataStatus[i]);
             if(struct_packet.writeDataStatus[i] == NACK)
                 break;
@@ -131,12 +133,17 @@ interface i3c_controller_monitor_bfm(input pclk,
   endtask: sampleAddressAck
 
 
-  task sample_write_data(inout i3c_transfer_bits_s pkt, input int i);
+  task sample_write_data(inout i3c_transfer_bits_s pkt, input int i, input dataTransferDirection_e dir);
     bit[DATA_WIDTH-1:0] wdata;
     state = WRITE_DATA;
-    for(int k=DATA_WIDTH-1; k>=0; k--) begin
+    `uvm_info("Controller_Monitor_BFM", $sformatf("Direction %s", dir.name()), UVM_HIGH);
+    for(int k=0, bit_no=0; k<DATA_WIDTH; k++) begin
+      // Logic for MSB first or LSB first 
+      bit_no = (dir == MSB_FIRST) ? 
+                ((DATA_WIDTH - 1) - k) : k;
+
       detectEdge_scl(POSEDGE);
-      wdata[k] = sda_i;
+      wdata[bit_no] = sda_i;
       pkt.no_of_i3c_bits_transfer++;
     end
     pkt.writeData[i] = wdata;

@@ -165,12 +165,18 @@ interface i3c_target_driver_bfm(input pclk,
   endtask: driveAddressAck
 
 
-  task sample_write_data(inout i3c_transfer_cfg_s cfg_pkt, inout i3c_transfer_bits_s pkt, input int i);
+  task sample_write_data(input i3c_transfer_cfg_s cfg_pkt, inout i3c_transfer_bits_s pkt, input int i);
     bit [DATA_WIDTH-1:0] wdata;
     state = WRITE_DATA;
-    for(int k=DATA_WIDTH-1; k>=0; k--) begin
+
+    `uvm_info("DEBUG_TARGET_DRIVER_BFM", $sformatf("dir %s ",cfg_pkt.dataTransferDirection.name()), UVM_HIGH);
+    for(int k=0, bit_no = 0; k<DATA_WIDTH; k++) begin
+      // Logic for MSB first or LSB first 
+      bit_no = (cfg_pkt.dataTransferDirection == MSB_FIRST) ? 
+                ((DATA_WIDTH - 1) - k) : k;
+
       detectEdge_scl(POSEDGE);
-      wdata[k] = sda_i;
+      wdata[bit_no] = sda_i;
       pkt.no_of_i3c_bits_transfer++;
     end
 

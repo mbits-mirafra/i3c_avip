@@ -79,7 +79,7 @@ function void i3c_base_test::setup_env_cfg();
  endfunction: setup_env_cfg
 
 function void i3c_base_test::setup_controller_agent_cfg();
-  
+    
   foreach(i3c_env_cfg_h.i3c_controller_agent_cfg_h[i])begin
 
     i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].set_clockrate_divider_value(.primary_prescalar(1),
@@ -87,7 +87,7 @@ function void i3c_base_test::setup_controller_agent_cfg();
      // Configure the controller agent configuration
     i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].isActive     = uvm_active_passive_enum'(UVM_ACTIVE);
     i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].no_of_targets  = NO_OF_TARGETS;
-    i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].dataTransferDirection     = dataTransferDirection_e'(MSB_FIRST);
+    i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].dataTransferDirection = dataTransferDirection_e'(MSB_FIRST);
     i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].hasCoverage  = hasCoverage_e'(TRUE);
 
     // Stores all the target addresses

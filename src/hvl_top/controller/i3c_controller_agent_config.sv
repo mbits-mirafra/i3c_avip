@@ -8,7 +8,7 @@ class i3c_controller_agent_config extends uvm_object;
   hasCoverage_e hasCoverage = TRUE;
   rand dataTransferDirection_e dataTransferDirection;
   bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress[];
-  
+
   rand protected bit[2:0] primary_prescalar;
   rand protected bit[2:0] secondary_prescalar;
   protected int clockRateDividerValue;

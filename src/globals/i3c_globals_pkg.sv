@@ -46,8 +46,8 @@ package i3c_globals_pkg;
   parameter BUS_FREE_TIME = 1;  // 0.5us as per spec page no 365 Table 85
   
   typedef enum bit {
-    MSB_FIRST = 1'b1,
-    LSB_FIRST = 1'b0
+    MSB_FIRST = 1'b0,
+    LSB_FIRST = 1'b1
   } dataTransferDirection_e;
   
   typedef enum bit {
@@ -86,7 +86,7 @@ package i3c_globals_pkg;
   // operation : read from or write to slave 
   //
   typedef struct {
-    bit dataTransferDirection;
+    dataTransferDirection_e dataTransferDirection;
     bit operation;
     int clockRateDividerValue;
     bit[TARGET_ADDRESS_WIDTH-1:0] targetAddress;
