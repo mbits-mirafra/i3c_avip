@@ -8,7 +8,7 @@ class i3c_target_agent_config extends uvm_object;
   hasCoverage_e hasCoverage = TRUE;
 
   dataTransferDirection_e dataTransferDirection;
-  bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress = 7'b1010101;  
+  bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress;
   bit [DATA_WIDTH-1:0]defaultReadData = 'hFF;
   bit [DATA_WIDTH-1:0]targetFIFOMemory[$];
  

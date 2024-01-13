@@ -4,7 +4,7 @@
 class i3c_controller_base_seq extends uvm_sequence #(i3c_controller_tx);
   `uvm_object_utils(i3c_controller_base_seq)
 
-  // GopalS:  `uvm_declare_p_sequencer(i3c_controller_sequencer) 
+  `uvm_declare_p_sequencer(i3c_controller_sequencer) 
 
   extern function new(string name = "i3c_controller_base_seq");
   extern virtual task body();
@@ -16,12 +16,10 @@ function i3c_controller_base_seq::new(string name = "i3c_controller_base_seq");
 endfunction : new
 
 task i3c_controller_base_seq::body();
-//super.body();
-//dynamic casting of p_sequencer and m_sequencer
-// GopalS:    if(!$cast(p_sequencer,m_sequencer))begin
-// GopalS:      `uvm_error(get_full_name(),"Virtual sequencer pointer cast failed")
-// GopalS:    end
-            
+  //dynamic casting of p_sequencer and m_sequencer
+  if(!$cast(p_sequencer,m_sequencer))begin
+    `uvm_error(get_full_name(),"Virtual sequencer pointer cast failed")
+  end
 endtask:body
 
 `endif

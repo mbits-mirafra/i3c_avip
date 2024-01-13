@@ -101,7 +101,7 @@ interface i3c_target_monitor_bfm(input pclk,
   task sample_target_address(inout i3c_transfer_bits_s pkt);
     bit [TARGET_ADDRESS_WIDTH-1:0] address;
     state = ADDRESS;
-    for(int k=0;k < 7; k++) begin
+    for(int k=TARGET_ADDRESS_WIDTH-1;k>=0; k--) begin
       detectEdge_scl(POSEDGE);
       address[k] = sda_i;
     end

@@ -42,8 +42,6 @@ endfunction  : end_of_elaboration_phase
 task i3c_target_driver_proxy::run_phase(uvm_phase phase);
   super.run_phase(phase);
    
-  i3c_target_agent_cfg_h = i3c_target_agent_config::type_id::create(" i3c_target_agent_cfg_h");
-
   i3c_target_drv_bfm_h.wait_for_system_reset();
   i3c_target_drv_bfm_h.drive_idle_state();
 
@@ -60,6 +58,7 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
 
     `uvm_info(get_type_name(),$sformatf("Received packet from i3c target sequencer : , \n %s",req.sprint()),UVM_HIGH)
 
+    `uvm_info("DEBUG_MSHA", $sformatf("CFG :: i3c_transfer_cfg_s = %s",i3c_target_agent_cfg_h.sprint()), UVM_MEDIUM); 
     i3c_target_cfg_converter::from_class(i3c_target_agent_cfg_h, struct_cfg); 
     `uvm_info("DEBUG_MSHA", $sformatf("CFG :: struct_cfg = %p",struct_cfg), UVM_NONE); 
     i3c_target_seq_item_converter::from_class(req, struct_packet); 

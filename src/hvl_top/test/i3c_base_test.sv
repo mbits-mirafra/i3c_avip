@@ -109,7 +109,7 @@ function void i3c_base_test::setup_target_agent_cfg();
   // Create target agent(s) configurations
   // Setting the configuration for each target
   // target 0 
-  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress = 7'b1010101;
+  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress = TARGET0_ADDRESS;
   i3c_env_cfg_h.i3c_target_agent_cfg_h[0].isActive    = uvm_active_passive_enum'(UVM_ACTIVE);
   i3c_env_cfg_h.i3c_target_agent_cfg_h[0].dataTransferDirection    = dataTransferDirection_e'(MSB_FIRST);
   i3c_env_cfg_h.i3c_target_agent_cfg_h[0].hasCoverage = hasCoverage_e'(TRUE);

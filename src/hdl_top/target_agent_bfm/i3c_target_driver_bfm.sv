@@ -54,7 +54,7 @@ interface i3c_target_driver_bfm(input pclk,
 
 
   task drive_data(inout i3c_transfer_bits_s dataPacketStruck, 
-                  inout i3c_transfer_cfg_s configPacketStruck);
+                  input i3c_transfer_cfg_s configPacketStruck);
   
     detect_start();
     sample_target_address(configPacketStruck,dataPacketStruck);
@@ -117,11 +117,11 @@ interface i3c_target_driver_bfm(input pclk,
   endtask: detect_start
 
 
-  task sample_target_address(inout i3c_transfer_cfg_s cfg_pkt, inout i3c_transfer_bits_s pkt);
+  task sample_target_address(input i3c_transfer_cfg_s cfg_pkt, inout i3c_transfer_bits_s pkt);
     bit [TARGET_ADDRESS_WIDTH-1:0] local_addr;
 
     state = ADDRESS;
-    for(int k=0;k < 7; k++) begin
+    for(int k=TARGET_ADDRESS_WIDTH-1;k>=0; k--) begin
       detectEdge_scl(POSEDGE);
       local_addr[k] = sda_i;
       drive_sda(1);
