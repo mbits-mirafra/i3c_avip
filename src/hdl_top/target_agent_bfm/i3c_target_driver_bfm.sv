@@ -21,6 +21,11 @@ interface i3c_target_driver_bfm(input pclk,
   
   i3c_target_driver_proxy i3c_target_drv_proxy_h;
   
+  //-------------------------------------------------------
+  // Creating the memory
+  //-------------------------------------------------------
+  bit [DATA_WIDTH-1:0]targetFIFOMemory[$];
+
   string name = "I3C_TARGET_DRIVER_BFM";
   initial begin
     $display(name);
@@ -80,10 +85,12 @@ interface i3c_target_driver_bfm(input pclk,
         fork
           begin
             for(int i=0;i<MAXIMUM_BYTES;i++) begin
-              if(configPacketStruck.targetFIFOMemory.size()==0) begin
+              if(targetFIFOMemory.size()==0) begin
+                `uvm_info("DEBUG_READ", $sformatf("Inside default"), UVM_HIGH);
                 rdata = configPacketStruck.defaultReadData;
               end else begin
-                rdata = configPacketStruck.targetFIFOMemory.pop_front();
+                `uvm_info("DEBUG_READ", $sformatf("Inside pop"), UVM_HIGH);
+                rdata = targetFIFOMemory.pop_front();
               end
               drive_read_data(rdata,dataPacketStruck,i);
               sample_ack(dataPacketStruck.readDataStatus[i]);
@@ -181,8 +188,10 @@ interface i3c_target_driver_bfm(input pclk,
     end
 
     `uvm_info(name, $sformatf("DEBUG :: Value of sampled write data = %0x", wdata[7:0]), UVM_NONE); 
-    cfg_pkt.targetFIFOMemory.push_back(wdata);
-   
+    targetFIFOMemory.push_back(wdata);
+    `uvm_info("DEBUG_READ", $sformatf("size of write fifo = %0d",
+                                       targetFIFOMemory.size()), UVM_HIGH);
+
     pkt.writeData[i] = wdata;
   endtask: sample_write_data
 
