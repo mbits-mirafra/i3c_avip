@@ -167,19 +167,18 @@ clean:
 ## For Regression and coverage merge
 ##
 regression:
-	# Run compilation
-	#make compile
-	make clean_simulate
-	# Run simualtion - regression 
+	#Run compilation
+	make compile
+	#Run simualtion - regression 
 	python regression_handling.py $(testlist_name)
 	#	# Get the tests from regression list
 	#	grep "_test" ../../src/hvl_top/testlists/i3c_standard_mode_regression.list | grep -v "\#" > reg_list
 	#	make simulate test=value #Get the name from regression list
 	#	Merge coverage
 	make merge_cov_report
-		
-# For merge to happen, the coverage names for each test must be different
-#
+ # make clean
+	
+## For merge to happen, the coverage names for each test must be different
 merge_cov_report:
 	rm -rf merged_coverage.ucdb merged_cov_html_report
 	# Merging all the coverage
