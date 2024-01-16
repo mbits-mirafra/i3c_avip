@@ -16,17 +16,14 @@ endfunction : new
 task i3c_controller_readOperationWith16bitsData_seq::body();
   super.body();
 
-// Mahadeva:  req.i3c_controller_agent_cfg_h = p_sequencer.i3c_controller_agent_cfg_h;
-//  `uvm_info("DEBUG", $sformatf("address = %0x",
-//  p_sequencer.i3c_controller_agent_cfg_h.slave_address_array[0]), UVM_NONE)
-
   req = i3c_controller_tx::type_id::create("req"); 
 
   start_item(req);
 
   if(!req.randomize() with {operation == READ;
                             readDataStatus.size == 2;
-                            targetAddress == 7'b1010101;}) begin
+                            targetAddress inside {p_sequencer.i3c_controller_agent_cfg_h.targetAddress};
+                            }) begin
     `uvm_error(get_type_name(), "Randomization failed")
   end
 

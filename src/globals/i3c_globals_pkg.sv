@@ -90,7 +90,6 @@ package i3c_globals_pkg;
     bit operation;
     int clockRateDividerValue;
     bit[TARGET_ADDRESS_WIDTH-1:0] targetAddress;
-    bit [DATA_WIDTH-1:0]targetFIFOMemory[$];
     bit [DATA_WIDTH-1:0]defaultReadData;
   } i3c_transfer_cfg_s;
   

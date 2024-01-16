@@ -19,7 +19,8 @@ task i3c_controller_randomOperationWithRandomDataTransferWidth_seq::body();
   req = i3c_controller_tx::type_id::create("req"); 
 
   start_item(req);
-    if(!req.randomize() with {targetAddress == 7'b1010101;}) begin
+    if(!req.randomize() with {targetAddress inside {p_sequencer.i3c_controller_agent_cfg_h.targetAddress};
+                              }) begin
       `uvm_error(get_type_name(), "Randomization failed")
     end
   

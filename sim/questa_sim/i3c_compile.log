@@ -1,9 +1,9 @@
 QuestaSim vlog 10.6c Compiler 2017.07 Jul 25 2017
-Start time: 10:13:54 on Dec 19,2023
+Start time: 13:18:31 on Jan 16,2024
 vlog -sv "+acc" "+cover" "+fcover" -l i3c_compile.log -f ../i3c_compile.f 
 -- Compiling package i3c_globals_pkg
 -- Compiling package i3c_controller_pkg
-** Note: (vlog-2286) ../../src/hvl_top/controller/i3c_controller_pkg.sv(13): Using implicit +incdir+/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+** Note: (vlog-2286) ../../src/hvl_top/controller/i3c_controller_pkg.sv(6): Using implicit +incdir+/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
 -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
 -- Importing package i3c_globals_pkg
 -- Compiling package i3c_target_pkg
@@ -34,7 +34,11 @@ vlog -sv "+acc" "+cover" "+fcover" -l i3c_compile.log -f ../i3c_compile.f
 -- Importing package i3c_globals_pkg
 -- Compiling interface i3c_target_driver_bfm
 -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_target_pkg
+-- Compiling package i3c_target_monitor_bfm_sv_unit
+-- Importing package i3c_globals_pkg
 -- Compiling interface i3c_target_monitor_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
 -- Importing package i3c_target_pkg
 -- Compiling module i3c_target_agent_bfm
 -- Compiling module hdl_top
@@ -49,5 +53,5 @@ vlog -sv "+acc" "+cover" "+fcover" -l i3c_compile.log -f ../i3c_compile.f
 Top level modules:
 	hdl_top
 	hvl_top
-End time: 10:13:56 on Dec 19,2023, Elapsed time: 0:00:02
+End time: 13:18:34 on Jan 16,2024, Elapsed time: 0:00:03
 Errors: 0, Warnings: 0

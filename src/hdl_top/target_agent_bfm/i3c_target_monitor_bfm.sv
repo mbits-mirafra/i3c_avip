@@ -69,7 +69,8 @@ interface i3c_target_monitor_bfm(input pclk,
         fork
           begin
             for(int i=0;i<MAXIMUM_BYTES;i++) begin
-              sample_read_data(struct_packet,i);
+              sample_read_data(struct_packet,i,
+                               struct_cfg.dataTransferDirection);
               sample_ack(struct_packet.readDataStatus[i]);
               if(struct_packet.readDataStatus[i] == NACK)
                 break;
@@ -156,12 +157,16 @@ interface i3c_target_monitor_bfm(input pclk,
   endtask: sampleWdataAck
   
 
-  task sample_read_data(inout i3c_transfer_bits_s pkt,input int i);
+  task sample_read_data(inout i3c_transfer_bits_s pkt,input int i, input dataTransferDirection_e dir);
     bit [DATA_WIDTH-1:0] rdata;
     state = READ_DATA;
-    for(int k=DATA_WIDTH-1; k>=0; k--) begin
+    for(int k=0, bit_no = 0; k<DATA_WIDTH; k++) begin
+      // Logic for MSB first or LSB first 
+      bit_no = (dir == MSB_FIRST) ? 
+                ((DATA_WIDTH - 1) - k) : k;
+
       detectEdge_scl(POSEDGE);
-      rdata[k] = sda_i;
+      rdata[bit_no] = sda_i;
       pkt.no_of_i3c_bits_transfer++;
     end
     pkt.readData[i] = rdata;

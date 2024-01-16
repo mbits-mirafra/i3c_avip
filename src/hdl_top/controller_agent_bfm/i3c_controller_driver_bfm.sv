@@ -90,7 +90,8 @@ interface i3c_controller_driver_bfm(input pclk,
           end
         end else begin
           for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
-            sample_read_data(dataPacketStruct.readData[i]);
+            sample_read_data(dataPacketStruct.readData[i],
+                             configPacketStruct.dataTransferDirection);
             drive_readDataStatus(dataPacketStruct.readDataStatus[i]);
             if(dataPacketStruct.readDataStatus[i] == NACK)
               break;
@@ -120,8 +121,7 @@ interface i3c_controller_driver_bfm(input pclk,
    for(int k=TARGET_ADDRESS_WIDTH-1;k>=0 ;k--)begin
       scl_tristate_buf_on();
       state <= ADDRESS;
-      sda_oen <= TRISTATE_BUF_ON;
-      sda_o   <= addr[k];
+      drive_sda(addr[k]);
       scl_tristate_buf_off();
     end
   endtask :drive_address
@@ -132,8 +132,7 @@ interface i3c_controller_driver_bfm(input pclk,
     @(posedge pclk);
     drive_scl(0);
     state <= WR_BIT;
-    sda_oen <= TRISTATE_BUF_ON;
-    sda_o   <= wrBit;
+    drive_sda(wrBit);
     scl_tristate_buf_off();
   endtask :drive_operation
   
@@ -180,20 +179,23 @@ interface i3c_controller_driver_bfm(input pclk,
 
       scl_tristate_buf_on();
       state <= WRITE_DATA;
-      sda_oen <= TRISTATE_BUF_ON;
-      sda_o   <= wdata[bit_no];
+      drive_sda(wdata[bit_no]);
       scl_tristate_buf_off();
     end
   endtask :drive_writeDataByte
 
 
-  task sample_read_data(output bit [7:0]rdata);
-    for(int k=DATA_WIDTH-1; k>=0; k--) begin
+  task sample_read_data(output bit [7:0]rdata, input dataTransferDirection_e dir);
+    for(int k=0, bit_no=0; k<DATA_WIDTH; k++) begin
+      // Logic for MSB first or LSB first 
+      bit_no = (dir == MSB_FIRST) ? 
+                ((DATA_WIDTH - 1) - k) : k;
+
       scl_tristate_buf_on();
       state <= READ_DATA;
       drive_sda(1);
       scl_tristate_buf_off();
-      rdata[k] <= sda_i;
+      rdata[bit_no] <= sda_i;
     end
     `uvm_info("DEBUG", $sformatf("Moving readData = %0b",rdata), UVM_NONE)
   endtask: sample_read_data
@@ -202,11 +204,8 @@ interface i3c_controller_driver_bfm(input pclk,
   task drive_readDataStatus(input bit ack);
     @(posedge pclk);
     drive_scl(0);
-
-    sda_oen <= TRISTATE_BUF_ON;
-    sda_o   <= ack;
+    drive_sda(ack);
     state <= ACK_NACK;
-    
     @(posedge pclk);
     drive_scl(1);
   endtask: drive_readDataStatus 

@@ -92,7 +92,9 @@ interface i3c_target_driver_bfm(input pclk,
                 `uvm_info("DEBUG_READ", $sformatf("Inside pop"), UVM_HIGH);
                 rdata = targetFIFOMemory.pop_front();
               end
-              drive_read_data(rdata,dataPacketStruck,i);
+              drive_read_data(rdata,
+                              dataPacketStruck,i,
+                              configPacketStruck.dataTransferDirection);
               sample_ack(dataPacketStruck.readDataStatus[i]);
               if(dataPacketStruck.readDataStatus[i] == NACK)
                 break;
@@ -205,14 +207,17 @@ interface i3c_target_driver_bfm(input pclk,
   endtask: driveWdataAck
 
 
-  task drive_read_data(input bit[7:0] rdata,inout i3c_transfer_bits_s pkt,input int i);
+  task drive_read_data(input bit[7:0] rdata,inout i3c_transfer_bits_s pkt,input int i, input dataTransferDirection_e dir);
 
     `uvm_info("DEBUG", $sformatf("Driving byte = %0b",rdata), UVM_NONE)
     state = READ_DATA;
-    for(int k=DATA_WIDTH-1; k>=0; k--) begin
+    for(int k=0, bit_no = 0; k<DATA_WIDTH; k++) begin
+      // Logic for MSB first or LSB first 
+      bit_no = (dir == MSB_FIRST) ? 
+                ((DATA_WIDTH - 1) - k) : k;
+
       detectEdge_scl(NEGEDGE);
-      sda_oen <= TRISTATE_BUF_ON;
-      sda_o   <= rdata[k];
+      drive_sda(rdata[bit_no]);
       pkt.no_of_i3c_bits_transfer++;
     end
     pkt.readData[i] = rdata;

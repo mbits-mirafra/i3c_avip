@@ -20,7 +20,8 @@ task i3c_controller_readOperationWithRandomDataTransferWidth_seq::body();
 
   start_item(req);
     if(!req.randomize() with {operation == READ;
-                              targetAddress == 7'b1010101;}) begin
+                              targetAddress inside {p_sequencer.i3c_controller_agent_cfg_h.targetAddress};
+                              }) begin
       `uvm_error(get_type_name(), "Randomization failed")
     end
   

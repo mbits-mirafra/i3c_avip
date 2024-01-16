@@ -10,7 +10,6 @@ class i3c_target_agent_config extends uvm_object;
   dataTransferDirection_e dataTransferDirection;
   bit [TARGET_ADDRESS_WIDTH-1:0] targetAddress;
   bit [DATA_WIDTH-1:0]defaultReadData = 'hFF;
-  bit [DATA_WIDTH-1:0]targetFIFOMemory[$];
  
   extern function new(string name = "i3c_target_agent_config");
   extern function void do_print(uvm_printer printer);

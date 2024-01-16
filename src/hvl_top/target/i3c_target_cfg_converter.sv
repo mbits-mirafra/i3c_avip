@@ -19,20 +19,13 @@ endfunction : new
 function void i3c_target_cfg_converter::from_class(input i3c_target_agent_config input_conv_h,
                                                     output i3c_transfer_cfg_s output_conv);
 
-
   bit target_address_width;
-  
-  //target address is configurable so for it we do casting 
- // target_address_width=target_address_width_e'(input_conv_h.target_address_width);
   
  output_conv.targetAddress = input_conv_h.targetAddress;
  output_conv.dataTransferDirection = dataTransferDirection_e'(input_conv_h.dataTransferDirection);
  //output_conv.targetAddress = input_conv_h.targetAddress;
- output_conv.targetFIFOMemory = input_conv_h.targetFIFOMemory;
  output_conv.defaultReadData = input_conv_h.defaultReadData;
   
-
-
 endfunction: from_class 
 
 function void i3c_target_cfg_converter::do_print(uvm_printer printer);
