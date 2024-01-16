@@ -70,36 +70,47 @@ interface i3c_controller_driver_bfm(input pclk,
     `uvm_info(name, $sformatf("Starting the drive data method"), UVM_HIGH);
   
     drive_start();
+
     drive_address(dataPacketStruct.targetAddress);
-    `uvm_info("DEBUG", $sformatf("Address is sent, address = %0h",dataPacketStruct.targetAddress), UVM_NONE)
+
     drive_operation(dataPacketStruct.operation);
-    `uvm_info("DEBUG", $sformatf("operation Bit is sent, operation = %0b",dataPacketStruct.operation), UVM_NONE)
+
     sample_ack(dataPacketStruct.targetAddressStatus);
-        `uvm_info("BFM", $sformatf("UT dataPacket.targetAddressStatus = %0d", dataPacketStruct.targetAddressStatus), UVM_NONE)
+
     if(dataPacketStruct.targetAddressStatus == NACK)begin
-      `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 1 and stop condition is triggered"), UVM_HIGH);
     end else begin
-      `uvm_info("SLAVE_ADDR_ACK", $sformatf("Received ACK as 0"), UVM_HIGH);
        if(dataPacketStruct.operation == WRITE) begin
-          for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
-            drive_writeDataByte(dataPacketStruct.writeData[i], 
-                                configPacketStruct.dataTransferDirection);
-            sample_ack(dataPacketStruct.writeDataStatus[i]);
-            if(dataPacketStruct.writeDataStatus[i] == NACK)
-              break;
-          end
-        end else begin
-          for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
-            sample_read_data(dataPacketStruct.readData[i],
-                             configPacketStruct.dataTransferDirection);
-            drive_readDataStatus(dataPacketStruct.readDataStatus[i]);
-            if(dataPacketStruct.readDataStatus[i] == NACK)
-              break;
-          end
-        end
+         driveWriteDataAndSampleACK(dataPacketStruct,configPacketStruct);
+       end else begin
+         sampleReadDataAndDriveACK(dataPacketStruct,configPacketStruct);
+       end
     end
       stop();
   endtask: drive_data
+
+
+  task driveWriteDataAndSampleACK(inout i3c_transfer_bits_s dataPacketStruct,
+                                  input i3c_transfer_cfg_s configPacketStruct);
+    for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
+      drive_writeDataByte(dataPacketStruct.writeData[i], 
+                          configPacketStruct.dataTransferDirection);
+      sample_ack(dataPacketStruct.writeDataStatus[i]);
+      if(dataPacketStruct.writeDataStatus[i] == NACK)
+        break;
+    end
+  endtask: driveWriteDataAndSampleACK
+
+
+  task sampleReadDataAndDriveACK(inout i3c_transfer_bits_s dataPacketStruct,
+                                 input i3c_transfer_cfg_s configPacketStruct);
+    for(int i=0; i<dataPacketStruct.no_of_i3c_bits_transfer/DATA_WIDTH;i++) begin
+      sample_read_data(dataPacketStruct.readData[i],
+                       configPacketStruct.dataTransferDirection);
+      drive_readDataStatus(dataPacketStruct.readDataStatus[i]);
+      if(dataPacketStruct.readDataStatus[i] == NACK)
+        break;
+    end
+  endtask: sampleReadDataAndDriveACK
 
 
   task drive_start();

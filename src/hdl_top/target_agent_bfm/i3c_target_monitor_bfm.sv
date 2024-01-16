@@ -50,41 +50,53 @@ interface i3c_target_monitor_bfm(input pclk,
     sampleAddressAck(struct_packet.targetAddressStatus);
     if(struct_packet.targetAddressStatus == ACK) begin
       if(struct_packet.operation == WRITE) begin
-      fork
-        begin
-          for(int i=0;i<MAXIMUM_BYTES;i++) begin
-            sample_write_data(struct_packet,i,
-                              struct_cfg.dataTransferDirection);
-            sampleWdataAck(struct_packet.writeDataStatus[i]);
-            if(struct_packet.writeDataStatus[i] == NACK)
-                break;
-          end
-        end
-      join_none
-
-      wrDetect_stop();
-      disable fork;
-
+        sampleWriteDataAndACK(struct_packet, struct_cfg);
       end else begin
-        fork
-          begin
-            for(int i=0;i<MAXIMUM_BYTES;i++) begin
-              sample_read_data(struct_packet,i,
-                               struct_cfg.dataTransferDirection);
-              sample_ack(struct_packet.readDataStatus[i]);
-              if(struct_packet.readDataStatus[i] == NACK)
-                break;
-            end
-          end
-        join_none
-
-        wrDetect_stop();
-        disable fork;
+        sampleReadDataAndACK(struct_packet, struct_cfg);
         end
       end else begin
       detect_stop();
     end
   endtask: sample_data
+  
+
+  task sampleWriteDataAndACK(inout i3c_transfer_bits_s structPacket,
+                             input i3c_transfer_cfg_s structConfig);
+    fork
+      begin
+        for(int i=0;i<MAXIMUM_BYTES;i++) begin
+          sample_write_data(structPacket,
+                            i,
+                            structConfig.dataTransferDirection);
+          sampleWdataAck(structPacket.writeDataStatus[i]);
+          if(structPacket.writeDataStatus[i] == NACK)
+            break;
+        end
+      end
+    join_none
+
+    wrDetect_stop();
+    disable fork;
+  endtask: sampleWriteDataAndACK 
+
+
+  task sampleReadDataAndACK(inout i3c_transfer_bits_s structPacket,
+                             input i3c_transfer_cfg_s structConfig);
+    fork
+      begin
+        for(int i=0;i<MAXIMUM_BYTES;i++) begin
+          sample_read_data(structPacket,i,
+                           structConfig.dataTransferDirection);
+          sample_ack(structPacket.readDataStatus[i]);
+          if(structPacket.readDataStatus[i] == NACK)
+            break;
+        end
+      end
+    join_none
+
+    wrDetect_stop();
+    disable fork;
+  endtask: sampleReadDataAndACK 
   
 
   task detect_start();
