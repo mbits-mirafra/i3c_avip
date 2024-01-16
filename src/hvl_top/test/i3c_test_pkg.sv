@@ -33,9 +33,14 @@ package i3c_test_pkg;
 
  `include "i3c_writeOperationWithMSBDataDirection_test.sv"
  `include "i3c_writeOperationWithLSBDataDirection_test.sv"
+ `include "i3c_readOperationWithMSBDataDirection_test.sv"
+ `include "i3c_readOperationWithLSBDataDirection_test.sv"
 
-  `include "i3c_WriteFollowedByReadOperationWith32bitsData_test.sv"
 
+ `include "i3c_WriteFollowedByReadOperationWith32bitsData_test.sv"
+ `include "i3c_ReadFollowedByWriteFollowedByReadOperationWith32bitsData_test.sv"
+ `include "i3c_WriteFollowedByReadFollowedByWriteFollowedByReadOperationWith32bitsData_test.sv"
+ `include "i3c_MultipleWritesMultipleReadsOperationWith32bitsData_test.sv"
 // GopalS:  `include "i3c_8b_write_followed_by_read_test.sv"
 // GopalS:  `include "i3c_direct_ccc_setdasa_test.sv"
 endpackage : i3c_test_pkg

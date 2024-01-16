@@ -30,8 +30,10 @@ package i3c_virtual_seq_pkg;
  `include "i3c_virtual_randomOperationWithRandomDataTransferWidth_seq.sv"
 
  `include "i3c_virtual_WriteFollowedByReadOperationWith32bitsData_seq.sv"
-// GopalS:  `include "i3c_virtual_8b_write_followed_by_read_seq.sv"
-// GopalS:  `include "i3c_virtual_8b_direct_ccc_setdasa_seq.sv" 
+ `include "i3c_virtual_ReadFollowedByWriteFollowedByReadOperationWith32bitsData_seq.sv"
+ `include "i3c_virtual_WriteFollowedByReadFollowdByWriteFollowedByReadOperationWith32bitsData_seq.sv"
+ `include "i3c_virtual_MultipleWritesMultipleReadsOperationWith32bitsData_seq.sv"
+
 endpackage : i3c_virtual_seq_pkg
 
 `endif
