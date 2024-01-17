@@ -16,7 +16,6 @@ class i3c_virtual_base_seq extends uvm_sequence#(uvm_sequence_item);
    
    extern function new(string name="i3c_virtual_base_seq");
    extern task body();
-  
 endclass:i3c_virtual_base_seq
  
 function i3c_virtual_base_seq::new(string name="i3c_virtual_base_seq");

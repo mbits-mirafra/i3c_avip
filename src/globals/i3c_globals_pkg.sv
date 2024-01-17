@@ -15,9 +15,6 @@ package i3c_globals_pkg;
   // The parameter for the data width
   parameter int DATA_WIDTH = 8;
   
-  // The parameter for the register address width
-  // parameter int TARGET_ADDRESS_WIDTH  = 10;
-  
   // The parameter for the slave address width
   parameter int TARGET_ADDRESS_WIDTH  = 7;
   
@@ -60,7 +57,6 @@ package i3c_globals_pkg;
   // Specifies the read or write request
   // READ - READ request 
   // WRITE - WRITE request
-  //
   typedef enum bit {
     WRITE = 1'b0,
     READ = 1'b1
@@ -84,7 +80,6 @@ package i3c_globals_pkg;
   // 
   // msb_first: specifies the shift direction
   // operation : read from or write to slave 
-  //
   typedef struct {
     dataTransferDirection_e dataTransferDirection;
     bit operation;
@@ -93,7 +88,9 @@ package i3c_globals_pkg;
     bit [DATA_WIDTH-1:0]defaultReadData;
   } i3c_transfer_cfg_s;
   
-  // TODO(mshariff): Comments 
+  // enum: i3c_fsm_state_e
+  //
+  // declared state
   typedef enum int{
     RESET_DEACTIVATED,
     RESET_ACTIVATED,

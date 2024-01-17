@@ -9,7 +9,6 @@ package i3c_target_seq_pkg;
    import i3c_globals_pkg::*;
   
    `include "i3c_target_base_seq.sv"
-   `include "i3c_target_8b_seq.sv"
    `include "i3c_target_writeOperationWith8bitsData_seq.sv"
    `include "i3c_target_readOperationWith8bitsData_seq.sv"
    `include "i3c_target_writeOperationWith16bitsData_seq.sv"

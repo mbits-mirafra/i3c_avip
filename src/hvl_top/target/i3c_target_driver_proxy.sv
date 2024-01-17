@@ -11,9 +11,6 @@ class i3c_target_driver_proxy extends uvm_driver#(i3c_target_tx);
   extern virtual function void build_phase(uvm_phase phase);
   extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual task run_phase(uvm_phase phase);
-  //extern virtual task drive_to_bfm(inout i3c_transfer_bits_s packet, 
-//                                   input i3c_transfer_cfg_s struct_cfg);
-  //extern virtual function void reset_detected(); 
 
 endclass : i3c_target_driver_proxy
 
@@ -53,11 +50,9 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
 
     i3c_target_drv_bfm_h.wait_for_idle_state();
 
-
     seq_item_port.get_next_item(req);
 
     `uvm_info(get_type_name(),$sformatf("Received packet from i3c target sequencer : , \n %s",req.sprint()),UVM_HIGH)
-
     `uvm_info("DEBUG_MSHA", $sformatf("CFG :: i3c_transfer_cfg_s = %s",i3c_target_agent_cfg_h.sprint()), UVM_MEDIUM); 
     i3c_target_cfg_converter::from_class(i3c_target_agent_cfg_h, struct_cfg); 
     `uvm_info("DEBUG_MSHA", $sformatf("CFG :: struct_cfg = %p",struct_cfg), UVM_NONE); 
@@ -70,9 +65,7 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
 
       seq_item_port.item_done();
   end
-  
 endtask : run_phase
-
 
 `endif
 

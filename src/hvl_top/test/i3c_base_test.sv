@@ -14,7 +14,6 @@ class i3c_base_test extends uvm_test;
   extern virtual function void setup_target_agent_cfg();
   extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual task run_phase(uvm_phase phase);
-
 endclass : i3c_base_test
 
 function i3c_base_test::new(string name = "i3c_base_test",uvm_component parent = null);
@@ -23,7 +22,6 @@ endfunction : new
 
 function void i3c_base_test::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  
   i3c_env_cfg_h = i3c_env_config::type_id::create("i3c_env_cfg_h");
   i3c_env_h = i3c_env::type_id::create("i3c_env_h",this);
   setup_env_cfg();
@@ -49,9 +47,8 @@ function void i3c_base_test::setup_env_cfg();
     #(i3c_controller_agent_config)::set(this,$sformatf("*i3c_controller_agent_h[%0d]*",i),
                                 "i3c_controller_agent_config",i3c_env_cfg_h.i3c_controller_agent_cfg_h[i]);
 
-  `uvm_info(get_type_name(),$sformatf("i3c_controller_agent_cfg = \n %0p",
+    `uvm_info(get_type_name(),$sformatf("i3c_controller_agent_cfg = \n %0p",
                                    i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].sprint()),UVM_NONE)
-
   end
   
   i3c_env_cfg_h.i3c_target_agent_cfg_h = new[i3c_env_cfg_h.no_of_targets];
@@ -61,8 +58,6 @@ function void i3c_base_test::setup_env_cfg();
                                                               ("i3c_target_agent_cfg_h[%0d]",i));
   end
   setup_target_agent_cfg();
-  
-  
   
   foreach(i3c_env_cfg_h.i3c_target_agent_cfg_h[i]) begin
     uvm_config_db #(i3c_target_agent_config)::set(this,$sformatf("*i3c_target_agent_h[%0d]*",i),
@@ -75,13 +70,11 @@ function void i3c_base_test::setup_env_cfg();
   uvm_config_db #(i3c_env_config)::set(this,"*","i3c_env_config",i3c_env_cfg_h);
   `uvm_info(get_type_name(),$sformatf("i3c_env_cfg = \n %0p", i3c_env_cfg_h.sprint()),UVM_NONE)
 
-  
- endfunction: setup_env_cfg
+endfunction: setup_env_cfg
 
 function void i3c_base_test::setup_controller_agent_cfg();
     
   foreach(i3c_env_cfg_h.i3c_controller_agent_cfg_h[i])begin
-
     i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].set_clockrate_divider_value(.primary_prescalar(1),
                                                                   .secondary_prescalar(0));
      // Configure the controller agent configuration
@@ -96,15 +89,11 @@ function void i3c_base_test::setup_controller_agent_cfg();
     //i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].target_address_array[1] = SLAVE1_ADDRESS;
     //i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].target_address_array[2] = SLAVE2_ADDRESS;
     //i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].target_address_array[3] = SLAVE3_ADDRESS;
-
   end
 endfunction: setup_controller_agent_cfg
 
 
 function void i3c_base_test::setup_target_agent_cfg();
-
-  foreach(i3c_env_cfg_h.i3c_controller_agent_cfg_h[i]) begin    
-  end
 
   // Create target agent(s) configurations
   // Setting the configuration for each target
@@ -113,7 +102,6 @@ function void i3c_base_test::setup_target_agent_cfg();
   i3c_env_cfg_h.i3c_target_agent_cfg_h[0].isActive    = uvm_active_passive_enum'(UVM_ACTIVE);
   i3c_env_cfg_h.i3c_target_agent_cfg_h[0].dataTransferDirection    = dataTransferDirection_e'(MSB_FIRST);
   i3c_env_cfg_h.i3c_target_agent_cfg_h[0].hasCoverage = hasCoverage_e'(TRUE);
-
 
 endfunction: setup_target_agent_cfg
 
@@ -124,12 +112,9 @@ endfunction : end_of_elaboration_phase
 task i3c_base_test::run_phase(uvm_phase phase);
 
   phase.raise_objection(this, "i3c_base_test");
-
   `uvm_info(get_type_name(), $sformatf("Inside I3C_BASE_TEST"), UVM_NONE);
   super.run_phase(phase);
-
   #100;
-  
   `uvm_info(get_type_name(), $sformatf("Done I3C_BASE_TEST"), UVM_NONE);
   phase.drop_objection(this);
 

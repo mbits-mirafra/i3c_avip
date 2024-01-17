@@ -10,15 +10,15 @@ class i3c_target_seq_item_converter extends uvm_object;
 
   extern static function void to_class(input i3c_transfer_bits_s input_conv_h,     
                                        output i3c_target_tx output_conv);
-  //extern function void from_class_msb_first(input i3c_target_tx input_conv_h, 
-  //                                           output i3c_transfer_bits_s output_conv);
   extern function void do_print(uvm_printer printer);
 
 endclass : i3c_target_seq_item_converter
 
+
 function i3c_target_seq_item_converter::new(string name = "i3c_target_seq_item_converter");
   super.new(name);
 endfunction : new
+
 
 function void i3c_target_seq_item_converter::from_class(input i3c_target_tx input_conv_h,
      output i3c_transfer_bits_s output_conv);
@@ -28,7 +28,6 @@ function void i3c_target_seq_item_converter::from_class(input i3c_target_tx inpu
   for(int i=0; i<input_conv_h.readData.size();i++)  begin
     output_conv.readData[i]= input_conv_h.readData[i]; 
   end
-
   for(int i=0; i<input_conv_h.writeDataStatus.size();i++) begin
     output_conv.writeDataStatus[i] = input_conv_h.writeDataStatus[i];    
   end
@@ -36,7 +35,7 @@ endfunction: from_class
 
 
 function void i3c_target_seq_item_converter::to_class(input i3c_transfer_bits_s input_conv_h,
-   output i3c_target_tx output_conv);
+                                                      output i3c_target_tx output_conv);
   output_conv = new();
 
   output_conv.targetAddress = input_conv_h.targetAddress;    

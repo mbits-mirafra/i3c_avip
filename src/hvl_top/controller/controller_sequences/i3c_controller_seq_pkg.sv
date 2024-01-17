@@ -23,6 +23,5 @@ package i3c_controller_seq_pkg;
   `include "i3c_controller_readOperationWithRandomDataTransferWidth_seq.sv"
   `include "i3c_controller_randomOperationWithRandomDataTransferWidth_seq.sv"
 
-  //  `include "i3c_controller_8b_write_read_seq.sv"
 endpackage : i3c_controller_seq_pkg
 `endif

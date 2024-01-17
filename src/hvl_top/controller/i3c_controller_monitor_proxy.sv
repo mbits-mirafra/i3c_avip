@@ -51,15 +51,12 @@ task i3c_controller_monitor_proxy::run_phase(uvm_phase phase);
 
   i3c_controller_tx tx_packet;
 
- // GopalS:  tx_packet = i3c_controller_tx::type_id::create("tx_packet");
-
   `uvm_info(get_type_name(),"Running the Monitor Proxy", UVM_HIGH)
 
   `uvm_info(get_type_name(), "Waiting for reset", UVM_HIGH);
   i3c_controller_mon_bfm_h.wait_for_reset();
   i3c_controller_mon_bfm_h.sample_idle_state();
  
-  
   forever begin
     i3c_transfer_bits_s struct_packet;
     i3c_transfer_cfg_s struct_cfg;

@@ -1,11 +1,6 @@
 `ifndef I3C_CONTROLLER_TX_INCLUDED_
 `define I3C_CONTROLLER_TX_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-// Class: i3c_controller_tx
-// 
-//--------------------------------------------------------------------------------------------
-
 class i3c_controller_tx extends uvm_sequence_item;
   `uvm_object_utils(i3c_controller_tx)
 

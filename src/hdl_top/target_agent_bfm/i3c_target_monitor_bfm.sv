@@ -236,7 +236,6 @@ interface i3c_target_monitor_bfm(input pclk,
     `uvm_info("TARGET_DRIVER_BFM", $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH);
   endtask: detectEdge_scl
   
-
 endinterface : i3c_target_monitor_bfm
 
 `endif
