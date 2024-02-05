@@ -14,6 +14,7 @@ interface i3c_target_driver_bfm(input pclk,
   
   i3c_fsm_state_e state;
   bit [7:0] rdata;
+  bit [1:0] scl_local = 2'b11;
 
   import uvm_pkg::*;
   `include "uvm_macros.svh" 
@@ -25,7 +26,7 @@ interface i3c_target_driver_bfm(input pclk,
   // Creating the memory
   //-------------------------------------------------------
   bit [DATA_WIDTH-1:0]targetFIFOMemory[$];
-
+ 
   string name = "I3C_TARGET_DRIVER_BFM";
   initial begin
     $display(name);
@@ -145,7 +146,7 @@ interface i3c_target_driver_bfm(input pclk,
 
     state = ADDRESS;
     for(int k=TARGET_ADDRESS_WIDTH-1;k>=0; k--) begin
-      detectEdge_scl(,POSEDGE);
+      detectEdge_scl(POSEDGE);
       local_addr[k] = sda_i;
       drive_sda(1);
     end
@@ -167,7 +168,7 @@ interface i3c_target_driver_bfm(input pclk,
     bit operation;
 
     state = WR_BIT;
-    detectEdge_scl(,POSEDGE);
+    detectEdge_scl(POSEDGE);
     operation = sda_i;
     drive_sda(1);
 
@@ -181,9 +182,9 @@ interface i3c_target_driver_bfm(input pclk,
 
   task driveAddressAck(input bit ack);
     state = ACK_NACK;
-    detectEdge_scl(,NEGEDGE);
+    detectEdge_scl(NEGEDGE);
     drive_sda(ack); 
-    detectEdge_scl(2'b10,POSEDGE);
+    detectEdge_scl(NEGEDGE);
     drive_sda(1);
   endtask: driveAddressAck
 
@@ -198,7 +199,7 @@ interface i3c_target_driver_bfm(input pclk,
       bit_no = (cfg_pkt.dataTransferDirection == MSB_FIRST) ? 
                 ((DATA_WIDTH - 1) - k) : k;
 
-      detectEdge_scl(,POSEDGE);
+      detectEdge_scl(POSEDGE);
       wdata[bit_no] = sda_i;
       pkt.no_of_i3c_bits_transfer++;
     end
@@ -214,36 +215,35 @@ interface i3c_target_driver_bfm(input pclk,
 
   task driveWdataAck(input bit ack);
     state = ACK_NACK;
-    detectEdge_scl(,NEGEDGE);
+    detectEdge_scl(NEGEDGE);
     drive_sda(ack); 
-    detectEdge_scl(2'b10,POSEDGE);
+    detectEdge_scl(NEGEDGE);
     drive_sda(1);
   endtask: driveWdataAck
 
 
   task drive_read_data(input bit[7:0] rdata,inout i3c_transfer_bits_s pkt,input int i, input dataTransferDirection_e dir);
-
     `uvm_info("DEBUG", $sformatf("Driving byte = %0b",rdata), UVM_NONE)
     state = READ_DATA;
     for(int k=0, bit_no = 0; k<DATA_WIDTH; k++) begin
       // Logic for MSB first or LSB first 
       bit_no = (dir == MSB_FIRST) ? 
                 ((DATA_WIDTH - 1) - k) : k;
-
-      detectEdge_scl(,NEGEDGE);
+      
       drive_sda(rdata[bit_no]);
       pkt.no_of_i3c_bits_transfer++;
+      detectEdge_scl(NEGEDGE);
     end
     pkt.readData[i] = rdata;
-    detectEdge_scl(2'b10,POSEDGE);
     drive_sda(1); 
   endtask :drive_read_data
 
 
   task sample_ack(output bit ack);
     state    = ACK_NACK;
-    detectEdge_scl(,POSEDGE);
+    detectEdge_scl(POSEDGE);
     ack     = sda_i;
+    detectEdge_scl(NEGEDGE);
   endtask :sample_ack
 
 
@@ -254,6 +254,7 @@ interface i3c_target_driver_bfm(input pclk,
 
     do begin
       @(negedge pclk);
+      #1;
       scl_local = {scl_local[0], scl_i};
       sda_local = {sda_local[0], sda_i};
     end while(!(sda_local == POSEDGE && scl_local == 2'b11) );
@@ -270,6 +271,7 @@ interface i3c_target_driver_bfm(input pclk,
     state = STOP;
     do begin
       @(negedge pclk);
+      #1;
       scl_local = {scl_local[0], scl_i};
       sda_local = {sda_local[0], sda_i};
     end while(!(sda_local == POSEDGE && scl_local == 2'b11) );
@@ -289,7 +291,7 @@ interface i3c_target_driver_bfm(input pclk,
   endtask: drive_scl
 
 
-  task detectEdge_scl(input bit [1:0] scl_local=2'b11, input edge_detect_e edgeSCL);
+  task detectEdge_scl(input edge_detect_e edgeSCL);
     // scl_local 2bit shift register to check the edge on scl
     edge_detect_e scl_edge_value;
 
