@@ -1,41 +1,23 @@
 `ifndef I3C_IF_INCLUDED_
 `define I3C_IF_INCLUDED_
 
-//--------------------------------------------------------------------------------------------
-// class     : I3C_intf
-// Description  : Declaring the signals for i3c interface
-//--------------------------------------------------------------------------------------------
 interface i3c_if(input pclk, input areset, inout SCL, inout SDA);
   
-  // MSHA: // Variable: scl
-  // MSHA: // i3c serial clock signal
-  // MSHA: inout SCL;
-
-  // MSHA: // Variable: sda
-  // MSHA: // i3c serial data signal
-  // MSHA: inout SDA;
-  
-  // Variable: scl_i
   // i3c serial input clocl signal
   logic scl_i;
 	
-  // Variable: scl_o
   // i3c serial output clock signal
   logic scl_o;
 	
-  // Variable: scl_oen
   // i3c serial output enable signal
   logic scl_oen;
   
-  // Variable: sda_i
   // i3c serial input data signal
   logic  sda_i;
   
-  // Variable: sda_o
   // i3c serial output data signal
 	logic sda_o;
   
-  // Variable: sda_oen
   // i3c serial output enable signal
 	logic sda_oen; 
   
@@ -47,11 +29,6 @@ interface i3c_if(input pclk, input areset, inout SCL, inout SDA);
   assign scl_i = SCL;
   assign sda_i = SDA;
 
-  //-------------------------------------------------------
-  // These are used for debugging in the waveforms
-  //-------------------------------------------------------
-  assign SCL_local = (scl_oen) ? scl_o : 1'bz;
-  assign SDA_local = (sda_oen) ? sda_o : 1'bz;
 
 endinterface : i3c_if
 

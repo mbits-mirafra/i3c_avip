@@ -1,32 +1,18 @@
 `ifndef HDL_TOP_INCLUDED_
 `define HDL_TOP_INCLUDED_
-//--------------------------------------------------------------------------------------------
-// module : hdl_top
-// Description : hdl top has a interface and master and slave agent bfm
-//--------------------------------------------------------------------------------------------
+
+// Description : hdl top has a interface and controller and target agent bfm
 module hdl_top;
- //-------------------------------------------------------
- // Clock Reset Initialization
- //-------------------------------------------------------
  bit clk;
  bit rst;
-
- // MSHA:tri1 SCL;
- // MSHA:tri1 SDA;
 
  wire I3C_SCL;
  wire I3C_SDA;
 
- //-------------------------------------------------------
- // Display statement for HDL_TOP
- //-------------------------------------------------------
  initial begin
- $display("HDL TOP");
+   $display("HDL TOP");
  end
 
- //-------------------------------------------------------
- // System Clock Generation
- //-------------------------------------------------------
  initial begin
    clk = 1'b0;
    forever #10 clk = ~clk;
@@ -50,16 +36,16 @@ module hdl_top;
    rst = 1'b1;
  end
 
- // Variable : intf_master
- // SPI Interface Instantiation
- i3c_if intf_master(.pclk(clk),
+ // Variable : intf_controller
+ // I3C Interface Instantiation
+ i3c_if intf_controller(.pclk(clk),
                     .areset(rst),
                     .SCL(I3C_SCL),
                     .SDA(I3C_SDA));
 
- // Variable : intf_slave
- // SPI Interface Instantiation
- i3c_if intf_slave(.pclk(clk),
+ // Variable : intf_target
+ // I3C Interface Instantiation
+ i3c_if intf_target(.pclk(clk),
                    .areset(rst),
                    .SCL(I3C_SCL),
                    .SDA(I3C_SDA));
@@ -89,8 +75,11 @@ module hdl_top;
  pullup p1 (I3C_SCL);
  pullup p2 (I3C_SDA);
 
- // Variable : master_agent_bfm_h
- // I2c Master BFM Agent Instantiation 
+ // Variable : controller_agent_bfm_h
+ // I3C controller BFM Agent Instantiation 
+ i3c_controller_agent_bfm i3c_controller_agent_bfm_h(intf_controller); 
+
+
 
 
  // TODO(mshariff): 
@@ -100,13 +89,12 @@ module hdl_top;
  // But no clock and reset
  //
  // The clock and reset should be given to the agent_bfm block
- i3c_master_agent_bfm i3c_master_agent_bfm_h(intf_master); 
- 
- // Variable : slave_agent_bfm_h
- // SPI Slave BFM Agent Instantiation
- i3c_slave_agent_bfm i3c_slave_agent_bfm_h(intf_slave);
 
- // To dump the waveforms
+ 
+ // Variable : target_agent_bfm_h
+ // I3C target BFM Agent Instantiation
+ i3c_target_agent_bfm i3c_target_agent_bfm_h(intf_target);
+
  initial begin
    $dumpfile("i3c_avip.vcd");
    $dumpvars();

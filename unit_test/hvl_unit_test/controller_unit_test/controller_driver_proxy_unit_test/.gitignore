@@ -1,0 +1,9 @@
+compile.log
+run.log
+tests.xml
+work
+.svunit.f
+.testrunner.sv
+.__testsuite.sv
+vish_stacktrace.vstf
+vsim_stacktrace.vstf

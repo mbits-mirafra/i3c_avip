@@ -1,0 +1,11 @@
+compile.log
+run.log
+tests.xml
+work
+.__controller_agent_config_unit_test_testsuite.sv
+.__controller_driver_proxy_unit_test_testsuite.sv
+.__controller_tx_unit_test_testsuite.sv
+.__controller_sequence_unit_test_controller_8b_read_seq_unit_test_testsuite.sv
+.__controller_sequence_unit_test_controller_8b_write_seq_unit_test_testsuite.sv
+.svunit.f
+.testrunner.sv
