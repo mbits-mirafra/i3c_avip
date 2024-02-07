@@ -29,6 +29,7 @@ interface i3c_if(input pclk, input areset, inout SCL, inout SDA);
   assign scl_i = SCL;
   assign sda_i = SDA;
 
+
 endinterface : i3c_if
 
 `endif

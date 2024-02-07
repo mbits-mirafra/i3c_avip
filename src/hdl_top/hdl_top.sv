@@ -78,6 +78,18 @@ module hdl_top;
  // Variable : controller_agent_bfm_h
  // I3C controller BFM Agent Instantiation 
  i3c_controller_agent_bfm i3c_controller_agent_bfm_h(intf_controller); 
+
+
+
+
+ // TODO(mshariff): 
+ // The interface should have SDA and SCL along with
+ // (sda_o, sda_oe and sda_i) 
+ // (scl_o, scl_oe and scl_i) 
+ // But no clock and reset
+ //
+ // The clock and reset should be given to the agent_bfm block
+
  
  // Variable : target_agent_bfm_h
  // I3C target BFM Agent Instantiation
