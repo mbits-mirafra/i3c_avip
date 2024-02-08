@@ -22,6 +22,7 @@ package i3c_target_seq_pkg;
    `include "i3c_target_writeOperationWithRandomDataTransferWidth_seq.sv"
    `include "i3c_target_readOperationWithRandomDataTransferWidth_seq.sv"
    `include "i3c_target_randomOperationWithRandomDataTransferWidth_seq.sv"
+   `include "i3c_target_writeOperationWithRandomWriteDataStatusNACK_seq.sv"
 
  endpackage : i3c_target_seq_pkg
 `endif
