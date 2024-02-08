@@ -114,5 +114,5 @@ https://www.infineon.com/dgdl/Infineon-Component_I2C_V3.0-Software%20Module%20Da
 # APIs for I2C sequences 
 https://www.robot-electronics.co.uk/i2c-tutorial
 
-# In the below link will tell about the I3C Project verification using the i2c dut
+# Follow the below link for verified/integrated to an RTL i2c to demonstrate backward compatibility to I2C device
 https://github.com/mbits-mirafra/pulpino__i2c_master__ip_verification
