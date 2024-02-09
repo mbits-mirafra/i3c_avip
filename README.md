@@ -93,6 +93,9 @@ imc -load cov_work/scope/test/ &
 ## Technical Document 
 https://docs.google.com/document/d/1UH9p83ARZM5K0v1wrA2lv7KpHbaGHC3u/
 
+## Demonstrated backward compatibility to I2C RTL Controller
+https://github.com/mbits-mirafra/pulpino__i2c_master__ip_verification
+
 ## Contact Mirafra Team  
 You can reach out to us over mbits@mirafra.com
 
@@ -113,6 +116,3 @@ https://www.infineon.com/dgdl/Infineon-Component_I2C_V3.0-Software%20Module%20Da
 
 # APIs for I2C sequences 
 https://www.robot-electronics.co.uk/i2c-tutorial
-
-# Follow the below link for verified/integrated to an RTL i2c to demonstrate backward compatibility to I2C device
-https://github.com/mbits-mirafra/pulpino__i2c_master__ip_verification
