@@ -52,19 +52,20 @@ function void i3c_controller_seq_item_converter::to_class(input i3c_transfer_bit
   output_conv.targetAddressStatus = acknowledge_e'(input_conv_h.targetAddressStatus);
   output_conv.operation = operationType_e'(input_conv_h.operation);
  
-  output_conv.writeData = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
+   output_conv.writeData = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
+   output_conv.writeDataStatus = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
 
   for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
   output_conv.writeData[i] = input_conv_h.writeData[i];
   `uvm_info("controller_seq_item_conv_class",
   $sformatf("To class writeData =  %0b",output_conv.writeData[i]),UVM_LOW)
   end
-
   for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
     output_conv.writeDataStatus[i] = acknowledge_e'(input_conv_h.writeDataStatus[i]);
   end
 
   output_conv.readData = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
+  output_conv.readDataStatus = new[input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH];
 
   for(int i=0; i<input_conv_h.no_of_i3c_bits_transfer/DATA_WIDTH; i++) begin
   output_conv.readData[i] = input_conv_h.readData[i];
