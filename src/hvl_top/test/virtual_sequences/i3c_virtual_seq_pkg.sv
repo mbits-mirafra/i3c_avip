@@ -34,6 +34,7 @@ package i3c_virtual_seq_pkg;
  `include "i3c_virtual_WriteFollowedByReadFollowdByWriteFollowedByReadOperationWith32bitsData_seq.sv"
  `include "i3c_virtual_MultipleWritesMultipleReadsOperationWith32bitsData_seq.sv"
  `include "i3c_virtual_writeOperationWithRandomWriteDataStatusNACK_seq.sv"
+ `include "i3c_virtual_WriteFollowedByReadOperationWithRepeatedStart_seq.sv"
 endpackage : i3c_virtual_seq_pkg
 
 `endif
