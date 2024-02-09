@@ -43,6 +43,7 @@ package i3c_test_pkg;
  `include "i3c_MultipleWritesMultipleReadsOperationWith32bitsData_test.sv"
  `include "i3c_writeOperationWithWrongTargetAddres_test.sv" 
  `include "i3c_writeOperationWithRandomWriteDataStatusNACK_test.sv"
+ `include "i3c_WriteFollowedByReadOperationWithRepeatedStart_test.sv"
 
 endpackage : i3c_test_pkg
 
