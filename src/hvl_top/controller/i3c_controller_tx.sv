@@ -83,6 +83,8 @@ class i3c_controller_tx extends uvm_sequence_item;
   extern function bit do_compare(uvm_object rhs, 
                             uvm_comparer comparer); 
   extern function void do_print(uvm_printer printer);
+  extern function bit[1:0] getWriteDataStatus();
+  extern function bit[1:0] getReadDataStatus();
 
 endclass : i3c_controller_tx
 
@@ -158,4 +160,49 @@ endfunction : do_print
 function void i3c_controller_tx::post_randomize();
   readDataStatus[readDataStatus.size()-1] = NACK;
 endfunction: post_randomize
+
+
+function bit[1:0] i3c_controller_tx::getWriteDataStatus();
+  int counterAckReceived;
+  int counterNAckReceived;
+  bit ack_value;
+  bit nack_value;
+
+  foreach(writeDataStatus[i]) begin
+    if(writeDataStatus[i] == ACK) begin
+      counterAckReceived++;
+    end
+    if(writeDataStatus[i] == NACK) begin
+      counterNAckReceived++;
+    end
+  end
+
+  ack_value = counterAckReceived > 0 ? ACK : NACK;
+  nack_value = counterNAckReceived > 0 ? NACK : ACK;
+  
+  return ({ack_value, nack_value});
+  
+endfunction: getWriteDataStatus
+
+function bit[1:0] i3c_controller_tx::getReadDataStatus();
+  int counterAckReceived;
+  int counterNAckReceived;
+  bit ack_value;
+  bit nack_value;
+
+  foreach(readDataStatus[i]) begin
+    if(readDataStatus[i] == ACK) begin
+      counterAckReceived++;
+    end
+    if(readDataStatus[i] == NACK) begin
+      counterNAckReceived++;
+    end
+  end
+
+  ack_value = counterAckReceived > 0 ? ACK : NACK;
+  nack_value = counterNAckReceived > 0 ? NACK : ACK;
+  
+  return ({ack_value, nack_value});
+  
+endfunction: getReadDataStatus 
 `endif

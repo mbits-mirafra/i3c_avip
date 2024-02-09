@@ -45,16 +45,18 @@ covergroup i3c_controller_covergroup with function sample(i3c_controller_tx pack
    bins READDATA_WIDTH_6 = {[72:MAXIMUM_BITS]};
  }
 
- WRITEDATA_STATUS_CP : coverpoint packet.writeDataStatus.size()==1 {
+ WRITEDATA_STATUS_CP : coverpoint packet.getWriteDataStatus() {
   option.comment = "writeData status";
-  bins WRITEDATA_STATUS_ACK= {0};
-  bins WRITEDATA_STATUS_NACK= {1};
+  bins WRITEDATA_STATUS_ALL_ACK = {2'b00};
+  bins WRITEDATA_STATUS_ALL_NACK = {2'b11};
+  bins WRITEDATA_STATUS_MIX = {2'b01,2'b10};
 }
 
-  READDATA_STATUS_CP : coverpoint packet.readDataStatus.size()==1 {
+  READDATA_STATUS_CP : coverpoint packet.getReadDataStatus() {
   option.comment = "readData status";
-  bins READDATA_STATUS_ACK= {0};
-  bins READDATA_STATUS_NACK= {1};
+  bins READDATA_STATUS_ALL_ACK = {2'b00};
+  bins READDATA_STATUS_ALL_NACK = {2'b11};
+  bins READDATA_STATUS_MIX = {2'b01,2'b10};
 }
 
 OPERATION_CP_X_WRITEDATA_CP:cross OPERATION_CP,WRITEDATA_CP;
