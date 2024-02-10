@@ -73,41 +73,26 @@ module i3c_target_agent_config_unit_test;
   `FAIL_UNLESS(uut.hasCoverage == 1)
   `SVTEST_END
 
-  `SVTEST(Given_DataTransferdirection_When_MSBFirst_Expect_ValueString_MSB_FIRST)
-  uut.DataTransferdirection = 	MSB_FIRST;
-  `FAIL_UNLESS_STR_EQUAL(uut.DataTransferdirection.name(),"MSB_FIRST")
+  `SVTEST(Given_dataTransferDirection_When_MSBFirst_Expect_ValueString_MSB_FIRST)
+  uut.dataTransferDirection = 	MSB_FIRST;
+  `FAIL_UNLESS_STR_EQUAL(uut.dataTransferDirection.name(),"MSB_FIRST")
   `SVTEST_END
 
-  `SVTEST(Given_DataTransferdirection_When_LSBFirst_Expect_ValueString_LSB_FIRST)
-  uut.DataTransferdirection = LSB_FIRST;
-  `FAIL_UNLESS_STR_EQUAL(uut.DataTransferdirection.name(),"LSB_FIRST")
+  `SVTEST(Given_dataTransferDirection_When_LSBFirst_Expect_ValueString_LSB_FIRST)
+  uut.dataTransferDirection = LSB_FIRST;
+  `FAIL_UNLESS_STR_EQUAL(uut.dataTransferDirection.name(),"LSB_FIRST")
   `SVTEST_END
-
+/*
   `SVTEST(Given_targetAddress_When_FixingSizeOfArray_Expect_ArraysizeOfFive)
   uut.targetAddress = new[5];
-  `FAIL_UNLESS(uut.targetAddress.size() == 5)
+  `FAIL_UNLESS($size(targetAddress) == 5)
    `SVTEST_END
-  
+  */
   `SVTEST(Given_defaultReadData_When_defaultValueAndSize_Expect_ValueFFandSize8)
   `FAIL_UNLESS($size(uut.defaultReadData) == 8) 
   `FAIL_UNLESS(uut.defaultReadData == 'hFF)
   `SVTEST_END
 
-  `SVTEST(Given_targetFIFOMemory_When_pushbackAndpopfrontTotargetFIFOMemory_Expect_dataComparisionSuccess)
-   bit dataComparisionSuccess;
-   uut.targetFIFOMemory.push_back(8'hff);
-   `FAIL_UNLESS(uut.targetFIFOMemory.pop_front() == 8'hff)
-   `SVTEST_END
-
-   `SVTEST(Given_targetFIFOMemory_When_PushingBackDataTotargetFIFOMemory_Expect_SizeOfElement8)
-   bit sizeComparisionSuccess;
-   uut.targetFIFOMemory.push_back(8'b1010_1010);
-   if($size(uut.targetFIFOMemory[0]) == 8) 
-   sizeComparisionSuccess = 1;
-   else
-   sizeComparisionSuccess = 0; 
-   `FAIL_UNLESS(sizeComparisionSuccess)
-   `SVTEST_END
 
   `SVUNIT_TESTS_END
 

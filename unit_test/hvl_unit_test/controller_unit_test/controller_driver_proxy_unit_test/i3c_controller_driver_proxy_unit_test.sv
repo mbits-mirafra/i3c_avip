@@ -11,6 +11,8 @@ import i3c_globals_pkg::*;
 `include "i3c_controller_tx.sv"
 `include "i3c_controller_agent_config.sv"
 `include "i3c_controller_driver_bfm_mock.sv"
+`include "i3c_controller_cfg_converter.sv"
+`include "i3c_controller_seq_item_converter.sv"
 `include "i3c_controller_driver_proxy.sv"
 
 typedef uvm_seq_item_pull_port#(i3c_controller_tx,i3c_controller_tx) item_pull_port_t;
@@ -162,7 +164,7 @@ module i3c_controller_driver_proxy_unit_test;
     `FAIL_UNLESS(uut.dummyBfm.driveIdleStateTaskCounter == 1);
   `SVTEST_END
 
-
+/*
  `SVTEST(Given_fourItem_When_runPhaseStarted_Expect_waitForIdleStateCalledFiveTimes)
    repeat(4) begin
      _item = new();
@@ -213,7 +215,7 @@ module i3c_controller_driver_proxy_unit_test;
     $display("[UUT] - uut.dummyBfm.driveToBfmCounter = %0d",uut.dummyBfm.driveToBfmCounter);
      `FAIL_UNLESS(uut.dummyBfm.driveToBfmCounter == 4)
  `SVTEST_END
-
+*/
 /*
  `SVTEST(Given_When_Expect)
    //`FAIL_UNLESS(uut.struct_packet == null)

@@ -75,16 +75,16 @@ module i3c_controller_agent_config_unit_test;
     `FAIL_UNLESS(uut.hasCoverage == 1)
   `SVTEST_END
 
-  `SVTEST(Given_DataTransferdirectionInlineConstraint_When_MSBFirst_Expect_ValueString_MSB_FIRST)
+  `SVTEST(Given_dataTransferDirectionInlineConstraint_When_MSBFirst_Expect_ValueString_MSB_FIRST)
     void'(uut.randomize() with {
-            uut.DataTransferdirection ==	MSB_FIRST;});
-    `FAIL_UNLESS_STR_EQUAL(uut.DataTransferdirection.name(),"MSB_FIRST")
+            uut.dataTransferDirection ==	MSB_FIRST;});
+    `FAIL_UNLESS_STR_EQUAL(uut.dataTransferDirection.name(),"MSB_FIRST")
   `SVTEST_END
 
-  `SVTEST(Given_DataTransferdirectionInlineConstraint_When_LSBFirst_Expect_ValueString_LSB_FIRST)
+  `SVTEST(Given_dataTransferDirectionInlineConstraint_When_LSBFirst_Expect_ValueString_LSB_FIRST)
     void'(uut.randomize() with {
-            uut.DataTransferdirection ==	LSB_FIRST;});
-    `FAIL_UNLESS_STR_EQUAL(uut.DataTransferdirection.name(),"LSB_FIRST")
+            uut.dataTransferDirection ==	LSB_FIRST;});
+    `FAIL_UNLESS_STR_EQUAL(uut.dataTransferDirection.name(),"LSB_FIRST")
   `SVTEST_END
 
   `SVTEST(Given_targetAddress_When_FixingSizeOfArray_Expect_ArraysizeOfFiveAndSizeOfElementSeven)

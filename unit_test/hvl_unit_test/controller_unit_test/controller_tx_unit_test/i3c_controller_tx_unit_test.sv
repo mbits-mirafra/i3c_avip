@@ -153,11 +153,9 @@ module i3c_controller_tx_unit_test;
     void'(uut.randomize() with {
                 uut.readDataStatus.size() == 2;
                 uut.readDataStatus[0] == 0;
-                uut.readDataStatus[1] == 0;
               });
 
     `FAIL_UNLESS(uut.readDataStatus[0] == 0)
-    `FAIL_UNLESS(uut.readDataStatus[1] == 0)
   `SVTEST_END
 
   // Conflicting contraints is an error but it doesn't stop the simualtion

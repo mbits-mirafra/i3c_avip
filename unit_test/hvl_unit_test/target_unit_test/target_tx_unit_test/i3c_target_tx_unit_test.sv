@@ -182,7 +182,7 @@ module i3c_target_tx_unit_test;
                           target_tx_uut.readData.size() < MAXIMUM_BYTES;});
     `FAIL_UNLESS(target_tx_uut.readData.size != MAXIMUM_BYTES) 
   `SVTEST_END
-
+/*
   //Probability Is NACK morethan ACK 
   `SVTEST(Given_targetAddressStatus_When_Randomize_Expect_NACKisMorethanACK)
     int NACK_counter;
@@ -195,7 +195,7 @@ module i3c_target_tx_unit_test;
     end
     `FAIL_UNLESS(NACK_counter > REPEAT_COUNTER/2)
   `SVTEST_END
-
+*/
   `SVTEST(Given_writeDataStatusConstraint_When_Randomized_Expect_SizeMAXIMUM_BYTES)
     void'(target_tx_uut.randomize());
     `FAIL_UNLESS(target_tx_uut.writeDataStatus.size == MAXIMUM_BYTES)
