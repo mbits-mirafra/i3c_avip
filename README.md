@@ -2,26 +2,27 @@
 The idea of using Accelerated VIP is to push the synthesizable part of the testbench into the separate top module along with the interface and it is named as HDL TOP and the unsynthesizable part is pushed into the HVL TOP. This setup provides the ability to run the longer tests quickly. This particular testbench can be used for the simulation as well as the emulation based on mode of operation.
 
 
-# Key Features of RTL 
+## Key Features 
 1. It supports a two-wire serial interface up to 12.5 MHz.
 2. Supports all MIPI I3C device types. 
-3. Supports all topologies
+3. Supports single controller-target
 4. Legacy I2C Device coexistence on the same bus.
-5. Supports Dynamic Address Assignment(DAA) including static addressing for legacy I2C devices. 
-6. 7-bit configurable Target Address
-7. Supports I3C address arbitration.
-8.Supports Single Data Rate(SDR) messaging
+5. 7-bit configurable Target Address
+6. Support multiple write-read operation
+7. Support a maximum of 128 Byte of data transfer
+8. Support data transfer MSB first and LSB first
+9. backward compatibility with I2C
 
    
-# Testbench Architecture Diagram
+## Testbench Architecture Diagram
 ![image](https://github.com/mbits-mirafra/i3c_avip/assets/106074838/32227a76-6131-42aa-8a01-6db2b224aba1)
 
 
-# Developers, Welcome
+## Developers, Welcome
 We believe in growing together and if you'd like to contribute, please do check out the contributing guide below:  
 https://github.com/mbits-mirafra/i3c_avip/blob/production/contribution_guidelines.md
 
-# Installation - Get the VIP collateral from the GitHub repository
+## Installation - Get the VIP collateral from the GitHub repository
 
 ```
 # Checking for git software, open the terminal type the command
@@ -31,7 +32,7 @@ git version
 git clone git@github.com/mbits-mirafra/i3c_avip.git
 ```
 
-# Running the test
+## Running the test
 
 ### Using Mentor's Questasim simulator 
 
@@ -67,6 +68,10 @@ ex: make regression testlist_name=i3c_standard_mode_regression.list
  firefox merged_cov_html_report/index.html &
 
 ```
+### Latest regression coverage report link
+
+https://github.com/mbits-mirafra/i3c_avip/issues/33#issuecomment-1933963627
+
 
 ### Using Cadence's Xcelium simulator 
 
