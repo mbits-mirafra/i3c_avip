@@ -65,7 +65,7 @@ task i3c_scoreboard::run_phase(uvm_phase phase);
       `uvm_info("SB_TARGETADDRESS_MATCHED", $sformatf("Controller targetAddress = %0x and Target targetAddress = %0x",i3c_controller_tx_h.targetAddress, i3c_target_tx_h.targetAddress),UVM_HIGH);
     end
     else begin
-      `uvm_error(get_type_name(),$sformatf("i3c_targetAddress from controller and target is equal"));
+      `uvm_error(get_type_name(),$sformatf("i3c_targetAddress from controller and target is Not equal"));
       `uvm_info("SB_TARGETADDRESS_MISMATCHED", $sformatf("Controller targetAddress = %0x and Target targetAddress = %0x",i3c_controller_tx_h.targetAddress, i3c_target_tx_h.targetAddress),UVM_HIGH);
     end
    
@@ -86,7 +86,7 @@ task i3c_scoreboard::run_phase(uvm_phase phase);
           writeDataComparisonSuccessCount++;
         end
         else begin
-          `uvm_error(get_type_name(),$sformatf("i3c_writeData from controller and target is equal"));
+          `uvm_error(get_type_name(),$sformatf("i3c_writeData from controller and target is Not equal"));
           `uvm_info("SB_WRITEDATA_MISMATCHED", $sformatf("Controller writeData = %0x and Target writeData = %0x",i3c_controller_tx_h.writeData[i], i3c_target_tx_h.writeData[i]), UVM_HIGH); 
           writeDataComparisonFailedCount++;
         end
@@ -100,7 +100,7 @@ task i3c_scoreboard::run_phase(uvm_phase phase);
           readDataComparisonSuccessCount++; 
         end
         else begin
-          `uvm_error(get_type_name(),$sformatf("i3c_readData from controller and target is equal"));
+          `uvm_error(get_type_name(),$sformatf("i3c_readData from controller and target is Not equal"));
           `uvm_info("SB_READDATA_MISMATCHED", $sformatf("Controller readData = %0x and Target readData = %0x",i3c_controller_tx_h.readData[i], i3c_target_tx_h.readData[i]), UVM_HIGH); 
           readDataComparisonFailedCount++;
         end
@@ -130,6 +130,8 @@ function void i3c_scoreboard::check_phase(uvm_phase phase);
       `uvm_info (get_type_name(), $sformatf ("controller And target writeData comparisions are equal = %0d",writeDataComparisonSuccessCount),UVM_HIGH);
     end
     else begin
+      `uvm_info (get_type_name(), $sformatf ("writeDataComparisonSuccessCount : %0d",
+                                              writeDataComparisonSuccessCount),UVM_HIGH);
       `uvm_info (get_type_name(), $sformatf ("writeDataComparisonFailedCount : %0d",
                                               writeDataComparisonFailedCount),UVM_HIGH);
       `uvm_error("SC_CheckPhase", $sformatf ("controller And target writeData comparisions Not equal"));

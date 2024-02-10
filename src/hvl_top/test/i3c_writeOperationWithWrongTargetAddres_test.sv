@@ -20,6 +20,9 @@ endfunction : new
 
 function void i3c_writeOperationWithWrongTargetAddres_test::build_phase(uvm_phase phase);
   super.build_phase(phase);
+  foreach(i3c_env_cfg_h.i3c_controller_agent_cfg_h[i])begin
+  set_inst_override_by_type("i3c_env_h.i3c_scoreboard_h", i3c_scoreboard::get_type(), i3c_scoreboard_expactedTargetAddressNACK::get_type());
+ end
 endfunction : build_phase
 
 function void i3c_writeOperationWithWrongTargetAddres_test::setup_controller_agent_cfg();

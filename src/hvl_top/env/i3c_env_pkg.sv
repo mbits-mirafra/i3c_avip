@@ -13,6 +13,7 @@ package i3c_env_pkg;
   `include "i3c_env_config.sv"
   `include "i3c_virtual_sequencer.sv"
   `include "i3c_scoreboard.sv" 
+  `include "i3c_scoreboard_expactedTargetAddressNACK.sv"
   `include "i3c_env.sv"
 
 endpackage : i3c_env_pkg
