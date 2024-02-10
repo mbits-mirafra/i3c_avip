@@ -94,7 +94,12 @@ imc -load cov_work/scope/test/ &
 https://docs.google.com/document/d/1UH9p83ARZM5K0v1wrA2lv7KpHbaGHC3u/
 
 ## Demonstrated backward compatibility to I2C RTL Controller
+
+![image](https://github.com/mbits-mirafra/pulpino__i2c_master__ip_verification/assets/106074838/2fc6d151-9bd1-4d8c-b766-bafb54014bb1)
+
+Follow the below link for the backward compatibility to I2C RTL Controller  
 https://github.com/mbits-mirafra/pulpino__i2c_master__ip_verification
+
 
 ## Contact Mirafra Team  
 You can reach out to us over mbits@mirafra.com
