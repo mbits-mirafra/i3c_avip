@@ -1,0 +1,198 @@
+# First target will be executed incase the user doesn't mention
+# the target to execute
+# In this case, usage will be executed
+# Usage
+usage:
+	@echo "";
+	@echo "-----------------------------------------------------------------";
+	@echo "------------------------- Usage ---------------------------------";
+	@echo "";
+	@echo "To compile use:"
+	@echo "make compile";
+	@echo "";
+	@echo "To simulate individual test:"
+	@echo "make simulate test=<test_name> uvm_verbosity=<VERBOSITY_LEVEL>";
+	@echo "";
+	@echo "Example:":
+	@echo "make simulate test=base_test uvm_verbosity=UVM_HIGH";
+	@echo "";
+	@echo "To provide seed number (default is random):"
+	@echo "make simulate test=<test_name> uvm_verbosity=<VERBOSITY_LEVEL> seed=<value>";
+	@echo "";
+	@echo "To run regression:"
+	@echo "make regression testlist_name=<regression_testlist_name.list>";
+	@echo "";
+	@echo "Example:":
+	@echo "make regression testlist_name=i3c_standard_mode_regression.list";
+	@echo "";
+	@echo "-----------------------------------------------------------------";
+	@echo "-----------------------------------------------------------------";
+	@echo "";
+
+all:	make clean_compile; 
+	    make compile; 
+			make simulate;
+ 
+#VCS_CMD_RAND    = xrun
+#FSDB_DUMP = ./simv +fsdbfile+waves.fsdb
+#FSDB_DUMP1 = +vcs+vcdpluson
+ 
+clean_compile: 
+	rm -rf work/*_compile.log xcelium.d
+	rm -rf merged_coverage.ucdb merged_cov_html_report
+ 
+clean_simulate: 
+	rm -rf *_test *
+ 
+ 
+compile:
+	make clean_compile; 
+	make clean_simulate;
+	xrun -c \
+	-elaborate \
+	-access +rwc \
+	-64 \
+	-sv \
+	-uvm \
+	+access+rw \
+	-f ../i3c_compile.f \
+	-l i3c_compile.log \
+	-top work.hvl_top ../../src/hvl_top/hvl_top.sv \
+	-top work.hdl_top ../../src/hdl_top/hdl_top.sv \
+	-sva
+
+	# -s means silent mode
+	#  The command executed along with the output will be displayed on the terminal
+	#  To get only the ouput use 'silent' mode
+	# make compile_war_err -s
+	# or use .SILENT
+	make compile_war_err
+
+ 
+# setting the comamnd for the commmand line argumnet for the test
+ifndef test
+override test = i3c_base_test
+endif
+ 
+# Setting the default seed value to random 
+ifndef seed
+override seed = random 
+endif
+
+# Setting the default uvm_verbosity to UVM_MEDIUM
+ifndef uvm_verbosity
+override uvm_verbosity = UVM_MEDIUM
+endif
+
+ifndef test_folder
+override test_folder := $(test)
+endif
+ 
+ 
+simulate:
+	mkdir $(test_folder)
+ 
+	xrun -R \
+	-64 \
+	-uvm \
+	-f ../i3c_compile.f \
+	-sv_seed $(seed) \
+	+UVM_TESTNAME=$(test) \
+	+UVM_VERBOSITY=$(uvm_verbosity) \
+	-l $(test_folder)/$(test).log \
+	+plusarg_ignore
+#	-l transcript_vcs.log
+ 
+	# For checking and reporting simulation errors
+	make simulate_war_err
+
+	# For coverage report in HTML format 
+	#vcover report -html $(test_folder)/$(test)_coverage.ucdb -htmldir $(test_folder)/html_cov_report -details
+
+ 
+clean_all:
+	make clean_compile;
+	make clean_simulate;
+ 
+## For Regression and coverage merge
+##
+regression:
+	#Run compilation
+	make compile
+	#Run simualtion - regression 
+	python regression_handling.py $(testlist_name)
+	#	# Get the tests from regression list
+	#	grep "_test" ../../src/hvl_top/testlists/i3c_standard_mode_regression.list | grep -v "\#" > reg_list
+	#	make simulate test=value #Get the name from regression list
+	#	Merge coverage
+	#make merge_cov_report
+ # make clean
+	
+## For merge to happen, the coverage names for each test must be different
+#merge_cov_report:
+#	rm -rf merged_coverage.ucdb merged_cov_html_report
+#	# Merging all the coverage
+#	vcover merge merged_coverage.ucdb -64 */*.ucdb  
+#	#vcover merge mem_cover mem_cov1 mem_cov2 mem_cov3 mem_cov4 mem_cov5 mem_cov6 mem_cov7 mem_cov8
+#	vcover report -html merged_coverage.ucdb -htmldir ./merged_cov_html_report -details
+#
+#	echo "";
+#	echo "-----------------------------------------------------------------";
+#	echo "Coverage report: firefox merged_cov_html_report/index.html &"
+#	echo "-----------------------------------------------------------------";
+#	echo "";
+
+ 
+compile_war_err:
+	echo "";
+	echo "-----------------------------------------------------------------";
+	echo "------------------- Compilation Report --------------------------";
+	echo "";
+	grep "^** " i3c_compile.log;
+	echo "";
+	grep "^Error" i3c_compile.log;
+	echo "";
+	echo "Log file path: i3c_compile.log"
+	echo "";
+	echo "-----------------------------------------------------------------";
+	echo "-----------------------------------------------------------------";
+	echo "";
+
+simulate_war_err:
+	echo "";
+	echo "-----------------------------------------------------------------";
+	echo "-------------------- Simulation Report --------------------------";
+	echo "";
+	echo "Simulator Errors";
+	grep "Error" $(test_folder)/$(test).log;
+	echo "";
+	echo "UVM Fatal";
+	grep "UVM_FATAL" $(test_folder)/$(test).log;
+	echo "";
+	echo "UVM Errors";
+	grep "UVM_ERROR" $(test_folder)/$(test).log;
+	echo "";
+	echo "UVM Warnings";
+	grep "UVM_WARNING" $(test_folder)/$(test).log;
+	echo "";
+	echo "Testname: $(test)"
+	echo "";
+	echo "Log file path: $(test_folder)/$(test).log"
+	echo "";
+	#echo "Waveform: vsim -view $(test_folder)/waveform.wlf &"
+	#echo "";
+	#echo "Coverage report: firefox $(test_folder)/html_cov_report/index.html &"
+	#echo "";
+	echo "-----------------------------------------------------------------";
+	echo "-----------------------------------------------------------------";
+	echo "";
+
+##help:
+##	@echo "MAKE OPTIONS   : "
+##	@echo "all            : make clean_compile; make compile; make simulate;"
+##	@echo "clean_compile  : Clean all files related to compile"
+##	@echo "clean_simulate : CLEAN TEST RELATED FILES"
+##	@echo "compile        : IT COMPILES ->> DESIGN, TB"
+##	@echo "simulate       : IT COMPILES ->> TB & Simulate the TEST"
+##	@echo "clean_all      : IT CLEAN FILES OF COMPILE AND SIMULATE"
+##	@echo "print          : IT PRINT ALL THE SWITCH FOR MAKEFILE"
