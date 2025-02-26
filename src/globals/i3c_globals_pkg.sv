@@ -62,6 +62,12 @@ package i3c_globals_pkg;
     READ = 1'b1
   } operationType_e;
   
+  typedef enum bit[1:0] {
+    ONLY_WRITE  = 2'b00,
+    ONLY_READ   = 2'b01,
+    WRITE_READ  = 2'b10
+  } writeReadMode_e;
+
   // struct: i3c_bits_transfer_s
   typedef struct {
     bit [TARGET_ADDRESS_WIDTH-1:0]targetAddress;

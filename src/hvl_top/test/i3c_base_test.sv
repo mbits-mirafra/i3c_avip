@@ -34,6 +34,7 @@ function void i3c_base_test::setup_env_cfg();
   i3c_env_cfg_h.no_of_targets = NO_OF_TARGETS;
   i3c_env_cfg_h.has_scoreboard = 1;
   i3c_env_cfg_h.has_virtual_sequencer = 1;
+  i3c_env_cfg_h.writeReadMode_h = WRITE_READ;
 
   i3c_env_cfg_h.i3c_controller_agent_cfg_h = new[i3c_env_cfg_h.no_of_controllers];
   foreach (i3c_env_cfg_h.i3c_controller_agent_cfg_h[i])begin
@@ -107,6 +108,7 @@ endfunction: setup_target_agent_cfg
 
 function void i3c_base_test::end_of_elaboration_phase(uvm_phase phase);
   uvm_top.print_topology();
+  uvm_test_done.set_drain_time(this,3000ns);
 endfunction : end_of_elaboration_phase
 
 task i3c_base_test::run_phase(uvm_phase phase);
@@ -114,7 +116,7 @@ task i3c_base_test::run_phase(uvm_phase phase);
   phase.raise_objection(this, "i3c_base_test");
   `uvm_info(get_type_name(), $sformatf("Inside I3C_BASE_TEST"), UVM_NONE);
   super.run_phase(phase);
-  #100;
+  #10;
   `uvm_info(get_type_name(), $sformatf("Done I3C_BASE_TEST"), UVM_NONE);
   phase.drop_objection(this);
 
