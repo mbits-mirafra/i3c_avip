@@ -35,6 +35,9 @@ endfunction : new
 
 function void i3c_scoreboard::build_phase(uvm_phase phase);
   super.build_phase(phase);
+  if(!uvm_config_db #(i3c_env_config)::get(this,"","i3c_env_config",i3c_env_cfg_h)) begin
+    `uvm_fatal("FATAL_ENV_CONFIG", $sformatf("Scoreboard :: Couldn't get the env_config from config_db"))
+  end
 endfunction : build_phase
 
 function void i3c_scoreboard::connect_phase(uvm_phase phase);
@@ -125,7 +128,7 @@ function void i3c_scoreboard::check_phase(uvm_phase phase);
     `uvm_error ("SC_CheckPhase", $sformatf ("controller and target doesnot have same no.of transactions"));
   end 
 
-  //if(i3c_env_cfg_h.writeReadMode_h == WRITE_READ) begin
+  if(i3c_env_cfg_h.writeReadMode_h == WRITE_READ) begin
     if((writeDataComparisonSuccessCount != 0) && (writeDataComparisonFailedCount == 0)) begin
       `uvm_info (get_type_name(), $sformatf ("controller And target writeData comparisions are equal = %0d",writeDataComparisonSuccessCount),UVM_HIGH);
     end
@@ -147,7 +150,7 @@ function void i3c_scoreboard::check_phase(uvm_phase phase);
                                              readDataComparisonFailedCount),UVM_HIGH);
       `uvm_error("SC_CheckPhase", $sformatf ("controller And target readData comparisions Not equal"));
     end
-  /*end else if(i3c_env_cfg_h.writeReadMode_h == WRITE) begin
+  end else if(i3c_env_cfg_h.writeReadMode_h == WRITE) begin
     if((writeDataComparisonSuccessCount != 0) && (writeDataComparisonFailedCount == 0)) begin
       `uvm_info (get_type_name(), $sformatf ("controller And target writeData comparisions are equal = %0d",writeDataComparisonSuccessCount),UVM_HIGH);
     end
@@ -170,7 +173,7 @@ function void i3c_scoreboard::check_phase(uvm_phase phase);
       `uvm_error("SC_CheckPhase", $sformatf ("controller And target readData comparisions Not equal"));
     end
   end
-*/
+
   if(controller_analysis_fifo.size() == 0)begin
     `uvm_info ("SC_CheckPhase", $sformatf ("I3c Controller analysis FIFO is empty"),UVM_HIGH);
   end

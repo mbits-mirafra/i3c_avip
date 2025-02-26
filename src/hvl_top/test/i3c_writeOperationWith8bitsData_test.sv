@@ -24,7 +24,7 @@ endfunction : build_phase
 
 function void i3c_writeOperationWith8bitsData_test::setup_env_cfg();
   super.setup_env_cfg();
-  i3c_env_cfg_h.writeReadMode_h = WRITE;
+  i3c_env_cfg_h.writeReadMode_h = ONLY_WRITE;
 endfunction: setup_env_cfg
 
 task i3c_writeOperationWith8bitsData_test::run_phase(uvm_phase phase);

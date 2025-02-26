@@ -78,16 +78,15 @@ clean_compile:
 clean_simulate: 
 	rm -rf *_test
  
- 
 compile:
 	make clean_compile; 
 	make clean_simulate;
 	xrun -c \
-	-elaborate \
-	-access +rwc \
 	-64 \
 	-sv \
 	-uvm \
+	-elaborate \
+	-access +rwc \
 	+access+rw \
 	-f ../i3c_compile.f \
 	-l i3c_compile.log \
