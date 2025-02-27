@@ -17,7 +17,7 @@ function i3c_readOperationWithMSBDataDirection_test::new(string name = "i3c_read
   super.new(name, parent);
 endfunction : new
 
-function void i3c_writeOperationWith8bitsData_test::setup_env_cfg();
+function void i3c_readOperationWithMSBDataDirection_test::setup_env_cfg();
   super.setup_env_cfg();
   i3c_env_cfg_h.writeReadMode_h = ONLY_READ;
 endfunction: setup_env_cfg
