@@ -7,6 +7,7 @@ class i3c_readOperationWithMSBDataDirection_test extends i3c_readOperationWithRa
   dataTransferDirection_e dataDirection = MSB_FIRST;
 
   extern function new(string name = "i3c_readOperationWithMSBDataDirection_test", uvm_component parent = null);
+  extern virtual function void setup_env_cfg();
   extern virtual function void setup_controller_agent_cfg();
   extern virtual function void setup_target_agent_cfg();
 endclass : i3c_readOperationWithMSBDataDirection_test
@@ -15,6 +16,11 @@ function i3c_readOperationWithMSBDataDirection_test::new(string name = "i3c_read
                                  uvm_component parent = null);
   super.new(name, parent);
 endfunction : new
+
+function void i3c_writeOperationWith8bitsData_test::setup_env_cfg();
+  super.setup_env_cfg();
+  i3c_env_cfg_h.writeReadMode_h = ONLY_READ;
+endfunction: setup_env_cfg
 
 function void i3c_readOperationWithMSBDataDirection_test::setup_controller_agent_cfg();
   super.setup_controller_agent_cfg();

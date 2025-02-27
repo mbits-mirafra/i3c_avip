@@ -150,7 +150,7 @@ function void i3c_scoreboard::check_phase(uvm_phase phase);
                                              readDataComparisonFailedCount),UVM_HIGH);
       `uvm_error("SC_CheckPhase", $sformatf ("controller And target readData comparisions Not equal"));
     end
-  end else if(i3c_env_cfg_h.writeReadMode_h == WRITE) begin
+  end else if(i3c_env_cfg_h.writeReadMode_h == ONLY_WRITE) begin
     if((writeDataComparisonSuccessCount != 0) && (writeDataComparisonFailedCount == 0)) begin
       `uvm_info (get_type_name(), $sformatf ("controller And target writeData comparisions are equal = %0d",writeDataComparisonSuccessCount),UVM_HIGH);
     end
@@ -161,7 +161,7 @@ function void i3c_scoreboard::check_phase(uvm_phase phase);
                                               writeDataComparisonFailedCount),UVM_HIGH);
       `uvm_error("SC_CheckPhase", $sformatf ("controller And target writeData comparisions Not equal"));
     end
-  end else if(i3c_env_cfg_h.writeReadMode_h == READ) begin
+  end else if(i3c_env_cfg_h.writeReadMode_h == ONLY_READ) begin
     if((readDataComparisonSuccessCount != 0) && (readDataComparisonFailedCount == 0)) begin
       `uvm_info (get_type_name(), $sformatf ("controller And target readData comparisions are equal = %0d",readDataComparisonSuccessCount),UVM_HIGH);
     end                                      

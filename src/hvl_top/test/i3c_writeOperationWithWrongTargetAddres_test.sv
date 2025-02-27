@@ -8,6 +8,7 @@ class i3c_writeOperationWithWrongTargetAddres_test extends i3c_base_test;
 
   extern function new(string name = "i3c_writeOperationWithWrongTargetAddres_test", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
+  extern virtual function void setup_env_cfg();
   extern virtual function void setup_controller_agent_cfg();
   extern virtual task run_phase(uvm_phase phase);
 
@@ -24,6 +25,11 @@ function void i3c_writeOperationWithWrongTargetAddres_test::build_phase(uvm_phas
   set_inst_override_by_type("i3c_env_h.i3c_scoreboard_h", i3c_scoreboard::get_type(), i3c_scoreboard_expactedTargetAddressNACK::get_type());
  end
 endfunction : build_phase
+
+function void i3c_writeOperationWithWrongTargetAddres_test::setup_env_cfg();
+  super.setup_env_cfg();
+  i3c_env_cfg_h.writeReadMode_h = ONLY_WRITE;
+endfunction: setup_env_cfg
 
 function void i3c_writeOperationWithWrongTargetAddres_test::setup_controller_agent_cfg();
 super.setup_controller_agent_cfg();    
