@@ -8,6 +8,7 @@ class i3c_WriteFollowedByReadOperationWith32bitsData_test extends i3c_base_test;
 
   extern function new(string name = "i3c_WriteFollowedByReadOperationWith32bitsData_test", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
+  extern virtual function void setup_env_cfg();
   extern virtual task run_phase(uvm_phase phase);
 
 endclass : i3c_WriteFollowedByReadOperationWith32bitsData_test
@@ -20,6 +21,11 @@ endfunction : new
 function void i3c_WriteFollowedByReadOperationWith32bitsData_test::build_phase(uvm_phase phase);
   super.build_phase(phase);
 endfunction : build_phase
+
+function void i3c_WriteFollowedByReadOperationWith32bitsData_test::setup_env_cfg();
+  super.setup_env_cfg();
+  i3c_env_cfg_h.writeReadMode_h = ONLY_WRITE;
+endfunction: setup_env_cfg
 
 task i3c_WriteFollowedByReadOperationWith32bitsData_test::run_phase(uvm_phase phase);
 

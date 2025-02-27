@@ -10,6 +10,7 @@ class i3c_env_config extends uvm_object;
    int no_of_targets;
    i3c_controller_agent_config i3c_controller_agent_cfg_h[];
    i3c_target_agent_config i3c_target_agent_cfg_h[];
+   writeReadMode_e writeReadMode_h;
 
   extern function new(string name = "i3c_env_config");
   extern function void do_print(uvm_printer printer);

@@ -1,3 +1,39 @@
+# -s means silent mode
+# The command executed along with the output will be displayed on the terminal
+# To get only the ouput use 'silent' mode
+#
+# make target -s
+
+
+# -n or --just-print 
+# The first test I perform on a new makefile target is to invoke make with the --just-print (-n) option. 
+# This causes make to read the makefile and print every command it would normally execute to 
+# update the target but without executing them.
+#
+# make target -n
+
+
+# When you run make with the -i or --ignore-errors flag, 
+# errors are ignored in all recipes of all rules. 
+# A rule in the makefile for the special target .IGNORE has the same effect, 
+# if there are no prerequisites. This is less flexible but sometimes useful.
+# When errors are to be ignored, because of -i flag, make treats an error return just like success,
+# except that it prints out a message that tells you the status code the shell exited with, 
+# and says that the error has been ignored.
+#
+# make target -i 
+
+
+.IGNORE:
+	compile
+	simulate
+
+# WE can also use the target where we WANT the silent mode 
+.SILENT:
+	compile
+	simulate
+	usage
+
 # First target will be executed incase the user doesn't mention
 # the target to execute
 # In this case, usage will be executed
@@ -29,31 +65,28 @@ usage:
 	@echo "-----------------------------------------------------------------";
 	@echo "";
 
-all:	make clean_compile; 
-	    make compile; 
-			make simulate;
+all:	
+	make clean_compile; make compile; make simulate;
  
 #VCS_CMD_RAND    = xrun
 #FSDB_DUMP = ./simv +fsdbfile+waves.fsdb
 #FSDB_DUMP1 = +vcs+vcdpluson
  
 clean_compile: 
-	rm -rf work/*_compile.log xcelium.d
-	rm -rf merged_coverage.ucdb merged_cov_html_report
+	rm -rf *_compile.log *_compile.history xcelium.d
  
 clean_simulate: 
-	rm -rf *_test *
- 
+	rm -rf *_test
  
 compile:
 	make clean_compile; 
 	make clean_simulate;
 	xrun -c \
-	-elaborate \
-	-access +rwc \
 	-64 \
 	-sv \
 	-uvm \
+	-elaborate \
+	-access +rwc \
 	+access+rw \
 	-f ../i3c_compile.f \
 	-l i3c_compile.log \
@@ -96,12 +129,13 @@ simulate:
 	-64 \
 	-uvm \
 	-f ../i3c_compile.f \
-	-sv_seed $(seed) \
+	+ntb_random_seed=$(seed) \
 	+UVM_TESTNAME=$(test) \
 	+UVM_VERBOSITY=$(uvm_verbosity) \
 	-l $(test_folder)/$(test).log \
 	+plusarg_ignore
 #	-l transcript_vcs.log
+	#-access +rwc -waves waves.shm \
  
 	# For checking and reporting simulation errors
 	make simulate_war_err
@@ -148,9 +182,9 @@ compile_war_err:
 	echo "-----------------------------------------------------------------";
 	echo "------------------- Compilation Report --------------------------";
 	echo "";
-	grep "^** " i3c_compile.log;
+	grep "** " i3c_compile.log;
 	echo "";
-	grep "^Error" i3c_compile.log;
+	grep "Error" i3c_compile.log;
 	echo "";
 	echo "Log file path: i3c_compile.log"
 	echo "";
@@ -163,18 +197,18 @@ simulate_war_err:
 	echo "-----------------------------------------------------------------";
 	echo "-------------------- Simulation Report --------------------------";
 	echo "";
-	echo "Simulator Errors";
-	grep "Error" $(test_folder)/$(test).log;
-	echo "";
-	echo "UVM Fatal";
-	grep "UVM_FATAL" $(test_folder)/$(test).log;
-	echo "";
-	echo "UVM Errors";
-	grep "UVM_ERROR" $(test_folder)/$(test).log;
-	echo "";
-	echo "UVM Warnings";
-	grep "UVM_WARNING" $(test_folder)/$(test).log;
-	echo "";
+	#echo "Simulator Errors";
+	#grep "Error" $(test_folder)/$(test).log;
+	#echo "";
+	#echo "UVM Fatal";
+	#grep "UVM_FATAL" $(test_folder)/$(test).log;
+	#echo "";
+	#echo "UVM Errors";
+	#grep "UVM_ERROR" $(test_folder)/$(test).log;
+	#echo "";
+	#echo "UVM Warnings";
+	#grep "UVM_WARNING" $(test_folder)/$(test).log;
+	#echo "";
 	echo "Testname: $(test)"
 	echo "";
 	echo "Log file path: $(test_folder)/$(test).log"
