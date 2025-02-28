@@ -98,20 +98,20 @@ cd i3c_avip/sim/cadence_sim
 
 # Compilation:  
 make compile
+
+# Simulation:
+make simulate test=<test_name> uvm_verbosity=<VERBOSITY_LEVEL>
+
 ex: make simulate test=i3c_writeOperationWith8bitsData_test uvm_verbosity=UVM_HIGH
 
 # Note: You can find all the test case names in the path given below   
 i3c_avip/src/hvl_top/testlists/i3c_standard_mode_regression.list
 
 # Wavefrom:  
-simvision waves.shm/ &
+simvision <test_name>/i3c_avip.vcd &
 
-# Regression:
-make regression testlist_name=<regression_testlist_name.list>
-ex: make regression testlist_name=i3c_standard_mode_regression.list
+ex: simvision i3c_writeOperationWith8bitsData_test/i3c_avip.vcd &
 
-# Coverage:   
-imc -load cov_work/scope/test/ &
 ```
 
 ## I3C interface waveform 

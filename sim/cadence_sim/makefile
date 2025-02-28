@@ -80,19 +80,21 @@ clean_simulate:
  
 compile:
 	make clean_compile; 
-	make clean_simulate;
+	#make clean_simulate;
 	xrun -c \
 	-64 \
 	-sv \
 	-uvm \
-	-elaborate \
 	-access +rwc \
-	+access+rw \
+	-elaborate \
 	-f ../i3c_compile.f \
 	-l i3c_compile.log \
 	-top work.hvl_top ../../src/hvl_top/hvl_top.sv \
 	-top work.hdl_top ../../src/hdl_top/hdl_top.sv \
-	-sva
+	+access+rw \
+	-coverage all \
+	-sva \
+	#-lwdgen
 
 	# -s means silent mode
 	#  The command executed along with the output will be displayed on the terminal
@@ -127,21 +129,27 @@ simulate:
  
 	xrun -R \
 	-64 \
+	-sv \
 	-uvm \
 	-f ../i3c_compile.f \
-	+ntb_random_seed=$(seed) \
+	+sv_seed=$(seed) \
 	+UVM_TESTNAME=$(test) \
 	+UVM_VERBOSITY=$(uvm_verbosity) \
 	-l $(test_folder)/$(test).log \
-	+plusarg_ignore
-#	-l transcript_vcs.log
+	-access +rwc \
+	-coverage all \
+	-covoverwrite \
+	-covtest $(test_folder)/ \
+  #+plusarg_ignore \
+	#-covreport -covdir ./cov_work -html coverage_html_output
+  #-l transcript_vcs.log
 	#-access +rwc -waves waves.shm \
+	//TODO
+	# need to be updated command for coverage, able to generate .ucd file but imc not working
  
+	mv *.vcd $(test_folder)/
 	# For checking and reporting simulation errors
 	make simulate_war_err
-
-	# For coverage report in HTML format 
-	#vcover report -html $(test_folder)/$(test)_coverage.ucdb -htmldir $(test_folder)/html_cov_report -details
 
  
 clean_all:
@@ -213,20 +221,11 @@ simulate_war_err:
 	echo "";
 	echo "Log file path: $(test_folder)/$(test).log"
 	echo "";
-	#echo "Waveform: vsim -view $(test_folder)/waveform.wlf &"
-	#echo "";
+	echo "Waveform: simvision $(test_folder)/i3c_avip.vcd &"
+	echo "";
 	#echo "Coverage report: firefox $(test_folder)/html_cov_report/index.html &"
 	#echo "";
 	echo "-----------------------------------------------------------------";
 	echo "-----------------------------------------------------------------";
 	echo "";
 
-##help:
-##	@echo "MAKE OPTIONS   : "
-##	@echo "all            : make clean_compile; make compile; make simulate;"
-##	@echo "clean_compile  : Clean all files related to compile"
-##	@echo "clean_simulate : CLEAN TEST RELATED FILES"
-##	@echo "compile        : IT COMPILES ->> DESIGN, TB"
-##	@echo "simulate       : IT COMPILES ->> TB & Simulate the TEST"
-##	@echo "clean_all      : IT CLEAN FILES OF COMPILE AND SIMULATE"
-##	@echo "print          : IT PRINT ALL THE SWITCH FOR MAKEFILE"

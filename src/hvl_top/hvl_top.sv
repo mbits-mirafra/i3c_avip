@@ -1,3 +1,6 @@
+`ifndef HVL_TOP_INCLUDED_
+`define HVL_TOP_INCLUDED_
+
 //--------------------------------------------------------------------------------------------
 // HVL_TOP
 // It consists of the test_pkg to run the base test
@@ -19,3 +22,4 @@ module hvl_top;
 
 endmodule : hvl_top
 
+`endif
