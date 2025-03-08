@@ -1,6 +1,7 @@
 `ifndef HDL_TOP_INCLUDED_
 `define HDL_TOP_INCLUDED_
 
+import i3c_globals_pkg::*;
 // Description : hdl top has a interface and controller and target agent bfm
 module hdl_top;
  bit clk;
@@ -77,10 +78,7 @@ module hdl_top;
 
  // Variable : controller_agent_bfm_h
  // I3C controller BFM Agent Instantiation 
- i3c_controller_agent_bfm i3c_controller_agent_bfm_h(intf_controller); 
-
-
-
+ //i3c_controller_agent_bfm i3c_controller_agent_bfm_h(intf_controller); 
 
  // TODO(mshariff): 
  // The interface should have SDA and SCL along with
@@ -93,7 +91,17 @@ module hdl_top;
  
  // Variable : target_agent_bfm_h
  // I3C target BFM Agent Instantiation
- i3c_target_agent_bfm i3c_target_agent_bfm_h(intf_target);
+ //i3c_target_agent_bfm i3c_target_agent_bfm_h(intf_target);
+
+  genvar i;
+  generate
+    for (i=0; i<NO_OF_CONTROLLERS; i++) begin : i3c_controller_agent_bfm
+      i3c_controller_agent_bfm i3c_controller_agent_bfm_h(intf_controller); 
+    end
+    for (i=0; i<NO_OF_TARGETS; i++) begin : i3c_target_agent_bfm
+      i3c_target_agent_bfm i3c_target_agent_bfm_h(intf_target);
+    end
+  endgenerate
 
  initial begin
    $dumpfile("i3c_avip.vcd");

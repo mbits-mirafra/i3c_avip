@@ -87,23 +87,21 @@ function void i3c_base_test::setup_controller_agent_cfg();
     // Stores all the target addresses
     i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].targetAddress = new[NO_OF_TARGETS]; 
     i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].targetAddress[0] = TARGET0_ADDRESS;
-    //i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].target_address_array[1] = SLAVE1_ADDRESS;
-    //i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].target_address_array[2] = SLAVE2_ADDRESS;
-    //i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].target_address_array[3] = SLAVE3_ADDRESS;
+    i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].targetAddress[1] = TARGET1_ADDRESS;
+    i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].targetAddress[2] = TARGET2_ADDRESS;
+    i3c_env_cfg_h.i3c_controller_agent_cfg_h[i].targetAddress[3] = TARGET3_ADDRESS;
   end
 endfunction: setup_controller_agent_cfg
 
 
 function void i3c_base_test::setup_target_agent_cfg();
 
-  // Create target agent(s) configurations
-  // Setting the configuration for each target
-  // target 0 
-  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress = TARGET0_ADDRESS;
-  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].isActive    = uvm_active_passive_enum'(UVM_ACTIVE);
-  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].dataTransferDirection    = dataTransferDirection_e'(MSB_FIRST);
-  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].hasCoverage = hasCoverage_e'(TRUE);
-
+  foreach(i3c_env_cfg_h.i3c_target_agent_cfg_h[i])begin
+    i3c_env_cfg_h.i3c_target_agent_cfg_h[i].targetAddress = TARGET0_ADDRESS;
+    i3c_env_cfg_h.i3c_target_agent_cfg_h[i].isActive    = uvm_active_passive_enum'(UVM_ACTIVE);
+    i3c_env_cfg_h.i3c_target_agent_cfg_h[i].dataTransferDirection    = dataTransferDirection_e'(MSB_FIRST);
+    i3c_env_cfg_h.i3c_target_agent_cfg_h[i].hasCoverage = hasCoverage_e'(TRUE);
+  end
 endfunction: setup_target_agent_cfg
 
 function void i3c_base_test::end_of_elaboration_phase(uvm_phase phase);
