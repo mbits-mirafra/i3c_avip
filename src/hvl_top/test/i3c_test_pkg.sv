@@ -6,11 +6,17 @@ package i3c_test_pkg;
  `include "uvm_macros.svh"
 
   import uvm_pkg::*;
+ 
+  import apb_global_pkg::*;
   import i3c_globals_pkg::*;
-  import i3c_controller_pkg::*;
+ 
+  //import i3c_controller_pkg::*;
+  import apb_master_pkg::*;
   import i3c_target_pkg::*;
+ 
   import i3c_env_pkg::*;
-  import i3c_controller_seq_pkg::*;
+  //import i3c_controller_seq_pkg::*;  
+  import apb_master_seq_pkg::*;  // add this equence in the apb master folder
   import i3c_target_seq_pkg::*;
   import i3c_virtual_seq_pkg::*;
 
