@@ -1,3 +1,4 @@
+/*
 `ifndef I3C_VIRTUAL_SEQUENCER_INCLUDED_
 `define I3C_VIRTUAL_SEQUENCER_INCLUDED_
 
@@ -37,4 +38,40 @@ function void i3c_virtual_sequencer::build_phase(uvm_phase phase);
 endfunction : build_phase
 
 `endif
+*/
 
+
+`ifndef TOP_VIRTUAL_SEQUENCER_INCLUDED_
+`define TOP_VIRTUAL_SEQUENCER_INCLUDED_
+ 
+//------------------------------------------------------------------------------
+// Class: top_virtual_sequencer
+// Description:
+//   Integration virtual sequencer that controls:
+//     - APB Master Sequencer
+//     - I3C Target Sequencer
+//------------------------------------------------------------------------------
+class top_virtual_sequencer extends uvm_sequencer #(uvm_sequence_item);
+ 
+  `uvm_component_utils(top_virtual_sequencer)
+ 
+ 
+  // APB master sequencer handle 
+  apb_master_sequencer  apb_master_seqr_h;
+ 
+  // I3C target sequencer handle
+  i3c_target_sequencer  i3c_target_seqr_h;
+ 
+
+  extern function new(string name = "top_virtual_sequencer",
+                      uvm_component parent);
+ 
+endclass : top_virtual_sequencer
+ 
+ 
+function top_virtual_sequencer::new(string name = "top_virtual_sequencer",
+                                    uvm_component parent);
+  super.new(name, parent);
+endfunction : new
+ 
+`endif
